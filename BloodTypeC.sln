@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33110.190
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BloodTypeC.Console", "BloodTypeC.Console\BloodTypeC.Console.csproj", "{C837C861-43A7-4C3D-ABBA-E4C97C01CF07}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BloodTypeC.ConsoleUI", "BloodTypeC.Console\BloodTypeC.ConsoleUI.csproj", "{C837C861-43A7-4C3D-ABBA-E4C97C01CF07}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BloodTypeC.Logic", "BloodTypeC.Logic\BloodTypeC.Logic.csproj", "{3D0B0BC7-7ADF-4373-A7DA-D8F91FCE4D9F}"
 EndProject
