@@ -4,7 +4,7 @@
       "name":"Saint Lamvinus",
       "brewery":"Brasserie Cantillon",
       "style":"Lambic - Fruit",
-      "abv":5.0
+      "abv":5.0,
       "score":3.22,
 	  "flavors": [
 		 "buttery", "smooth"
