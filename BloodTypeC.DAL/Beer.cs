@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace BloodTypeC.ConsoleUI
+﻿namespace BloodTypeC.DLL
 {
-    internal class Beer
-    {
+    public class Beer
+    {  
+        
         public int Id { get; set; }
         public string Name { get; set; }
         public string Brewery { get; set; }
@@ -30,5 +25,6 @@ namespace BloodTypeC.ConsoleUI
             DateTime dateTimeNow = new DateTime().Date;
             this.Added = dateTimeNow;
         }
+        
     }
 }
