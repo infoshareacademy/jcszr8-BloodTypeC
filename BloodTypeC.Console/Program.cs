@@ -1,4 +1,5 @@
 ﻿using System;
+using BloodTypeC.Logic;
 
 namespace BloodTypeC.ConsoleUI // Note: actual namespace depends on the project name.
 {
