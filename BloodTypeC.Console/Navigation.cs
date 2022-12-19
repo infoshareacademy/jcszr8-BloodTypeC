@@ -71,7 +71,7 @@ Witaj w menu głownym piwnej encyklopedii";
                     break;
                 case 3: SearchAlkVol();
                     break;
-                case 4: SearchFlavour();
+                case 4: SearchFlavor();
                     break;
                 case 5: NewBeerBrewery();
                     break;
@@ -96,7 +96,7 @@ Witaj w menu głownym piwnej encyklopedii";
 | )___) )| (____/\| (____/\| ) \ \__       | (___) |       | )      | (____/\| (__/  )___) (___| )   ( |
 |/ \___/ (_______/(_______/|/   \__/       (_______)       |/       (_______/(______/ \_______/|/     \|)");
             ForegroundColor = ConsoleColor.Red;
-            WriteLine("Uciekaj niegrzeniuszku, bo dostaniesz klapsa!");
+            WriteLine("Uciekaj niegrzeczniuszku, bo dostaniesz klapsa!");
             WriteLine("Wciśnij dowolny klawisz aby zamkąć aplikację!");
             ResetColor();
             ReadKey(true);
@@ -118,7 +118,7 @@ Witaj w menu głownym piwnej encyklopedii";
         {
 
         }
-        private void SearchFlavour()
+        private void SearchFlavor()
         {
 
         }

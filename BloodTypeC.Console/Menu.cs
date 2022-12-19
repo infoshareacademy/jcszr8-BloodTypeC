@@ -31,13 +31,15 @@ namespace BloodTypeC.ConsoleUI
                 {
                     ForegroundColor = ConsoleColor.Black;
                     BackgroundColor= ConsoleColor.White;
+                    WriteLine($"   >>{currentOption}    ");
                 }
                 else
                 {
                     ForegroundColor = ConsoleColor.White;
                     BackgroundColor = ConsoleColor.Black;
+                    WriteLine($"     {currentOption}    ");
                 }
-                WriteLine($"<<    {currentOption}    >>");
+                
             }
             ResetColor();
         }
