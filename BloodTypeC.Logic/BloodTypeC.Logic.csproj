@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\BloodTypeC.DAL\BloodTypeC.DAL.csproj" />
+  </ItemGroup>
+
 </Project>
