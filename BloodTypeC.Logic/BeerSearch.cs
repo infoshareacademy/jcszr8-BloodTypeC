@@ -24,11 +24,17 @@ namespace BloodTypeC.Logic
             
         }
 
-        public static List<Beer> SearchByFlavor(List<Beer> listToSearch, List<string> flavors)
+        public static List<Beer> SearchByFlavor(List<Beer> listToSearch, string searchflavor)
         {
-            
-            return listToSearch.Where(beer => beer.Flavors == flavors).ToList();
-            
+            foreach (Beer beer in listToSearch) 
+            {
+                for (int i = 0; i < beer.Flavors.Count; i++)
+                {
+                    beer.Flavors[i] = beer.Flavors[i].ToUpper();
+                }
+            }
+
+           return listToSearch.Where(beer => beer.Flavors.Contains(searchflavor.ToUpper())).ToList();
         }
 
         public static List<Beer> SearchByAlkVol(List<Beer> listToSearch, double abv)
