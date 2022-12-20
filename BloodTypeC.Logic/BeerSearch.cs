@@ -30,11 +30,11 @@ namespace BloodTypeC.Logic
             {
                 for (int i = 0; i < beer.Flavors.Count; i++)
                 {
-                    beer.Flavors[i] = beer.Flavors[i].ToUpper();
+                    beer.Flavors[i] = beer.Flavors[i].ToLower();
                 }
             }
 
-           return listToSearch.Where(beer => beer.Flavors.Contains(searchflavor.ToUpper())).ToList();
+           return listToSearch.Where(beer => beer.Flavors.Contains(searchflavor.ToLower())).ToList();
         }
 
         public static List<Beer> SearchByAlkVol(List<Beer> listToSearch, double abv)
