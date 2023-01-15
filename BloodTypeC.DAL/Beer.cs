@@ -8,7 +8,7 @@ namespace BloodTypeC.DAL
 
         [JsonPropertyName("beer_id")]
         public string Id { get; set; }
-        [JsonPropertyName("name")]
+        [JsonPropertyName("name")] // todo; remove
         public string? Name { get; set; }
         [JsonPropertyName("brewery")]
         public string? Brewery { get; set; }
@@ -35,6 +35,6 @@ namespace BloodTypeC.DAL
             DateTime dateTimeNow = new DateTime().Date;
             this.Added = dateTimeNow;
         }
-        public static List<Beer> allBeers { get; set; }
+        public static List<Beer> AllBeers { get; set; }
     }
 }

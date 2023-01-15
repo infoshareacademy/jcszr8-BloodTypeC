@@ -8,25 +8,29 @@ using System.Xml.Linq;
 
 namespace BloodTypeC.Logic
 {
-    public class BeerSearch
+    public static class BeerSearch
     {
-        List<Beer> SearchByName(List<Beer> listToSearch, string name)
-            {
-                return listToSearch.Where(beer => beer.Name == name).ToList();
-            }
+        public static List<Beer> SearchByName(List<Beer> listToSearch, string name) 
+        {
+            return listToSearch.Where(beer => beer.Name == name).ToList();
+        }
 
         public static List<Beer> SearchByBrewery(List<Beer> listToSearch, string brewery)
         {
-            
             return listToSearch.Where(beer => beer.Brewery == brewery).ToList();
-            
         }
 
-        public static List<Beer> SearchByFlavor(List<Beer> listToSearch, List<string> flavors)
+        public static List<Beer> SearchByFlavor(List<Beer> listToSearch, string searchflavor)
         {
-            
-            return listToSearch.Where(beer => beer.Flavors == flavors).ToList();
-            
+            foreach (Beer beer in listToSearch) 
+            {
+                for (int i = 0; i < beer.Flavors.Count; i++)
+                {
+                    beer.Flavors[i] = beer.Flavors[i].ToLower();
+                }
+            }
+
+           return listToSearch.Where(beer => beer.Flavors.Contains(searchflavor.ToLower())).ToList();
         }
 
         public static List<Beer> SearchByAlkVol(List<Beer> listToSearch, double abv)

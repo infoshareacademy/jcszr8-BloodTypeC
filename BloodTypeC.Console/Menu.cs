@@ -43,7 +43,7 @@ namespace BloodTypeC.ConsoleUI
             }
             ResetColor();
         }
-        public int Run()
+        public int Run() //TODO: First public methods then private.
         {
             ConsoleKey keyPressed;
             do
