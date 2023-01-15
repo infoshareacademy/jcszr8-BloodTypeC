@@ -40,9 +40,7 @@ namespace BloodTypeC.Logic
                     Console.WriteLine($"{item.Id.PadRight(10)} | {item.Name.PadRight(20)} | {item.Brewery.PadRight(20)} | {item.Score.ToString().PadRight(10)} | {item.AlcoholByVolume.ToString().PadRight(5)}");
                 }
             }
-                Console.WriteLine("Brak piwa o podanej nazwie");
-            
+                Console.WriteLine("There is no beers with specified name :( Please try again!");         
         }
-
     }
 }
