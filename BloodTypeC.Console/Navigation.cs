@@ -9,8 +9,6 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using static System.Console;
-using BloodTypeC.Logic;
-using BloodTypeC.DAL;
 
 namespace BloodTypeC.ConsoleUI
 {
@@ -64,7 +62,7 @@ namespace BloodTypeC.ConsoleUI
                 {
                     case 0: // Search name
                         Console.CursorVisible = true;
-                        beersResult = BeerSearch.SearchByName(Beer.AllBeers, Console.ReadLine());
+                        beersResult = BeerSearch.SearchByName(DB.AllBeers, Console.ReadLine());
                         
                         break;
                     case 1:
