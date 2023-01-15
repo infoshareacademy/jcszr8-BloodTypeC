@@ -32,8 +32,8 @@ namespace BloodTypeC.ConsoleUI
         }
         private void RunStartMenu()
         {
-            string prompt = $"{logo}Witaj w Beer-o-pedii! Czy masz skończone 18 lat?";
-            string[] options = { "Tak", "Nie" };
+            string prompt = $"{logo}Welcome to Beer-o-pedia! Are you over 18?";
+            string[] options = { "Yes", "No" };
             Menu startMenu = new Menu(prompt, options);
             int selectedIndex = startMenu.Run();
 
@@ -41,18 +41,17 @@ namespace BloodTypeC.ConsoleUI
             {
                 Clear();
                 ForegroundColor = ConsoleColor.Red;
-                WriteLine($"{logo}Uciekaj niegrzeczniuszku, bo dostaniesz klapsa!");
-                WriteLine("Wciśnij dowolny klawisz aby zamkąć aplikację!");
+                WriteLine($"{logo}Oh you are so naughty! Run or you will get spanked!");
+                WriteLine("Press any key to exit!");
                 ResetColor();
                 ReadKey(true);
                 Environment.Exit(0);
             }
             while (true)
             {
-                prompt = $"{logo}Witaj w menu głownym piwnej encyklopedii";
-                string[] options2 = { "1. Wyszukiwanie piwa po nazwie.", "2. Wyszukiwanie piwa wg producenta (Browaru).",
-            "3. Wyszukiwanie piwa wg gatunków.", "4. Wyszukiwanie piwa wg zawartości alkoholu.", "5. Wyszukiwanie piwa wg smaku.",
-            "6. Wprowadzenie nowego piwa/browaru.", "7. Edycja istniejącego piwa/browaru.", "8. Zamknięcie aplikacji."};
+                prompt = $"{logo}Beer-o-pedia main menu!";
+                string[] options2 = { "1. Search by beer name.", "2. Search by brewery.", "3. Search by style.", "4. Search by alkohol volume.", "5. Search by flavor.",
+            "6. Adding new beer.", "7. Editing beer.", "8. Exit application."};
 
                 Load.LoadFromFile();
                 Menu mainMenu = new Menu(prompt, options2);
@@ -60,22 +59,45 @@ namespace BloodTypeC.ConsoleUI
                 var beersResult = new List<Beer>();
                 switch (selectedIndex)
                 {
-                    case 0: // Search name
+                    case 0:
                         Console.CursorVisible = true;
-                        beersResult = BeerSearch.SearchByName(DB.AllBeers, Console.ReadLine());
-                        
+                        Console.WriteLine("Podaj nazwę piwa, które chciałbyś znaleźć?");
+                        var beerNameToSearch = Console.ReadLine();
+                        if (!string.IsNullOrEmpty(beerNameToSearch))
+                            beersResult = BeerSearch.SearchByName(DB.AllBeers, beerNameToSearch);
+                            BeerSearch.DisplayBeer();
                         break;
                     case 1:
-                        
+                        Console.CursorVisible = true;
+                        Console.WriteLine("Podaj nazwę browaru (producenta), którego piwa chciałbyś zobaczyć?");
+                        var breweryNameToSearch = Console.ReadLine();
+                        if (!string.IsNullOrEmpty(breweryNameToSearch))
+                            beersResult = BeerSearch.SearchByName(DB.AllBeers, breweryNameToSearch);
+                        BeerSearch.DisplayBeer();
                         break;
                     case 2:
-                       
+                        Console.CursorVisible = true;
+                        Console.WriteLine("Podaj nazwę piwa po której chesz szukać");
+                        var beerNameToSearch = Console.ReadLine();
+                        if (!string.IsNullOrEmpty(beerNameToSearch))
+                            beersResult = BeerSearch.SearchByName(DB.AllBeers, beerNameToSearch);
+                        BeerSearch.DisplayBeer();
                         break;
                     case 3:
-                     
+                        Console.CursorVisible = true;
+                        Console.WriteLine("Podaj nazwę piwa po której chesz szukać");
+                        var beerNameToSearch = Console.ReadLine();
+                        if (!string.IsNullOrEmpty(beerNameToSearch))
+                            beersResult = BeerSearch.SearchByName(DB.AllBeers, beerNameToSearch);
+                        BeerSearch.DisplayBeer();
                         break;
                     case 4:
-                       
+                        Console.CursorVisible = true;
+                        Console.WriteLine("Podaj nazwę piwa po której chesz szukać");
+                        var beerNameToSearch = Console.ReadLine();
+                        if (!string.IsNullOrEmpty(beerNameToSearch))
+                            beersResult = BeerSearch.SearchByName(DB.AllBeers, beerNameToSearch);
+                        BeerSearch.DisplayBeer();
                         break;
                     case 5:
                       
