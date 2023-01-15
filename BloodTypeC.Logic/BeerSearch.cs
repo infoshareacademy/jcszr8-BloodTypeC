@@ -12,32 +12,35 @@ namespace BloodTypeC.Logic
     {
         public static List<Beer> SearchByName(List<Beer> listToSearch, string name) 
         {
-            return listToSearch.Where(beer => beer.Name == name).ToList();
+            return listToSearch.Where(beer => beer.Name.Equals(name,StringComparison.InvariantCultureIgnoreCase)).ToList();
         }
 
         public static List<Beer> SearchByBrewery(List<Beer> listToSearch, string brewery)
         {
-            return listToSearch.Where(beer => beer.Brewery == brewery).ToList();
+            return listToSearch.Where(beer => beer.Brewery.Equals(brewery,StringComparison.InvariantCultureIgnoreCase)).ToList();
         }
 
         public static List<Beer> SearchByFlavor(List<Beer> listToSearch, string searchflavor)
+        {          
+           return listToSearch.Where(beer => beer.Flavors.Contains(searchflavor,StringComparer.InvariantCultureIgnoreCase)).ToList();
+        }
+
+        public static List<Beer> SearchByAlkVol(List<Beer> listToSearch, double minAbv,double maxAbv)
         {
-            foreach (Beer beer in listToSearch) 
+
+            return listToSearch.Where(beer => beer.AlcoholByVolume >= minAbv && beer.AlcoholByVolume <= maxAbv).ToList();
+        }
+        public static void DisplayBeer(List<Beer> listToDisplay) 
+        {
+            if (listToDisplay.Count > 0)
             {
-                for (int i = 0; i < beer.Flavors.Count; i++)
+                Console.WriteLine($"{"ID".PadRight(10)} | {"Name".PadRight(20)} | {"Brewery".PadRight(20)} | {"Score".PadRight(10)} | {"AlcoholByVolume".PadRight(5)}");
+                foreach (var item in listToDisplay)
                 {
-                    beer.Flavors[i] = beer.Flavors[i].ToLower();
+                    Console.WriteLine($"{item.Id.PadRight(10)} | {item.Name.PadRight(20)} | {item.Brewery.PadRight(20)} | {item.Score.ToString().PadRight(10)} | {item.AlcoholByVolume.ToString().PadRight(5)}");
                 }
             }
-
-           return listToSearch.Where(beer => beer.Flavors.Contains(searchflavor.ToLower())).ToList();
+                Console.WriteLine("There is no beers with specified name :( Please try again!");         
         }
-
-        public static List<Beer> SearchByAlkVol(List<Beer> listToSearch, double abv)
-        {
-            
-            return listToSearch.Where(beer => beer.AlcoholByVolume >= abv).ToList();
-        }
-
     }
 }
