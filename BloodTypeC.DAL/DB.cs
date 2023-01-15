@@ -1,17 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace BloodTypeC.DAL
 {
-    public interface IBeer
+    public class DB
     {
-        public static void Add()
-        { 
-
-        }
+        public static List<Beer> AllBeers { get; set; }
     }
 }

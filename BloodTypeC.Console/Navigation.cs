@@ -69,7 +69,7 @@ Witaj w menu głownym piwnej encyklopedii";
             {
                 case 0: // Search name
                     Console.CursorVisible = true;
-                    beersResult = BeerSearch.SearchByName(Beer.AllBeers, Console.ReadLine());
+                    beersResult = BeerSearch.SearchByName(DB.AllBeers, Console.ReadLine());
                     SearchName();
                     break;
                 case 1: SearchBrewery();
