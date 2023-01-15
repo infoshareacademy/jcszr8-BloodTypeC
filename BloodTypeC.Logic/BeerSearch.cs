@@ -8,14 +8,12 @@ using System.Xml.Linq;
 
 namespace BloodTypeC.Logic
 {
-    public static class BeerSearch
+    public class BeerSearch
     {
-        public static List<Beer> SearchByName(List<Beer> listToSearch,string name) 
-        {
-            
-            return listToSearch.Where(beer => beer.Name == name).ToList();
-            
-        }
+        List<Beer> SearchByName(List<Beer> listToSearch, string name)
+            {
+                return listToSearch.Where(beer => beer.Name == name).ToList();
+            }
 
         public static List<Beer> SearchByBrewery(List<Beer> listToSearch, string brewery)
         {

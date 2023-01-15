@@ -1,4 +1,6 @@
-﻿using System;
+﻿using BloodTypeC.DAL;
+using BloodTypeC.Logic;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Drawing;
@@ -95,7 +97,6 @@ Witaj w menu głownym piwnej encyklopedii";
 | (  \ \ | (      | (      | (\ (          | |   | |       | (      | (      | |   ) |   | |   | (   ) |
 | )___) )| (____/\| (____/\| ) \ \__       | (___) |       | )      | (____/\| (__/  )___) (___| )   ( |
 |/ \___/ (_______/(_______/|/   \__/       (_______)       |/       (_______/(______/ \_______/|/     \|)");
-            ForegroundColor = ConsoleColor.Red;
             WriteLine("Uciekaj niegrzeczniuszku, bo dostaniesz klapsa!");
             WriteLine("Wciśnij dowolny klawisz aby zamkąć aplikację!");
             ResetColor();

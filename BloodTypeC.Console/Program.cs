@@ -1,4 +1,5 @@
 ﻿using System;
+using BloodTypeC.DAL;
 using BloodTypeC.Logic;
 using System.ComponentModel.Design;
 using System.Runtime.CompilerServices;
