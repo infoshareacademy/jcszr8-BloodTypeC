@@ -7,6 +7,8 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using static System.Console;
+using BloodTypeC.Logic;
+using BloodTypeC.DAL;
 
 namespace BloodTypeC.ConsoleUI
 {
@@ -58,12 +60,17 @@ Witaj w menu głownym piwnej encyklopedii";
             string[] options = { "1. Wyszukiwanie piwa po nazwie.", "2. Wyszukiwanie piwa wg producenta (Browaru).",
             "3. Wyszukiwanie piwa wg gatunków.", "4. Wyszukiwanie piwa wg zawartości alkoholu.", "5. Wyszukiwanie piwa wg smaku.",
             "6. Wprowadzenie nowego piwa/browaru.", "7. Edycja istniejącego piwa/browaru.", "8. Zamknięcie aplikacji."};
+
+            Load.LoadFromFile();
             Menu mainMenu = new Menu(prompt, options);
             int selectedIndex = mainMenu.Run();
-
+            var beersResult = new List<Beer>();
             switch (selectedIndex)
             {
-                case 0: SearchName();
+                case 0: // Search name
+                    Console.CursorVisible = true;
+                    beersResult = BeerSearch.SearchByName(Beer.AllBeers, Console.ReadLine());
+                    SearchName();
                     break;
                 case 1: SearchBrewery();
                     break;
@@ -80,6 +87,8 @@ Witaj w menu głownym piwnej encyklopedii";
                 case 7: AppExit();
                     break;
             }
+
+            // Display beersResult whatever it is. If its empty - display message about not found.
         }
 
         private void Not18()
@@ -104,6 +113,13 @@ Witaj w menu głownym piwnej encyklopedii";
         }
         private void SearchName()
         {
+            Console.CursorVisible = true;
+            
+            //foreach (var item in )
+            //{
+            //    Console.WriteLine($"{item.Name} | {item.Brewery}");
+            //}
+            Console.ReadKey();
 
         }
         private void SearchBrewery()

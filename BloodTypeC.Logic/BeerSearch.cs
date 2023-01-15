@@ -10,18 +10,14 @@ namespace BloodTypeC.Logic
 {
     public static class BeerSearch
     {
-        public static List<Beer> SearchByName(List<Beer> listToSearch,string name) 
+        public static List<Beer> SearchByName(List<Beer> listToSearch, string name) 
         {
-            
             return listToSearch.Where(beer => beer.Name == name).ToList();
-            
         }
 
         public static List<Beer> SearchByBrewery(List<Beer> listToSearch, string brewery)
         {
-            
             return listToSearch.Where(beer => beer.Brewery == brewery).ToList();
-            
         }
 
         public static List<Beer> SearchByFlavor(List<Beer> listToSearch, string searchflavor)

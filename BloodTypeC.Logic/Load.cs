@@ -16,7 +16,7 @@ namespace BloodTypeC.Logic
     {
         public static void LoadFromFile()
         {
-            Beer.allBeers = JsonSerializer.Deserialize<List<Beer>>(BloodTypeC.DAL.Resources.beers);
+            Beer.AllBeers = JsonSerializer.Deserialize<List<Beer>>(Resources.beers, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
         }
     }
 }
