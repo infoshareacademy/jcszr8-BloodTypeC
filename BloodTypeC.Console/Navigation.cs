@@ -63,6 +63,7 @@ namespace BloodTypeC.ConsoleUI
                     case 0: // Search name
                         Console.CursorVisible = true;
                         beersResult = BeerSearch.SearchByName(DB.AllBeers, Console.ReadLine());
+                        BeerSearch.DisplayBeer(beersResult);
                         
                         break;
                     case 1:

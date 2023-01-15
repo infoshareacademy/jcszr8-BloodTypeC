@@ -38,6 +38,7 @@ namespace BloodTypeC.Logic
                 foreach (var item in listToDisplay)
                 {
                     Console.WriteLine($"{item.Id.PadRight(10)} | {item.Name.PadRight(20)} | {item.Brewery.PadRight(20)} | {item.Score.ToString().PadRight(10)} | {item.AlcoholByVolume.ToString().PadRight(5)}");
+                    return;
                 }
             }
                 Console.WriteLine("There is no beers with specified name :( Please try again!");         
