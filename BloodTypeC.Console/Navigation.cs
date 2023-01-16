@@ -60,29 +60,69 @@ namespace BloodTypeC.ConsoleUI
                 var beersResult = new List<Beer>();
                 switch (selectedIndex)
                 {
-                    case 0: // Search name
-                        Console.CursorVisible = true;
-                        beersResult = BeerSearch.SearchByName(DB.AllBeers, Console.ReadLine());
+                    case 0: // Search by name
+                        //Console.CursorVisible = true;
+                        Console.Clear();
+                        Console.WriteLine("Enter the name of the beer that you are looking for:");
+                        string beerNameForSearch = Console.ReadLine();
+                        if (!string.IsNullOrWhiteSpace(beerNameForSearch))
+                        {
+                            beersResult = BeerSearch.SearchByName(DB.AllBeers, beerNameForSearch);
+                            BeerSearch.DisplayBeer(beersResult);
+                            break;
+                        }
+                        Console.WriteLine("Entered name is null or whitespace. Please enter proper name of beer.");
+                        Console.ReadKey();
+                        break;
+                    case 1: // Search by brewery
+                        Console.Clear();
+                        Console.WriteLine("Enter the brewery name of the beer that you are looking for:");
+                        string breweryNameForSearch = Console.ReadLine();
+                        if (!string.IsNullOrWhiteSpace(breweryNameForSearch))
+                        {
+                            beersResult = BeerSearch.SearchByBrewery(DB.AllBeers, breweryNameForSearch);
+                            BeerSearch.DisplayBeer(beersResult);
+                            break;
+                        }
+                        Console.WriteLine("Entered brewery name is null or whitespace. Please enter proper name of beer.");
+                        Console.ReadKey();
+                        break;
+                    case 2: // Search by style
+                        Console.Clear();
+                        Console.WriteLine("Tu będzie szukanie po stylu/typie");
+                        Console.ReadKey();
+                        break;
+                    case 3: // Search by ABV
+                        Console.Clear();
+                        double minAbv,maxAbv;
+                        Console.WriteLine("Enter min ABV");
+                        if(!double.TryParse(Console.ReadLine(), out minAbv)) 
+                        {
+                            Console.WriteLine("Error!Entered data was wrong!");
+                            Console.ReadKey();
+                            break;
+                        }
+                        Console.WriteLine("Enter max ABV");
+                        if (!double.TryParse(Console.ReadLine(), out maxAbv))
+                        {
+                            Console.WriteLine("Error!Entered data was wrong!");
+                            Console.ReadKey();
+                            break;
+                        }                       
+                        beersResult = BeerSearch.SearchByAlkVol(DB.AllBeers,minAbv, maxAbv);
+                        Console.Clear();
                         BeerSearch.DisplayBeer(beersResult);
-                        
                         break;
-                    case 1:
-                        
-                        break;
-                    case 2:
-                       
-                        break;
-                    case 3:
-                     
-                        break;
-                    case 4:
-                       
+                    case 4: // Search by flavors
+                        Console.Clear();
+                        Console.WriteLine("Tu będzie szukanie po smaku");
+                        Console.ReadKey();
                         break;
                     case 5:
-                      
+
                         break;
                     case 6:
-                      
+
                         break;
                     case 7:
                         Clear();
@@ -91,10 +131,11 @@ namespace BloodTypeC.ConsoleUI
                         ReadKey(true);
                         Environment.Exit(0);
                         break;
-                }
-                break;
+                    default:
+                        break;
                 }
             }
+        }
         private void NewBeerBrewery()
         {
 

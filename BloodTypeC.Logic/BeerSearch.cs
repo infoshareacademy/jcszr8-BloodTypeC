@@ -19,6 +19,10 @@ namespace BloodTypeC.Logic
         {
             return listToSearch.Where(beer => beer.Brewery.Equals(brewery,StringComparison.InvariantCultureIgnoreCase)).ToList();
         }
+        public static List<Beer> SearchByStyle(List<Beer> listToSearch, string style)
+        {
+            return listToSearch.Where(beer => beer.Style.Equals(style, StringComparison.InvariantCultureIgnoreCase)).ToList();
+        }
 
         public static List<Beer> SearchByFlavor(List<Beer> listToSearch, string searchflavor)
         {          
@@ -34,14 +38,31 @@ namespace BloodTypeC.Logic
         {
             if (listToDisplay.Count > 0)
             {
-                Console.WriteLine($"{"ID".PadRight(10)} | {"Name".PadRight(20)} | {"Brewery".PadRight(20)} | {"Score".PadRight(10)} | {"AlcoholByVolume".PadRight(5)}");
+                int formatLenght = String.Format("|{0,-20}|{1,-30}|{2,-30}|{3,-20}|{4,-20}|{5,-50}|", "ID", "Name", "Brewery", "Score", "AlcoholByVolume", "Beer falvors").Length;
+                for (int i = 0; i < formatLenght ; i++)
+                {
+                    Console.Write("-");
+                }
+                Console.Write("\n");
+                Console.WriteLine(String.Format("|{0,-20}|{1,-30}|{2,-30}|{3,-20}|{4,-20}|{5,-50}|", "ID", "Name", "Brewery", "Score", "AlcoholByVolume", "Beer falvors"));
+                for (int i = 0; i < formatLenght; i++)
+                {
+                    Console.Write("-");
+                }
+                Console.Write("\n");
+                //Console.WriteLine($"{"ID".PadRight(10)} | {"Name".PadRight(20)} | {"Brewery".PadRight(20)} | {"Score".PadRight(10)} | {"AlcoholByVolume".PadRight(15)} | {"Flavors".PadRight(50)}");
                 foreach (var item in listToDisplay)
                 {
-                    Console.WriteLine($"{item.Id.PadRight(10)} | {item.Name.PadRight(20)} | {item.Brewery.PadRight(20)} | {item.Score.ToString().PadRight(10)} | {item.AlcoholByVolume.ToString().PadRight(5)}");
-                    return;
+                    string beerFalvors = string.Join(",",item.Flavors);
+                    Console.WriteLine(String.Format("|{0,-20}|{1,-30}|{2,-30}|{3,-20}|{4,-20}|{5,-50}|", item.Id, item.Name, item.Brewery, item.Score, item.AlcoholByVolume, beerFalvors));
+                    //Console.WriteLine($"{item.Id.PadRight(10)} | {item.Name.PadRight(20)} | {item.Brewery.PadRight(20)} | {item.Score.ToString().PadRight(10)} | {item.AlcoholByVolume.ToString().PadRight(15)} | {beerFalvors.PadRight(50)}");                
                 }
+                Console.ReadKey();
+                return;
             }
-                Console.WriteLine("There is no beers with specified name :( Please try again!");         
+            Console.WriteLine("There is no beers with specified name :( Please try again!");
+            Console.ReadKey();
         }
+        
     }
 }

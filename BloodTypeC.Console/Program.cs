@@ -13,7 +13,7 @@ namespace BloodTypeC.ConsoleUI // Note: actual namespace depends on the project 
     {
         static void Main(string[] args)
         {
-            Console.CursorVisible = false;
+            Console.CursorVisible = true;
             Navigation naviFirstMenu = new Navigation();
             naviFirstMenu.Start();
         }
