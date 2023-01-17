@@ -21,19 +21,14 @@ namespace BloodTypeC.DAL
         public DateTime Added { get; set; }
         public DateTime LastModified { get; set; }
 
-        public void Add(string id, string name, string brewery, string style, string flavor, double alcoholByVolume, double score)
+        public void Add()
         {
-            this.Id = id;
-            this.Name = name;
-            this.Brewery = brewery;
-            this.Style = style;
-            this.Flavors.Add(flavor);
-            this.AlcoholByVolume = alcoholByVolume;
-            this.Score = score;
-            DateTime dateTimeNow = new DateTime().Date;
+            this.Id = (DB.AllBeers.Max(x => int.Parse(x.Id)) + 1).ToString();
+            DateTime dateTimeNow = DateTime.Now;
             this.Added = dateTimeNow;
 
             DB.AllBeers.Add(this);
+            Console.WriteLine($"Successfully added {this.Name}!");
         }
     }
 }
