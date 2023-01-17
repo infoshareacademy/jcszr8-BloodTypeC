@@ -69,7 +69,7 @@ namespace BloodTypeC.ConsoleUI
                     case 0: // Search by name
                         //
                         Console.Clear();
-                        Console.WriteLine("Enter the name of the beer that you are looking for:");
+                        Console.WriteLine("Enter the name of the beer that you are looking for:");                                                                     
                         string beerNameForSearch = Console.ReadLine();
                         if (!string.IsNullOrWhiteSpace(beerNameForSearch))
                         {
@@ -79,7 +79,7 @@ namespace BloodTypeC.ConsoleUI
                         }
                         Console.WriteLine("The entered name is invalid. Please enter a proper name of a beer.");
                         Console.ReadKey();
-                        break;
+                        break; 
                     case 1: // Search by brewery
                         Console.Clear();
                         Console.WriteLine("Enter the brewery name of the beer that you are looking for:");
@@ -95,9 +95,18 @@ namespace BloodTypeC.ConsoleUI
                         break;
                     case 2: // Search by style
                         Console.Clear();
-                        Console.WriteLine("Tu będzie szukanie po stylu/typie");
+                        Console.WriteLine("Enter the style of the beer that you are looking for:");                    
+                        string beerStyleForSearch = Console.ReadLine();
+                        if (!string.IsNullOrWhiteSpace(beerStyleForSearch))
+                        {
+                            beersResult = BeerSearch.SearchByStyle(DB.AllBeers, beerStyleForSearch);
+                            BeerSearch.DisplayBeer(beersResult);
+                            break;
+                        }
+                        Console.WriteLine("Entered style is null or whitespace. Please enter proper style of beer.");
                         Console.ReadKey();
                         break;
+                        
                     case 3: // Search by ABV
                         Console.Clear();
                         double minAbv,maxAbv;
@@ -122,7 +131,17 @@ namespace BloodTypeC.ConsoleUI
                         break;
                     case 4: // Search by flavors
                         Console.Clear();
-                        Console.WriteLine("Tu będzie szukanie po smaku");
+                        Console.WriteLine("Flavors in pedia:");
+                        var flavors = DB.AllBeers.SelectMany(beer => beer.Flavors).Distinct().ToList();
+                        Console.WriteLine(string.Join(", ", flavors));
+                        string searchFlavor = Console.ReadLine();
+                        if (!string.IsNullOrWhiteSpace(searchFlavor))
+                        {
+                            beersResult = BeerSearch.SearchByFlavor(DB.AllBeers, searchFlavor);
+                            BeerSearch.DisplayBeer(beersResult);
+                            Console.ReadKey();
+                        }
+                        Console.WriteLine("Entered flavor is null or whitespace. Please enter proper flavor of beer.");
                         Console.ReadKey();
                         break;
                     case 5:

@@ -21,7 +21,7 @@ namespace BloodTypeC.Logic
         }
         public static List<Beer> SearchByStyle(List<Beer> listToSearch, string style)
         {
-            return listToSearch.Where(beer => beer.Style.Equals(style, StringComparison.InvariantCultureIgnoreCase)).ToList();
+            return listToSearch.Where(beer => beer.Style.Contains(style, StringComparison.InvariantCultureIgnoreCase)).ToList();
         }
 
         public static List<Beer> SearchByFlavor(List<Beer> listToSearch, string searchflavor)
