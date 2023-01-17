@@ -23,8 +23,7 @@ namespace BloodTypeC.ConsoleUI
 | (  \ \ | (      | (      | (\ (          | |   | |       | (      | (      | |   ) |   | |   | (   ) |
 | )___) )| (____/\| (____/\| ) \ \__       | (___) |       | )      | (____/\| (__/  )___) (___| )   ( |
 |/ \___/ (_______/(_______/|/   \__/       (_______)       |/       (_______/(______/ \_______/|/     \|
-                                                                                            
-";
+                                                                                            ";
         public void Start()
         {
             Title = "Beer-o-pedia";
@@ -116,11 +115,11 @@ namespace BloodTypeC.ConsoleUI
                 break;
                 }
             }
-        private void NewBeerBrewery()
+        private void NewBeer()
         {
 
         }
-        private void EditBeerBrewery()
+        private void EditBeery()
         {
 
         }
