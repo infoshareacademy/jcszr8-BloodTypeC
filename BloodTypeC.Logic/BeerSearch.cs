@@ -29,7 +29,7 @@ namespace BloodTypeC.Logic
            return listToSearch.Where(beer => beer.Flavors.Contains(searchflavor,StringComparer.InvariantCultureIgnoreCase)).ToList();
         }
 
-        public static List<Beer> SearchByAlkVol(List<Beer> listToSearch, double minAbv,double maxAbv)
+        public static List<Beer> SearchByAlcVol(List<Beer> listToSearch, double minAbv,double maxAbv)
         {
 
             return listToSearch.Where(beer => beer.AlcoholByVolume >= minAbv && beer.AlcoholByVolume <= maxAbv).ToList();
