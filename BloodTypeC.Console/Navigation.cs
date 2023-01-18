@@ -23,7 +23,8 @@ namespace BloodTypeC.ConsoleUI
 | (  \ \ | (      | (      | (\ (          | |   | |       | (      | (      | |   ) |   | |   | (   ) |
 | )___) )| (____/\| (____/\| ) \ \__       | (___) |       | )      | (____/\| (__/  )___) (___| )   ( |
 |/ \___/ (_______/(_______/|/   \__/       (_______)       |/       (_______/(______/ \_______/|/     \|
-                                                                                            ";
+                                                                                            
+";
         public void Start()
         {
             Title = "Beer-o-pedia";
@@ -31,10 +32,12 @@ namespace BloodTypeC.ConsoleUI
         }
         private void RunStartMenu()
         {
+            Console.CursorVisible = false;
             string prompt = $"{logo}Welcome to Beer-o-pedia! Are you over 18?";
             string[] options = { "Yes", "No" };
             Menu startMenu = new Menu(prompt, options);
             int selectedIndex = startMenu.Run();
+           
 
             if (selectedIndex == 1)
             {
@@ -52,16 +55,17 @@ namespace BloodTypeC.ConsoleUI
                 string[] options2 = { "1. Search by beer name.", "2. Search by brewery.", "3. Search by style.", "4. Search by alkohol volume.", "5. Search by flavor.",
             "6. Adding new beer.", "7. Editing beer.", "8. Exit application."};
 
+                Console.CursorVisible = false;
                 Load.LoadFromFile();
                 Menu mainMenu = new Menu(prompt, options2);
                 selectedIndex = mainMenu.Run();
                 var beersResult = new List<Beer>();
                 switch (selectedIndex)
                 {
-                    case 0: // Search by name
-                        //Console.CursorVisible = true;
+                    case 0: //Search by name
+                        Console.CursorVisible = true;
                         Console.Clear();
-                        Console.WriteLine("Enter the name of the beer that you are looking for:");
+                        Console.WriteLine($"{logo}Enter the name of the beer that you are looking for:");
                         string beerNameForSearch = Console.ReadLine();
                         if (!string.IsNullOrWhiteSpace(beerNameForSearch))
                         {
