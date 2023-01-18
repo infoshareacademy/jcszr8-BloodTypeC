@@ -20,7 +20,7 @@ namespace BloodTypeC.Logic
 
         public static string AsNameOrTitle(string name, CapitalsOptions capsOpt)
         {
-            // Remove any multiple spaces, capitalise the first letter.
+            // Remove any multiple spaces, capitalise one or many letters.
             name = Regex.Replace(name, @"\s+", " ");
             name = name.Trim();
             switch (capsOpt)
@@ -40,28 +40,34 @@ namespace BloodTypeC.Logic
             // Remove any multiple spaces and change input of tags separated by commas
             // and/or spaces into a list of lowercase tags.
             var tags = new List<string>();
+            tagsInput = Regex.Replace(tagsInput.ToLower(), "[^a-z ąćęłńóśżź]", " ");
             tagsInput = Regex.Replace(tagsInput, @"\s+", " ");
-            tagsInput = Regex.Replace(tagsInput.ToLower(), "[^a-z -]", "");
-            string[] tagsArray = tagsInput.Split(",");
+            string[] delimiters = { " ", "," };
+            string[] tagsArray = tagsInput.Split(delimiters, StringSplitOptions.RemoveEmptyEntries);
             foreach (string tag in tagsArray)
             {
                 if (tag != "")
                 {
-                    tags.Add(tag.ToLower().Trim().Replace(",", ""));
+                    tags.Add(tag);
                 }
             }
             return tags;
         }
 
-        public static double AsScore(string scoreInput)
+        public static double AsScoreOrABV(string valueInput, double maxValue)
         {
             // Replace commas with a dot and remove any unnecessary characters.
-            scoreInput = scoreInput.Replace(",", ".");
-            scoreInput = Regex.Replace(scoreInput, @"\.+", ".");
-            scoreInput = Regex.Replace(scoreInput, "[^0-9.]", "");
-            double score = 0;
-            double.TryParse(scoreInput, out score);
-            return score;
+            valueInput = valueInput.Replace(".", ",");
+            valueInput = Regex.Replace(valueInput, @"\.+", ",");
+            valueInput = Regex.Replace(valueInput, "[^0-9,]", "");
+            double value = 0;
+            double.TryParse(valueInput, out value);
+            if (value > maxValue)
+            {
+                Console.WriteLine("This exceeds the maximum accepted value.");
+                value = 0;
+            }
+            return Math.Round(value, 2);
         }
     }
 }

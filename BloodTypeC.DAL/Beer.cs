@@ -28,7 +28,8 @@ namespace BloodTypeC.DAL
             this.Added = dateTimeNow;
 
             DB.AllBeers.Add(this);
-            Console.WriteLine($"Successfully added {this.Name}!");
+            Console.WriteLine($"\nSuccessfully added {this.Name}!");
+            Console.ReadKey(true);
         }
     }
 }

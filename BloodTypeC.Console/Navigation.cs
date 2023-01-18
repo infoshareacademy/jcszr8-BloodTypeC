@@ -7,6 +7,7 @@ using System.Drawing;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using static System.Console;
 
@@ -23,7 +24,7 @@ namespace BloodTypeC.ConsoleUI
 | (  \ \ | (      | (      | (\ (          | |   | |       | (      | (      | |   ) |   | |   | (   ) |
 | )___) )| (____/\| (____/\| ) \ \__       | (___) |       | )      | (____/\| (__/  )___) (___| )   ( |
 |/ \___/ (_______/(_______/|/   \__/       (_______)       |/       (_______/(______/ \_______/|/     \|
-                                                                                            ";
+";
         public void Start()
         {
             Title = "Beer-o-pedia";
@@ -46,10 +47,12 @@ namespace BloodTypeC.ConsoleUI
                 ReadKey(true);
                 Environment.Exit(0);
             }
+
+            Load.LoadFromFile();
+
             while (true)
             {
-                Console.CursorVisible = true;
-                Load.LoadFromFile();
+                Console.CursorVisible = false;
                 prompt = $"{logo}Beer-o-pedia main menu!";
                 string[] options2 = {
                     "1. Search by beer name.",
@@ -67,7 +70,8 @@ namespace BloodTypeC.ConsoleUI
                 switch (selectedIndex)
                 {
                     case 0: // Search by name
-                        //
+                            //
+                        Console.CursorVisible = true;
                         Console.Clear();
                         Console.WriteLine("Enter the name of the beer that you are looking for:");                                                                     
                         string beerNameForSearch = Console.ReadLine();
@@ -81,6 +85,7 @@ namespace BloodTypeC.ConsoleUI
                         Console.ReadKey();
                         break; 
                     case 1: // Search by brewery
+                        Console.CursorVisible = true;
                         Console.Clear();
                         Console.WriteLine("Enter the brewery name of the beer that you are looking for:");
                         string breweryNameForSearch = Console.ReadLine();
@@ -94,6 +99,7 @@ namespace BloodTypeC.ConsoleUI
                         Console.ReadKey();
                         break;
                     case 2: // Search by style
+                        Console.CursorVisible = true;
                         Console.Clear();
                         Console.WriteLine("Enter the style of the beer that you are looking for:");                    
                         string beerStyleForSearch = Console.ReadLine();
@@ -108,6 +114,7 @@ namespace BloodTypeC.ConsoleUI
                         break;
                         
                     case 3: // Search by ABV
+                        Console.CursorVisible = true;
                         Console.Clear();
                         double minAbv,maxAbv;
 
@@ -130,6 +137,7 @@ namespace BloodTypeC.ConsoleUI
                         BeerSearch.DisplayBeer(beersResult);
                         break;
                     case 4: // Search by flavors
+                        Console.CursorVisible = true;
                         Console.Clear();
                         Console.WriteLine("Flavors in pedia:");
                         var flavors = DB.AllBeers.SelectMany(beer => beer.Flavors).Distinct().ToList();
@@ -148,6 +156,7 @@ namespace BloodTypeC.ConsoleUI
                         NewBeer();
                         break;
                     case 6:
+                        Console.CursorVisible = true;
 
                         break;
                     case 7:
@@ -168,7 +177,8 @@ namespace BloodTypeC.ConsoleUI
             Console.CursorVisible = true;
             Beer beerToAdd = new Beer();
 
-            Console.WriteLine("\nTo add a beer, first we need the name of the beer.");
+            // Name
+            Console.WriteLine("\n> To add a beer, first we need the name of the beer.");
             string input = Console.ReadLine();
             if (string.IsNullOrEmpty(input))
             {
@@ -177,67 +187,90 @@ namespace BloodTypeC.ConsoleUI
                 Console.CursorVisible = false;
                 return;
             }
-            beerToAdd.Name = Format.AsNameOrTitle(input, Format.CapitalsOptions.EachWord);
+            beerToAdd.Name = Format.AsNameOrTitle(input, Format.CapitalsOptions.FirstWord);
 
-            Console.WriteLine("\nNow tell us the name of the brewery.");
-            input = Console.ReadLine() ?? "Unknown";
-            if (input == "Unknown")
+            // Brewery
+            Console.WriteLine("\n> Now tell us the name of the brewery.");
+            input = Console.ReadLine();
+            if (string.IsNullOrEmpty(input))
             {
-                Console.WriteLine("Ok, brewery is unknown.");
+                Console.WriteLine("Ok, the brewery is a mystery.");
+                input = "Unknown";
             }
-            beerToAdd.Brewery = Format.AsNameOrTitle(input, Format.CapitalsOptions.FirstWord);
+            beerToAdd.Brewery = Format.AsNameOrTitle(input, Format.CapitalsOptions.EachWord);
 
-            Console.Write("\nWhat style is it?\n(add new or choose from:");
-            string[] stylesFromDB = DB.AllBeers.Select(x => x.Style).ToArray();
-            foreach (string style in stylesFromDB)
+            //Style
+            Console.Write("\n> What style is it?\n   (add new or choose from:");
+            string[] stylesFromDB = DB.AllBeers.Select(x => x.Style).Distinct().ToArray();
+            Console.Write(string.Join(", ", stylesFromDB));
+            Console.WriteLine(")");
+
+            input = Console.ReadLine();
+            bool wasReformed = false;
+            if (!string.IsNullOrEmpty(input))
             {
-                string separator = ",";
-                if (style == stylesFromDB.Last())
-                {
-                    separator = "";
-                }
-                Console.Write($" {style}{separator}");
+                input = Regex.Replace(input.ToLower(), "[^a-z ąćęłńóśżź-]", " ");
+                input = Regex.Replace(input, @"\s+", " ");
+                input = Regex.Replace(input, @"-+", "-");
+                input = Format.AsNameOrTitle(input, Format.CapitalsOptions.EachWord);
+                wasReformed = true;
             }
-            Console.Write(")\n");
-            input = Console.ReadLine() ?? "Unknown";
-            if (input == "Unknown")
+            else
             {
                 Console.WriteLine("Sure, the style can be unknown, why not.");
             }
-            beerToAdd.Style = input;
-
-            Console.WriteLine("\nWhat can be tasted in this beer? Use commas (,) and/or spaces when adding multiple flavors.");
-            Console.WriteLine("With other beers, fellow tasters have reported experiencing:\n [");
-            string[] flavorsFromDB = DB.AllBeers.Select(x => x.Style).ToArray();
-            foreach (string style in stylesFromDB)
+            if (wasReformed == true && string.IsNullOrEmpty(input))
             {
-                string separator = ",";
-                if (style == stylesFromDB.Last())
-                {
-                    separator = "";
-                }
-                Console.Write($" {style}{separator}");
+                Console.WriteLine("That style format is not acceptable.");
             }
+            else
+            { 
+                beerToAdd.Style = input;
+            }
+
+            // Flavors
+            Console.WriteLine("\n> What is the beer's taste like?\n   Use commas (,) and/or spaces when adding multiple flavors.");
+            Console.Write("   Fellow tasters have reported other beers to be:\n  [");
+            List<string> flavorsFromDB = DB.AllBeers.SelectMany(beer => beer.Flavors).Distinct().ToList();
+            Console.Write(String.Join(", ", flavorsFromDB));
             Console.WriteLine("]");
-            input = Console.ReadLine() ?? "Unknown";
-            if (input == "Unknown")
+            input = Console.ReadLine();
+            var flavors = Format.AsTags(input);
+            if (flavors.Count > 0)
+            {
+                beerToAdd.Flavors = flavors;
+            }
+            else if (!string.IsNullOrEmpty(input) && flavors.Count == 0)
+            {
+                Console.WriteLine("The flavors are badly formatted.");
+            }
+            else
             {
                 Console.WriteLine("Fine, the flavors remain to be disovered.");
             }
-            var flavors = Format.AsTags(input);
-            beerToAdd.Flavors = flavors;
 
-            Console.WriteLine("\nWhat is your score for this beer? 1-10");
+            // Abv
+            Console.WriteLine("\n> How much alcohol by volume does it have?");
             input = Console.ReadLine();
-            if (input == null)
+            if (string.IsNullOrEmpty(input))
+            {
+                Console.WriteLine("That's key info we are missing...");
+            }
+            beerToAdd.AlcoholByVolume = Format.AsScoreOrABV(input, 94.99);
+            Console.WriteLine($"We will set the abv to {beerToAdd.AlcoholByVolume}%.");
+
+            // Score
+            Console.WriteLine("\n> What is your score for this beer? 1-10");
+            input = Console.ReadLine();
+            if (string.IsNullOrEmpty(input))
             {
                 Console.WriteLine("No score, understood.");
             }
-            beerToAdd.Score = Format.AsScore(input);
-
-            beerToAdd.Add();
+            beerToAdd.Score = Format.AsScoreOrABV(input, 10);
+            Console.WriteLine($"The score is {beerToAdd.Score} then.");
 
             Console.CursorVisible = false;
+            beerToAdd.Add();
         }
         private void EditBeer()
         {
