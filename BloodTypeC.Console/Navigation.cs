@@ -23,7 +23,8 @@ namespace BloodTypeC.ConsoleUI
 | (  \ \ | (      | (      | (\ (          | |   | |       | (      | (      | |   ) |   | |   | (   ) |
 | )___) )| (____/\| (____/\| ) \ \__       | (___) |       | )      | (____/\| (__/  )___) (___| )   ( |
 |/ \___/ (_______/(_______/|/   \__/       (_______)       |/       (_______/(______/ \_______/|/     \|
-                                                                                            ";
+                                                                                            
+";
         public void Start()
         {
             Title = "Beer-o-pedia";
@@ -31,10 +32,12 @@ namespace BloodTypeC.ConsoleUI
         }
         private void RunStartMenu()
         {
+            Console.CursorVisible = false;
             string prompt = $"{logo}Welcome to Beer-o-pedia! Are you over 18?";
             string[] options = { "Yes", "No" };
             Menu startMenu = new Menu(prompt, options);
             int selectedIndex = startMenu.Run();
+           
 
             if (selectedIndex == 1)
             {
