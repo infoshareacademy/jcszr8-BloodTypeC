@@ -25,6 +25,9 @@ namespace BloodTypeC.ConsoleUI
 |/ \___/ (_______/(_______/|/   \__/       (_______)       |/       (_______/(______/ \_______/|/     \|
                                                                                             
 ";
+
+        public object Cursor { get; private set; }
+
         public void Start()
         {
             Title = "Beer-o-pedia";
@@ -32,12 +35,12 @@ namespace BloodTypeC.ConsoleUI
         }
         private void RunStartMenu()
         {
-            Console.CursorVisible = false;
             string prompt = $"{logo}Welcome to Beer-o-pedia! Are you over 18?";
             string[] options = { "Yes", "No" };
             Menu startMenu = new Menu(prompt, options);
             int selectedIndex = startMenu.Run();
-           
+            Console.CursorVisible = false;
+
 
             if (selectedIndex == 1)
             {
@@ -51,7 +54,6 @@ namespace BloodTypeC.ConsoleUI
             }
             while (true)
             {
-                Console.CursorVisible = true;
                 Load.LoadFromFile();
                 prompt = $"{logo}Beer-o-pedia main menu!";
                 string[] options2 = {
@@ -72,7 +74,8 @@ namespace BloodTypeC.ConsoleUI
                     case 0: // Search by name
                         //
                         Console.Clear();
-                        Console.WriteLine("Enter the name of the beer that you are looking for:");                                                                     
+                        Console.CursorVisible = true;
+                        Console.WriteLine("Enter the name of the beer that you are looking for:");
                         string beerNameForSearch = Console.ReadLine();
                         if (!string.IsNullOrWhiteSpace(beerNameForSearch))
                         {
@@ -82,9 +85,10 @@ namespace BloodTypeC.ConsoleUI
                         }
                         Console.WriteLine("The entered name is invalid. Please enter a proper name of a beer.");
                         Console.ReadKey();
-                        break; 
+                        break;
                     case 1: // Search by brewery
                         Console.Clear();
+                        Console.CursorVisible = true;
                         Console.WriteLine("Enter the brewery name of the beer that you are looking for:");
                         string breweryNameForSearch = Console.ReadLine();
                         if (!string.IsNullOrWhiteSpace(breweryNameForSearch))
@@ -98,7 +102,8 @@ namespace BloodTypeC.ConsoleUI
                         break;
                     case 2: // Search by style
                         Console.Clear();
-                        Console.WriteLine("Enter the style of the beer that you are looking for:");                    
+                        Console.CursorVisible = true;
+                        Console.WriteLine("Enter the style of the beer that you are looking for:");
                         string beerStyleForSearch = Console.ReadLine();
                         if (!string.IsNullOrWhiteSpace(beerStyleForSearch))
                         {
@@ -109,13 +114,13 @@ namespace BloodTypeC.ConsoleUI
                         Console.WriteLine("Entered style is null or whitespace. Please enter proper style of beer.");
                         Console.ReadKey();
                         break;
-                        
+
                     case 3: // Search by ABV
                         Console.Clear();
-                        double minAbv,maxAbv;
-
+                        Console.CursorVisible = true;
+                        double minAbv, maxAbv;
                         Console.WriteLine("Enter min ABV");
-                        if(!double.TryParse(Console.ReadLine(), out minAbv)) 
+                        if (!double.TryParse(Console.ReadLine(), out minAbv))
                         {
                             Console.WriteLine("Error. The entered data was not a number.\nReturning to menu.");
                             Console.ReadKey();
@@ -127,13 +132,14 @@ namespace BloodTypeC.ConsoleUI
                             Console.WriteLine("Error. The entered data was not a number.\nReturning to menu.");
                             Console.ReadKey();
                             break;
-                        }                       
+                        }
                         beersResult = BeerSearch.SearchByAlcVol(DB.AllBeers, minAbv, maxAbv);
                         Console.Clear();
                         BeerSearch.DisplayBeer(beersResult);
                         break;
                     case 4: // Search by flavors
                         Console.Clear();
+                        Console.CursorVisible = true;
                         Console.WriteLine("Flavors in pedia:");
                         var flavors = DB.AllBeers.SelectMany(beer => beer.Flavors).Distinct().ToList();
                         Console.WriteLine(string.Join(", ", flavors));
@@ -151,12 +157,21 @@ namespace BloodTypeC.ConsoleUI
                         NewBeer();
                         break;
                     case 6:
-
+                        Console.Clear();
+                        Console.CursorVisible = true;
+                        Console.WriteLine("Enter the name of the beer that you are looking for:");
+                        string beerNameForEdit = Console.ReadLine();
+                        if (!string.IsNullOrWhiteSpace(beerNameForEdit))
+                        {
+                            beersResult = BeerSearch.SearchByName(DB.AllBeers, beerNameForEdit);
+                            BeerSearch.DisplayBeer(beersResult);
+                        }
                         break;
+                        EditBeer();
                     case 7:
                         Clear();
-                        WriteLine($"{logo}Dziekujemy za Twoja wizytę. Miłego dnia!");
-                        WriteLine("Wciśnij dowolny klawisz aby zamkąć aplikację!");
+                        WriteLine($"{logo}Thank you for coming! Have a nice day!");
+                        WriteLine("Press any key to close the application!");
                         ReadKey(true);
                         Environment.Exit(0);
                         break;
@@ -244,7 +259,8 @@ namespace BloodTypeC.ConsoleUI
         }
         private void EditBeer()
         {
-
+            Console.WriteLine("Confirming blank space will proceed without change.");
+            Console.WriteLine("Would you like to edit name of the beer?");
         }
-    }      
+    }
 }
