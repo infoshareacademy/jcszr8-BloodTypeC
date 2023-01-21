@@ -32,10 +32,12 @@ namespace BloodTypeC.ConsoleUI
         }
         private void RunStartMenu()
         {
+            Console.CursorVisible = false;
             string prompt = $"{logo}Welcome to Beer-o-pedia! Are you over 18?";
             string[] options = { "Yes", "No" };
             Menu startMenu = new Menu(prompt, options);
             int selectedIndex = startMenu.Run();
+           
 
             if (selectedIndex == 1)
             {
