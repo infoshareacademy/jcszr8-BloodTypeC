@@ -34,7 +34,7 @@ namespace BloodTypeC.Logic
 
             return listToSearch.Where(beer => beer.AlcoholByVolume >= minAbv && beer.AlcoholByVolume <= maxAbv).ToList();
         }
-        public static void DisplayBeer(List<Beer> listToDisplay) 
+        public static void DisplayBeer(List<Beer> listToDisplay,bool wait) 
         {
             if (listToDisplay.Count > 0)
             {
@@ -57,12 +57,15 @@ namespace BloodTypeC.Logic
                     Console.WriteLine(String.Format("|{0,-20}|{1,-30}|{2,-30}|{3,-20}|{4,-20}|{5,-50}|{6,-20}|", item.Id, item.Name, item.Brewery, item.Style, item.AlcoholByVolume, beerFalvors, item.Score));
                     //Console.WriteLine($"{item.Id.PadRight(10)} | {item.Name.PadRight(20)} | {item.Brewery.PadRight(20)} | {item.Score.ToString().PadRight(10)} | {item.AlcoholByVolume.ToString().PadRight(15)} | {beerFalvors.PadRight(50)}");                
                 }
-                Console.ReadKey();
+                if (wait)
+                {
+                    Console.ReadKey();
+                }
                 return;
             }
             Console.WriteLine("There is no beers with specified name :( Please try again!");
             Console.ReadKey();
         }
-        
+
     }
 }

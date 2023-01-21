@@ -81,7 +81,7 @@ namespace BloodTypeC.ConsoleUI
                         if (!string.IsNullOrWhiteSpace(beerNameForSearch))
                         {
                             beersResult = BeerSearch.SearchByName(DB.AllBeers, beerNameForSearch);
-                            BeerSearch.DisplayBeer(beersResult);
+                            BeerSearch.DisplayBeer(beersResult, true);
                             break;
                         }
                         Console.WriteLine("The entered name is invalid. Please enter a proper name of a beer.");
@@ -96,7 +96,7 @@ namespace BloodTypeC.ConsoleUI
                         if (!string.IsNullOrWhiteSpace(breweryNameForSearch))
                         {
                             beersResult = BeerSearch.SearchByBrewery(DB.AllBeers, breweryNameForSearch);
-                            BeerSearch.DisplayBeer(beersResult);
+                            BeerSearch.DisplayBeer(beersResult,true);
                             break;
                         }
                         Console.WriteLine("The entered brewery name is invalid. Please enter a proper name of a beer.");
@@ -111,7 +111,7 @@ namespace BloodTypeC.ConsoleUI
                         if (!string.IsNullOrWhiteSpace(beerStyleForSearch))
                         {
                             beersResult = BeerSearch.SearchByStyle(DB.AllBeers, beerStyleForSearch);
-                            BeerSearch.DisplayBeer(beersResult);
+                            BeerSearch.DisplayBeer(beersResult, true);
                             break;
                         }
                         Console.WriteLine("Entered style is null or whitespace. Please enter proper style of beer.");
@@ -139,7 +139,7 @@ namespace BloodTypeC.ConsoleUI
                         }
                         beersResult = BeerSearch.SearchByAlcVol(DB.AllBeers, minAbv, maxAbv);
                         Console.Clear();
-                        BeerSearch.DisplayBeer(beersResult);
+                        BeerSearch.DisplayBeer(beersResult, true);
                         Console.CursorVisible = false;
                         break;
                     case 4: // Search by flavors
@@ -152,7 +152,7 @@ namespace BloodTypeC.ConsoleUI
                         if (!string.IsNullOrWhiteSpace(searchFlavor))
                         {
                             beersResult = BeerSearch.SearchByFlavor(DB.AllBeers, searchFlavor);
-                            BeerSearch.DisplayBeer(beersResult);
+                            BeerSearch.DisplayBeer(beersResult, true);
                             Console.ReadKey();
                         }
                         Console.WriteLine("Entered flavor is null or whitespace. Please enter proper flavor of beer.");
@@ -282,26 +282,43 @@ namespace BloodTypeC.ConsoleUI
         {
             Console.Clear();
             Console.CursorVisible = true;
-            Console.WriteLine("Enter the name of the beer that you are looking for:");
+            Console.WriteLine("Enter the name of the beer that you would like to edit");
             string beerNameForSearch = Console.ReadLine();
-            var beersResult = new List<Beer>();
-
             if (!string.IsNullOrWhiteSpace(beerNameForSearch))
             {
-                beersResult = BeerSearch.SearchByName(DB.AllBeers, beerNameForSearch);
-                BeerSearch.DisplayBeer(beersResult);
-            }    
-            Console.WriteLine("Would you like to edit name of the beer? (Confirming blank space will proceed without change.)");
-            Console.ReadKey();
-            Console.WriteLine("Would you like to edit brewery that made that beer? (Confirming blank space will proceed without change.)");
-            Console.ReadKey();
-            Console.WriteLine("Would you like to edit score of that beer? (Confirming blank space will proceed without change.)");
-            Console.ReadKey();
-            Console.WriteLine("Would you like to edit alcohol volume in that beer? (Confirming blank space will proceed without change.)");
-            Console.ReadKey();
-            Console.WriteLine("Would you like to edit style of that beer? (Confirming blank space will proceed without change.)");
-            Console.ReadKey();
-            Console.WriteLine("Would you like to edit flavor of that beer(max 3 flavors)? (Confirming blank space will proceed without change.)");
+                var beersResult = BeerSearch.SearchByName(DB.AllBeers, beerNameForSearch);
+                BeerSearch.DisplayBeer(beersResult, false);
+                Console.WriteLine("Would you like to edit the name? (Confirming blank space will proceed without change.)");
+                string newName = Console.ReadLine();
+                beersResult[0].Name = newName;
+                if (string.IsNullOrEmpty(newName))
+                {
+                    Console.WriteLine("Name not edited");
+                }
+                beersResult[0].Name = Format.AsNameOrTitle(newName, Format.CapitalsOptions.FirstWord);
+                Console.WriteLine("Would you like to edit the brewery? (Confirming blank space will proceed without change.)");
+                string newBrewery = Console.ReadLine();
+                beersResult[0].Brewery = newBrewery;
+                beersResult[0].Brewery = Format.AsNameOrTitle(newBrewery, Format.CapitalsOptions.EachWord);
+                Console.WriteLine("Would you like to edit the style? (Confirming blank space will proceed without change.)");
+                string newStyle = Console.ReadLine();
+                beersResult[0].Style = newStyle;
+                beersResult[0].Style = Regex.Replace(newStyle.ToLower(), "[^a-z ąćęłńóśżź-]", " ");
+                beersResult[0].Style = Regex.Replace(newStyle, @"\s+", " ");
+                beersResult[0].Style = Regex.Replace(newStyle, @"-+", "-");
+                beersResult[0].Style = Format.AsNameOrTitle(newStyle, Format.CapitalsOptions.EachWord);
+                Console.WriteLine("Would you like to edit the alcohol volume? (Confirming blank space will proceed without change.)");
+                string newABV = Console.ReadLine();
+                beersResult[0].AlcoholByVolume = Format.AsScoreOrABV(newABV, 94.99);
+                Console.WriteLine("Would you like to edit the flavor? (Confirming blank space will proceed without change.)");
+                var newFlavors = Format.AsTags(Console.ReadLine());
+                beersResult[0].Flavors = newFlavors;
+                Console.WriteLine("Would you like to edit the score? (Confirming blank space will proceed without change.)");
+                string newScore = Console.ReadLine();
+                beersResult[0].Score = Format.AsScoreOrABV(newScore, 10);
+                return;
+            }
+            Console.WriteLine("The entered name is invalid. Please enter a proper name of a beer.");
             Console.ReadKey();
             Console.CursorVisible = false;
         }
