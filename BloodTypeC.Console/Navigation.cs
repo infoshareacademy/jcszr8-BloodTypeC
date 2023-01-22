@@ -280,7 +280,13 @@ namespace BloodTypeC.ConsoleUI
             if (!string.IsNullOrWhiteSpace(beerNameForSearch))
             {
                 var beersResult = BeerSearch.SearchByName(DB.AllBeers, beerNameForSearch);
-                BeerSearch.DisplayBeer(beersResult, false);
+                if (beersResult.Count == 0)
+                {
+                    Console.WriteLine("The entered name is invalid. Please enter a proper name of a beer.");
+                    Console.ReadKey();
+                    return;
+
+                }
                 Console.WriteLine("Would you like to edit the name? (Confirming blank space will proceed without change.)");
                 string newName = Console.ReadLine();
                 if (!string.IsNullOrWhiteSpace(newName))
