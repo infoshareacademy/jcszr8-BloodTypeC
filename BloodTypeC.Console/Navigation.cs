@@ -286,14 +286,14 @@ namespace BloodTypeC.ConsoleUI
                 if (!string.IsNullOrWhiteSpace(newName))
                 {
                     beersResult[0].Name = newName;
-                    beersResult[0].Name = Format.AsNameOrTitle(newName, Format.CapitalsOptions.FirstWord);
+                    beersResult[0].Name = Format.AsNameOrTitle(newName, Format.CapitalsOptions.FirstWord, true);
                 }
                 Console.WriteLine("Would you like to edit the brewery? (Confirming blank space will proceed without change.)");
                 string newBrewery = Console.ReadLine();
                 if (!string.IsNullOrWhiteSpace(newBrewery))
                 {
                     beersResult[0].Brewery = newBrewery;
-                    beersResult[0].Brewery = Format.AsNameOrTitle(newBrewery, Format.CapitalsOptions.EachWord);
+                    beersResult[0].Brewery = Format.AsNameOrTitle(newBrewery, Format.CapitalsOptions.EachWord, true);
                 }
                 Console.WriteLine("Would you like to edit the style? (Confirming blank space will proceed without change.)");
                 string newStyle = Console.ReadLine();
@@ -303,7 +303,7 @@ namespace BloodTypeC.ConsoleUI
                     beersResult[0].Style = Regex.Replace(newStyle.ToLower(), "[^a-z ąćęłńóśżź-]", " ");
                     beersResult[0].Style = Regex.Replace(newStyle, @"\s+", " ");
                     beersResult[0].Style = Regex.Replace(newStyle, @"-+", "-");
-                    beersResult[0].Style = Format.AsNameOrTitle(newStyle, Format.CapitalsOptions.EachWord);
+                    beersResult[0].Style = Format.AsNameOrTitle(newStyle, Format.CapitalsOptions.EachWord, true);
                 }
                 Console.WriteLine("Would you like to edit the alcohol volume? (Confirming blank space will proceed without change.)");
                 string newABV = Console.ReadLine();
