@@ -19,7 +19,38 @@ namespace BloodTypeC.ConsoleUI
             Options = options;
             SelectedIndex = 0;    
         }
+        public int Run() //TODO: First public methods then private.
+        {
+            ConsoleKey keyPressed;
+            do
+            {
+                Clear();
+                DisplayOptions();
 
+                ConsoleKeyInfo keyInfo = ReadKey(true);
+                keyPressed = keyInfo.Key;
+
+                if (keyPressed == ConsoleKey.UpArrow)
+                {
+                    SelectedIndex--;
+                    if (SelectedIndex == -1)
+                    {
+                        SelectedIndex = Options.Length - 1;
+                    }
+                }
+                else if (keyPressed == ConsoleKey.DownArrow)
+                {
+                    SelectedIndex++;
+                    if (SelectedIndex == Options.Length)
+                    {
+                        SelectedIndex = 0;
+                    }
+                }
+            }
+            while (keyPressed != ConsoleKey.Enter);
+
+            return SelectedIndex;
+        }
         private void DisplayOptions()
         {
             WriteLine(Prompt);
@@ -42,38 +73,6 @@ namespace BloodTypeC.ConsoleUI
                 
             }
             ResetColor();
-        }
-        public int Run() //TODO: First public methods then private.
-        {
-            ConsoleKey keyPressed;
-            do
-            {
-                Clear();
-                DisplayOptions();
-
-                ConsoleKeyInfo keyInfo = ReadKey(true);
-                keyPressed= keyInfo.Key;
-
-                if (keyPressed == ConsoleKey.UpArrow)
-                {
-                    SelectedIndex--;
-                    if (SelectedIndex == -1)
-                    {
-                        SelectedIndex = Options.Length - 1;
-                    }
-                }
-                else if (keyPressed == ConsoleKey.DownArrow)
-                {
-                    SelectedIndex++;
-                    if (SelectedIndex == Options.Length)
-                    {
-                        SelectedIndex = 0;
-                    }
-                }
-            }
-            while (keyPressed != ConsoleKey.Enter);
-            
-            return SelectedIndex;
         }
     }
 }
