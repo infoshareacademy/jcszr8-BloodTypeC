@@ -59,6 +59,7 @@ namespace BloodTypeC.Logic
                 }
                 if (wait)
                 {
+                    Console.WriteLine("Search successful. Press any key to return to main menu.");
                     Console.ReadKey();
                 }
                 return;
