@@ -7,6 +7,7 @@ using System.Runtime.ExceptionServices;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace BloodTypeC.Logic
 {
@@ -18,11 +19,17 @@ namespace BloodTypeC.Logic
             EachWord = 2,
         }
 
-        public static string AsNameOrTitle(string name, CapitalsOptions capsOpt)
+        public static string AsNameOrTitle(string name, CapitalsOptions capsOpt, bool alphabetDashOnly)
         {
-            // Remove any multiple spaces, capitalise one or many letters.
+            // Capitalise one or many letters, clear from unnecessary chars.
+            name = new String(name.Normalize(NormalizationForm.FormD)
+                        .Where(c => char.GetUnicodeCategory(c) != UnicodeCategory.NonSpacingMark).ToArray());
+            if (alphabetDashOnly)
+            {
+                name = Regex.Replace(name, "[^A-Z^a-z -]", "");
+            }
             name = Regex.Replace(name, @"\s+", " ");
-            name = name.Trim();
+            name = Regex.Replace(name.Trim(), @"-+", "-");
             switch (capsOpt)
             {
                 case CapitalsOptions.FirstWord:
@@ -40,7 +47,9 @@ namespace BloodTypeC.Logic
             // Remove any multiple spaces and change input of tags separated by commas
             // and/or spaces into a list of lowercase tags.
             var tags = new List<string>();
-            tagsInput = Regex.Replace(tagsInput.ToLower(), "[^a-z ąćęłńóśżź]", " ");
+            tagsInput = new String(tagsInput.Normalize(NormalizationForm.FormD)
+                            .Where(c => char.GetUnicodeCategory(c) != UnicodeCategory.NonSpacingMark).ToArray());
+            tagsInput = Regex.Replace(tagsInput.ToLower(), "[^a-z ]", " ");
             tagsInput = Regex.Replace(tagsInput, @"\s+", " ");
             string[] delimiters = { " ", "," };
             string[] tagsArray = tagsInput.Split(delimiters, StringSplitOptions.RemoveEmptyEntries);
@@ -56,7 +65,8 @@ namespace BloodTypeC.Logic
 
         public static double AsScoreOrABV(string valueInput, double maxValue)
         {
-            // Replace commas with a dot and remove any unnecessary characters.
+            // Replace commas with a dot and remove any unnecessary characters and parse
+            // the input into a correct value.
             valueInput = valueInput.Replace(".", ",");
             valueInput = Regex.Replace(valueInput, @"\.+", ",");
             valueInput = Regex.Replace(valueInput, "[^0-9,]", "");
@@ -64,7 +74,7 @@ namespace BloodTypeC.Logic
             double.TryParse(valueInput, out value);
             if (value > maxValue)
             {
-                Console.WriteLine("This exceeds the maximum accepted value.");
+                Console.WriteLine($"Did you mean {value}? It exceeds the accepted maximum!");
                 value = 0;
             }
             return Math.Round(value, 2);

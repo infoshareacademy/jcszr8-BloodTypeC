@@ -146,7 +146,7 @@ namespace BloodTypeC.ConsoleUI
                         Console.Clear();
                         Console.CursorVisible = true;
                         Console.WriteLine("Flavors in pedia:");
-                        var flavors = DB.AllBeers.SelectMany(beer => beer.Flavors).Distinct().ToList();
+                        var flavors = DB.AllBeers.Where(x => x.Flavors != null).SelectMany(beer => beer.Flavors).Distinct().ToList();
                         Console.WriteLine(string.Join(", ", flavors));
                         string searchFlavor = Console.ReadLine();
                         if (!string.IsNullOrWhiteSpace(searchFlavor))
@@ -193,7 +193,7 @@ namespace BloodTypeC.ConsoleUI
                 Console.CursorVisible = false;
                 return;
             }
-            beerToAdd.Name = Format.AsNameOrTitle(input, Format.CapitalsOptions.FirstWord);
+            beerToAdd.Name = Format.AsNameOrTitle(input, Format.CapitalsOptions.FirstWord, false);
 
             // Brewery
             Console.WriteLine("\n> Now tell us the name of the brewery.");
@@ -203,41 +203,34 @@ namespace BloodTypeC.ConsoleUI
                 Console.WriteLine("Ok, the brewery is a mystery.");
                 input = "Unknown";
             }
-            beerToAdd.Brewery = Format.AsNameOrTitle(input, Format.CapitalsOptions.EachWord);
+            beerToAdd.Brewery = Format.AsNameOrTitle(input, Format.CapitalsOptions.EachWord, false);
 
             //Style
-            Console.Write("\n> What style is it?\n   (add new or choose from:");
-            string[] stylesFromDB = DB.AllBeers.Select(x => x.Style).Distinct().ToArray();
+            Console.Write("\n> What style is it?\n   (add new or choose from: ");
+            string[] stylesFromDB = DB.AllBeers.Where(x => x.Flavors != null).Select(x => x.Style).Distinct().ToArray();
             Console.Write(string.Join(", ", stylesFromDB));
             Console.WriteLine(")");
 
             input = Console.ReadLine();
-            bool wasReformed = false;
+            string reformedInput = input;
             if (!string.IsNullOrEmpty(input))
             {
-                input = Regex.Replace(input.ToLower(), "[^a-z ąćęłńóśżź-]", " ");
-                input = Regex.Replace(input, @"\s+", " ");
-                input = Regex.Replace(input, @"-+", "-");
-                input = Format.AsNameOrTitle(input, Format.CapitalsOptions.EachWord);
-                wasReformed = true;
+                reformedInput = Format.AsNameOrTitle(reformedInput, Format.CapitalsOptions.EachWord, true);
+                beerToAdd.Style = reformedInput;
             }
             else
             {
                 Console.WriteLine("Sure, the style can be unknown, why not.");
             }
-            if (wasReformed == true && string.IsNullOrEmpty(input))
+            if (string.IsNullOrEmpty(reformedInput) && !string.IsNullOrEmpty(input))
             {
                 Console.WriteLine("That style format is not acceptable.");
-            }
-            else
-            { 
-                beerToAdd.Style = input;
             }
 
             // Flavors
             Console.WriteLine("\n> What is the beer's taste like?\n   Use commas (,) and/or spaces when adding multiple flavors.");
             Console.Write("   Fellow tasters have reported other beers to be:\n  [");
-            List<string> flavorsFromDB = DB.AllBeers.SelectMany(beer => beer.Flavors).Distinct().ToList();
+            List<string> flavorsFromDB = DB.AllBeers.Where(x => x.Flavors != null).SelectMany(beer => beer.Flavors).Distinct().ToList();
             Console.Write(String.Join(", ", flavorsFromDB));
             Console.WriteLine("]");
             input = Console.ReadLine();
@@ -273,7 +266,7 @@ namespace BloodTypeC.ConsoleUI
                 Console.WriteLine("No score, understood.");
             }
             beerToAdd.Score = Format.AsScoreOrABV(input, 10);
-            Console.WriteLine($"The score is {beerToAdd.Score} then.");
+            Console.WriteLine($"We will set the score to {beerToAdd.Score} then.");
 
             Console.CursorVisible = false;
             beerToAdd.Add();
