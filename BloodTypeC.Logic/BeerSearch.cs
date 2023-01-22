@@ -38,13 +38,13 @@ namespace BloodTypeC.Logic
         {
             if (listToDisplay.Count > 0)
             {
-                int formatLenght = String.Format("|{0,-20}|{1,-30}|{2,-30}|{3,-20}|{4,-20}|{5,-50}|{6,-20}|", "ID", "Name", "Brewery", "Style", "AlcoholByVolume", "Beer falvors" ,"Score").Length;
+                int formatLenght = String.Format("|{0,-20}|{1,-30}|{2,-30}|{3,-20}|{4,-20}|{5,-50}|{6,-20}|", "ID", "Name", "Brewery", "Style", "AlcoholByVolume", "Beer flavors" ,"Score").Length;
                 for (int i = 0; i < formatLenght ; i++)
                 {
                     Console.Write("-");
                 }
                 Console.Write("\n");
-                Console.WriteLine(String.Format("|{0,-20}|{1,-30}|{2,-30}|{3,-20}|{4,-20}|{5,-50}|{6,-20}|", "ID", "Name", "Brewery", "Style", "AlcoholByVolume", "Beer falvors", "Score"));
+                Console.WriteLine(String.Format("|{0,-20}|{1,-30}|{2,-30}|{3,-20}|{4,-20}|{5,-50}|{6,-20}|", "ID", "Name", "Brewery", "Style", "AlcoholByVolume", "Beer flavors", "Score"));
                 for (int i = 0; i < formatLenght; i++)
                 {
                     Console.Write("-");
@@ -64,7 +64,7 @@ namespace BloodTypeC.Logic
                 }
                 return;
             }
-            Console.WriteLine("There is no beers with specified name :( Please try again!");
+            Console.WriteLine("There are no beers with specified name :( Please try again!");
             Console.ReadKey();
         }
 

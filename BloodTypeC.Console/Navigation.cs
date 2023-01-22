@@ -84,7 +84,7 @@ namespace BloodTypeC.ConsoleUI
                             BeerSearch.DisplayBeer(beersResult, true);
                             break;
                         }
-                        Console.WriteLine("The entered name is invalid. Please enter a proper name of a beer.");
+                        Console.WriteLine("The entered beer name is invalid. Please enter a proper name of a beer.");
                         Console.ReadKey();
                         Console.CursorVisible = false;
                         break;
@@ -145,7 +145,7 @@ namespace BloodTypeC.ConsoleUI
                     case 4: // Search by flavors
                         Console.Clear();
                         Console.CursorVisible = true;
-                        Console.WriteLine("Flavors in pedia:");
+                        Console.WriteLine("Enter the flavor of the beer that you are looking for? Flavors in pedia:");
                         var flavors = DB.AllBeers.Where(x => x.Flavors != null).SelectMany(beer => beer.Flavors).Distinct().ToList();
                         Console.WriteLine(string.Join(", ", flavors));
                         string searchFlavor = Console.ReadLine();
@@ -277,16 +277,16 @@ namespace BloodTypeC.ConsoleUI
             Console.CursorVisible = true;
             Console.WriteLine("Enter the name of the beer that you would like to edit");
             string beerNameForSearch = Console.ReadLine();
+            var beersResult = BeerSearch.SearchByName(DB.AllBeers, beerNameForSearch);
             if (!string.IsNullOrWhiteSpace(beerNameForSearch))
             {
-                var beersResult = BeerSearch.SearchByName(DB.AllBeers, beerNameForSearch);
                 if (beersResult.Count == 0)
                 {
                     Console.WriteLine("The entered name is invalid. Please enter a proper name of a beer.");
                     Console.ReadKey();
                     return;
-
                 }
+                BeerSearch.DisplayBeer(beersResult, false);
                 Console.WriteLine("Would you like to edit the name? (Confirming blank space will proceed without change.)");
                 string newName = Console.ReadLine();
                 if (!string.IsNullOrWhiteSpace(newName))
@@ -317,7 +317,7 @@ namespace BloodTypeC.ConsoleUI
                 {
                     beersResult[0].AlcoholByVolume = Format.AsScoreOrABV(newABV, 94.99);
                 }
-                Console.WriteLine("Would you like to edit the flavor? (Confirming blank space will proceed without change.)");
+                Console.WriteLine("Would you like to edit the flavor? Rewrite flavors form array you want to leave. (Confirming blank space will proceed without change.)");
                 var newFlavors = Console.ReadLine();
                 if (!string.IsNullOrWhiteSpace(newFlavors))
                 {
