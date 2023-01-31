@@ -1,4 +1,5 @@
-﻿using BloodTypeC.DAL;
+﻿using BloodTypeC.ConsoleUI;
+using BloodTypeC.DAL;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,12 +14,12 @@ namespace BloodTypeC.Logic
     {
         public static List<Beer> SearchByName(List<Beer> listToSearch, string name)
         {
-            return listToSearch.Where(beer => beer.Name.Equals(name, StringComparison.InvariantCultureIgnoreCase)).ToList();
+            return listToSearch.Where(beer => beer.Name.Contains(name, StringComparison.InvariantCultureIgnoreCase)).ToList();
         }
 
         public static List<Beer> SearchByBrewery(List<Beer> listToSearch, string brewery)
         {
-            return listToSearch.Where(beer => beer.Brewery.Equals(brewery, StringComparison.InvariantCultureIgnoreCase)).ToList();
+            return listToSearch.Where(beer => beer.Brewery.Contains(brewery, StringComparison.InvariantCultureIgnoreCase)).ToList();
         }
         public static List<Beer> SearchByStyle(List<Beer> listToSearch, string style)
         {
@@ -32,21 +33,22 @@ namespace BloodTypeC.Logic
 
         public static List<Beer> SearchByAlcVol(List<Beer> listToSearch, double minAbv, double maxAbv)
         {
-
             return listToSearch.Where(beer => beer.AlcoholByVolume >= minAbv && beer.AlcoholByVolume <= maxAbv).ToList();
         }
         public static void DisplayBeer(List<Beer> listToDisplay, bool wait)
         {
             if (listToDisplay.Count > 0)
             {
-                int formatLenght = String.Format("|{0,-20}|{1,-30}|{2,-30}|{3,-20}|{4,-20}|{5,-50}|{6,-20}|", "ID", "Name", "Brewery", "Style", "AlcoholByVolume", "Beer flavors", "Score").Length;
-                for (int i = 0; i < formatLenght; i++)
+                Console.ForegroundColor = ConsoleColor.Gray;
+                Console.WriteLine();
+                int formatLength = string.Format("|{0,-20}|{1,-30}|{2,-30}|{3,-20}|{4,-20}|{5,-50}|{6,-20}|", "ID", "Name", "Brewery", "Style", "AlcoholByVolume", "Beer flavors", "Score").Length;
+                for (int i = 0; i < formatLength; i++)
                 {
                     Console.Write("-");
                 }
                 Console.Write("\n");
-                Console.WriteLine(String.Format("|{0,-20}|{1,-30}|{2,-30}|{3,-20}|{4,-20}|{5,-50}|{6,-20}|", "ID", "Name", "Brewery", "Style", "AlcoholByVolume", "Beer flavors", "Score"));
-                for (int i = 0; i < formatLenght; i++)
+                Console.WriteLine(string.Format("|{0,-20}|{1,-30}|{2,-30}|{3,-20}|{4,-20}|{5,-50}|{6,-20}|", "ID", "Name", "Brewery", "Style", "AlcoholByVolume", "Beer flavors", "Score"));
+                for (int i = 0; i < formatLength; i++)
                 {
                     Console.Write("-");
                 }
@@ -54,18 +56,24 @@ namespace BloodTypeC.Logic
                 //Console.WriteLine($"{"ID".PadRight(10)} | {"Name".PadRight(20)} | {"Brewery".PadRight(20)} | {"Score".PadRight(10)} | {"AlcoholByVolume".PadRight(15)} | {"Flavors".PadRight(50)}");
                 foreach (var item in listToDisplay)
                 {
-                    string beerFlavors = string.Join(",", item.Flavors);
-                    Console.WriteLine(String.Format("|{0,-20}|{1,-30}|{2,-30}|{3,-20}|{4,-20}|{5,-50}|{6,-20}|", item.Id, item.Name, item.Brewery, item.Style, item.AlcoholByVolume, beerFlavors, item.Score));
+                    string beerFlavors = "";
+                    if (item.Flavors is not null)
+                    {
+                        beerFlavors = string.Join(",", item.Flavors);
+                    }
+                    Console.WriteLine(string.Format("|{0,-20}|{1,-30}|{2,-30}|{3,-20}|{4,-20}|{5,-50}|{6,-20}|", item.Id, item.Name, item.Brewery, item.Style, item.AlcoholByVolume, beerFlavors, item.Score));
                     //Console.WriteLine($"{item.Id.PadRight(10)} | {item.Name.PadRight(20)} | {item.Brewery.PadRight(20)} | {item.Score.ToString().PadRight(10)} | {item.AlcoholByVolume.ToString().PadRight(15)} | {beerFalvors.PadRight(50)}");                
                 }
+                Console.ResetColor();
+                Console.WriteLine();
                 if (wait)
                 {
-                    Console.WriteLine("Search successful. Press any key to return to main menu.");
+                    CWS.ColoredMsg("Search successful. Press any key to return to main menu.", "green");
                     Console.ReadKey();
                 }
                 return;
             }
-            Console.WriteLine("There are no beers with specified name :( Please try again!");
+            CWS.ColoredMsg("There are no beers matching the criteria :(", "red");
             Console.ReadKey();
         }
         public static void NewBeer()
@@ -75,169 +83,213 @@ namespace BloodTypeC.Logic
             Beer beerToAdd = new Beer();
 
             // Name
-            Console.WriteLine("\n> To add a beer, first we need the name of the beer.");
-            string input = Console.ReadLine();
-            if (string.IsNullOrEmpty(input))
+            CWS.ColoredMsg("ADDING A BEER\n=============\n", "yellow");
+            CWS.ColoredMsg("> To add a beer, first we need the name of the beer.\n", "yellow");
+            string input = CWS.ReadLine();
+            if (string.IsNullOrWhiteSpace(input))
             {
-                Console.WriteLine("Sorry. We cannot add a beer without a name.");
+                CWS.ColoredMsg("Sorry. We cannot add a beer without a name.\n", "red");
+                CWS.ColoredMsg("Press any key to return to main menu.", "blue");
                 Console.ReadKey(true);
-                Console.CursorVisible = false;
                 return;
             }
-            beerToAdd.Name = Format.AsNameOrTitle(input, Format.CapitalsOptions.FirstWord, false);
+            beerToAdd.Name = Format.AsNameOrTitle(input, Format.CapitalsOptions.EachWord, false);
 
             // Brewery
-            Console.WriteLine("\n> Now tell us the name of the brewery.");
-            input = Console.ReadLine();
-            if (string.IsNullOrEmpty(input))
+            CWS.ColoredMsg("\n> Now tell us the name of the brewery.\n", "yellow");
+            input = CWS.ReadLine();
+            if (string.IsNullOrWhiteSpace(input))
             {
-                Console.WriteLine("Ok, the brewery is a mystery.");
-                input = "Unknown";
+                CWS.ColoredMsg("Ok, the brewery is a mystery.\n", "darkyellow");
             }
             beerToAdd.Brewery = Format.AsNameOrTitle(input, Format.CapitalsOptions.EachWord, false);
 
             //Style
-            Console.Write("\n> What style is it?\n   (add new or choose from: ");
-            string[] stylesFromDB = DB.AllBeers.Where(x => x.Flavors != null).Select(x => x.Style).Distinct().ToArray();
-            Console.Write(string.Join(", ", stylesFromDB));
-            Console.WriteLine(")");
+            CWS.ColoredMsg("\n> What style is it?\n", "yellow");
+            CWS.ColoredMsg("(add new or choose from: ", "gray");
+            string[] stylesFromDB = DB.AllBeers.Where(x => x.Style != null).Select(x => x.Style).Distinct().ToArray();
+            CWS.ColoredMsg((string.Join(", ", stylesFromDB)), "gray");
+            CWS.ColoredMsg(")\n", "gray");
 
-            input = Console.ReadLine();
-            string reformedInput = input;
-            if (!string.IsNullOrEmpty(input))
+            input = CWS.ReadLine();
+            string reformattedInput = Format.AsNameOrTitle(input, Format.CapitalsOptions.EachWord, true);
+            if (!string.IsNullOrWhiteSpace(reformattedInput))
             {
-                reformedInput = Format.AsNameOrTitle(reformedInput, Format.CapitalsOptions.EachWord, true);
-                beerToAdd.Style = reformedInput;
+                beerToAdd.Style = reformattedInput;
             }
             else
             {
-                Console.WriteLine("Sure, the style can be unknown, why not.");
-            }
-            if (string.IsNullOrEmpty(reformedInput) && !string.IsNullOrEmpty(input))
-            {
-                Console.WriteLine("That style format is not acceptable.");
+                if (reformattedInput != input)
+                {
+                    CWS.ColoredMsg("This style format is not accepted.\n", "darkred");
+                }
+                else
+                {
+                    CWS.ColoredMsg("Sure, the style can be unknown, why not.\n", "darkyellow");
+                }
             }
 
             // Flavors
-            Console.WriteLine("\n> What is the beer's taste like?\n   Use commas (,) and/or spaces when adding multiple flavors.");
-            Console.Write("   Fellow tasters have reported other beers to be:\n  [");
+            CWS.ColoredMsg("\n> What is the beer's taste like?\n", "yellow");
+            CWS.ColoredMsg("   (You can add multiple flavors. Any special character will be considered as a separator.)", "gray");
+            Console.ForegroundColor = ConsoleColor.Gray;
+            Console.Write("   Fellow tasters have reported other beers as:\n  [");
             List<string> flavorsFromDB = DB.AllBeers.Where(x => x.Flavors != null).SelectMany(beer => beer.Flavors).Distinct().ToList();
             Console.Write(string.Join(", ", flavorsFromDB));
             Console.WriteLine("]");
-            input = Console.ReadLine();
+            Console.ResetColor();
+            input = CWS.ReadLine();
             var flavors = Format.AsTags(input);
             if (flavors.Count > 0)
             {
                 beerToAdd.Flavors = flavors;
             }
-            else if (!string.IsNullOrEmpty(input) && flavors.Count == 0)
+            else if (!string.IsNullOrWhiteSpace(input) && flavors.Count == 0)
             {
-                Console.WriteLine("The flavors are badly formatted.");
+                CWS.ColoredMsg("The flavors are badly formatted.\n", "darkred");
             }
             else
             {
-                Console.WriteLine("Fine, the flavors remain to be disovered.");
+                CWS.ColoredMsg("Fine, the flavors remain to be disovered.\n", "darkyellow");
             }
 
             // Abv
-            Console.WriteLine("\n> How much alcohol by volume does it have?");
-            input = Console.ReadLine();
-            if (string.IsNullOrEmpty(input))
+            CWS.ColoredMsg("\n> How much alcohol by volume does it have?\n", "yellow");
+            input = CWS.ReadLine();
+            if (string.IsNullOrWhiteSpace(input))
             {
-                Console.WriteLine("That's key info we are missing...");
+                CWS.ColoredMsg("That's key info we are missing...\n", "darkyellow");
             }
             beerToAdd.AlcoholByVolume = Format.AsScoreOrABV(input, 94.99);
-            Console.WriteLine($"We will set the abv to {beerToAdd.AlcoholByVolume}%.");
+            CWS.ColoredMsg($"We will set the abv to {beerToAdd.AlcoholByVolume}%.\n", "gray");
 
             // Score
-            Console.WriteLine("\n> What is your score for this beer? 1-10");
-            input = Console.ReadLine();
-            if (string.IsNullOrEmpty(input))
+            CWS.ColoredMsg("\n> What is your score for this beer? 1-10\n", "yellow");
+            input = CWS.ReadLine();
+            if (string.IsNullOrWhiteSpace(input))
             {
-                Console.WriteLine("No score, understood.");
+                CWS.ColoredMsg("No score, understood.\n", "darkyellow");
             }
             beerToAdd.Score = Format.AsScoreOrABV(input, 10);
-            Console.WriteLine($"We will set the score to {beerToAdd.Score} then.");
-
-            Console.CursorVisible = false;
+            CWS.ColoredMsg($"We will set the score to {beerToAdd.Score} then.\n", "gray");
             beerToAdd.Add();
         }
         public static void EditBeer()
         {
             Console.Clear();
             Console.CursorVisible = true;
-            Console.WriteLine("Enter the name of the beer that you would like to edit");
-            string beerNameForSearch = Console.ReadLine();
+            CWS.ColoredMsg("EDITING A BEER\n==============\n", "yellow");
+            CWS.ColoredMsg("Enter the full name of the beer that you would like to edit.\n", "yellow");
+            string beerNameForSearch = CWS.ReadLine();
+            bool edited = false;
             if (!string.IsNullOrWhiteSpace(beerNameForSearch))
             {
-                var beersResult = BeerOperations.SearchByName(DB.AllBeers, beerNameForSearch);
-                if (beersResult.Count == 0)
+                var beersResult = BeerOperations.SearchByName(DB.AllBeers, beerNameForSearch).FirstOrDefault(x => string.Equals(beerNameForSearch, x.Name, StringComparison.InvariantCultureIgnoreCase));
+                if (beersResult == null)
                 {
-                    Console.WriteLine("The entered name is invalid. Please enter a proper name of a beer.");
+                    CWS.ColoredMsg("We have no beers matching this name.", "red");
                     Console.ReadKey();
                     return;
                 }
-                BeerOperations.DisplayBeer(beersResult, false);
-                Console.WriteLine("Would you like to edit the name? (Pressing enter will proceed without change.)");
-                string newName = Console.ReadLine();
+                var tempBeerList = new List<Beer> { beersResult };
+                BeerOperations.DisplayBeer(tempBeerList, false);
+                CWS.ColoredMsg("Would you like to edit the name?\n", "yellow");
+                CWS.ColoredMsg(" (Pressing enter will proceed without any changes.)\n", "darkgray");
+                string newName = CWS.ReadLine();
                 if (!string.IsNullOrWhiteSpace(newName))
                 {
-                    beersResult[0].Name = Format.AsNameOrTitle(newName, Format.CapitalsOptions.FirstWord, false);
+                    beersResult.Name = Format.AsNameOrTitle(newName, Format.CapitalsOptions.FirstWord, false);
+                    edited = true;
                 }
-                Console.WriteLine("Would you like to edit the brewery? (Pressing enter will proceed without change.)");
-                string newBrewery = Console.ReadLine();
+                CWS.ColoredMsg("Would you like to edit the brewery?\n", "yellow");
+                CWS.ColoredMsg(" (Pressing enter will proceed without any changes.)\n", "darkgray");
+                string newBrewery = CWS.ReadLine();
                 if (!string.IsNullOrWhiteSpace(newBrewery))
                 {
-                    beersResult[0].Brewery = Format.AsNameOrTitle(newBrewery, Format.CapitalsOptions.EachWord, false);
+                    beersResult.Brewery = Format.AsNameOrTitle(newBrewery, Format.CapitalsOptions.EachWord, false);
+                    edited = true;
                 }
-                Console.WriteLine("Would you like to edit the style? (Pressing enter will proceed without change.)");
-                string newStyle = Console.ReadLine();
+                CWS.ColoredMsg("Would you like to edit the style?\n", "yellow");
+                CWS.ColoredMsg(" (Pressing enter will proceed without any changes.)\n", "darkgray");
+                string newStyle = CWS.ReadLine();
                 if (!string.IsNullOrWhiteSpace(newStyle))
                 {
-                    beersResult[0].Style = Format.AsNameOrTitle(newStyle, Format.CapitalsOptions.EachWord, true);
+                    beersResult.Style = Format.AsNameOrTitle(newStyle, Format.CapitalsOptions.EachWord, true);
+                    edited = true;
                 }
-                Console.WriteLine("Would you like to edit the alcohol volume? (Pressing enter will proceed without change.)");
-                string newABV = Console.ReadLine();
+                CWS.ColoredMsg("Would you like to edit the alcohol volume?\n", "yellow");
+                CWS.ColoredMsg(" (Pressing enter will proceed without any changes.)\n", "darkgray");
+                string newABV = CWS.ReadLine();
                 if (!string.IsNullOrWhiteSpace(newABV))
                 {
-                    beersResult[0].AlcoholByVolume = Format.AsScoreOrABV(newABV, 94.99);
+                    beersResult.AlcoholByVolume = Format.AsScoreOrABV(newABV, 94.99);
+                    edited = true;
                 }
-                Console.WriteLine("Editing flavors:");
+                CWS.ColoredMsg("Editing flavors.\n", "darkgray");
+                CWS.ColoredMsg("  Press enter to proceed without any changes. Use one word only.\n  Anything past a non-letter character will be ignored.\n", "darkgray");
                 string newFlavors = string.Empty;
-                foreach (var item in beersResult[0].Flavors)
-                    /// to do
+                foreach (var oldFlavor in beersResult.Flavors)
                 {
-                    Console.WriteLine($"Would you like to edit: {item}? (Pressing enter will proceed without change.)");
-                    var flavorInput = Console.ReadLine();
+                    CWS.ColoredMsg($"> Would you like to replace: ", "yellow");
+                    CWS.ColoredMsg($"{oldFlavor}", "darkcyan");
+                    CWS.ColoredMsg($"?\n", "yellow");
+                    var flavorInput = CWS.ReadLine().Trim();
                     if (string.IsNullOrWhiteSpace(flavorInput))
                     {
-                        newFlavors += $"{item},";
+                        newFlavors += $"{oldFlavor},";
                     }
                     else
-                    {
-                        flavorInput = flavorInput.Remove(flavorInput.IndexOf(" "));
-                        flavorInput = flavorInput.Remove(flavorInput.IndexOf(","));
+                    {   while (flavorInput.Contains(',') && flavorInput[0] == ',')
+                        {
+                            flavorInput = flavorInput.Substring(1);
+                        } 
+                        if (flavorInput.Contains(" "))
+                        {
+                            flavorInput = flavorInput.Remove(flavorInput.IndexOf(" "));
+                        }
+                        if (flavorInput.IndexOf(",") > 0)
+                        {
+                            flavorInput = flavorInput.Remove(flavorInput.IndexOf(","));
+                        }
                         newFlavors += $"{flavorInput},";
+                        edited = true;
                     }
                 }
-                Console.WriteLine("Add new flavors or press enter.");
-                newFlavors += Console.ReadLine();
+                CWS.ColoredMsg("Add new flavors or press enter.\n", "yellow");
+                CWS.ColoredMsg("Separate multiple flavors with a space (or any other non-letter character, whatever).\n", "darkgray");
+                string input = CWS.ReadLine().Trim();
+                newFlavors += input;
                 if (!string.IsNullOrWhiteSpace(newFlavors))
                 {
                     var newFlavorsFormated = Format.AsTags(newFlavors);
-                    beersResult[0].Flavors = newFlavorsFormated;
+                    beersResult.Flavors = newFlavorsFormated;
+                    if (!string.IsNullOrWhiteSpace(input))
+                    {
+                        edited = true;
+                    }
                 }
-                Console.WriteLine("Would you like to edit the score? (Pressing enter will proceed without change.)");
-                string newScore = Console.ReadLine();
+                CWS.ColoredMsg("Would you like to edit the score?\n", "yellow");
+                CWS.ColoredMsg(" (Pressing enter will proceed without any changes.)\n", "darkgray");
+                string newScore = CWS.ReadLine();
                 if (!string.IsNullOrWhiteSpace(newScore))
                 {
-                    beersResult[0].Score = Format.AsScoreOrABV(newScore, 10);
+                    beersResult.Score = Format.AsScoreOrABV(newScore, 10);
+                    edited = true;
                 }
-                Console.WriteLine("Press any key to return to main menu.");
+                if (edited)
+                {
+                    beersResult.LastModified = DateTime.Now;
+                    CWS.ColoredMsg("Changes have been made!\n", "green");
+                }
+                else
+                {
+                    CWS.ColoredMsg("No changes have been made.\n", "red");
+                }
+                CWS.ColoredMsg("Press any key to return to main menu.", "blue");
                 Console.ReadKey();
                 return;
             }
-            Console.WriteLine("The entered name is invalid. Please enter a proper name of a beer.");
+            CWS.ColoredMsg("The entered name is invalid. Please enter a proper name of a beer.", "red");
             Console.ReadKey();
             Console.CursorVisible = false;
         }

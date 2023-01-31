@@ -28,7 +28,9 @@ namespace BloodTypeC.DAL
             this.Added = dateTimeNow;
 
             DB.AllBeers.Add(this);
+            Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine($"\nSuccessfully added {this.Name}!");
+            Console.ResetColor();
             Console.ReadKey(true);
         }
     }

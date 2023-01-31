@@ -21,15 +21,27 @@ namespace BloodTypeC.Logic
 
         public static string AsNameOrTitle(string name, CapitalsOptions capsOpt, bool alphabetDashOnly)
         {
-            // Capitalise one or many letters, clear from unnecessary chars.
+            // Remove diacritics
             name = new String(name.Normalize(NormalizationForm.FormD)
                         .Where(c => char.GetUnicodeCategory(c) != UnicodeCategory.NonSpacingMark).ToArray());
+            name = name.Replace("Ł", "L");
+            name = name.Replace("ł", "l");
+            // Remove all chars that are not a dash, space or letter
             if (alphabetDashOnly)
             {
                 name = Regex.Replace(name, "[^A-Z^a-z -]", "");
+                name = Regex.Replace(name, @"\s+", " ");
+                name = Regex.Replace(name.Trim(), @"-+", "-");
+
+                // Remove dash if it's the first or last character
+                name = name.IndexOf("-") == 0 ? name.Substring(1) : name;
+                if (name.Contains("-") && name.Length > 1)
+                {
+                    name = name.LastIndexOf("-") == name.Length - 1 ? name.Remove(name.Length - 1) : name;
+                }
             }
             name = Regex.Replace(name, @"\s+", " ");
-            name = Regex.Replace(name.Trim(), @"-+", "-");
+
             switch (capsOpt)
             {
                 case CapitalsOptions.FirstWord:
@@ -39,23 +51,24 @@ namespace BloodTypeC.Logic
                     name = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(name);
                     break;
             }
-            return name;
+            return name.Trim();
         }
 
         public static List<string> AsTags(string tagsInput)
         {
-            // Remove any multiple spaces and change input of tags separated by commas
+            // Remove any multiple spaces and change the input of tags separated by commas
             // and/or spaces into a list of lowercase tags.
             var tags = new List<string>();
             tagsInput = new String(tagsInput.Normalize(NormalizationForm.FormD)
                             .Where(c => char.GetUnicodeCategory(c) != UnicodeCategory.NonSpacingMark).ToArray());
+            tagsInput = tagsInput.Replace("Ł", "L");
+            tagsInput = tagsInput.Replace("ł", "l");
             tagsInput = Regex.Replace(tagsInput.ToLower(), "[^a-z ]", " ");
             tagsInput = Regex.Replace(tagsInput, @"\s+", " ");
-            string[] delimiters = { " ", "," };
-            string[] tagsArray = tagsInput.Split(delimiters, StringSplitOptions.RemoveEmptyEntries);
+            string[] tagsArray = tagsInput.Split(" ", StringSplitOptions.RemoveEmptyEntries);
             foreach (string tag in tagsArray)
             {
-                if (tag != "")
+                if (!string.IsNullOrWhiteSpace(tag))
                 {
                     tags.Add(tag);
                 }
@@ -65,7 +78,7 @@ namespace BloodTypeC.Logic
 
         public static double AsScoreOrABV(string valueInput, double maxValue)
         {
-            // Replace commas with a dot and remove any unnecessary characters and parse
+            // Replace commas with a dot and remove any unnecessary characters, then parse
             // the input into a correct value.
             valueInput = valueInput.Replace(".", ",");
             valueInput = Regex.Replace(valueInput, @"\.+", ",");

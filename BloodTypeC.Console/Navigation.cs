@@ -46,7 +46,7 @@ namespace BloodTypeC.ConsoleUI
                 Clear();
                 ForegroundColor = ConsoleColor.Red;
                 WriteLine($"{logo}Oh you are so naughty! Run away or get spanked!");
-                WriteLine("Press any key to exit!");
+                CWS.ColoredMsg("Press any key to exit!", "blue");
                 ResetColor();
                 ReadKey(true);
                 Environment.Exit(0);
@@ -75,89 +75,90 @@ namespace BloodTypeC.ConsoleUI
                 {
                     case 0: // Search by name
                         Console.Clear();
-                        Console.CursorVisible = true;
-                        Console.WriteLine("Enter the name of the beer that you are looking for:");
-                        string beerNameForSearch = Console.ReadLine();
+                        CWS.ColoredMsg("SEARCH BEER\n===========\n" +
+                            "What to look for?\n", "yellow");
+                        string beerNameForSearch = CWS.ReadLine();
                         if (!string.IsNullOrWhiteSpace(beerNameForSearch))
                         {
                             beersResult = BeerOperations.SearchByName(DB.AllBeers, beerNameForSearch);
                             BeerOperations.DisplayBeer(beersResult, true);
                             break;
                         }
-                        Console.WriteLine("The entered beer name is invalid. Please enter a proper name of a beer.");
+                        CWS.ColoredMsg("The search was cancelled.", "red");
+                        CWS.ColoredMsg("Returning to menu.", "blue");
                         Console.ReadKey();
-                        Console.CursorVisible = false;
                         break;
                     case 1: // Search by brewery
                         Console.Clear();
-                        Console.CursorVisible = true;
-                        Console.WriteLine("Enter the brewery name of the beer that you are looking for:");
-                        string breweryNameForSearch = Console.ReadLine();
+                        CWS.ColoredMsg("SEARCH BREWERY\n==============\n" +
+                            "What to look for?\n", "yellow");
+                        string breweryNameForSearch = CWS.ReadLine();
                         if (!string.IsNullOrWhiteSpace(breweryNameForSearch))
                         {
                             beersResult = BeerOperations.SearchByBrewery(DB.AllBeers, breweryNameForSearch);
                             BeerOperations.DisplayBeer(beersResult,true);
                             break;
                         }
-                        Console.WriteLine("The entered brewery name is invalid. Please enter a proper name of a beer.");
+                        CWS.ColoredMsg("The search was cancelled.\n", "red");
+                        CWS.ColoredMsg("Returning to menu.", "blue");
                         Console.ReadKey();
-                        Console.CursorVisible = false;
                         break;
                     case 2: // Search by style
                         Console.Clear();
-                        Console.CursorVisible = true;
-                        Console.WriteLine("Enter the style of the beer that you are looking for:");
-                        string beerStyleForSearch = Console.ReadLine();
+                        CWS.ColoredMsg("SEARCH BY STYLE\n===============\n" +
+                            "What to look for?\n", "yellow");
+                        string beerStyleForSearch = CWS.ReadLine();
                         if (!string.IsNullOrWhiteSpace(beerStyleForSearch))
                         {
                             beersResult = BeerOperations.SearchByStyle(DB.AllBeers, beerStyleForSearch);
                             BeerOperations.DisplayBeer(beersResult, true);
                             break;
                         }
-                        Console.WriteLine("Entered style is null or whitespace. Please enter proper style of beer.");
+                        CWS.ColoredMsg("The search was cancelled.\n", "red");
+                        CWS.ColoredMsg("Returning to menu.", "blue");
                         Console.ReadKey();
-                        Console.CursorVisible = false;
                         break;
 
                     case 3: // Search by ABV
                         Console.Clear();
-                        Console.CursorVisible = true;
                         double minAbv, maxAbv;
-                        Console.WriteLine("Enter min ABV");
-                        if (!double.TryParse(Console.ReadLine(), out minAbv))
+                        CWS.ColoredMsg("SEARCH BY ABV\n=============\n" +
+                            "Enter min ABV\n", "yellow");
+                        if (!double.TryParse(CWS.ReadLine(), out minAbv))
                         {
-                            Console.WriteLine("Error. The entered data was not a number.\nReturning to menu.");
+                            CWS.ColoredMsg("Error. The entered data was not a number.\n", "red");
+                            CWS.ColoredMsg("Returning to menu.", "blue");
                             Console.ReadKey();
                             break;
                         }
-                        Console.WriteLine("Enter max ABV");
-                        if (!double.TryParse(Console.ReadLine(), out maxAbv))
+                        CWS.ColoredMsg("Enter max ABV\n", "yellow");
+                        if (!double.TryParse(CWS.ReadLine(), out maxAbv))
                         {
-                            Console.WriteLine("Error. The entered data was not a number.\nReturning to menu.");
+                            CWS.ColoredMsg("Error. The entered data was not a number.\n", "red");
+                            CWS.ColoredMsg("Returning to menu.", "blue");
                             Console.ReadKey();
                             break;
                         }
                         beersResult = BeerOperations.SearchByAlcVol(DB.AllBeers, minAbv, maxAbv);
-                        Console.Clear();
                         BeerOperations.DisplayBeer(beersResult, true);
-                        Console.CursorVisible = false;
                         break;
-                    case 4: // Search by flavors
+                    case 4: // Search by flavor
                         Console.Clear();
-                        Console.CursorVisible = true;
-                        Console.WriteLine("Enter the flavor of the beer that you are looking for? Flavors in pedia:");
+                        CWS.ColoredMsg("SEARCH BY FLAVOR\n================\n" +
+                            "Enter the flavor of the beer that you are looking for.\n", "yellow");
+                        CWS.ColoredMsg("Flavors in our database:\n", "gray");
                         var flavors = DB.AllBeers.Where(x => x.Flavors != null).SelectMany(beer => beer.Flavors).Distinct().ToList();
                         Console.WriteLine(string.Join(", ", flavors));
-                        string searchFlavor = Console.ReadLine();
+                        string searchFlavor = CWS.ReadLine();
                         if (!string.IsNullOrWhiteSpace(searchFlavor))
                         {
                             beersResult = BeerOperations.SearchByFlavor(DB.AllBeers, searchFlavor);
                             BeerOperations.DisplayBeer(beersResult, true);
                             break;
                         }
-                        Console.WriteLine("Entered flavor is null or whitespace. Please enter proper flavor of beer.");
+                        CWS.ColoredMsg("The search was cancelled.\n", "red");
+                        CWS.ColoredMsg("Returning to menu.", "blue");
                         Console.ReadKey();
-                        Console.CursorVisible = false;
                         break;
                     case 5:
                         BeerOperations.NewBeer();
@@ -167,8 +168,8 @@ namespace BloodTypeC.ConsoleUI
                         break;
                     case 7:
                         Clear();
-                        WriteLine($"{logo}Thank you for coming! Have a nice day!");
-                        WriteLine("Press any key to close the application!");
+                        WriteLine($"{logo}\nThank you for coming! Have a nice day!");
+                        CWS.ColoredMsg("Press any key to close the application!", "blue");
                         ReadKey(true);
                         Environment.Exit(0);
                         break;
