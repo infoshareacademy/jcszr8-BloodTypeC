@@ -131,7 +131,7 @@ namespace BloodTypeC.Logic
 
             // Flavors
             CWS.ColoredMsg("\n> What is the beer's taste like?\n", "yellow");
-            CWS.ColoredMsg("   (You can add multiple flavors. Any special character will be considered as a separator.)", "gray");
+            CWS.ColoredMsg("   (You can add multiple flavors. Any special character will be considered as a separator.)\n", "gray");
             Console.ForegroundColor = ConsoleColor.Gray;
             Console.Write("   Fellow tasters have reported other beers as:\n  [");
             List<string> flavorsFromDB = DB.AllBeers.Where(x => x.Flavors != null).SelectMany(beer => beer.Flavors).Distinct().ToList();
