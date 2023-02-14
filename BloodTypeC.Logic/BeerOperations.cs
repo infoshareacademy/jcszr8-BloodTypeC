@@ -293,5 +293,10 @@ namespace BloodTypeC.Logic
             Console.ReadKey();
             Console.CursorVisible = false;
         }
+
+        public static void GetAllBeers() 
+        {
+
+        }
     }
 }

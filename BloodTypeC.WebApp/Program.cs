@@ -1,9 +1,12 @@
+using BloodTypeC.Logic;
+
 namespace BloodTypeC.WebApp
 {
     public class Program
     {
         public static void Main(string[] args)
         {
+            Load.LoadFromFile();
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
@@ -31,6 +34,7 @@ namespace BloodTypeC.WebApp
                 pattern: "{controller=Home}/{action=Index}/{id?}");
 
             app.Run();
+            
         }
     }
 }
