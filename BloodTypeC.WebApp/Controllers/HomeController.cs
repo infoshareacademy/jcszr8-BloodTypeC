@@ -27,8 +27,16 @@ namespace BloodTypeC.WebApp.Controllers
         }
         public IActionResult SearchByName(string searchName)
         {
-            var result = BeerOperations.SearchByName(DB.AllBeers, searchName);
-            return View(result);
+            if (!string.IsNullOrWhiteSpace(searchName))
+            {
+                var result = BeerOperations.SearchByName(DB.AllBeers, searchName);
+                return View(result);
+            }
+            else
+            {
+                return RedirectToAction(nameof(Index));
+            }
+            
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
