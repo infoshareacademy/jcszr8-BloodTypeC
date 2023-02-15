@@ -14,24 +14,12 @@ namespace BloodTypeC.DAL
         
         public string Style { get; set; }
         
-        public List<string> Flavors { get; set; }
+        public List<string> Flavors { get; set; } = new List<string>();
         [JsonPropertyName("abv")]
         public double AlcoholByVolume { get; set; }
         public double Score { get; set; }
         public DateTime Added { get; set; }
         public DateTime LastModified { get; set; }
-
-        public void Add()
-        {
-            this.Id = (DB.AllBeers.Max(x => int.Parse(x.Id)) + 1).ToString();
-            DateTime dateTimeNow = DateTime.Now;
-            this.Added = dateTimeNow;
-
-            DB.AllBeers.Add(this);
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine($"\nSuccessfully added {this.Name}!");
-            Console.ResetColor();
-            Console.ReadKey(true);
-        }
+        public List<int> FavoritesOf { get; set; } = new List<int> { 0 };
     }
 }
