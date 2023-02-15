@@ -160,8 +160,106 @@ namespace BloodTypeC.ConsoleUI
                         CWS.ColoredMsg("Returning to menu.", "blue");
                         Console.ReadKey();
                         break;
-                    case 5:
-                        BeerOperations.NewBeer();
+                    case 5: // Adding a new beer
+                        Console.Clear();
+                        Console.CursorVisible = true;
+                        Beer beerToAdd = new Beer();
+
+                        // Name
+                        CWS.ColoredMsg("ADDING A BEER\n=============\n", "yellow");
+                        CWS.ColoredMsg("> To add a beer, first we need the name of the beer.\n", "yellow");
+                        string input = CWS.ReadLine();
+                        if (string.IsNullOrWhiteSpace(input))
+                        {
+                            CWS.ColoredMsg("Sorry. We cannot add a beer without a name.\n", "red");
+                            CWS.ColoredMsg("Press any key to return to main menu.", "blue");
+                            Console.ReadKey(true);
+                            return;
+                        }
+                        beerToAdd.Name = Format.AsNameOrTitle(input, Format.CapitalsOptions.EachWord, false);
+
+                        // Brewery
+                        CWS.ColoredMsg("\n> Now tell us the name of the brewery.\n", "yellow");
+                        input = CWS.ReadLine();
+                        if (string.IsNullOrWhiteSpace(input))
+                        {
+                            CWS.ColoredMsg("Ok, the brewery is a mystery.\n", "darkyellow");
+                        }
+                        beerToAdd.Brewery = Format.AsNameOrTitle(input, Format.CapitalsOptions.EachWord, false);
+
+                        //Style
+                        CWS.ColoredMsg("\n> What style is it?\n", "yellow");
+                        CWS.ColoredMsg("(add new or choose from: ", "gray");
+                        string[] stylesFromDB = DB.AllBeers.Where(x => x.Style != null).Select(x => x.Style).Distinct().ToArray();
+                        CWS.ColoredMsg((string.Join(", ", stylesFromDB)), "gray");
+                        CWS.ColoredMsg(")\n", "gray");
+
+                        input = CWS.ReadLine();
+                        string reformattedInput = Format.AsNameOrTitle(input, Format.CapitalsOptions.EachWord, true);
+                        if (!string.IsNullOrWhiteSpace(reformattedInput))
+                        {
+                            beerToAdd.Style = reformattedInput;
+                        }
+                        else
+                        {
+                            if (reformattedInput != input)
+                            {
+                                CWS.ColoredMsg("This style format is not accepted.\n", "darkred");
+                            }
+                            else
+                            {
+                                CWS.ColoredMsg("Sure, the style can be unknown, why not.\n", "darkyellow");
+                            }
+                        }
+
+                        // Flavors
+                        CWS.ColoredMsg("\n> What is the beer's taste like?\n", "yellow");
+                        CWS.ColoredMsg("   (You can add multiple flavors. Any special character will be considered as a separator.)\n", "gray");
+                        Console.ForegroundColor = ConsoleColor.Gray;
+                        Console.Write("   Fellow tasters have reported other beers as:\n  [");
+                        List<string> flavorsFromDB = DB.AllBeers.Where(x => x.Flavors != null).SelectMany(beer => beer.Flavors).Distinct().ToList();
+                        Console.Write(string.Join(", ", flavorsFromDB));
+                        Console.WriteLine("]");
+                        Console.ResetColor();
+                        input = CWS.ReadLine();
+                        var flavorsToAdd = Format.AsTags(input);
+                        if (flavorsToAdd.Count > 0)
+                        {
+                            beerToAdd.Flavors = flavorsToAdd;
+                        }
+                        else if (!string.IsNullOrWhiteSpace(input) && flavorsToAdd.Count == 0)
+                        {
+                            CWS.ColoredMsg("The flavors are badly formatted.\n", "darkred");
+                        }
+                        else
+                        {
+                            CWS.ColoredMsg("Fine, the flavors remain to be disovered.\n", "darkyellow");
+                        }
+
+                        // Abv
+                        CWS.ColoredMsg("\n> How much alcohol by volume does it have?\n", "yellow");
+                        input = CWS.ReadLine();
+                        if (string.IsNullOrWhiteSpace(input))
+                        {
+                            CWS.ColoredMsg("That's key info we are missing...\n", "darkyellow");
+                        }
+                        beerToAdd.AlcoholByVolume = Format.AsScoreOrABV(input, 94.99);
+                        CWS.ColoredMsg($"We will set the abv to {beerToAdd.AlcoholByVolume}%.\n", "gray");
+
+                        // Score
+                        CWS.ColoredMsg("\n> What is your score for this beer? 1-10\n", "yellow");
+                        input = CWS.ReadLine();
+                        if (string.IsNullOrWhiteSpace(input))
+                        {
+                            CWS.ColoredMsg("No score, understood.\n", "darkyellow");
+                        }
+                        beerToAdd.Score = Format.AsScoreOrABV(input, 10);
+                        CWS.ColoredMsg($"We will set the score to {beerToAdd.Score} then.\n", "gray");
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        BeerOperations.AddBeer(beerToAdd);
+                        Console.WriteLine($"\nSuccessfully added {beerToAdd.Name}!");
+                        Console.ResetColor();
+                        Console.ReadKey(true);
                         break;
                     case 6:
                         BeerOperations.EditBeer();

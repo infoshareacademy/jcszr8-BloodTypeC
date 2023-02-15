@@ -20,7 +20,8 @@
             <p class="card-text">@item.Brewery<br>asdasdasdasd</p>
             <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-primary">Details</a>
                 <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary">Edit</a>
-                    <a asp-action="Delete" asp-route-id="@item.Id"class="btn btn-danger">Delete</a>
+                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Delete</a>
+                              <a asp-action="AddToFavorites" asp-route-id="@item.Id" class="btn btn-info">Add to favorites</a>
           </div>
         </div>
         </div>

@@ -1,3 +1,4 @@
+using BloodTypeC.DAL;
 using BloodTypeC.Logic;
 
 namespace BloodTypeC.WebApp
