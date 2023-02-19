@@ -3,6 +3,7 @@ using BloodTypeC.DAL;
 using BloodTypeC.Logic;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using Microsoft.AspNetCore.Http;
 
 namespace BloodTypeC.WebApp.Controllers
 {
@@ -33,18 +34,18 @@ namespace BloodTypeC.WebApp.Controllers
         {
             return View(DB.AllBeers);
         }
-        public IActionResult SearchByName(string searchName)
+        public IActionResult SearchByName(string searchBrewery, string searchBeerName)
         {
-            if (!string.IsNullOrWhiteSpace(searchName))
+            var resultList = DB.AllBeers;
+            if (!string.IsNullOrWhiteSpace(searchBrewery))
             {
-                var result = BeerOperations.SearchByName(DB.AllBeers, searchName);
-                return View(result);
+                resultList = BeerOperations.SearchByBrewery(resultList, searchBrewery);               
             }
-            else
+            if (!string.IsNullOrWhiteSpace(searchBeerName))
             {
-                return RedirectToAction(nameof(Index));
-            }
-            
+                resultList = BeerOperations.SearchByName(resultList, searchBeerName);                
+            }          
+            return View(resultList);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

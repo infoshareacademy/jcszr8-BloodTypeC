@@ -223,5 +223,9 @@ namespace BloodTypeC.Logic
         {
 
         }
+        public static void GetAllBrewery()
+        {
+            
+        }
     }
 }
