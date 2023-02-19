@@ -1,0 +1,14 @@
+﻿@model BloodTypeC.DAL.Beer
+
+@{
+    <h1>@Model.Name</h1>
+    <p>by <strong>@Model.Brewery</strong><br>
+    Style: @Model.Style<br>
+    Alcohol by vol: @Model.AlcoholByVolume<br>
+    Score: @Model.Score<br>
+        Flavors: @foreach (var item in Model.Flavors)
+        {
+            @string.Format(item+" ");
+        }
+        </p>
+  }
