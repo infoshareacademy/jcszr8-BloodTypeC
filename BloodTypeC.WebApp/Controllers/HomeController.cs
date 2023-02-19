@@ -25,13 +25,10 @@ namespace BloodTypeC.WebApp.Controllers
         {
             return View(DB.AllBeers);
         }
-        public IActionResult Favorites()
+        public IActionResult Details(int id)
         {
-            return View(DB.Favorites);
-        }
-        public IActionResult AddToFavorites()
-        {
-            return View(DB.AllBeers);
+            var beerToDisplay = DB.AllBeers.FirstOrDefault(x => x.Id == id.ToString());
+            return View(beerToDisplay);
         }
         public IActionResult SearchByName(string searchName)
         {
