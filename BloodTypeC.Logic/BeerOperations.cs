@@ -219,9 +219,9 @@ namespace BloodTypeC.Logic
             Console.CursorVisible = false;
         }
 
-        public static void GetAllBeers() 
+        public static List<string> GetAllFlavors() 
         {
-
+            return DB.AllBeers.Where(x => x.Flavors != null).SelectMany(beer => beer.Flavors).Distinct().ToList();
         }
         public static void GetAllBrewery()
         {

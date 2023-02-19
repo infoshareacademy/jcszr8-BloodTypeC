@@ -34,7 +34,7 @@ namespace BloodTypeC.WebApp.Controllers
         {
             return View(DB.AllBeers);
         }
-        public IActionResult SearchByName(string searchBrewery, string searchBeerName)
+        public IActionResult SearchByName(string searchBrewery, string searchBeerName, List<string> searchFlavors)
         {
             var resultList = DB.AllBeers;
             if (!string.IsNullOrWhiteSpace(searchBrewery))
@@ -44,7 +44,16 @@ namespace BloodTypeC.WebApp.Controllers
             if (!string.IsNullOrWhiteSpace(searchBeerName))
             {
                 resultList = BeerOperations.SearchByName(resultList, searchBeerName);                
-            }          
+            }
+            if (searchFlavors.Count > 0)
+            {
+                var tmpResultList = new List<Beer>();
+                foreach(var flavor in searchFlavors)
+                {
+                    tmpResultList.AddRange(BeerOperations.SearchByFlavor(resultList, flavor));                   
+                }
+                resultList = tmpResultList.Distinct().ToList();
+            }
             return View(resultList);
         }
 
