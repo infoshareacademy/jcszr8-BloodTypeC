@@ -1,4 +1,6 @@
-﻿@model IEnumerable<BloodTypeC.DAL.Beer>
+﻿@using BloodTypeC.DAL;
+@using Microsoft.AspNetCore.Http.Extensions;
+@model IEnumerable<BloodTypeC.DAL.Beer>
 
 @{
     ViewData["Title"] = "AllBeers";
@@ -21,7 +23,14 @@
             <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-primary">Details</a>
                 <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary">Edit</a>
                         <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Delete</a>
-                        <a asp-controller="FavoriteBeers" asp-action="AddToFavorites" asp-route-id="@item.Id" class="btn btn-info">Add to favorites</a>
+                        @if (!DB.FavoriteBeers.Any(x => x.Id == item.Id.ToString()))
+                        {
+                            <a asp-controller="FavoriteBeers" asp-action="AddToFavorites" asp-route-id="@item.Id" class="btn btn-warning">❤ Fav it!</a>
+                        }
+                        else
+                        {
+                            <a asp-controller="FavoriteBeers" asp-action="RemoveFromFavorites" asp-route-id="@item.Id" class="btn btn-outline-warning">💔 Unfav</a>
+                        }
           </div>
         </div>
         </div>
