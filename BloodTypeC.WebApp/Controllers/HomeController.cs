@@ -17,42 +17,44 @@ namespace BloodTypeC.WebApp.Controllers
             _logger = logger;
         }
 
-        public IActionResult Index(string searchBrewery, string searchBeerName, List<string> searchFlavors, double? minAbv, double? maxAbv)
+        public IActionResult Index(IndexViewModel model)
         {
+            model.searchFlavors = BeerOperations.GetAllFlavors();
             var resultList = DB.AllBeers;
             var minimumAlcohol = 0.0;
             var maximumAlcohol = double.MaxValue;
             //filtring by brewery name
-            if (!string.IsNullOrWhiteSpace(searchBrewery))
+            if (!string.IsNullOrWhiteSpace(model.searchBrewery))
             {
-                resultList = BeerOperations.SearchByBrewery(resultList, searchBrewery);
+                resultList = BeerOperations.SearchByBrewery(resultList, model.searchBrewery);
             }
             //filtering by beer name
-            if (!string.IsNullOrWhiteSpace(searchBeerName))
+            if (!string.IsNullOrWhiteSpace(model.searchBeerName))
             {
-                resultList = BeerOperations.SearchByName(resultList, searchBeerName);
+                resultList = BeerOperations.SearchByName(resultList, model.searchBeerName);
             }
             //filtering by flavors
-            if (searchFlavors.Count > 0)
+            if (model.searchFlavors.Count > 0)
             {
                 var tmpResultList = new List<Beer>();
-                foreach (var flavor in searchFlavors)
+                foreach (var flavor in model.searchFlavors)
                 {
                     tmpResultList.AddRange(BeerOperations.SearchByFlavor(resultList, flavor));
                 }
                 resultList = tmpResultList.Distinct().ToList();
             }
             //filtering by alcohol volume
-            if (minAbv.HasValue)
+            if (model.minAbv.HasValue)
             {
-                minimumAlcohol = (double)minAbv;
+                minimumAlcohol = (double)model.minAbv;
             }
-            if (maxAbv.HasValue)
+            if (model.maxAbv.HasValue)
             {
-                maximumAlcohol = (double)maxAbv;
+                maximumAlcohol = (double)model.maxAbv;
             }
             resultList = BeerOperations.SearchByAlcVol(resultList, minimumAlcohol, maximumAlcohol);
-            return View(resultList);        
+            model.Beers = resultList;
+            return View(model);        
         }
 
         public IActionResult AllBeers()
@@ -66,43 +68,6 @@ namespace BloodTypeC.WebApp.Controllers
         public IActionResult AddToFavorites()
         {
             return View(DB.AllBeers);
-        }
-        public IActionResult SearchByName(string searchBrewery, string searchBeerName, List<string> searchFlavors, double? minAbv, double? maxAbv)
-        {
-            var resultList = DB.AllBeers;
-            var minimumAlcohol = 0.0;
-            var maximumAlcohol = double.MaxValue;
-            //filtring by brewery name
-            if (!string.IsNullOrWhiteSpace(searchBrewery))
-            {
-                resultList = BeerOperations.SearchByBrewery(resultList, searchBrewery);               
-            }
-            //filtering by beer name
-            if (!string.IsNullOrWhiteSpace(searchBeerName))
-            {
-                resultList = BeerOperations.SearchByName(resultList, searchBeerName);                
-            }
-            //filtering by flavors
-            if (searchFlavors.Count > 0)
-            {
-                var tmpResultList = new List<Beer>();
-                foreach(var flavor in searchFlavors)
-                {
-                    tmpResultList.AddRange(BeerOperations.SearchByFlavor(resultList, flavor));                   
-                }
-                resultList = tmpResultList.Distinct().ToList();
-            }
-            //filtering by alcohol volume
-            if (minAbv.HasValue)
-            {
-                minimumAlcohol = (double)minAbv;
-            }
-            if (maxAbv.HasValue)
-            {
-                maximumAlcohol = (double)maxAbv;
-            }
-            resultList = BeerOperations.SearchByAlcVol(resultList, minimumAlcohol, maximumAlcohol);                       
-            return View(resultList);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
