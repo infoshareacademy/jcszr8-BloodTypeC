@@ -15,4 +15,10 @@
     <ProjectReference Include="..\BloodTypeC.Logic\BloodTypeC.Logic.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Update="wwwroot\css\styles.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
 </Project>
