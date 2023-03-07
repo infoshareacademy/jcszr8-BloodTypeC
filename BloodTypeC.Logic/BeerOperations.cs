@@ -219,9 +219,15 @@ namespace BloodTypeC.Logic
             Console.CursorVisible = false;
         }
 
-        public static void GetAllBeers() 
+        public static void AddToFavs(int id)
         {
-
+            var beer = DB.AllBeers.FirstOrDefault(x => x.Id == id.ToString());
+            DB.FavoriteBeers?.Add(beer);
+        }
+        public static void RemoveFromFavs(int id)
+        {
+            var beer = DB.FavoriteBeers.FirstOrDefault(x => x.Id == id.ToString());
+            DB.FavoriteBeers?.Remove(beer);
         }
     }
 }
