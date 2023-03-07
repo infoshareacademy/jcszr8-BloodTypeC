@@ -4,6 +4,8 @@ using BloodTypeC.Logic;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using Microsoft.AspNetCore.Http;
+using System.Drawing.Text;
+using System.Reflection;
 
 namespace BloodTypeC.WebApp.Controllers
 {
@@ -19,7 +21,11 @@ namespace BloodTypeC.WebApp.Controllers
 
         public IActionResult Index(IndexViewModel model)
         {
-            model.searchFlavors = BeerOperations.GetAllFlavors();
+            
+
+
+
+
             var resultList = DB.AllBeers;
             var minimumAlcohol = 0.0;
             var maximumAlcohol = double.MaxValue;
@@ -33,16 +39,20 @@ namespace BloodTypeC.WebApp.Controllers
             {
                 resultList = BeerOperations.SearchByName(resultList, model.searchBeerName);
             }
+            /*model.searchFlavors = allFlavors;
             //filtering by flavors
-            if (model.searchFlavors.Count > 0)
+            if (model.searchFlavors!=null)
             {
-                var tmpResultList = new List<Beer>();
-                foreach (var flavor in model.searchFlavors)
+                if (model.searchFlavors.Count > 0)
                 {
-                    tmpResultList.AddRange(BeerOperations.SearchByFlavor(resultList, flavor));
-                }
-                resultList = tmpResultList.Distinct().ToList();
-            }
+                    var tmpResultList = new List<Beer>();
+                    foreach (var flavor in model.searchFlavors)
+                    {
+                        tmpResultList.AddRange(BeerOperations.SearchByFlavor(resultList, flavor));
+                    }
+                    resultList = tmpResultList.Distinct().ToList();
+                }              
+            }*/
             //filtering by alcohol volume
             if (model.minAbv.HasValue)
             {

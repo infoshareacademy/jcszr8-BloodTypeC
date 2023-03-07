@@ -16,12 +16,12 @@
     <p>
         Beer flavors:
     </p> 
-    @foreach(var flavor in Model.searchFlavors)
+    @foreach(var flavor in Model.CheckedListOfFlavors)
     {
       <div class="form-check form-check-inline">
-          @*<input class="form-check-input" type="checkbox" asp-for="@Model.searchFlavors" value="flavor" id="flexCheckDefault" >*@
+              <input class="form-check-input" type="checkbox" asp-for="@flavor.IsChecked" value="1" id="@flavor.Name" >
       <label class="form-check-label" for="flexCheckDefault">
-        @flavor
+        @flavor.Name
       </label>
     </div>
     }
