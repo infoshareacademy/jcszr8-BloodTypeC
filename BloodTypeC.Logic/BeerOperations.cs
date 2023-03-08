@@ -219,14 +219,23 @@ namespace BloodTypeC.Logic
             Console.ReadKey();
             Console.CursorVisible = false;
         }
-
-        public static List<string> GetAllFlavors() 
+        public static void AddToFavs(int id)
         {
-            return DB.AllBeers.Where(x => x.Flavors != null).SelectMany(beer => beer.Flavors).Distinct().ToList();
+            var beer = DB.AllBeers.FirstOrDefault(x => x.Id == id.ToString());
+            DB.FavoriteBeers?.Add(beer);
         }
-        public static void GetAllBrewery()
+        public static void RemoveFromFavs(int id)
         {
-            
+            var beer = DB.FavoriteBeers.FirstOrDefault(x => x.Id == id.ToString());
+            DB.FavoriteBeers?.Remove(beer);
+        }
+    }
+    public static List<string> GetAllFlavors()
+    {
+        return DB.AllBeers.Where(x => x.Flavors != null).SelectMany(beer => beer.Flavors).Distinct().ToList();
+    }
+    public static void GetAllBeers() 
+        {
         }
     }
 }

@@ -5,8 +5,9 @@
     ViewData["Title"] = "Home Page";
     
 }
-
-<form asp-controller="Home" asp-action="Index" method="post">
+<header class="py-5">
+            <div class="container px-lg-5">
+                <form asp-controller="Home" asp-action="Index" method="post">
     <p>
         Beer brewery: <input type="text" asp-for="@Model.searchBrewery" />       
     </p>
@@ -36,14 +37,17 @@
     <input type="hidden" asp-for="@Model.Beers"/>
     <button type="submit" class="btn btn-primary">Search</button>
 </form>
+            </div>
+        </header>
 
-<div class="container">
-    <div class="row gy-4">
-        @foreach (var item in Model.Beers)
+<section class="pt-4">
+    <div class="container px-lg-5">
+        <div class="row gx-lg-5">
+            @foreach (var item in Model.Beers)
         {       
-                  <div class="col-12 col-md-6 col-lg-4 col-xxl-3 item">
-                  <div class="card" style="width: 300px;">
-                  <div class="card-body">
+                  <div class="col-lg-6 col-xxl-4 mb-5">
+                  <div class="card bg-light border-0 h-100">
+                  <div class="card-body text-center p-4 p-lg-5 pt-0 pt-lg-0">
                   <h5 class="card-title">@item.Name</h5>
                     <p class="card-text">@item.Brewery<br>asdasdasdasd</p>
                     <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-primary">Details</a>
@@ -51,13 +55,6 @@
                             <a asp-action="Delete" asp-route-id="@item.Id"class="btn btn-danger">Delete</a>
                   </div>
                 </div>
-                </div>
-        }
-</div>
-</div>
-
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
-
+        </div>
+    </div>
+</section>
