@@ -1,11 +1,9 @@
-﻿@model IndexViewModel
-@using BloodTypeC.Logic;
-
+﻿@using BloodTypeC.Logic;
+@model IndexViewModel
 @{
     ViewData["Title"] = "Home Page";
-    
 }
-<header class="py-5">
+<header class="py-5"></header>
             <div class="container px-lg-5">
                 <form asp-controller="Home" asp-action="Index" method="post">
     <p>
@@ -44,7 +42,7 @@
     <div class="container px-lg-5">
         <div class="row gx-lg-5">
             @foreach (var item in Model.Beers)
-        {       
+            {       
                   <div class="col-lg-6 col-xxl-4 mb-5">
                   <div class="card bg-light border-0 h-100">
                   <div class="card-body text-center p-4 p-lg-5 pt-0 pt-lg-0">
@@ -55,6 +53,8 @@
                             <a asp-action="Delete" asp-route-id="@item.Id"class="btn btn-danger">Delete</a>
                   </div>
                 </div>
+                </div>
+            }
+            </div>
         </div>
-    </div>
 </section>

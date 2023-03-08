@@ -165,10 +165,11 @@ namespace BloodTypeC.Logic
                         newFlavors += $"{oldFlavor},";
                     }
                     else
-                    {   while (flavorInput.Contains(',') && flavorInput[0] == ',')
+                    {
+                        while (flavorInput.Contains(',') && flavorInput[0] == ',')
                         {
                             flavorInput = flavorInput.Substring(1);
-                        } 
+                        }
                         if (flavorInput.Contains(" "))
                         {
                             flavorInput = flavorInput.Remove(flavorInput.IndexOf(" "));
@@ -229,13 +230,14 @@ namespace BloodTypeC.Logic
             var beer = DB.FavoriteBeers.FirstOrDefault(x => x.Id == id.ToString());
             DB.FavoriteBeers?.Remove(beer);
         }
-    }
-    public static List<string> GetAllFlavors()
-    {
-        return DB.AllBeers.Where(x => x.Flavors != null).SelectMany(beer => beer.Flavors).Distinct().ToList();
-    }
-    public static void GetAllBeers() 
+
+        public static List<string> GetAllFlavors()
+        {
+            return DB.AllBeers.Where(x => x.Flavors != null).SelectMany(beer => beer.Flavors).Distinct().ToList();
+        }
+        public static void GetAllBeers()
         {
         }
     }
-}
+    }
+
