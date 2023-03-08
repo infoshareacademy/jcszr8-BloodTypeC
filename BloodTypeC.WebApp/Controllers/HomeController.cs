@@ -13,22 +13,39 @@ namespace BloodTypeC.WebApp.Controllers
     {
         
         private readonly ILogger<HomeController> _logger;
+        private static List<FlavorToSearch> _flavorsToSearch;
+        private static List<Beer> _allBeers;
 
         public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
+            _flavorsToSearch = new List<FlavorToSearch>();
+            _allBeers = DB.AllBeers;
         }
 
+        public IActionResult Index()
+        { 
+        DB.AllFlavors = BeerOperations.GetAllFlavors();
+        foreach (var flavor in DB.AllFlavors)
+        {
+            var activeFlavor = new FlavorToSearch() { Name = flavor, IsChecked = false };
+            if (!_flavorsToSearch.Contains(activeFlavor))
+            {
+                _flavorsToSearch.Add(activeFlavor);
+            }
+        }
+            var model = new IndexViewModel();
+            model.CheckedListOfFlavors = _flavorsToSearch;
+            model.Beers = _allBeers;
+            return View(model);        
+        }
+        [HttpPost]
         public IActionResult Index(IndexViewModel model)
         {
-            
-
-
-
-
-            var resultList = DB.AllBeers;
             var minimumAlcohol = 0.0;
             var maximumAlcohol = double.MaxValue;
+            var resultList = _allBeers;
+
             //filtring by brewery name
             if (!string.IsNullOrWhiteSpace(model.searchBrewery))
             {
@@ -39,20 +56,24 @@ namespace BloodTypeC.WebApp.Controllers
             {
                 resultList = BeerOperations.SearchByName(resultList, model.searchBeerName);
             }
-            /*model.searchFlavors = allFlavors;
-            //filtering by flavors
-            if (model.searchFlavors!=null)
+            List<string> activeFlavors = new List<string>();
+            foreach (var item in model.CheckedListOfFlavors)
             {
-                if (model.searchFlavors.Count > 0)
+                if (item.IsChecked)
                 {
-                    var tmpResultList = new List<Beer>();
-                    foreach (var flavor in model.searchFlavors)
-                    {
-                        tmpResultList.AddRange(BeerOperations.SearchByFlavor(resultList, flavor));
-                    }
-                    resultList = tmpResultList.Distinct().ToList();
-                }              
-            }*/
+                    activeFlavors.Add(item.Name);
+                }
+            }
+            //filtering by flavors      
+            if (activeFlavors.Count > 0)
+            {
+                var tmpResultList = new List<Beer>();
+                foreach (var flavor in activeFlavors)
+                {
+                    tmpResultList.AddRange(BeerOperations.SearchByFlavor(resultList, flavor));
+                }
+                resultList = tmpResultList.Distinct().ToList();
+            }
             //filtering by alcohol volume
             if (model.minAbv.HasValue)
             {
@@ -64,10 +85,10 @@ namespace BloodTypeC.WebApp.Controllers
             }
             resultList = BeerOperations.SearchByAlcVol(resultList, minimumAlcohol, maximumAlcohol);
             model.Beers = resultList;
-            return View(model);        
+            return View(model);
         }
 
-        public IActionResult AllBeers()
+            public IActionResult AllBeers()
         {
             return View(DB.AllBeers);
         }

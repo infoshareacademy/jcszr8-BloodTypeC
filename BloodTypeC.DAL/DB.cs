@@ -10,5 +10,6 @@ namespace BloodTypeC.DAL
     {
         public static List<Beer> AllBeers { get; set; }
         public static List<Beer>? Favorites { get; set; } = new List<Beer>();
+        public static List<string> AllFlavors { get; set; } = new List<string>();
     }
 }
