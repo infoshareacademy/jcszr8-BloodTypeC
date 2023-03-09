@@ -27,7 +27,7 @@ namespace BloodTypeC.WebApp.Controllers
             }
             else
             {
-                return RedirectToAction("AllBeers", "Home");
+                return RedirectToAction("Index", "Home");
             }
         }
         public IActionResult RemoveFromFavorites(int id)
@@ -44,7 +44,7 @@ namespace BloodTypeC.WebApp.Controllers
             }
             else
             {
-                return RedirectToAction("AllBeers", "Home");
+                return RedirectToAction("Index", "Home");
             }
         }
         public IActionResult Favorites()

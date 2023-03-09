@@ -3,6 +3,9 @@ using BloodTypeC.DAL;
 using BloodTypeC.Logic;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using Microsoft.AspNetCore.Http;
+using System.Drawing.Text;
+using System.Reflection;
 
 namespace BloodTypeC.WebApp.Controllers
 {
@@ -10,18 +13,82 @@ namespace BloodTypeC.WebApp.Controllers
     {
         
         private readonly ILogger<HomeController> _logger;
+        private static List<FlavorToSearch> _flavorsToSearch;
+        private static List<Beer> _allBeers;
 
         public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
+            _flavorsToSearch = new List<FlavorToSearch>();
+            _allBeers = DB.AllBeers;
         }
 
         public IActionResult Index()
+        { 
+        DB.AllFlavors = BeerOperations.GetAllFlavors();
+        foreach (var flavor in DB.AllFlavors)
         {
-            return View();
+            var activeFlavor = new FlavorToSearch() { Name = flavor, IsChecked = false };
+            if (!_flavorsToSearch.Contains(activeFlavor))
+            {
+                _flavorsToSearch.Add(activeFlavor);
+            }
+        }
+            var model = new IndexViewModel();
+            model.CheckedListOfFlavors = _flavorsToSearch;
+            model.Beers = _allBeers;
+            return View(model);        
+        }
+        [HttpPost]
+        public IActionResult Index(IndexViewModel model)
+        {
+            var minimumAlcohol = 0.0;
+            var maximumAlcohol = double.MaxValue;
+            var resultList = _allBeers;
+
+            //filtring by brewery name
+            if (!string.IsNullOrWhiteSpace(model.searchBrewery))
+            {
+                resultList = BeerOperations.SearchByBrewery(resultList, model.searchBrewery);
+            }
+            //filtering by beer name
+            if (!string.IsNullOrWhiteSpace(model.searchBeerName))
+            {
+                resultList = BeerOperations.SearchByName(resultList, model.searchBeerName);
+            }
+            List<string> activeFlavors = new List<string>();
+            foreach (var item in model.CheckedListOfFlavors)
+            {
+                if (item.IsChecked)
+                {
+                    activeFlavors.Add(item.Name);
+                }
+            }
+            //filtering by flavors      
+            if (activeFlavors.Count > 0)
+            {
+                var tmpResultList = new List<Beer>();
+                foreach (var flavor in activeFlavors)
+                {
+                    tmpResultList.AddRange(BeerOperations.SearchByFlavor(resultList, flavor));
+                }
+                resultList = tmpResultList.Distinct().ToList();
+            }
+            //filtering by alcohol volume
+            if (model.minAbv.HasValue)
+            {
+                minimumAlcohol = (double)model.minAbv;
+            }
+            if (model.maxAbv.HasValue)
+            {
+                maximumAlcohol = (double)model.maxAbv;
+            }
+            resultList = BeerOperations.SearchByAlcVol(resultList, minimumAlcohol, maximumAlcohol);
+            model.Beers = resultList;
+            return View(model);
         }
 
-        public IActionResult AllBeers()
+            public IActionResult AllBeers()
         {
             return View(DB.AllBeers);
         }
@@ -29,19 +96,6 @@ namespace BloodTypeC.WebApp.Controllers
         {
             var beerToDisplay = DB.AllBeers.FirstOrDefault(x => x.Id == id.ToString());
             return View(beerToDisplay);
-        }
-        public IActionResult SearchByName(string searchName)
-        {
-            if (!string.IsNullOrWhiteSpace(searchName))
-            {
-                var result = BeerOperations.SearchByName(DB.AllBeers, searchName);
-                return View(result);
-            }
-            else
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
