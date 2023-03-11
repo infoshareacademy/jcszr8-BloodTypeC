@@ -1,0 +1,58 @@
+﻿body {
+    background-color: rgb(39, 41, 42);
+}
+
+.logo {
+    margin: auto;
+    max-width: 650px;
+    padding: 20px;
+}
+
+.logo-responsive {
+    width: 100%;
+    max-width: 650px;
+    height: auto;
+    margin: auto;
+}
+
+.age-question {
+    font-family: 'Great Vibes', cursive;
+    color: white;
+    font-size: 50px;
+    width: 310px;
+    margin: auto;
+    padding: 20px;
+}
+
+.age-validation-button-style {
+    height: 50px;
+    width: 200px;
+    border-radius: 15px;
+    border-width: 2px;
+    border: solid;
+    border-color: rgb(253, 197, 0);
+    color: white;
+    background-color: rgb(39, 41, 42);
+    font-size: 20px;
+    flex: 250px;
+    margin: 20px;
+}
+
+    .age-validation-button-style:hover {
+        height: 50px;
+        width: 200px;
+        border-radius: 15px;
+        border-width: 2px;
+        color: rgb(39, 41, 42);
+        background-color: rgb(253, 197, 0);
+        font-size: 20px;
+        font-weight: bold;
+        flex: 250px;
+        margin: 20px;
+    }
+
+.buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}

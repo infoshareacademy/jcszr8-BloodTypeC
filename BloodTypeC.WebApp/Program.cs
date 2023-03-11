@@ -1,5 +1,7 @@
 using BloodTypeC.DAL;
 using BloodTypeC.Logic;
+using Microsoft.AspNetCore.Mvc;
+using System;
 
 namespace BloodTypeC.WebApp
 {
@@ -32,10 +34,14 @@ namespace BloodTypeC.WebApp
 
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}");
-
-            app.Run();
-            
+                pattern: "{controller=Home}/{action}/{id?}",
+                defaults: new
+                {
+                    controller = "Home", // default controller
+                    action = "AgeCheck" // default action on the controller
+                }
+                );
+            app.Run();   
         }
     }
 }

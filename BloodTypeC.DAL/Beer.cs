@@ -20,6 +20,5 @@ namespace BloodTypeC.DAL
         public double Score { get; set; }
         public DateTime Added { get; set; }
         public DateTime LastModified { get; set; }
-        public List<int> FavoritesOf { get; set; } = new List<int> { 0 };
     }
 }

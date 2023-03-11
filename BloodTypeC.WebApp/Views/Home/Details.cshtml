@@ -1,0 +1,28 @@
+﻿@using BloodTypeC.DAL;
+@model BloodTypeC.DAL.Beer
+
+@{
+    ViewData["Title"] = "Details";
+}
+    <h1>@Model.Name</h1>
+    <p>by <strong>@Model.Brewery</strong><br>
+    Style: @Model.Style<br>
+    Alcohol by vol: @Model.AlcoholByVolume<br>
+    Score: @Model.Score<br>
+        Flavors: @foreach (var item in Model.Flavors)
+        {
+            @string.Format(item+" ");
+        }
+        <br>
+    @if (DB.FavoriteBeers.Any(x => x.Id == Model.Id.ToString()))
+        {
+        <span><a class="btn btn-warning">In your ❤ Favs!</a>
+        <a asp-action="RemoveFromFavorites" asp-controller="FavoriteBeers" asp-route-id="@Model.Id" class="btn btn-outline-warning">💔 Unfav</a>
+        </span>
+
+        }
+        else
+        {
+        <a asp-action="AddToFavorites" asp-controller="FavoriteBeers" asp-route-id="@Model.Id" class="btn btn-warning">❤ Fav it!</a>
+        }
+        </p>

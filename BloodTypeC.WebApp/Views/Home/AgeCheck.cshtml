@@ -1,0 +1,32 @@
+﻿@{
+    Layout = "";
+}
+
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+    <link href="css/StyleSheet.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="age-validation-page">
+        <div class="logo">
+            <img src="~/Images/logo-smallmargin.png" class="logo-responsive">
+        </div>
+        <div class="age-question">
+            Are you over 18?
+        </div>
+        <div class="buttons">
+            <div class="age-validation-button">
+                <button onclick="@("window.location.href='" + Url.Action("Index", "Home") + "'")" class="age-validation-button-style">
+                    YES
+                </button>
+            </div>
+            <div onclick="@("window.location.href='" + Url.Action("GP", "Home") + "'")" class="age-validation-button">
+                <button class="age-validation-button-style">
+                    NO
+                </button>
+            </div>
+        </div>
+    </div>
+</body>
