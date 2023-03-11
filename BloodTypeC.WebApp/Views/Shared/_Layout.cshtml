@@ -1,4 +1,5 @@
-﻿<head>
+﻿<html lang="en">
+<head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
@@ -26,10 +27,13 @@
         </div>
     </nav>
     @RenderBody()
-      <!-- Footer-->
-    <footer class="py-5 bg-dark">
+      <!-- Footer-->   
+</body>
+<footer class="py-5 bg-dark">
         <div class="container px-5"><p class="m-0 text-center text-white">Copyright &copy; Beer-o-pedia 2023</p></div>
     </footer>
-    @await RenderSectionAsync("Scripts", required: false)
-</body>
+@*<script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>*@
+@await RenderSectionAsync("Scripts", required: false)
 </html>

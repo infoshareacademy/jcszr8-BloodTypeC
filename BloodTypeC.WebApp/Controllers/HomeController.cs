@@ -39,12 +39,41 @@ namespace BloodTypeC.WebApp.Controllers
             model.Beers = _allBeers;
             return View(model);        
         }
+
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Index(IndexViewModel model)
         {
             var minimumAlcohol = 0.0;
             var maximumAlcohol = double.MaxValue;
             var resultList = _allBeers;
+
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            if(model.minAbv.HasValue && model.maxAbv.HasValue && model.minAbv.Value > model.maxAbv.Value)
+            {
+                ModelState.AddModelError(nameof(model.minAbv), "Minimum value has to be lower than maximum value.");
+                return View(model);
+            }
+
+            if (model.minAbv.HasValue && model.maxAbv.HasValue && model.maxAbv.Value < model.minAbv.Value)
+            {
+                ModelState.AddModelError(nameof(model.maxAbv), "Maximum value has to be higher than minimum value.");
+                return View(model);
+            }
+
+            //filtering by alcohol volume
+            if (model.minAbv.HasValue)
+            {
+                minimumAlcohol = (double)model.minAbv;
+            }
+            if (model.maxAbv.HasValue)
+            {
+                maximumAlcohol = (double)model.maxAbv;
+            }
 
             //filtring by brewery name
             if (!string.IsNullOrWhiteSpace(model.searchBrewery))
@@ -74,15 +103,7 @@ namespace BloodTypeC.WebApp.Controllers
                 }
                 resultList = tmpResultList.Distinct().ToList();
             }
-            //filtering by alcohol volume
-            if (model.minAbv.HasValue)
-            {
-                minimumAlcohol = (double)model.minAbv;
-            }
-            if (model.maxAbv.HasValue)
-            {
-                maximumAlcohol = (double)model.maxAbv;
-            }
+
             resultList = BeerOperations.SearchByAlcVol(resultList, minimumAlcohol, maximumAlcohol);
             model.Beers = resultList;
             return View(model);

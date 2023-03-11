@@ -1,5 +1,7 @@
 ﻿using BloodTypeC.DAL;
 using BloodTypeC.Logic;
+using System.ComponentModel.DataAnnotations;
+using System.Diagnostics.CodeAnalysis;
 
 namespace BloodTypeC.WebApp.Models
 {
@@ -7,8 +9,11 @@ namespace BloodTypeC.WebApp.Models
     {
         public List<Beer> Beers { get; set; }
         public List<FlavorToSearch> CheckedListOfFlavors { get; set; }
+        
         public string searchBrewery { get; set; }
+        
         public string searchBeerName { get; set; }
+        
         public double? minAbv { get; set; }
         public double? maxAbv { get; set; }
     }
