@@ -1,5 +1,7 @@
 using BloodTypeC.DAL;
 using BloodTypeC.Logic;
+using BloodTypeC.WebApp.Services;
+using BloodTypeC.WebApp.Services.IServices;
 using Microsoft.AspNetCore.Localization;
 using System.Globalization;
 
@@ -14,6 +16,7 @@ namespace BloodTypeC.WebApp
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+            builder.Services.AddScoped<IBeerServices, BeerServices>();
 
             var app = builder.Build();
 
