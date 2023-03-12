@@ -11,6 +11,9 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet" />
     <!-- Core theme CSS (includes Bootstrap)-->
     <link href="~/css/styles.css" rel="stylesheet" />
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>   
 </head>
 <body>
     <!-- Responsive navbar-->
@@ -32,8 +35,6 @@
 <footer class="py-5 bg-dark">
         <div class="container px-5"><p class="m-0 text-center text-white">Copyright &copy; Beer-o-pedia 2023</p></div>
     </footer>
-@*<script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>*@
+  
 @await RenderSectionAsync("Scripts", required: false)
 </html>

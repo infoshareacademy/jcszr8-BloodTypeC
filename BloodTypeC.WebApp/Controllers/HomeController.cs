@@ -41,7 +41,6 @@ namespace BloodTypeC.WebApp.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public IActionResult Index(IndexViewModel model)
         {
             var minimumAlcohol = 0.0;
@@ -56,12 +55,6 @@ namespace BloodTypeC.WebApp.Controllers
             if(model.minAbv.HasValue && model.maxAbv.HasValue && model.minAbv.Value > model.maxAbv.Value)
             {
                 ModelState.AddModelError(nameof(model.minAbv), "Minimum value has to be lower than maximum value.");
-                return View(model);
-            }
-
-            if (model.minAbv.HasValue && model.maxAbv.HasValue && model.maxAbv.Value < model.minAbv.Value)
-            {
-                ModelState.AddModelError(nameof(model.maxAbv), "Maximum value has to be higher than minimum value.");
                 return View(model);
             }
 
