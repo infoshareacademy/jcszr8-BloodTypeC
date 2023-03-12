@@ -16,6 +16,7 @@ namespace BloodTypeC.WebApp.Models
         public string? searchBrewery { get; set; }
         //[ValidateNever]
         public string? searchBeerName { get; set; }
+        //[ValidateNever]
         public double? minAbv { get; set; }
         public double? maxAbv { get; set; }
     }
