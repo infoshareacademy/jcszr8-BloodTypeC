@@ -1,3 +1,32 @@
 ﻿.card-background {
     background-color: #4b4d51;
 }
+.age-validation-button-style {
+    height: 50px;
+    width: 100px;
+    border-radius: 15px;
+    border-width: 2px;
+    border: solid;
+    border-color: rgb(253, 197, 0);
+    color: white;
+    background-color: rgb(39, 41, 42);
+    font-size: 15px;
+    flex: 250px;
+}
+
+.age-validation-button-style:hover {
+    height: 50px;
+    width: 100px;
+    border-radius: 15px;
+    border-width: 2px;
+    color: rgb(39, 41, 42);
+    background-color: rgb(253, 197, 0);
+    font-size: 15px;
+    flex: 250px;
+}
+
+.buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
