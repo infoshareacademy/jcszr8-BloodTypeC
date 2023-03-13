@@ -1,80 +1,96 @@
 [
-   {
-      "beer_id":"4481",
-      "name":"Saint Lamvinus",
-      "brewery":"Brasserie Cantillon",
-      "style":"Lambic - Fruit",
-      "abv":5.0,
-      "score":3.22,
-	  "flavors": [
-		 "buttery", "smooth"
-	  ]
-   },
-   {
-	  "beer_id":"5281",
-      "brewery":"Austmann",
-      "name":"Jingle Beer",
-	  "style":"American Amber Ale",
-      "score":6.49,
-      "abv":7,
-	  "flavors": [
-		 "sweet", "smooth", "nutty"
-	  ]
-	  
-   },
-   {
-	  "beer_id":"4122",
-      "brewery":"Binding-Brauerei",
-      "name":"Santa Clausthaler",
-      "style":"Kellerbier",
-      "score":2.14,
-      "abv":0,
-	  "flavors": [
-		 "coffee", "bitter", "rich"
-	  ]
-   },
-   {
-	  "beer_id":"7643",
-      "brewery":"Brasserie St-Feuillien",
-      "name":"Cuvée de Noël",
-	  "style":"Helles Lager",
-      "score":6.43,
-	  "flavors": [
-		 "woody"
-	  ],
-      "abv":9
-   },
-   {
-	  "beer_id":"1123",
-      "brewery":"Dahls",
-      "name":"Julebrygg",
-	  "style":"American Amber Ale",
-      "score":5.19,
-	  "flavors": [
-		 "sour", "earthy", "grass", "funky"
-	  ],
-      "abv":4.5
-   },
-   {
-	  "beer_id":"3211",
-      "brewery":"Fanø Bryghus",
-	  "flavors": [
-		 "tart", "clean"
-	  ],
-      "name":"Julebryg",
-	  "style":"Kolsch",
-      "score":5.74,
-      "abv":7.2
-   },
-   {
-	  "beer_id":"9889",
-      "brewery":"Grans Bryggeri",
-      "name":"Lade Gaards Brygghus Juleøl",
-	  "style":"Cream Ale",
-      "score":5.92,
-      "abv":6.5,
-	  "flavors": [
-		 "refreshing", "grass"
-	  ]
-   }
+  {
+    "beer_id": "4481",
+    "name": "Saint Lamvinus",
+    "brewery": "Brasserie Cantillon",
+    "style": "Lambic - Fruit",
+    "abv": 5.0,
+    "score": 3.22,
+    "flavors": [
+      "buttery",
+      "smooth"
+    ],
+    "image": "Images/SaintLamvinus.png"
+  },
+  {
+    "beer_id": "5281",
+    "brewery": "Austmann",
+    "name": "Jingle Beer",
+    "style": "American Amber Ale",
+    "score": 6.49,
+    "abv": 7,
+    "flavors": [
+      "sweet",
+      "smooth",
+      "nutty"
+    ],
+    "image": "Images/JingleBeer.png"
+  },
+  {
+    "beer_id": "4122",
+    "brewery": "Binding-Brauerei",
+    "name": "Santa Clausthaler",
+    "style": "Kellerbier",
+    "score": 2.14,
+    "abv": 0,
+    "flavors": [
+      "coffee",
+      "bitter",
+      "rich"
+    ],
+    "image": "Images/SantaClausthaler.png"
+  },
+  {
+    "beer_id": "7643",
+    "brewery": "Brasserie St-Feuillien",
+    "name": "Cuvée de Noël",
+    "style": "Helles Lager",
+    "score": 6.43,
+    "flavors": [
+      "woody"
+    ],
+    "abv": 9,
+    "image": "Images/CuveeDeNoel.png"
+  },
+  {
+    "beer_id": "1123",
+    "brewery": "Dahls",
+    "name": "Julebrygg",
+    "style": "American Amber Ale",
+    "score": 5.19,
+    "flavors": [
+      "sour",
+      "earthy",
+      "grass",
+      "funky"
+    ],
+    "abv": 4.5,
+    "image": "Images/Julebrygg.png"
+  },
+  {
+    "beer_id": "3211",
+    "brewery": "Fanø Bryghus",
+    "flavors": [
+      "tart",
+      "clean"
+    ],
+    "name": "Julebryg",
+    "style": "Kolsch",
+    "score": 5.74,
+    "abv": 7.2,
+    "image": "Images/Julebryg.png"
+  },
+  {
+    "beer_id": "9889",
+    "brewery": "Grans Bryggeri",
+    "name": "Lade Gaards Brygghus Juleøl",
+    "style": "Cream Ale",
+    "score": 5.92,
+    "abv": 6.5,
+    "flavors": [
+      "refreshing",
+      "grass"
+    ],
+    "image": "Images/LadeGaardsBrygghusJuleol.png"
+  }
 ]

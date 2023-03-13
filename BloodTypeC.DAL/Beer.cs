@@ -14,6 +14,8 @@ namespace BloodTypeC.DAL
         
         public string Style { get; set; }
         
+        public string Image { get; set; }
+        
         public List<string> Flavors { get; set; } = new List<string>();
         [JsonPropertyName("abv")]
         public double AlcoholByVolume { get; set; }

@@ -6,35 +6,57 @@
     ViewData["Title"] = "AllBeers";
 }
 
-<h1>AllBeers</h1>
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+    <link href="~/css/StyleSheet.css" rel="stylesheet" />
+</head>
+<body>
+    <div class ="page-name">
+    All Beers
+    </div>
 
-<p>
-    <a asp-action="Create" class="btn btn-primary">Add new</a>
-</p>
-<div class="container-fluid">
-    <div class="row">
-    @foreach (var item in Model)
-    {       
-          <div class="col-12 col-md-6 col-lg-4 col-xxl-3 item">
-          <div class="card" style="width: 300px;">
-          <div class="card-body">
-          <h5 class="card-title">@item.Name</h5>
-            <p class="card-text">@item.Brewery<br>asdasdasdasd</p>
-            <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-primary">Details</a>
-                <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary">Edit</a>
-                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Delete</a>
-                        @if (!DB.FavoriteBeers.Any(x => x.Id == item.Id.ToString()))
-                        {
-                            <a asp-controller="FavoriteBeers" asp-action="AddToFavorites" asp-route-id="@item.Id" class="btn btn-warning">❤ Fav it!</a>
-                        }
-                        else
-                        {
-                            <a asp-controller="FavoriteBeers" asp-action="RemoveFromFavorites" asp-route-id="@item.Id" class="btn btn-outline-warning">💔 Unfav</a>
-                        }
-          </div>
-        </div>
-        </div>
-    }
-</div>
-</div>
-
+    <p>
+        <a asp-action="Create" class="btn btn-primary">Add new</a>
+    </p>
+    <div class="products">
+        @foreach (var item in Model)
+        {
+            <div class="product-card">
+                <div class="card-body">
+                    <div class="beer-image-possition"><img src="~/@item.Image" class="beer-image"></div>
+                    <h5>@item.Name</h5>
+                    <p>@item.Brewery<br>asdasdasdasd</p>
+                    <div class="buttons">
+                        <button class="product-button">
+                            <a asp-action="Details" asp-route-id="@item.Id">Details</a>
+                        </button >                    
+                        <button class="product-button">
+                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                        </button>   
+                        <button class="product-button">
+                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                        </button>
+                    </div>
+                    <div class="buttons">
+                    <div>
+                    @if (!DB.FavoriteBeers.Any(x => x.Id == item.Id.ToString()))
+                    {
+                        <button class="fav-button">
+                        <a asp-controller="FavoriteBeers" asp-action="AddToFavorites" asp-route-id="@item.Id">❤ Fav it!</a>
+                        </button>
+                    }
+                    else
+                    {
+                        <button class="fav-rem-button">
+                        <a asp-controller="FavoriteBeers" asp-action="RemoveFromFavorites" asp-route-id="@item.Id">💔 Unfav</a>
+                        </button>
+                    }
+                    </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</body>
