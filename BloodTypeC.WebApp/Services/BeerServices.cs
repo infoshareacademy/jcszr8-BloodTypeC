@@ -6,7 +6,7 @@ namespace BloodTypeC.WebApp.Services
 {
     public class BeerServices : IBeerServices
     {
-        private static List<Beer> _allBeers = DB.AllBeers;
+        private List<Beer> _allBeers = DB.AllBeers;
         private const double MaxAlcoholValue = 94.99;
         private const double MaxScore = 10;
         public void Add(Beer beer)
@@ -15,31 +15,31 @@ namespace BloodTypeC.WebApp.Services
             beer.Name = Format.AsNameOrTitle(beer.Name, Format.CapitalsOptions.FirstWord, false);
             beer.Brewery = Format.AsNameOrTitle(beer.Brewery, Format.CapitalsOptions.EachWord, false);
             beer.Style = Format.AsNameOrTitle(beer.Style, Format.CapitalsOptions.EachWord, true);
-            beer.Flavors = Format.AsTags(beer.Flavors.Aggregate((a, b) => a + " " + b));
+            beer.Flavors ??= Format.AsTags(beer.Flavors.Aggregate((a, b) => a + " " + b));
             beer.AlcoholByVolume = Format.AsScoreOrABV(beer.AlcoholByVolume.ToString(), MaxAlcoholValue);
             beer.Score = Format.AsScoreOrABV(beer.Score.ToString(), MaxScore);
             beer.Added = DateTime.Now;
             _allBeers.Add(beer);
         }
 
-        public void Delete(string id)
+        public void Delete(int id)
         {
             throw new NotImplementedException();
         }
 
-        public void Edit(string id)
+        public void Edit(int id)
         {
             throw new NotImplementedException();
         }
 
-        public List<Beer> GetAll()
+        public IEnumerable<Beer> GetAll()
         {
             return _allBeers;
         }
 
-        public Beer GetById(string id)
+        public Beer GetById(int id)
         {
-            return _allBeers.FirstOrDefault(x => x.Id == id);
+            return _allBeers.FirstOrDefault(x => x.Id == id.ToString());
         }
     }
 }

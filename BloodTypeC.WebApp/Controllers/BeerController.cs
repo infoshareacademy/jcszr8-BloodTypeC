@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using BloodTypeC.DAL;
 using BloodTypeC.WebApp.Services;
 using BloodTypeC.WebApp.Services.IServices;
+using BloodTypeC.Logic;
 
 namespace BloodTypeC.WebApp.Controllers
 {
@@ -22,7 +23,8 @@ namespace BloodTypeC.WebApp.Controllers
         // GET: BeerController/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            var model = _beerServices.GetById(id);
+            return View(model);
         }
 
         // GET: BeerController/Create
@@ -37,14 +39,16 @@ namespace BloodTypeC.WebApp.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(Beer beerToAdd)
         {
+            ModelState.Remove(nameof(beerToAdd.Id));
             try
             {
                 if (!ModelState.IsValid)
                 {
                     return View(beerToAdd);
                 }
+                beerToAdd.Flavors = Format.AsTags(beerToAdd.FlavorsString);
                 _beerServices.Add(beerToAdd);
-                return RedirectToAction(nameof(Create));
+                return RedirectToAction("Index", "Home");
             }
             catch
             {

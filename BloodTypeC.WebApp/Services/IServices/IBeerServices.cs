@@ -4,10 +4,10 @@ namespace BloodTypeC.WebApp.Services.IServices
 {
     public interface IBeerServices
     {
-        List<Beer> GetAll();
-        Beer GetById(string id);
+        IEnumerable<Beer> GetAll();
+        Beer GetById(int id);
         void Add(Beer beer);
-        void Delete(string id);
-        void Edit(string id);
+        void Delete(int id);
+        void Edit(int id);
     }
 }
