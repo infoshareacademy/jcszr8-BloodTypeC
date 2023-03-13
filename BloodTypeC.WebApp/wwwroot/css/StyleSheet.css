@@ -51,20 +51,22 @@ a:hover {
     font-size: 20px;
     flex: 250px;
     margin: 20px;
+    transition: color 0.3s;
+    transition: background-color 0.3s;
 }
 
-    .age-validation-button-style:hover {
-        height: 50px;
-        width: 200px;
-        border-radius: 15px;
-        border-width: 2px;
-        color: rgb(39, 41, 42);
-        background-color: rgb(253, 197, 0);
-        font-size: 20px;
-        font-weight: bold;
-        flex: 250px;
-        margin: 20px;
-    }
+.age-validation-button-style:hover {
+    height: 50px;
+    width: 200px;
+    border-radius: 15px;
+    border-width: 2px;
+    color: rgb(39, 41, 42);
+    background-color: rgb(253, 197, 0);
+    font-size: 20px;
+    font-weight: bold;
+    flex: 250px;
+    margin: 20px;
+}
 
 .buttons {
     display: flex;
@@ -78,7 +80,7 @@ a:hover {
     font-size: 100px;
     display: flex;
     flex-direction: row;
-    justify-content: center;s
+    justify-content: center;
     margin: auto;
 }
 
@@ -124,6 +126,8 @@ a:hover {
     font-size: 14px;
     background-color: rgb(128, 128, 128);
     margin: 5px;
+    transition: color 0.3s;
+    transition: background-color 0.3s;
 }
 
     .product-button:hover {
@@ -133,33 +137,9 @@ a:hover {
         border-width: 0.5px;
         border: solid;
         border-color: rgb(253, 197, 0);
-        color: white;
+        color: rgb(39, 41, 42);
         font-size: 14px;
         background-color: rgb(253, 197, 0);
-        margin: 5px;
-    }
-
-.fav-button {
-    height: 45px;
-    width: 100px;
-    border-radius: 12px;
-    border: solid;
-    border-color: rgb(253, 197, 0);
-    color: white;
-    font-size: 14px;
-    background-color: rgb(253, 197, 0);
-    margin: 5px;
-}
-
-    .fav-button:hover {
-        background-color: rgb(128, 128, 128);
-        height: 45px;
-        width: 100px;
-        border-radius: 12px;
-        border: solid;
-        border-color: rgb(253, 197, 0);
-        color: white;
-        font-size: 14px;
         margin: 5px;
     }
 
@@ -169,23 +149,48 @@ a:hover {
     border-radius: 12px;
     border: solid;
     border-color: rgb(253, 197, 0);
+    color: rgb(39, 41, 42);
+    font-size: 14px;
+    background-color: rgb(253, 197, 0);
+    margin: 5px;
+    transition: color 0.3s;
+    transition: background-color 0.3s;
+}
+
+.fav-rem-button:hover {
+    background-color: rgb(128, 128, 128);
+    height: 45px;
+    width: 100px;
+    border-radius: 12px;
+    border: solid;
+    border-color: rgb(253, 197, 0);
+    color: white;
+    font-size: 14px;
+    margin: 5px;
+}
+
+.fav-button {
+    height: 45px;
+    width: 100px;
+    border-radius: 12px;
+    border: solid;
+    border-color: rgb(253, 197, 0);
     color: white;
     font-size: 14px;
     background-color: rgb(128, 128, 128);
     margin: 5px;
-
+    transition: color 0.3s;
+    transition: background-color 0.3s;
 }
-    .fav-rem-button:hover {
+
+    .fav-button:hover {
         background-color: rgb(253, 197, 0);
         height: 45px;
         width: 100px;
         border-radius: 12px;
         border: solid;
         border-color: rgb(253, 197, 0);
-        color: white;
+        color: rgb(39, 41, 42);
         font-size: 14px;
         margin: 5px;
     }
-
-
-    
