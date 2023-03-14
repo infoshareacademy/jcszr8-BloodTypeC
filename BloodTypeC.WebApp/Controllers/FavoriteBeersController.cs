@@ -1,5 +1,6 @@
 ﻿using BloodTypeC.DAL;
 using BloodTypeC.Logic;
+using BloodTypeC.WebApp.Services.IServices;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Mvc;
@@ -10,6 +11,12 @@ namespace BloodTypeC.WebApp.Controllers
 {
     public class FavoriteBeersController : Controller
     {
+        private readonly IFavoriteBeersServices _favoriteBeersServices;
+        public FavoriteBeersController(IFavoriteBeersServices favoriteBeersServices)
+        {
+            _favoriteBeersServices = favoriteBeersServices;
+        }
+
         // GET: FavoriteBeersController
         public IActionResult Index()
         {
@@ -20,10 +27,14 @@ namespace BloodTypeC.WebApp.Controllers
         public IActionResult AddToFavorites(int id)
         {
             var referer = Request.Headers.Referer.ToString();
-            BeerOperations.AddToFavs(id);
+            _favoriteBeersServices.AddToFavs(id);
             if (referer.Contains("Details"))
             {
-                return RedirectToAction("Details", "Home", new { id });
+                return RedirectToAction("Details", "Beer", new { id });
+            }
+            if (referer.Contains("AllBeers"))
+            {
+                return RedirectToAction("AllBeers", "Home", new { id });
             }
             else
             {
@@ -33,14 +44,18 @@ namespace BloodTypeC.WebApp.Controllers
         public IActionResult RemoveFromFavorites(int id)
         {
             var referer = Request.Headers.Referer.ToString();
-            BeerOperations.RemoveFromFavs(id);
+            _favoriteBeersServices.RemoveFromFavs(id);
             if (referer.Contains("Favorites"))
             {
                 return RedirectToAction("Favorites");
             }
+            if (referer.Contains("AllBeers"))
+            {
+                return RedirectToAction("AllBeers", "Home", new { id });
+            }
             if (referer.Contains("Details"))
             {
-                return RedirectToAction("Details", "Home", new { id });
+                return RedirectToAction("Details", "Beer", new { id });
             }
             else
             {
@@ -49,76 +64,7 @@ namespace BloodTypeC.WebApp.Controllers
         }
         public IActionResult Favorites()
         {
-            return View(DB.FavoriteBeers);
+            return View(_favoriteBeersServices.GetAllFavs());
         }
-
-        //// GET: FavoriteBeersController/Details/5
-        //public ActionResult Details(int id)
-        //{
-        //    return View();
-        //}
-
-        //// GET: FavoriteBeersController/Create
-        //public ActionResult Create()
-        //{
-        //    return View();
-        //}
-
-        //// POST: FavoriteBeersController/Create
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Create(IFormCollection collection)
-        //{
-        //    try
-        //    {
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    catch
-        //    {
-        //        return View();
-        //    }
-        //}
-
-        //// GET: FavoriteBeersController/Edit/5
-        //public ActionResult Edit(int id)
-        //{
-        //    return View();
-        //}
-
-        //// POST: FavoriteBeersController/Edit/5
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Edit(int id, IFormCollection collection)
-        //{
-        //    try
-        //    {
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    catch
-        //    {
-        //        return View();
-        //    }
-        //}
-
-        //// GET: FavoriteBeersController/Delete/5
-        //public ActionResult Delete(int id)
-        //{
-        //    return View();
-        //}
-
-        //// POST: FavoriteBeersController/Delete/5
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Delete(int id, IFormCollection collection)
-        //{
-        //    try
-        //    {
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    catch
-        //    {
-        //        return View();
-        //    }
-        //}
     }
 }

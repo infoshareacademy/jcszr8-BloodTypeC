@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
+using System.Reflection.Metadata.Ecma335;
 using System.Runtime.ExceptionServices;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -21,6 +22,7 @@ namespace BloodTypeC.Logic
 
         public static string AsNameOrTitle(string name, CapitalsOptions capsOpt, bool alphabetDashOnly)
         {
+            name = string.IsNullOrWhiteSpace(name) ? "" : name;
             // Remove diacritics
             name = new String(name.Normalize(NormalizationForm.FormD)
                         .Where(c => char.GetUnicodeCategory(c) != UnicodeCategory.NonSpacingMark).ToArray());
