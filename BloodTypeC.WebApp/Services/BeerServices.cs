@@ -11,11 +11,14 @@ namespace BloodTypeC.WebApp.Services
         private const double MaxScore = 10;
         public void Add(Beer beer)
         {
-            beer.Id = _allBeers.Max(x => x.Id) + 1;
+            beer.Id = _allBeers.Max(x => int.Parse(x.Id)+1).ToString();
             beer.Name = Format.AsNameOrTitle(beer.Name, Format.CapitalsOptions.FirstWord, false);
             beer.Brewery = Format.AsNameOrTitle(beer.Brewery, Format.CapitalsOptions.EachWord, false);
             beer.Style = Format.AsNameOrTitle(beer.Style, Format.CapitalsOptions.EachWord, true);
-            beer.Flavors ??= Format.AsTags(beer.Flavors.Aggregate((a, b) => a + " " + b));
+            if (beer.Flavors.Any())
+            {
+                beer.Flavors = Format.AsTags(beer.Flavors.Aggregate((a, b) => a + " " + b));
+            }
             beer.AlcoholByVolume = Format.AsScoreOrABV(beer.AlcoholByVolume.ToString(), MaxAlcoholValue);
             beer.Score = Format.AsScoreOrABV(beer.Score.ToString(), MaxScore);
             beer.Added = DateTime.Now;

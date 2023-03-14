@@ -46,7 +46,10 @@ namespace BloodTypeC.WebApp.Controllers
                 {
                     return View(beerToAdd);
                 }
-                beerToAdd.Flavors = Format.AsTags(beerToAdd.FlavorsString);
+                if (!string.IsNullOrWhiteSpace(beerToAdd.FlavorsString))
+                {
+                    beerToAdd.Flavors = Format.AsTags(beerToAdd.FlavorsString);
+                }
                 _beerServices.Add(beerToAdd);
                 return RedirectToAction("Index", "Home");
             }

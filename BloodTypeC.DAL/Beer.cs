@@ -16,13 +16,13 @@ namespace BloodTypeC.DAL
         [MaxLength(20)]
         public string Name { get; set; }
         
-        public string Brewery { get; set; }
+        public string? Brewery { get; set; }
         
-        public string Style { get; set; }
+        public string? Style { get; set; }
         
         public List<string> Flavors { get; set; } = new List<string>();
         [DisplayName("Flavors")]
-        public string FlavorsString { get; set; }
+        public string? FlavorsString { get; set; }
         [JsonPropertyName("abv")]
         [DisplayName("Alcohol by volume")]
         public double AlcoholByVolume { get; set; }

@@ -32,6 +32,10 @@ namespace BloodTypeC.WebApp.Controllers
             {
                 return RedirectToAction("Details", "Beer", new { id });
             }
+            if (referer.Contains("AllBeers"))
+            {
+                return RedirectToAction("AllBeers", "Home", new { id });
+            }
             else
             {
                 return RedirectToAction("Index", "Home");
@@ -44,6 +48,10 @@ namespace BloodTypeC.WebApp.Controllers
             if (referer.Contains("Favorites"))
             {
                 return RedirectToAction("Favorites");
+            }
+            if (referer.Contains("AllBeers"))
+            {
+                return RedirectToAction("AllBeers", "Home", new { id });
             }
             if (referer.Contains("Details"))
             {

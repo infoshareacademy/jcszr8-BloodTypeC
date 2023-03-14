@@ -10,7 +10,10 @@ namespace BloodTypeC.WebApp.Services
         public void AddToFavs(int id)
         {
             var beer = _allBeers.FirstOrDefault(x => x.Id == id.ToString());
-            _favoriteBeers?.Add(beer);
+            if (!_favoriteBeers.Contains(beer))
+            {
+                _favoriteBeers?.Add(beer);
+            }
         }
 
         public List<Beer> GetAllBeers()

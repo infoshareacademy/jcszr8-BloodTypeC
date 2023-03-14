@@ -1,4 +1,5 @@
-﻿@using Microsoft.AspNetCore.Http.Extensions;
+﻿@using BloodTypeC.DAL;
+@using Microsoft.AspNetCore.Http.Extensions;
 @model IEnumerable<BloodTypeC.DAL.Beer>
 
 @{
@@ -10,19 +11,19 @@
 <p>
     <a asp-action="Create" asp-controller="Beer" class="btn btn-primary">Add new</a>
 </p>
-<div class="container-fluid" style="color:white">
+<div class="container-fluid">
     <div class="row gy-4">
-    @foreach (var item in Model)
-    {       
-          <div class="col-12 col-md-6 col-lg-4 col-xxl-3 item">
-          <div class="card" style="width: 300px;">
-          <div class="card-body">
-          <h5 class="card-title">@item.Name</h5>
-            <p class="card-text">@item.Brewery<br>asdasdasdasd</p>
-            <a asp-action="Details" asp-route-id="@item.Id" asp-controller="Beer" class="btn btn-primary">Details</a>
-                <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary">Edit</a>
+        @foreach (var item in Model)
+        {
+            <div class="col-12 col-md-6 col-lg-4 col-xxl-3 item">
+                <div class="card" style="width: 300px;">
+                    <div class="card-body">
+                        <h5 class="card-title">@item.Name</h5>
+                        <p class="card-text">@item.Brewery<br>asdasdasdasd</p>
+                        <a asp-action="Details" asp-route-id="@item.Id" asp-controller="Beer" class="btn btn-primary">Details</a>
+                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary">Edit</a>
                         <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Delete</a>
-                        @if (Model.Any(x => x.Id == item.Id.ToString()))
+                        @if (!DB.FavoriteBeers.Any(x => x.Id == item.Id.ToString()))
                         {
                             <a asp-controller="FavoriteBeers" asp-action="AddToFavorites" asp-route-id="@item.Id" class="btn btn-warning">❤ Fav it!</a>
                         }
@@ -30,10 +31,10 @@
                         {
                             <a asp-controller="FavoriteBeers" asp-action="RemoveFromFavorites" asp-route-id="@item.Id" class="btn btn-outline-warning">💔 Unfav</a>
                         }
-          </div>
-        </div>
-        </div>
-    }
-</div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
 </div>
 
