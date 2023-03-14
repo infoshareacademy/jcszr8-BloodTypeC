@@ -16,9 +16,9 @@
     <div class ="page-name">
     All Beers
     </div>
-    <p>
-        <a asp-action="Create" class="btn btn-primary">Add new</a>
-    </p>
+  <p>
+    <a asp-action="Create" asp-controller="Beer" class="btn btn-primary">Add new</a>
+</p>
     <div class="products">
         @foreach (var item in Model)
         {
