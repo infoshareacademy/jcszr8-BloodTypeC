@@ -238,3 +238,130 @@
         background-color: rgb(253, 197, 0);
         text-transform: uppercase;
     }
+
+.buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.page-name {
+    color: white;
+    font-family: 'Great Vibes', cursive;
+    font-size: 100px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin: auto;
+}
+
+.beer-image-possition {
+    max-width: 200px;
+    max-height: 200px;
+    margin: auto;
+}
+
+.beer-image {
+    max-width: 200px;
+    max-height: 200px;
+    margin: auto;
+}
+
+.product-card {
+    flex: 1 0 21%;
+    margin: 25px;
+    height: 450px;
+    background-color: rgb(128, 128, 128);
+    max-width: 300px;
+    min-width: 284px;
+    border-radius: 15px;
+    color: white;
+}
+
+.products {
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: 50px;
+    margin-right: 50px;
+    justify-content: center
+}
+
+.product-button {
+    height: 45px;
+    width: 70px;
+    border-radius: 12px;
+    border-width: 0.5px;
+    border: solid;
+    border-color: rgb(253, 197, 0);
+    color: white;
+    font-size: 14px;
+    background-color: rgb(128, 128, 128);
+    margin: 5px;
+    transition: color 0.3s;
+    transition: background-color 0.3s;
+}
+
+    .product-button:hover {
+        height: 45px;
+        width: 70px;
+        border-radius: 12px;
+        border-width: 0.5px;
+        border: solid;
+        border-color: rgb(253, 197, 0);
+        color: rgb(39, 41, 42);
+        font-size: 14px;
+        background-color: rgb(253, 197, 0);
+        margin: 5px;
+    }
+
+.fav-rem-button {
+    height: 45px;
+    width: 100px;
+    border-radius: 12px;
+    border: solid;
+    border-color: rgb(253, 197, 0);
+    color: rgb(39, 41, 42);
+    font-size: 14px;
+    background-color: rgb(253, 197, 0);
+    margin: 5px;
+    transition: color 0.3s;
+    transition: background-color 0.3s;
+}
+
+    .fav-rem-button:hover {
+        background-color: rgb(128, 128, 128);
+        height: 45px;
+        width: 100px;
+        border-radius: 12px;
+        border: solid;
+        border-color: rgb(253, 197, 0);
+        color: white;
+        font-size: 14px;
+        margin: 5px;
+    }
+
+.fav-button {
+    height: 45px;
+    width: 100px;
+    border-radius: 12px;
+    border: solid;
+    border-color: rgb(253, 197, 0);
+    color: white;
+    font-size: 14px;
+    background-color: rgb(128, 128, 128);
+    margin: 5px;
+    transition: color 0.3s;
+    transition: background-color 0.3s;
+}
+
+    .fav-button:hover {
+        background-color: rgb(253, 197, 0);
+        height: 45px;
+        width: 100px;
+        border-radius: 12px;
+        border: solid;
+        border-color: rgb(253, 197, 0);
+        color: rgb(39, 41, 42);
+        font-size: 14px;
+        margin: 5px;
+    }
