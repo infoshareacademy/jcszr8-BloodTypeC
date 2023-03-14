@@ -9,19 +9,19 @@
 		<div class="section-center">
 			<div class="container">
 				<div class="row">
-					<div class="booking-form">
+					<div class="search-form">
 						<form asp-controller="Search" asp-action="Index" method="post">							
 							<div class="row">
 								<div class="col-md-6">
 									<div class="form-group">
-										<span class="form-label text-white">Brewery</span>
-										<input class="form-control" type="text" placeholder="Brewery name" asp-for="@Model.searchBrewery">
+										<span class="form-label text-white">Beer name</span>
+										<input class="form-control" type="text" placeholder="Beer name" asp-for="@Model.searchBeerName">
 									</div>
 								</div>
 								<div class="col-md-6">
 									<div class="form-group">
-										<span class="form-label text-white">Beer name</span>
-										<input class="form-control" type="text" placeholder="Beer name" asp-for="@Model.searchBeerName">
+										<span class="form-label text-white">Brewery</span>
+										<input class="form-control" type="text" placeholder="Brewery name" asp-for="@Model.searchBrewery">
 									</div>
 								</div>
 							</div>
@@ -58,9 +58,9 @@
 								</div>
 							</div>
 							<div class="row">								
-								<div class="col-md-3">
+								<div class="col-md-2">
 									<div class="form-btn">
-										<button class="submit-btn">Show beers</button>
+										<button class="search-button">Show beers</button>
 									</div>
 								</div>
 							</div>
