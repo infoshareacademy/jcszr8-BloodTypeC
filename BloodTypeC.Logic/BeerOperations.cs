@@ -2,6 +2,7 @@
 using BloodTypeC.DAL;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -164,10 +165,11 @@ namespace BloodTypeC.Logic
                         newFlavors += $"{oldFlavor},";
                     }
                     else
-                    {   while (flavorInput.Contains(',') && flavorInput[0] == ',')
+                    {
+                        while (flavorInput.Contains(',') && flavorInput[0] == ',')
                         {
                             flavorInput = flavorInput.Substring(1);
-                        } 
+                        }
                         if (flavorInput.Contains(" "))
                         {
                             flavorInput = flavorInput.Remove(flavorInput.IndexOf(" "));
@@ -218,7 +220,6 @@ namespace BloodTypeC.Logic
             Console.ReadKey();
             Console.CursorVisible = false;
         }
-
         public static void AddToFavs(int id)
         {
             var beer = DB.AllBeers.FirstOrDefault(x => x.Id == id.ToString());
@@ -229,5 +230,14 @@ namespace BloodTypeC.Logic
             var beer = DB.FavoriteBeers.FirstOrDefault(x => x.Id == id.ToString());
             DB.FavoriteBeers?.Remove(beer);
         }
+
+        public static List<string> GetAllFlavors()
+        {
+            return DB.AllBeers.Where(x => x.Flavors != null).SelectMany(beer => beer.Flavors).Distinct().ToList();
+        }
+        public static void GetAllBeers()
+        {
+        }
     }
-}
+    }
+

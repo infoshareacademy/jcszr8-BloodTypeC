@@ -1,6 +1,6 @@
 namespace BloodTypeC.WebApp.Models
 {
-    public class ErrorViewModel
+    public class AllBeersViewModel
     {
         public string? RequestId { get; set; }
 

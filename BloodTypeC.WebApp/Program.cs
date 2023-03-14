@@ -1,7 +1,13 @@
 using BloodTypeC.DAL;
 using BloodTypeC.Logic;
+
 using Microsoft.AspNetCore.Mvc;
 using System;
+using BloodTypeC.WebApp.Services;
+using BloodTypeC.WebApp.Services.IServices;
+using Microsoft.AspNetCore.Localization;
+using System.Globalization;
+
 
 namespace BloodTypeC.WebApp
 {
@@ -14,6 +20,8 @@ namespace BloodTypeC.WebApp
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+            builder.Services.AddScoped<IBeerServices, BeerServices>();
+            builder.Services.AddTransient<IFavoriteBeersServices, FavoriteBeersServices>();
 
             var app = builder.Build();
 
@@ -24,6 +32,13 @@ namespace BloodTypeC.WebApp
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+            
+            app.UseRequestLocalization(new RequestLocalizationOptions
+            {
+                DefaultRequestCulture = new RequestCulture("en-US"),
+                SupportedCultures = new List<CultureInfo> { new("en-US")},
+                SupportedUICultures = new List<CultureInfo> { new("en-US")}
+            });
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();

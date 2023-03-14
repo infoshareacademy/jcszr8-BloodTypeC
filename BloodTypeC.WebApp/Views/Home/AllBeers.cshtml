@@ -16,7 +16,6 @@
     <div class ="page-name">
     All Beers
     </div>
-
     <p>
         <a asp-action="Create" class="btn btn-primary">Add new</a>
     </p>
@@ -30,7 +29,7 @@
                     <p>@item.Brewery<br>asdasdasdasd</p>
                     <div class="buttons">
                         <button class="product-button">
-                            <a asp-action="Details" asp-route-id="@item.Id">Details</a>
+                            <a asp-action="Details" asp-route-id="@item.Id" asp-controller="Beer">Details</a>
                         </button >                    
                         <button class="product-button">
                         <a asp-action="Edit" asp-route-id="@item.Id">Edit</a>

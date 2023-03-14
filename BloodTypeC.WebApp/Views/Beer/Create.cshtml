@@ -1,0 +1,58 @@
+﻿@model BloodTypeC.DAL.Beer
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h3>Add new beer</h3>
+<hr />
+<div class="table">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Brewery" class="control-label"></label>
+                <input asp-for="Brewery" class="form-control" />
+                <span asp-validation-for="Brewery" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Style" class="control-label"></label>
+                <input asp-for="Style" class="form-control" />
+                <span asp-validation-for="Style" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FlavorsString" class="control-label"></label>
+                <input asp-for="FlavorsString" class="form-control" />
+                <span asp-validation-for="FlavorsString" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AlcoholByVolume" class="control-label"></label>
+                <input asp-for="AlcoholByVolume" class="form-control" />
+                <span asp-validation-for="AlcoholByVolume" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Score" class="control-label"></label>
+                <input asp-for="Score" class="form-control" />
+                <span asp-validation-for="Score" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-controller="Home" asp-action="AllBeers">Back to List</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
