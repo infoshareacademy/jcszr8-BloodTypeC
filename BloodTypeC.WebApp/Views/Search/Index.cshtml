@@ -76,20 +76,20 @@
             @foreach (var item in Model.Beers)
             {
     <div class="col-lg-6 col-xxl-4 mb-5">
-    <div class="card card-background border-0 h-100">
+    <div class="product-card border-0 h-100">
         <div class="card-body text-light text-center p-4 p-lg-5 pt-0 pt-lg-0">
         <h5 class="card-title text-light">@item.Name</h5>
         <p class="card-text text-light">@item.Brewery<br>asdasdasdasd</p>
-        <a asp-action="Details" asp-route-id="@item.Id" class="btn age-validation-button-style">Details</a>
-        <a asp-action="Edit" asp-route-id="@item.Id" class="btn age-validation-button-style">Edit</a>
-        <a asp-action="Delete" asp-route-id="@item.Id"class="btn age-validation-button-style">Delete</a>
+        <a asp-action="Details" asp-route-id="@item.Id" class="btn product-button">Details</a>
+        <a asp-action="Edit" asp-route-id="@item.Id" class="btn product-button">Edit</a>
+        <a asp-action="Delete" asp-route-id="@item.Id"class="btn product-button">Delete</a>
                             @if (!DB.FavoriteBeers.Any(x => x.Id == item.Id.ToString()))
                             {
-        <a asp-controller="FavoriteBeers" asp-action="AddToFavorites" asp-route-id="@item.Id" class="btn btn-warning">❤ Fav it!</a>
+        <a asp-controller="FavoriteBeers" asp-action="AddToFavorites" asp-route-id="@item.Id" class="btn fav-button">❤ Fav it!</a>
                             }
                             else
                             {
-        <a asp-controller="FavoriteBeers" asp-action="RemoveFromFavorites" asp-route-id="@item.Id" class="btn btn-outline-warning">💔 Unfav</a>
+        <a asp-controller="FavoriteBeers" asp-action="RemoveFromFavorites" asp-route-id="@item.Id" class="btn fav-rem-button">💔 Unfav</a>
                             }
     </div>
     </div>
