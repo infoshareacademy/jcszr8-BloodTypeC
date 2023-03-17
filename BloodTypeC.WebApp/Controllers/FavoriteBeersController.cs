@@ -16,55 +16,59 @@ namespace BloodTypeC.WebApp.Controllers
         {
             _favoriteBeersServices = favoriteBeersServices;
         }
-        // GET: FavoriteBeersController
-        public IActionResult Index()
-        {
-            return View();
-        }
         
         [HttpGet]
         public IActionResult AddToFavorites(int id)
         {
-            var referer = Request.Headers.Referer.ToString();
-
             _favoriteBeersServices.AddToFavs(id);
-            if (referer.Contains("Details"))
+            var referer = GetReferer();
+
+            // Returns the same view from which the method was called
+            // but checks whether it's the Details view that needs the id
+            if (referer.Value.All(ch => char.IsLetter(ch)))
             {
-                return RedirectToAction("Details", "Beer", new { id });
-            }
-            if (referer.Contains("AllBeers"))
-            {
-                return RedirectToAction("AllBeers", "Home", new { id });
+                return RedirectToAction(referer.Value, referer.Key);
             }
             else
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Details", "Beer", new { id });
             }
         }
         public IActionResult RemoveFromFavorites(int id)
         {
-            var referer = Request.Headers.Referer.ToString();
             _favoriteBeersServices.RemoveFromFavs(id);
-            if (referer.Contains("Favorites"))
+            var referer = GetReferer();
+
+            // Returns the same view from which the method was called
+            // but checks whether it's the Details view that needs the id
+
+            if (referer.Value.All(ch => char.IsLetter(ch)))
             {
-                return RedirectToAction("Favorites");
-            }
-            if (referer.Contains("AllBeers"))
-            {
-                return RedirectToAction("AllBeers", "Home", new { id });
-            }
-            if (referer.Contains("Details"))
-            {
-                return RedirectToAction("Details", "Beer", new { id });
+                return RedirectToAction(referer.Value, referer.Key);
             }
             else
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Details", "Beer", new { id });
             }
         }
         public IActionResult Favorites()
         {
             return View(_favoriteBeersServices.GetAllFavs());
+        }
+
+        public KeyValuePair<string, string> GetReferer()
+        {
+            // Extracts the Controller and Action strings from the referer url
+            // Key = Controller
+            // Value = Action
+
+            var host = Request.Host.ToUriComponent();
+            var referer = Request.Headers.Referer.ToString() ?? string.Empty;
+            var trimmedUrl = referer.Substring(referer.IndexOf(host) + host.Length + 1);
+            var controller = trimmedUrl.Remove(trimmedUrl.IndexOf('/'));
+            var action = trimmedUrl.Substring(trimmedUrl.LastIndexOf('/') + 1);
+            var controllerAction = new KeyValuePair<string, string>(controller, action);
+            return controllerAction;
         }
     }
 }
