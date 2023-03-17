@@ -1,14 +1,22 @@
 ﻿using BloodTypeC.DAL;
 using BloodTypeC.Logic;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using System.ComponentModel.DataAnnotations;
+using System.Diagnostics.CodeAnalysis;
 
 namespace BloodTypeC.WebApp.Models
 {
     public class IndexViewModel
     {
+        //[ValidateNever]
         public List<Beer> Beers { get; set; }
+        //[ValidateNever]
         public List<FlavorToSearch> CheckedListOfFlavors { get; set; }
-        public string searchBrewery { get; set; }
-        public string searchBeerName { get; set; }
+        //[ValidateNever]
+        public string? searchBrewery { get; set; }
+        //[ValidateNever]
+        public string? searchBeerName { get; set; }
+        //[ValidateNever]
         public double? minAbv { get; set; }
         public double? maxAbv { get; set; }
     }
