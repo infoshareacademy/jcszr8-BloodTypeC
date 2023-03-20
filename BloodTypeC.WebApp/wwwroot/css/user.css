@@ -11,16 +11,16 @@
     flex: 250px;
 }
 
-.age-validation-button-style:hover {
-    height: 50px;
-    width: 100px;
-    border-radius: 15px;
-    border-width: 2px;
-    color: rgb(39, 41, 42);
-    background-color: rgb(253, 197, 0);
-    font-size: 15px;
-    flex: 250px;
-}
+    .age-validation-button-style:hover {
+        height: 50px;
+        width: 100px;
+        border-radius: 15px;
+        border-width: 2px;
+        color: rgb(39, 41, 42);
+        background-color: rgb(253, 197, 0);
+        font-size: 15px;
+        flex: 250px;
+    }
 
 .buttons {
     display: flex;
@@ -208,33 +208,6 @@
     border-color: rgb(253, 197, 0);
 }
 
-.search-button {
-    height: 50px;
-    width: 100%;
-    border-radius: 40px;
-    border-width: 0.1px;
-    border: solid;
-    border-color: rgb(253, 197, 0);
-    color: white;
-    font-size: 17px;
-    background-color: rgb(128, 128, 128);
-    transition: color 0.3s;
-    transition: background-color 0.3s;
-    text-transform: uppercase;
-}
-
-    .search-button:hover {
-        height: 50px;
-        width: 100%;
-        border-radius: 40px;
-        border-width: 0.1px;
-        border: solid;
-        border-color: rgb(253, 197, 0);
-        color: rgb(39, 41, 42);
-        font-size: 17px;
-        background-color: rgb(253, 197, 0);
-        text-transform: uppercase;
-    }
 
 .buttons {
     display: flex;

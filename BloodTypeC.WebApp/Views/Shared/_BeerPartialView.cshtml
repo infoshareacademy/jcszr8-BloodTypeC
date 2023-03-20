@@ -1,0 +1,43 @@
+﻿@using BloodTypeC.DAL;
+@using Microsoft.AspNetCore.Http.Extensions;
+@model IEnumerable<BloodTypeC.DAL.Beer>
+
+<div class="products">
+    @foreach (var item in DB.AllBeers)
+    {
+        <div class="product-card">
+            <div class="card-body">
+                <div class="beer-image-possition"><img src="~/Images/mockup.png" class="beer-image"></div>
+                <h5>@item.Name</h5>
+                <p>@item.Brewery<br>asdasdasdasd</p>
+                <div class="buttons">
+                    <button class="product-button">
+                        <a asp-action="Details" asp-route-id="@item.Id" asp-controller="Beer">Details</a>
+                    </button>
+                    <button class="product-button">
+                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                    </button>
+                    <button class="product-button">
+                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    </button>
+                </div>
+                <div class="buttons">
+                    <div>
+                        @if (!DB.FavoriteBeers.Any(x => x.Id == item.Id.ToString()))
+                        {
+                            <button class="fav-button">
+                                <a asp-controller="FavoriteBeers" asp-action="AddToFavorites" asp-route-id="@item.Id">❤ Fav it!</a>
+                            </button>
+                        }
+                        else
+                        {
+                            <button class="fav-rem-button">
+                                <a asp-controller="FavoriteBeers" asp-action="RemoveFromFavorites" asp-route-id="@item.Id">💔 Unfav</a>
+                            </button>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>

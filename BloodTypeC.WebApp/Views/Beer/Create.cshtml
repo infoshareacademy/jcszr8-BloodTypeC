@@ -1,11 +1,19 @@
 ﻿@model BloodTypeC.DAL.Beer
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Create beer";
 }
 
-<h3>Add new beer</h3>
-<hr />
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+    <link href="~/css/StyleSheet.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="page-name">
+        Add Beer
+    </div>
 <div class="table">
     <div class="col-md-4">
         <form asp-action="Create">
@@ -50,7 +58,7 @@
 <div>
     <a asp-controller="Home" asp-action="AllBeers">Back to List</a>
 </div>
-
+</body>
 @section Scripts {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");

@@ -14,7 +14,7 @@
     <link href="~/css/user.css" rel="stylesheet" />
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>   
+    <script src="~/js/site.js" asp-append-version="true"></script>
 </head>
 <body>
     <!-- Responsive navbar-->
@@ -25,19 +25,19 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
 
-                    <li class="nav-item"><a class="nav-link active" aria-current="page" asp-controller="Home" asp-action="AllBeers">Beers</a></li>
                     <li class="nav-item"><a class="nav-link" asp-controller="FavoriteBeers" asp-action="Favorites">❤Favorites</a></li>
                     <li class="nav-item"><a class="nav-link" asp-controller="Search" asp-action="Index">Search</a></li>
+                    <li class="nav-item"><a class="nav-link active" aria-current="page" asp-controller="Beer" asp-action="Create">Add beer</a></li>
                 </ul>
             </div>
         </div>
     </nav>
     @RenderBody()
-      <!-- Footer-->   
+    <!-- Footer-->
 </body>
 <footer class="py-5 bg-dark">
-        <div class="container px-5"><p class="m-0 text-center text-white">Copyright &copy; Beer-o-pedia 2023</p></div>
-    </footer>
-  
+    <div class="container px-5"><p class="m-0 text-center text-white">Copyright &copy; Beer-o-pedia 2023</p></div>
+</footer>
+
 @await RenderSectionAsync("Scripts", required: false)
 </html>

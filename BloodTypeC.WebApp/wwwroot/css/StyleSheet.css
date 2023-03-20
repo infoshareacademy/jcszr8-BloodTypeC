@@ -55,18 +55,18 @@ a:hover {
     transition: background-color 0.3s;
 }
 
-.age-validation-button-style:hover {
-    height: 50px;
-    width: 200px;
-    border-radius: 15px;
-    border-width: 2px;
-    color: rgb(39, 41, 42);
-    background-color: rgb(253, 197, 0);
-    font-size: 20px;
-    font-weight: bold;
-    flex: 250px;
-    margin: 20px;
-}
+    .age-validation-button-style:hover {
+        height: 50px;
+        width: 200px;
+        border-radius: 15px;
+        border-width: 2px;
+        color: rgb(39, 41, 42);
+        background-color: rgb(253, 197, 0);
+        font-size: 20px;
+        font-weight: bold;
+        flex: 250px;
+        margin: 20px;
+    }
 
 .buttons {
     display: flex;
@@ -115,6 +115,11 @@ a:hover {
     justify-content: center
 }
 
+.empty{
+    color: white;
+}
+
+
 .product-button {
     height: 45px;
     width: 70px;
@@ -157,17 +162,17 @@ a:hover {
     transition: background-color 0.3s;
 }
 
-.fav-rem-button:hover {
-    background-color: rgb(128, 128, 128);
-    height: 45px;
-    width: 100px;
-    border-radius: 12px;
-    border: solid;
-    border-color: rgb(253, 197, 0);
-    color: white;
-    font-size: 14px;
-    margin: 5px;
-}
+    .fav-rem-button:hover {
+        background-color: rgb(128, 128, 128);
+        height: 45px;
+        width: 100px;
+        border-radius: 12px;
+        border: solid;
+        border-color: rgb(253, 197, 0);
+        color: white;
+        font-size: 14px;
+        margin: 5px;
+    }
 
 .fav-button {
     height: 45px;
@@ -192,5 +197,33 @@ a:hover {
         border-color: rgb(253, 197, 0);
         color: rgb(39, 41, 42);
         font-size: 14px;
+        margin: 5px;
+    }
+
+.search-button {
+    height: 45px;
+    width: 70px;
+    border-radius: 12px;
+    border-width: 0.5px;
+    border: solid;
+    border-color: rgb(253, 197, 0);
+    color: white;
+    font-size: 14px;
+    background-color: rgb(128, 128, 128);
+    margin: 5px;
+    transition: color 0.3s;
+    transition: background-color 0.3s;
+}
+
+    .search-button:hover {
+        height: 45px;
+        width: 70px;
+        border-radius: 12px;
+        border-width: 0.5px;
+        border: solid;
+        border-color: rgb(253, 197, 0);
+        color: rgb(39, 41, 42);
+        font-size: 14px;
+        background-color: rgb(253, 197, 0);
         margin: 5px;
     }

@@ -28,7 +28,7 @@ namespace BloodTypeC.WebApp.Controllers
             var model = new IndexViewModel();
             model.CheckedListOfFlavors = _flavorsToSearch;
             model.Beers = _allBeers;
-            return View(model);        
+            return View();        
         }
 
             public IActionResult AllBeers()
@@ -55,5 +55,6 @@ namespace BloodTypeC.WebApp.Controllers
         {
             return View(new AllBeersViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
     }
 }
