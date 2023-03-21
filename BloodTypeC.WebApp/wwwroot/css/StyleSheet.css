@@ -202,28 +202,26 @@ a:hover {
 
 .search-button {
     height: 45px;
-    width: 70px;
+    width: 120px;
     border-radius: 12px;
-    border-width: 0.5px;
+    border-width: 2px;
     border: solid;
     border-color: rgb(253, 197, 0);
     color: white;
-    font-size: 14px;
+    font-size: 18px;
     background-color: rgb(128, 128, 128);
-    margin: 5px;
     transition: color 0.3s;
     transition: background-color 0.3s;
 }
 
     .search-button:hover {
         height: 45px;
-        width: 70px;
+        width: 12px;
         border-radius: 12px;
-        border-width: 0.5px;
+        border-width: 2px;
         border: solid;
         border-color: rgb(253, 197, 0);
         color: rgb(39, 41, 42);
-        font-size: 14px;
+        font-size: 18px;
         background-color: rgb(253, 197, 0);
-        margin: 5px;
-    }
+        }
