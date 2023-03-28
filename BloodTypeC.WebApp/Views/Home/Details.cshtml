@@ -4,8 +4,16 @@
 @{
     ViewData["Title"] = "Details";
 }
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+    <link href="~/css/StyleSheet.css" rel="stylesheet" />
+</head>
+
+<body>
 <h1>@Model.Name</h1>
-<p>
+<div class="details">
     by <strong>@Model.Brewery</strong><br>
     Style: @Model.Style<br>
     Alcohol by vol: @Model.AlcoholByVolume<br>
@@ -19,13 +27,14 @@
     @if (DB.FavoriteBeers.Any(x => x.Id == Model.Id.ToString()))
     {
         <span>
-            <a class="btn btn-warning">In your ❤ Favs!</a>
-            <a asp-action="RemoveFromFavorites" asp-controller="FavoriteBeers" asp-route-id="@Model.Id" class="btn btn-outline-warning">💔 Unfav</a>
+            <a class="fav-button">In your ❤ Favs!</a>
+            <a asp-action="RemoveFromFavorites" asp-controller="FavoriteBeers" asp-route-id="@Model.Id" class="fav-button">💔 Unfav</a>
         </span>
 
     }
     else
     {
-        <a asp-action="AddToFavorites" asp-controller="FavoriteBeers" asp-route-id="@Model.Id" class="btn btn-warning">❤ Fav it!</a>
+        <a asp-action="AddToFavorites" asp-controller="FavoriteBeers" asp-route-id="@Model.Id" class="fav-button">❤ Fav it!</a>
     }
-</p>
+</div>
+</body>

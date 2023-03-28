@@ -107,6 +107,28 @@ a:hover {
     color: white;
 }
 
+.product-card {
+    flex: 1 0 21%;
+    margin: 25px;
+    height: 450px;
+    background-color: rgb(128, 128, 128);
+    max-width: 300px;
+    min-width: 284px;
+    border-radius: 15px;
+    color: white;
+}
+
+.product-card-details {
+    flex: 1 0 21%;
+    margin: 25px;
+    height: auto;
+    background-color: rgb(128, 128, 128);
+    max-width: 300px;
+    min-width: 284px;
+    border-radius: 15px;
+    color: white;
+}
+
 .products {
     display: flex;
     flex-wrap: wrap;
@@ -403,4 +425,9 @@ a:hover {
 .form-check-input:checked {
     background-color: rgb(253, 197, 0);
     border-color: rgb(253, 197, 0);
+}
+
+.details {
+    color: white;
+    padding: 20px;
 }
