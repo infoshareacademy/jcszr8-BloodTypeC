@@ -9,8 +9,7 @@
     "flavors": [
       "buttery",
       "smooth"
-    ],
-    "image": "Images/SaintLamvinus.png"
+    ]
   },
   {
     "beer_id": "5281",
@@ -23,8 +22,7 @@
       "sweet",
       "smooth",
       "nutty"
-    ],
-    "image": "Images/JingleBeer.png"
+    ]
   },
   {
     "beer_id": "4122",
@@ -37,8 +35,7 @@
       "coffee",
       "bitter",
       "rich"
-    ],
-    "image": "Images/SantaClausthaler.png"
+    ]
   },
   {
     "beer_id": "7643",
@@ -49,8 +46,7 @@
     "flavors": [
       "woody"
     ],
-    "abv": 9,
-    "image": "Images/CuveeDeNoel.png"
+    "abv": 9
   },
   {
     "beer_id": "1123",
@@ -64,8 +60,7 @@
       "grass",
       "funky"
     ],
-    "abv": 4.5,
-    "image": "Images/Julebrygg.png"
+    "abv": 4.5
   },
   {
     "beer_id": "3211",
@@ -77,8 +72,7 @@
     "name": "Julebryg",
     "style": "Kolsch",
     "score": 5.74,
-    "abv": 7.2,
-    "image": "Images/Julebryg.png"
+    "abv": 7.2
   },
   {
     "beer_id": "9889",
@@ -90,7 +84,6 @@
     "flavors": [
       "refreshing",
       "grass"
-    ],
-    "image": "Images/LadeGaardsBrygghusJuleol.png"
+    ]
   }
 ]

@@ -90,7 +90,7 @@ namespace BloodTypeC.Logic
             if (value > maxValue)
             {
                 Console.WriteLine($"Did you mean {value}? It exceeds the accepted maximum!");
-                value = 0;
+              
             }
             return Math.Round(value, 2);
         }
