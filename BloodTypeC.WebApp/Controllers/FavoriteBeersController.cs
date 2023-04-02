@@ -16,55 +16,40 @@ namespace BloodTypeC.WebApp.Controllers
         {
             _favoriteBeersServices = favoriteBeersServices;
         }
-        // GET: FavoriteBeersController
-        public IActionResult Index()
-        {
-            return View();
-        }
-        
+
         [HttpGet]
         public IActionResult AddToFavorites(int id)
         {
-            var referer = Request.Headers.Referer.ToString();
-
             _favoriteBeersServices.AddToFavs(id);
-            if (referer.Contains("Details"))
-            {
-                return RedirectToAction("Details", "Beer", new { id });
-            }
-            if (referer.Contains("AllBeers"))
-            {
-                return RedirectToAction("AllBeers", "Home", new { id });
-            }
-            else
-            {
-                return RedirectToAction("Index", "Home");
-            }
+            var referer = GetReferer();
+
+            return RedirectToAction(referer[1], referer[0], new { id });
         }
         public IActionResult RemoveFromFavorites(int id)
         {
-            var referer = Request.Headers.Referer.ToString();
             _favoriteBeersServices.RemoveFromFavs(id);
-            if (referer.Contains("Favorites"))
-            {
-                return RedirectToAction("Favorites");
-            }
-            if (referer.Contains("AllBeers"))
-            {
-                return RedirectToAction("AllBeers", "Home", new { id });
-            }
-            if (referer.Contains("Details"))
-            {
-                return RedirectToAction("Details", "Beer", new { id });
-            }
-            else
-            {
-                return RedirectToAction("Index", "Home");
-            }
+            var referer = GetReferer();
+
+            return RedirectToAction(referer[1], referer[0], new { id });
+
         }
         public IActionResult Favorites()
         {
             return View(_favoriteBeersServices.GetAllFavs());
+        }
+
+        public string[] GetReferer()
+        {
+            // Extracts the Controller and Action strings from the referer url
+            // [0] = Controller
+            // [1] = Action
+            // [2] = Id (when available)
+
+            var host = Request.Host.ToUriComponent();
+            var referer = Request.Headers.Referer.ToString() ?? string.Empty;
+            var trimmedUrl = referer.Substring(referer.IndexOf(host) + host.Length + 1);
+            string[] path = trimmedUrl.Split('/');
+            return path;
         }
     }
 }
