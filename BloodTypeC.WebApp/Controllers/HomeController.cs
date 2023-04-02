@@ -28,13 +28,9 @@ namespace BloodTypeC.WebApp.Controllers
             var model = new IndexViewModel();
             model.CheckedListOfFlavors = _flavorsToSearch;
             model.Beers = _allBeers;
-            return View();        
+            return View(model);        
         }
 
-            public IActionResult AllBeers()
-        {
-            return View(DB.AllBeers);
-        }
         public IActionResult Details(int id)
         {
             var beerToDisplay = DB.AllBeers.FirstOrDefault(x => x.Id == id.ToString());

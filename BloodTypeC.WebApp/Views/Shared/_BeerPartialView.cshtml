@@ -3,7 +3,7 @@
 @model IEnumerable<BloodTypeC.DAL.Beer>
 
 <div class="products">
-    @foreach (var item in DB.AllBeers)
+    @foreach (var item in Model)
     {
         <div class="product-card">
             <div class="card-body">
