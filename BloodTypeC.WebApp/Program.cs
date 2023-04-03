@@ -7,7 +7,7 @@ using BloodTypeC.WebApp.Services;
 using BloodTypeC.WebApp.Services.IServices;
 using Microsoft.AspNetCore.Localization;
 using System.Globalization;
-
+using BloodTypeC.WebApp.Models;
 
 namespace BloodTypeC.WebApp
 {
@@ -22,6 +22,8 @@ namespace BloodTypeC.WebApp
             builder.Services.AddControllersWithViews();
             builder.Services.AddScoped<IBeerServices, BeerServices>();
             builder.Services.AddTransient<IFavoriteBeersServices, FavoriteBeersServices>();
+
+            builder.Services.AddAutoMapper(typeof(Program));
 
             var app = builder.Build();
 

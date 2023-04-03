@@ -1,4 +1,4 @@
-﻿@model BloodTypeC.DAL.Beer
+﻿@model BeerViewModel
 
 @{
     ViewData["Title"] = "Create beer";
@@ -49,9 +49,9 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label asp-for="FlavorsString" class="form-label text-white"></label>
-                                        <input asp-for="FlavorsString" class="form-control" placeholder="Flavors" />
-                                        <span asp-validation-for="FlavorsString" class="text-danger"></span>
+                                        <label asp-for="FlavorString" class="form-label text-white"></label>
+                                        <input asp-for="FlavorString" class="form-control" placeholder="Flavors" />
+                                        <span asp-validation-for="FlavorString" class="text-danger"></span>
                                     </div>
                                 </div>
                             </div>

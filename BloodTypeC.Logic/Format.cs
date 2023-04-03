@@ -60,6 +60,11 @@ namespace BloodTypeC.Logic
         {
             // Remove any multiple spaces and change the input of tags separated by commas
             // and/or spaces into a list of lowercase tags.
+            if (string.IsNullOrWhiteSpace(tagsInput))
+            {
+                return new List<string>();
+            }
+            
             var tags = new List<string>();
             tagsInput = new String(tagsInput.Normalize(NormalizationForm.FormD)
                             .Where(c => char.GetUnicodeCategory(c) != UnicodeCategory.NonSpacingMark).ToArray());

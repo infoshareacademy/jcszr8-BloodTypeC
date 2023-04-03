@@ -1,4 +1,5 @@
 ﻿using BloodTypeC.DAL;
+using BloodTypeC.WebApp.Models;
 
 namespace BloodTypeC.WebApp.Services.IServices
 {
@@ -9,7 +10,7 @@ namespace BloodTypeC.WebApp.Services.IServices
         void Add(Beer beer);
         void Delete(int id);
         void Edit(int id);
-        void Edit(IFormCollection collection);
-        void Edit();
+        void AddFromView(BeerViewModel beerFromView);
+        void EditFromView(BeerViewModel beerFromView)
     }
 }
