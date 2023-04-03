@@ -10,10 +10,6 @@ namespace BloodTypeC.DAL
     {
         [JsonPropertyName("beer_id")]
         public string Id { get; set; }
-
-        [Required()]
-        [MinLength(2)]
-        [MaxLength(20)]
         public string Name { get; set; }
         
         public string? Brewery { get; set; }
@@ -23,10 +19,8 @@ namespace BloodTypeC.DAL
         public string? Image { get; set; }
         
         public List<string> Flavors { get; set; } = new List<string>();
-        [DisplayName("Flavors")]
-        public string? FlavorsString { get; set; }
+
         [JsonPropertyName("abv")]
-        [DisplayName("Alcohol by volume")]
         public double? AlcoholByVolume { get; set; }
         public double? Score { get; set; }
         public DateTime Added { get; set; }

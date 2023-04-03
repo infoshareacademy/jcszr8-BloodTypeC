@@ -4,15 +4,19 @@ using BloodTypeC.DAL;
 using BloodTypeC.WebApp.Services;
 using BloodTypeC.WebApp.Services.IServices;
 using BloodTypeC.Logic;
+using AutoMapper;
+using BloodTypeC.WebApp.Models;
 
 namespace BloodTypeC.WebApp.Controllers
 {
     public class BeerController : Controller
     {
         private readonly IBeerServices _beerServices;
-        public BeerController(IBeerServices beerServices)
+        private readonly IMapper _mapper;
+        public BeerController(IBeerServices beerServices, IMapper mapper)
         {
             _beerServices= beerServices;
+            _mapper= mapper;
         }
         // GET: BeerController
         public ActionResult Index()
@@ -30,27 +34,26 @@ namespace BloodTypeC.WebApp.Controllers
         // GET: BeerController/Create
         public ActionResult Create()
         {
-            Beer newBeer = new();
-            return View(newBeer);
+            var newBeer = new Beer();
+            newBeer.Flavors = new List<string>() { "" };
+            var newBeerDto = _mapper.Map<BeerViewModel>(newBeer);
+            
+            return View(newBeerDto);
         }
 
         // POST: BeerController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Beer beerToAdd)
+        public ActionResult Create(BeerViewModel beerFromView)
         {
-            ModelState.Remove(nameof(beerToAdd.Id));
+            
             try
             {
                 if (!ModelState.IsValid)
                 {
-                    return View(beerToAdd);
+                    return View(beerFromView);
                 }
-                if (!string.IsNullOrWhiteSpace(beerToAdd.FlavorsString))
-                {
-                    beerToAdd.Flavors = Format.AsTags(beerToAdd.FlavorsString);
-                }
-                _beerServices.Add(beerToAdd);
+                _beerServices.AddFromView(beerFromView);
                 return RedirectToAction("Index", "Home");
             }
             catch
