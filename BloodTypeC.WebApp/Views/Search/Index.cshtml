@@ -1,103 +1,93 @@
 ﻿@using BloodTypeC.Logic;
 @using BloodTypeC.DAL;
 @model IndexViewModel
+
 @{
-    ViewData["Title"] = "Search beer";
+    ViewData["Title"] = "Beer Search";
 }
 
-<div class="col-md-12">
-    <div class="section-center">
-        <div class="container">
-            <div class="row">
-                <div class="search-form">
-                    <form asp-controller="Search" asp-action="Index" method="post">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <span class="form-label text-white">Beer name</span>
-                                    <input class="form-control" type="text" placeholder="Beer name" asp-for="@Model.searchBeerName">
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+    <link href="~/css/StyleSheet.css" rel="stylesheet" />
+</head>
+
+<body>
+    <div class="page-name">
+        Beer search
+    </div>
+
+    <div class="col-md-12">
+        <div class="section-center">
+            <div class="container">
+                <div class="row">
+                    <div class="search-form">
+                        <form asp-controller="Search" asp-action="Index" method="post">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <span class="form-label text-white">Beer name</span>
+                                        <input class="form-control" type="text" placeholder="Beer name" asp-for="@Model.searchBeerName">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <span class="form-label text-white">Brewery</span>
+                                        <input class="form-control" type="text" placeholder="Brewery name" asp-for="@Model.searchBrewery">
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <span class="form-label text-white">Brewery</span>
-                                    <input class="form-control" type="text" placeholder="Brewery name" asp-for="@Model.searchBrewery">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <span class="form-label text-white">Minimum alcohol volume</span>
+                                        <span asp-validation-for="minAbv" class="text-danger"></span>
+                                        <input class="form-control" type="number" step="0.01" min="0" placeholder="Minimum alcohol %" asp-for="@Model.minAbv">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <span class="form-label text-white">Maximum alcohol volume</span>
+                                        <input class="form-control" type="number" step="0.01" min="0" placeholder="Maximum alcohol %" asp-for="@Model.maxAbv">
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <span class="form-label text-white">Minimum alcohol volume</span>
-                                    <span asp-validation-for="minAbv" class="text-danger"></span>
-                                    <input class="form-control" type="number" step="0.01" min="0" placeholder="Minimum alcohol %" asp-for="@Model.minAbv">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <span class="form-label">Select your favorites flavors</span>
+                                        @for (int i = 0; i < Model.CheckedListOfFlavors.Count; i++)
+                                        {
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="checkbox" asp-for="@Model.CheckedListOfFlavors[i].IsChecked">
+                                                <input type="hidden" asp-for="@Model.CheckedListOfFlavors[i].Name" />
+                                                <label class="form-label text-light" for="flexCheckDefault">@Model.CheckedListOfFlavors[i].Name</label>
+                                                <input type="hidden" asp-for="@Model.CheckedListOfFlavors[i].IsChecked" value="false" />
+                                            </div>
+                                        }
+                                        <input type="hidden" asp-for="@Model.Beers" />
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <span class="form-label text-white">Maximum alcohol volume</span>
-                                    <input class="form-control" type="number" step="0.01" min="0" placeholder="Maximum alcohol %" asp-for="@Model.maxAbv">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <span class="form-label">Select your favorites flavors</span>
-                                    @for (int i = 0; i < Model.CheckedListOfFlavors.Count; i++)
-                                    {
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="checkbox" asp-for="@Model.CheckedListOfFlavors[i].IsChecked">
-                                            <input type="hidden" asp-for="@Model.CheckedListOfFlavors[i].Name" />
-                                            <label class="form-label text-light" for="flexCheckDefault">@Model.CheckedListOfFlavors[i].Name</label>
-                                            <input type="hidden" asp-for="@Model.CheckedListOfFlavors[i].IsChecked" value="false" />
-                                        </div>
-                                    }
-                                    <input type="hidden" asp-for="@Model.Beers" />
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-2">
+
+                            <div class="buttons">
                                 <div class="form-btn">
                                     <button class="search-button">Show beers</button>
                                 </div>
                             </div>
-                        </div>
-                    </form>
+                        </form>
+                    </div>
+
                 </div>
             </div>
         </div>
     </div>
-</div>
-<section class="pt-4">
-    <div class="container px-lg-5">
-        <div class="row gx-lg-5">
-            @foreach (var item in Model.Beers)
-            {
-                <div class="col-lg-6 col-xxl-4 mb-5">
-                    <div class="product-card border-0 h-100">
-                        <div class="card-body text-light text-center p-4 p-lg-5 pt-0 pt-lg-0">
-                            <h5 class="card-title text-light">@item.Name</h5>
-                            <p class="card-text text-light">@item.Brewery<br>asdasdasdasd</p>
-                            <a asp-action="Details" asp-controller="Beer" asp-route-id="@item.Id" class="btn product-button">Details</a>
-                            <a asp-action="Edit" asp-controller="Beer" asp-route-id="@item.Id" class="btn product-button">Edit</a>
-                            <a asp-action="Delete" asp-controller="Beer" asp-route-id="@item.Id" class="btn product-button">Delete</a>
-                            @if (!DB.FavoriteBeers.Any(x => x.Id == item.Id.ToString()))
-                            {
-                                <a asp-controller="FavoriteBeers" asp-action="AddToFavorites" asp-route-id="@item.Id" class="btn fav-button">❤ Fav it!</a>
-                            }
-                            else
-                            {
-                                <a asp-controller="FavoriteBeers" asp-action="RemoveFromFavorites" asp-route-id="@item.Id" class="btn fav-rem-button">💔 Unfav</a>
-                            }
-                        </div>
-                    </div>
-                </div>
-            }
-        </div>
-    </div>
-</section>
+    @Html.Partial("_BeerPartialView", Model.Beers)
+    
+
+</body>
+
 @section Scripts {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");

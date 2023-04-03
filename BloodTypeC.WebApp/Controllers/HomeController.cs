@@ -31,10 +31,6 @@ namespace BloodTypeC.WebApp.Controllers
             return View(model);        
         }
 
-            public IActionResult AllBeers()
-        {
-            return View(DB.AllBeers);
-        }
         public IActionResult Details(int id)
         {
             var beerToDisplay = DB.AllBeers.FirstOrDefault(x => x.Id == id.ToString());
@@ -55,5 +51,6 @@ namespace BloodTypeC.WebApp.Controllers
         {
             return View(new AllBeersViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
     }
 }

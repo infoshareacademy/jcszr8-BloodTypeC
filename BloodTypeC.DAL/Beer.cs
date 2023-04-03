@@ -21,8 +21,8 @@ namespace BloodTypeC.DAL
         public List<string> Flavors { get; set; } = new List<string>();
 
         [JsonPropertyName("abv")]
-        public double AlcoholByVolume { get; set; }
-        public double Score { get; set; }
+        public double? AlcoholByVolume { get; set; }
+        public double? Score { get; set; }
         public DateTime Added { get; set; }
         public DateTime LastModified { get; set; }
     }
