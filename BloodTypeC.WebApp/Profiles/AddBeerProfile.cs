@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using BloodTypeC.DAL;
+using BloodTypeC.DAL.Models;
 using BloodTypeC.WebApp.Models;
 
 namespace BloodTypeC.WebApp.Profiles

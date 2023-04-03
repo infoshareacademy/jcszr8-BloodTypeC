@@ -1,4 +1,4 @@
-﻿using BloodTypeC.DAL;
+﻿using BloodTypeC.DAL.Models;
 using BloodTypeC.Logic;
 using BloodTypeC.WebApp.Models;
 using Microsoft.AspNetCore.Http;

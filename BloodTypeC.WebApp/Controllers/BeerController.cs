@@ -6,6 +6,7 @@ using BloodTypeC.WebApp.Services.IServices;
 using BloodTypeC.Logic;
 using AutoMapper;
 using BloodTypeC.WebApp.Models;
+using BloodTypeC.DAL.Models;
 
 namespace BloodTypeC.WebApp.Controllers
 {

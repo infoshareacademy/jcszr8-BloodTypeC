@@ -1,11 +1,11 @@
 ﻿using BloodTypeC.WebApp.Models;
-using BloodTypeC.DAL;
 using BloodTypeC.Logic;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using Microsoft.AspNetCore.Http;
 using System.Drawing.Text;
 using System.Reflection;
+using BloodTypeC.DAL.Models;
 
 namespace BloodTypeC.WebApp.Controllers
 {

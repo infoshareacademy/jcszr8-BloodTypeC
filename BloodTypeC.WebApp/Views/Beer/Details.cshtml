@@ -1,5 +1,6 @@
-﻿@using BloodTypeC.DAL;
-@model BloodTypeC.DAL.Beer
+﻿@    using BloodTypeC.DAL;
+    using BloodTypeC.DAL.Models;
+@model Beer
 
 @{
     ViewData["Title"] = "Details";
@@ -28,7 +29,7 @@
             }
             <br>
             <div class="buttons">
-                @if (!BloodTypeC.DAL.DB.FavoriteBeers.Any(x => x.Id == Model.Id.ToString()))
+                @if (!DB.FavoriteBeers.Any(x => x.Id == Model.Id.ToString()))
                 {
                     <button class="fav-button">
                         <a asp-controller="FavoriteBeers" asp-action="AddToFavorites" asp-route-id="@Model.Id">❤ Fav it!</a>

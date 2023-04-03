@@ -1,5 +1,5 @@
 ﻿using BloodTypeC.ConsoleUI;
-using BloodTypeC.DAL;
+using BloodTypeC.DAL.Models;
 using System;
 using System.Collections.Generic;
 using System.Globalization;

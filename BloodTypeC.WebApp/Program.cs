@@ -8,6 +8,7 @@ using BloodTypeC.WebApp.Services.IServices;
 using Microsoft.AspNetCore.Localization;
 using System.Globalization;
 using BloodTypeC.WebApp.Models;
+using BloodTypeC.DAL.Contexts;
 
 namespace BloodTypeC.WebApp
 {
@@ -24,6 +25,7 @@ namespace BloodTypeC.WebApp
             builder.Services.AddTransient<IFavoriteBeersServices, FavoriteBeersServices>();
 
             builder.Services.AddAutoMapper(typeof(Program));
+            builder.Services.AddDbContext<BeeropediaContext>();
 
             var app = builder.Build();
 
