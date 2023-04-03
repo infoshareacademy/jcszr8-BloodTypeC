@@ -35,7 +35,7 @@ namespace BloodTypeC.WebApp.Controllers
         public ActionResult Create()
         {
             var newBeer = new Beer();
-            newBeer.Flavors = new List<string>() { " " };
+            newBeer.Flavors = new List<string>() { "" };
             var newBeerDto = _mapper.Map<BeerViewModel>(newBeer);
             
             return View(newBeerDto);
@@ -46,23 +46,14 @@ namespace BloodTypeC.WebApp.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(BeerViewModel beerFromView)
         {
-            var beerToAdd = new Beer();
-            ModelState.Remove(nameof(beerFromView.Id));
+            
             try
             {
                 if (!ModelState.IsValid)
                 {
                     return View(beerFromView);
                 }
-                beerToAdd.Name = beerFromView.Name;
-                beerToAdd.Brewery = beerFromView.Brewery;
-                beerToAdd.AlcoholByVolume = beerFromView.AlcoholByVolume;
-                beerToAdd.Style = beerFromView.Style;
-                beerToAdd.Score = beerFromView.Score;
-                beerToAdd.Image = beerFromView.Image;
-                beerToAdd.Flavors = Format.AsTags(beerFromView.FlavorString);
-                
-                _beerServices.Add(beerToAdd);
+                _beerServices.AddFromView(beerFromView);
                 return RedirectToAction("Index", "Home");
             }
             catch
