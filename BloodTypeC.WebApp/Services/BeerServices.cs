@@ -44,5 +44,15 @@ namespace BloodTypeC.WebApp.Services
         {
             return _allBeers.FirstOrDefault(x => x.Id == id.ToString());
         }
+
+        public void Edit(IFormCollection collection)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Edit()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

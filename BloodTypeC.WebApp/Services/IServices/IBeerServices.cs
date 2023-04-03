@@ -9,5 +9,7 @@ namespace BloodTypeC.WebApp.Services.IServices
         void Add(Beer beer);
         void Delete(int id);
         void Edit(int id);
+        void Edit(IFormCollection collection);
+        void Edit();
     }
 }

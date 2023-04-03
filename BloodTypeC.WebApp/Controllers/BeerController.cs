@@ -62,7 +62,8 @@ namespace BloodTypeC.WebApp.Controllers
         // GET: BeerController/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            var model = _beerServices.GetById(id);
+            return View(model);
         }
 
         // POST: BeerController/Edit/5
@@ -72,7 +73,7 @@ namespace BloodTypeC.WebApp.Controllers
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index", "Home");
             }
             catch
             {

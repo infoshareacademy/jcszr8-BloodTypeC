@@ -1,0 +1,90 @@
+﻿@model BloodTypeC.DAL.Beer
+
+@{
+    ViewData["Title"] = "Create beer";
+}
+
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+    <link href="~/css/StyleSheet.css" rel="stylesheet" />
+</head>
+
+<body>
+    <div class="page-name">
+        Edit Beer
+    </div>
+
+    <div class="col-md-12">
+        <div class="section-center">
+            <div class="container">
+                <div class="row">
+                    <div class="search-form">
+                            <form asp-action="Edit">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                        <div class="form-group">
+                                            <span class="form-label text-white">Beer Name</span>
+                                            <input asp-for="Name" class="form-control" placeholder="Beer name" />
+                                            <span asp-validation-for="Name" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label asp-for="Brewery" class="form-label text-white"></label>
+                                            <input asp-for="Brewery" class="form-control" placeholder="Brewery name" />
+                                            <span asp-validation-for="Brewery" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label asp-for="Style" class="form-label text-white"></label>
+                                            <input asp-for="Style" class="form-control" placeholder="Style" />
+                                            <span asp-validation-for="Style" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label asp-for="FlavorsString" class="form-label text-white"></label>
+                                            <input asp-for="FlavorsString" class="form-control" placeholder="Flavors" />
+                                            <span asp-validation-for="FlavorsString" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <span class="form-label text-white">Alcohol volume</span>
+                                            <input asp-for="AlcoholByVolume" class="form-control" placeholder="Alcohol volume" />
+                                            <span asp-validation-for="AlcoholByVolume" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label asp-for="Score" class="form-label text-whitel"></label>
+                                            <input asp-for="Score" class="form-control" placeholder="Score" />
+                                            <span asp-validation-for="Score" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="buttons">
+                                    <div class="form-group">
+                                        <input type="submit" value="Edit" class="search-button" />
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</body>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
