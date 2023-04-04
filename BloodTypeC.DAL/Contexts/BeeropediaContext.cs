@@ -13,9 +13,9 @@ namespace BloodTypeC.DAL.Contexts
 {
     public class BeeropediaContext : DbContext
     {
-        public DbSet<Beer>? AllBeers { get; set;}
-        public DbSet<Beer>? FavoriteBeers { get; set;}
-        public DbSet<string>? AllFlavors { get; set;}
+        public DbSet<Beer> AllBeers { get; set;}
+        public DbSet<Beer> FavoriteBeers { get; set;}
+        public DbSet<FlavorEntity> AllFlavors { get; set;}
 
         public BeeropediaContext(DbContextOptions options) : base(options)
         {
@@ -27,8 +27,7 @@ namespace BloodTypeC.DAL.Contexts
             optionsBuilder.UseSqlServer(@"Server=(localdb)\MSSQLLocalDB;Database=BloodTypeC;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            
+        {                         
         }
     }
 }

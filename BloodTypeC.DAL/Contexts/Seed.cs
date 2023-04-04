@@ -1,4 +1,5 @@
 ﻿using BloodTypeC.DAL.Models;
+using Microsoft.AspNetCore.Http.Internal;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,15 +26,17 @@ namespace BloodTypeC.DAL.Contexts
                 context.AllBeers.Add(beer);
             }
             //Seeding flavors to DB
-            if (context.AllFlavors.Any())
+            /*if (context.AllFlavors.Any())
             {
                 return;   // Flavors has been seeded
             }
             var flavorsToSeed = beersToSeed.Where(x => x.Flavors != null).SelectMany(beer => beer.Flavors).Distinct().ToList();
-            foreach (var falvor in flavorsToSeed)
+            FlavorEntity flavorEntity = new();
+            foreach (var flavor in flavorsToSeed)
             {
-                context.AllFlavors.Add(falvor);
-            }
+                flavorEntity.Flavor = flavor;
+                context.AllFlavors.Add(flavorEntity);
+            }*/
             context.SaveChanges();
 
             // todo: add rest;
