@@ -17,9 +17,6 @@ namespace BloodTypeC.DAL.Models
         public string? Brewery { get; set; }
 
         public string? Style { get; set; }
-
-        public string? Image { get; set; }
-
         public List<string> Flavors { get; set; }
 
         [JsonPropertyName("abv")]
