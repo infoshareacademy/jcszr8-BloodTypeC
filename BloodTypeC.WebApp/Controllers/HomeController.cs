@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using System.Drawing.Text;
 using System.Reflection;
 using BloodTypeC.DAL.Models;
+using BloodTypeC.DAL.Repository;
 
 namespace BloodTypeC.WebApp.Controllers
 {
@@ -15,12 +16,14 @@ namespace BloodTypeC.WebApp.Controllers
         private readonly ILogger<HomeController> _logger;
         private static List<FlavorToSearch> _flavorsToSearch;
         private static List<Beer> _allBeers;
+        private readonly IRepository _repository;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger,IRepository repository)
         {
             _logger = logger;
+            _repository = repository;
             _flavorsToSearch = new List<FlavorToSearch>();
-            _allBeers = DB.AllBeers;
+            _allBeers = _repository.GetAll();
         }
 
         public IActionResult Index()

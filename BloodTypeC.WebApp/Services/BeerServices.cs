@@ -26,7 +26,7 @@ namespace BloodTypeC.WebApp.Services
             beerToAdd.Added = DateTime.Now;
             _allBeers.Add(beerToAdd);
         }
-        public void AddFromView(BeerViewModel beerFromView)
+        public Beer AddFromView(BeerViewModel beerFromView)
         {
             var beerToAdd = new Beer();
             beerToAdd.Id = GetNewId();
@@ -37,7 +37,7 @@ namespace BloodTypeC.WebApp.Services
             beerToAdd.AlcoholByVolume = Format.AsScoreOrABV(beerFromView.AlcoholByVolume.ToString(), MaxAlcoholValue);
             beerToAdd.Score = Format.AsScoreOrABV(beerFromView.Score.ToString(), MaxScore);
             beerToAdd.Added = DateTime.Now;
-            _allBeers.Add(beerToAdd);
+            return beerToAdd;
         }
 
         public void Delete(int id)

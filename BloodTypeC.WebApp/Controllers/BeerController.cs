@@ -7,6 +7,7 @@ using BloodTypeC.Logic;
 using AutoMapper;
 using BloodTypeC.WebApp.Models;
 using BloodTypeC.DAL.Models;
+using BloodTypeC.DAL.Repository;
 
 namespace BloodTypeC.WebApp.Controllers
 {
@@ -14,10 +15,12 @@ namespace BloodTypeC.WebApp.Controllers
     {
         private readonly IBeerServices _beerServices;
         private readonly IMapper _mapper;
-        public BeerController(IBeerServices beerServices, IMapper mapper)
+        private readonly IRepository _repository;
+        public BeerController(IBeerServices beerServices, IMapper mapper, IRepository repository)
         {
             _beerServices= beerServices;
             _mapper= mapper;
+            _repository= repository;
         }
         // GET: BeerController
         public ActionResult Index()
@@ -54,7 +57,8 @@ namespace BloodTypeC.WebApp.Controllers
                 {
                     return View(beerFromView);
                 }
-                _beerServices.AddFromView(beerFromView);
+                var a = _beerServices.AddFromView(beerFromView);
+                _repository.Insert(a);
                 return RedirectToAction("Index", "Home");
             }
             catch

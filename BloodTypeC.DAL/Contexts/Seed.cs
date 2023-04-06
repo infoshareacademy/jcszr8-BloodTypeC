@@ -23,6 +23,8 @@ namespace BloodTypeC.DAL.Contexts
             var beersToSeed = JsonSerializer.Deserialize<List<Beer>>(Resources.beers, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
             foreach (var beer in beersToSeed)
             {
+                beer.Added = DateTime.Now;
+                beer.LastModified = DateTime.Now;
                 context.AllBeers.Add(beer);
                 context.SaveChanges();
             }
@@ -41,9 +43,6 @@ namespace BloodTypeC.DAL.Contexts
                 context.AllFlavors.Add(flavorEntity);
                 context.SaveChanges();
             }
-            
-
-            // todo: add rest;
         }
     }
 }

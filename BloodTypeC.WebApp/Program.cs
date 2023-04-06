@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Localization;
 using System.Globalization;
 using BloodTypeC.WebApp.Models;
 using BloodTypeC.DAL.Contexts;
+using BloodTypeC.DAL.Repository;
 
 namespace BloodTypeC.WebApp
 {
@@ -23,7 +24,7 @@ namespace BloodTypeC.WebApp
             builder.Services.AddControllersWithViews();
             builder.Services.AddScoped<IBeerServices, BeerServices>();
             builder.Services.AddTransient<IFavoriteBeersServices, FavoriteBeersServices>();
-
+            builder.Services.AddScoped<IRepository, Repository>();
             builder.Services.AddAutoMapper(typeof(Program));
             builder.Services.AddDbContext<BeeropediaContext>();
 
