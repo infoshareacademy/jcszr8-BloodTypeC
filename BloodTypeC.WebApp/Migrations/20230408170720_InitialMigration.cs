@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace BloodTypeC.WebApp.Migrations
 {
     /// <inheritdoc />
-    public partial class IniatialMigration : Migration
+    public partial class InitialMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -28,19 +28,6 @@ namespace BloodTypeC.WebApp.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AllBeers", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "AllFlavors",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Flavor = table.Column<string>(type: "nvarchar(max)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AllFlavors", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -88,9 +75,6 @@ namespace BloodTypeC.WebApp.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "AllFlavors");
-
             migrationBuilder.DropTable(
                 name: "BeerBeerFavorites");
 

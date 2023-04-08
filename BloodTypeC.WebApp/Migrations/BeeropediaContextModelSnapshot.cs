@@ -88,23 +88,6 @@ namespace BloodTypeC.WebApp.Migrations
                     b.ToTable("AllBeers");
                 });
 
-            modelBuilder.Entity("BloodTypeC.DAL.Models.FlavorEntity", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Flavor")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("AllFlavors");
-                });
-
             modelBuilder.Entity("BeerBeerFavorites", b =>
                 {
                     b.HasOne("BloodTypeC.DAL.BeerFavorites", null)

@@ -29,9 +29,9 @@ namespace BloodTypeC.WebApp.Controllers
         }
 
         // GET: BeerController/Details/5
-        public ActionResult Details(int id)
+        public ActionResult Details(string id)
         {
-            var model = _beerServices.GetById(id);
+            var model = _repository.GetById(id);
             return View(model);
         }
 
@@ -68,19 +68,27 @@ namespace BloodTypeC.WebApp.Controllers
         }
 
         // GET: BeerController/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(string id)
         {
-            return View();
+            var model = _repository.GetById(id);
+            var newBeerDto = _mapper.Map<BeerViewModel>(model);
+            return View(newBeerDto);
         }
 
         // POST: BeerController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit(BeerViewModel model, IFormCollection collection)
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+                if (!ModelState.IsValid)
+                {
+                    return View();
+                }
+                var beerDto = _mapper.Map<Beer>(model);
+                _repository.Update(beerDto);
+                return RedirectToAction("Index", "Home");
             }
             catch
             {
@@ -89,19 +97,26 @@ namespace BloodTypeC.WebApp.Controllers
         }
 
         // GET: BeerController/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult Delete(string id)
         {
-            return View();
+            var model = _repository.GetById(id);
+            var newBeerDto = _mapper.Map<BeerViewModel>(model);
+            return View(newBeerDto);
         }
 
         // POST: BeerController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public ActionResult Delete(string id, IFormCollection collection)
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+                if (!ModelState.IsValid)
+                {
+                    return View();
+                }
+                _repository.Delete(_repository.GetById(id));
+                return RedirectToAction("Index", "Home");
             }
             catch
             {

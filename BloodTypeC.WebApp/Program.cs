@@ -24,7 +24,7 @@ namespace BloodTypeC.WebApp
             builder.Services.AddControllersWithViews();
             builder.Services.AddScoped<IBeerServices, BeerServices>();
             builder.Services.AddTransient<IFavoriteBeersServices, FavoriteBeersServices>();
-            builder.Services.AddScoped<IRepository, Repository>();
+            builder.Services.AddScoped<IRepository, BeerRepository>();
             builder.Services.AddAutoMapper(typeof(Program));
             builder.Services.AddDbContext<BeeropediaContext>();
 

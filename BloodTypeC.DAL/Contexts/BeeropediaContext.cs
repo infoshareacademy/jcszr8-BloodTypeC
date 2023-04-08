@@ -17,7 +17,7 @@ namespace BloodTypeC.DAL.Contexts
     {
         public DbSet<Beer> AllBeers { get; set;}
         public DbSet<BeerFavorites> FavoriteBeers { get; set;}
-        public DbSet<FlavorEntity> AllFlavors { get; set;}
+        //public DbSet<FlavorEntity> AllFlavors { get; set;}
 
         public BeeropediaContext(DbContextOptions options) : base(options)
         {
@@ -46,7 +46,7 @@ namespace BloodTypeC.DAL.Contexts
                 .HasMany(b=>b.Beers)
                 .WithMany();
 
-            modelBuilder.Entity<FlavorEntity>();
+            //modelBuilder.Entity<FlavorEntity>();
         }
     }
 }

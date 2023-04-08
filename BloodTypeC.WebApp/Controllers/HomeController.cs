@@ -34,12 +34,12 @@ namespace BloodTypeC.WebApp.Controllers
             return View(model);        
         }
 
-        public IActionResult Details(int id)
+        public IActionResult Details(string id)
         {
-            var beerToDisplay = DB.AllBeers.FirstOrDefault(x => x.Id == id.ToString());
-            return View(beerToDisplay);
+            var model = _repository.GetById(id);
+            return View(model);
         }
-                public IActionResult AgeCheck()
+        public IActionResult AgeCheck()
         {
             return View();
         }

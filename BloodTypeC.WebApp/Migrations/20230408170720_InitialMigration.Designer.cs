@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BloodTypeC.WebApp.Migrations
 {
     [DbContext(typeof(BeeropediaContext))]
-    [Migration("20230405190404_IniatialMigration")]
-    partial class IniatialMigration
+    [Migration("20230408170720_InitialMigration")]
+    partial class InitialMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -89,23 +89,6 @@ namespace BloodTypeC.WebApp.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("AllBeers");
-                });
-
-            modelBuilder.Entity("BloodTypeC.DAL.Models.FlavorEntity", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Flavor")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("AllFlavors");
                 });
 
             modelBuilder.Entity("BeerBeerFavorites", b =>

@@ -24,11 +24,11 @@ namespace BloodTypeC.DAL.Contexts
             foreach (var beer in beersToSeed)
             {
                 beer.Added = DateTime.Now;
-                beer.LastModified = DateTime.Now;
+                //beer.LastModified = DateTime.Now;
                 context.AllBeers.Add(beer);
                 context.SaveChanges();
             }
-            //Seeding flavors to DB
+            /*//Seeding flavors to DB
             if (context.AllFlavors.Any())
             {
                 return;   // Flavors has been seeded
@@ -42,7 +42,7 @@ namespace BloodTypeC.DAL.Contexts
                 //flavorEntity.Flavor = flavor;
                 context.AllFlavors.Add(flavorEntity);
                 context.SaveChanges();
-            }
+            }*/
         }
     }
 }

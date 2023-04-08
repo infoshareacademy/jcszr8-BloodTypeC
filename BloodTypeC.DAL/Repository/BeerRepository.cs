@@ -4,20 +4,20 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BloodTypeC.DAL.Repository
 {
-    public class Repository : IRepository
+    public class BeerRepository : IRepository
     {
-        private readonly DbSet<Beer> _entities;
+        private readonly DbSet<Beer> _beerEntities;
         private readonly BeeropediaContext _context;
 
-        public Repository(BeeropediaContext context)
+        public BeerRepository(BeeropediaContext context)
         {
             _context = context;
-            _entities = context.Set<Beer>();
+            _beerEntities = context.Set<Beer>();
         }
 
         public List<Beer> GetAll()
         {
-            return this._entities.AsEnumerable().ToList();
+            return this._beerEntities.AsEnumerable().ToList();
         }
         public void Insert(Beer entity)
         {
@@ -26,28 +26,25 @@ namespace BloodTypeC.DAL.Repository
                 return; // throw exception - incorrect usage
             }
 
-            this._entities.Add(entity);
+            this._beerEntities.Add(entity);
             this._context.SaveChanges();
         }
 
         public void Delete(Beer entity)
         {
-            throw new NotImplementedException();
-        }
-
-        Beer Get(string id)
-        {
-            throw new NotImplementedException();
+            this._beerEntities.Remove(entity);
+            this._context.SaveChanges();
         }
 
         public void Update(Beer entity)
         {
-            throw new NotImplementedException();
+            this._beerEntities.Update(entity);
+            this._context.SaveChanges();
         }
 
-        Beer IRepository.Get(string id)
+        public Beer GetById(string id)
         {
-            throw new NotImplementedException();
+            return _beerEntities.FirstOrDefault(x => x.Id == id);
         }
     }
 }
