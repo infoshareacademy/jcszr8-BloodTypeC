@@ -65,8 +65,10 @@ namespace BloodTypeC.WebApp.Controllers
         // GET: BeerController/Edit/5
         public ActionResult Edit(int id)
         {
-            var model = _beerServices.GetById(id);
-            return View(model);
+            var beerToEdit = DB.AllBeers.Where(s => s.id == Id).FirstOrDefault();
+
+            return View();
+
         }
 
         // POST: BeerController/Edit/5

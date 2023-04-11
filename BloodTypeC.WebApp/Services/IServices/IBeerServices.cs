@@ -11,6 +11,6 @@ namespace BloodTypeC.WebApp.Services.IServices
         void Delete(int id);
         void Edit(int id);
         void AddFromView(BeerViewModel beerFromView);
-        void EditFromView(BeerViewModel beerFromView)
+        void EditFromView(BeerViewModel beerFromView);
     }
 }

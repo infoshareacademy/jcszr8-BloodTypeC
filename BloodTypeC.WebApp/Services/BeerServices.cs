@@ -64,5 +64,20 @@ namespace BloodTypeC.WebApp.Services
         {
             return _allBeers.Max(x => int.Parse(x.Id) + 1).ToString();
         }
+
+        public void EditFromView(BeerViewModel beerFromView)
+        {
+            var beerToAdd = new Beer();
+            beerToAdd.Id = GetNewId();
+            beerToAdd.Name = Format.AsNameOrTitle(beerFromView.Name, Format.CapitalsOptions.FirstWord, false);
+            beerToAdd.Brewery = Format.AsNameOrTitle(beerFromView.Brewery, Format.CapitalsOptions.EachWord, false);
+            beerToAdd.Style = Format.AsNameOrTitle(beerFromView.Style, Format.CapitalsOptions.EachWord, true);
+            beerToAdd.Flavors = Format.AsTags(beerFromView.FlavorString);
+            beerToAdd.AlcoholByVolume = Format.AsScoreOrABV(beerFromView.AlcoholByVolume.ToString(), MaxAlcoholValue);
+            beerToAdd.Score = Format.AsScoreOrABV(beerFromView.Score.ToString(), MaxScore);
+            beerToAdd.Added = DateTime.Now;
+            
+        }
     }
+
 }

@@ -17,8 +17,8 @@ namespace BloodTypeC.WebApp.Models
         public string? Style { get; set; }
 
         [DisplayName("Alcohol by volume")]
-        public double AlcoholByVolume { get; set; }
-        public double Score { get; set; }
+        public double? AlcoholByVolume { get; set; }
+        public double? Score { get; set; }
         public DateTime Added { get; set; }
         public DateTime LastModified { get; set; }
         [DisplayName("Flavors")]
