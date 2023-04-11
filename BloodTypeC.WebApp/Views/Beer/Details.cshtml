@@ -1,5 +1,5 @@
-﻿@using BloodTypeC.DAL;
-@model BloodTypeC.DAL.Beer
+﻿@model BloodTypeC.WebApp.Models.BeerViewModel
+@using BloodTypeC.DAL.Models;
 
 @{
     ViewData["Title"] = "Details";
@@ -13,22 +13,16 @@
 </head>
 <div class="products">
     <div class="product-card-details">
-
         <div class="beer-image-possition"><img src="~/Images/mockup.png" class="beer-image"></div>
         <h1 class="details">@Model.Name</h1>
-        <div class="details">
-            by <strong>@Model.Brewery</strong><br>
+        <div class="details-product">
+            Brewery: @Model.Brewery><br>
             Style: @Model.Style<br>
-            Alcohol by vol: @Model.AlcoholByVolume<br>
+            Flavors: @Model.FlavorString<br>
+            Alcohol volume: @Model.AlcoholByVolume<br>
             Score: @Model.Score<br>
-            Flavors: @foreach (var item in Model.Flavors)
-            {
-                @string.Format(item+" ")
-                ;
-            }
-            <br>
             <div class="buttons">
-                @if (!BloodTypeC.DAL.DB.FavoriteBeers.Any(x => x.Id == Model.Id.ToString()))
+                @if (!DB.FavoriteBeers.Any(x => x.Id == Model.Id.ToString()))
                 {
                     <button class="fav-button">
                         <a asp-controller="FavoriteBeers" asp-action="AddToFavorites" asp-route-id="@Model.Id">❤ Fav it!</a>

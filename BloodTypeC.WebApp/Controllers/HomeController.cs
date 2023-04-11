@@ -1,11 +1,12 @@
 ﻿using BloodTypeC.WebApp.Models;
-using BloodTypeC.DAL;
 using BloodTypeC.Logic;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using Microsoft.AspNetCore.Http;
 using System.Drawing.Text;
 using System.Reflection;
+using BloodTypeC.DAL.Models;
+using BloodTypeC.DAL.Repository;
 
 namespace BloodTypeC.WebApp.Controllers
 {
@@ -15,12 +16,14 @@ namespace BloodTypeC.WebApp.Controllers
         private readonly ILogger<HomeController> _logger;
         private static List<FlavorToSearch> _flavorsToSearch;
         private static List<Beer> _allBeers;
+        private readonly IRepository _repository;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger,IRepository repository)
         {
             _logger = logger;
+            _repository = repository;
             _flavorsToSearch = new List<FlavorToSearch>();
-            _allBeers = DB.AllBeers;
+            _allBeers = _repository.GetAll();
         }
 
         public IActionResult Index()
@@ -31,12 +34,12 @@ namespace BloodTypeC.WebApp.Controllers
             return View(model);        
         }
 
-        public IActionResult Details(int id)
+        public IActionResult Details(string id)
         {
-            var beerToDisplay = DB.AllBeers.FirstOrDefault(x => x.Id == id.ToString());
-            return View(beerToDisplay);
+            var model = _repository.GetById(id);
+            return View(model);
         }
-                public IActionResult AgeCheck()
+        public IActionResult AgeCheck()
         {
             return View();
         }

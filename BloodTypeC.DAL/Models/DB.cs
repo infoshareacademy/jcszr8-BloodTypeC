@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BloodTypeC.DAL
+namespace BloodTypeC.DAL.Models
 {
     public class DB
     {

@@ -83,7 +83,8 @@
             </div>
         </div>
     </div>
-    @Html.Partial("_BeerPartialView", Model.Beers)
+
+    @Html.RenderPartialAsync("_BeerPartialView", Model.Beers);
     
 
 </body>

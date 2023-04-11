@@ -1,4 +1,4 @@
-﻿using BloodTypeC.DAL;
+﻿using BloodTypeC.DAL.Models;
 using BloodTypeC.Logic;
 using BloodTypeC.WebApp.Models;
 using BloodTypeC.WebApp.Services.IServices;
@@ -26,7 +26,7 @@ namespace BloodTypeC.WebApp.Services
             beerToAdd.Added = DateTime.Now;
             _allBeers.Add(beerToAdd);
         }
-        public void AddFromView(BeerViewModel beerFromView)
+        public Beer AddFromView(BeerViewModel beerFromView)
         {
             var beerToAdd = new Beer();
             beerToAdd.Id = GetNewId();
@@ -37,7 +37,7 @@ namespace BloodTypeC.WebApp.Services
             beerToAdd.AlcoholByVolume = Format.AsScoreOrABV(beerFromView.AlcoholByVolume.ToString(), MaxAlcoholValue);
             beerToAdd.Score = Format.AsScoreOrABV(beerFromView.Score.ToString(), MaxScore);
             beerToAdd.Added = DateTime.Now;
-            _allBeers.Add(beerToAdd);
+            return beerToAdd;
         }
 
         public void Delete(int id)
@@ -64,5 +64,20 @@ namespace BloodTypeC.WebApp.Services
         {
             return _allBeers.Max(x => int.Parse(x.Id) + 1).ToString();
         }
+
+        public void EditFromView(BeerViewModel beerFromView)
+        {
+            var beerToAdd = new Beer();
+            beerToAdd.Id = GetNewId();
+            beerToAdd.Name = Format.AsNameOrTitle(beerFromView.Name, Format.CapitalsOptions.FirstWord, false);
+            beerToAdd.Brewery = Format.AsNameOrTitle(beerFromView.Brewery, Format.CapitalsOptions.EachWord, false);
+            beerToAdd.Style = Format.AsNameOrTitle(beerFromView.Style, Format.CapitalsOptions.EachWord, true);
+            beerToAdd.Flavors = Format.AsTags(beerFromView.FlavorString);
+            beerToAdd.AlcoholByVolume = Format.AsScoreOrABV(beerFromView.AlcoholByVolume.ToString(), MaxAlcoholValue);
+            beerToAdd.Score = Format.AsScoreOrABV(beerFromView.Score.ToString(), MaxScore);
+            beerToAdd.Added = DateTime.Now;
+            
+        }
     }
+
 }

@@ -1,6 +1,4 @@
-﻿@using BloodTypeC.Logic;
-@using BloodTypeC.DAL;
-@model IndexViewModel
+﻿@model IndexViewModel
 
 @{
     ViewData["Title"] = "All beers";
@@ -17,7 +15,7 @@
         All Beers
     </div>
     <div > 
-        @Html.Partial("_BeerPartialView", Model.Beers)
+        @Html.RenderPartialAsync("_BeerPartialView", Model.Beers);
     </div>
 </body>
 

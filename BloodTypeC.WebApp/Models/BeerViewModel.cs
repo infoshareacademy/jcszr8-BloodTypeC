@@ -1,12 +1,14 @@
 ﻿using BloodTypeC.DAL;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
 
 namespace BloodTypeC.WebApp.Models
 {
     public class BeerViewModel
     {
+        public string? Id { get; set; }
         [Required()]
         [MinLength(2)]
         [MaxLength(20)]
@@ -17,8 +19,8 @@ namespace BloodTypeC.WebApp.Models
         public string? Style { get; set; }
 
         [DisplayName("Alcohol by volume")]
-        public double AlcoholByVolume { get; set; }
-        public double Score { get; set; }
+        public double? AlcoholByVolume { get; set; }
+        public double? Score { get; set; }
         public DateTime Added { get; set; }
         public DateTime LastModified { get; set; }
         [DisplayName("Flavors")]

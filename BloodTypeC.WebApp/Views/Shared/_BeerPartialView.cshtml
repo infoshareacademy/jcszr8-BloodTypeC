@@ -1,6 +1,7 @@
 ﻿@using BloodTypeC.DAL;
 @using Microsoft.AspNetCore.Http.Extensions;
-@model IEnumerable<BloodTypeC.DAL.Beer>
+@using BloodTypeC.DAL.Models;
+@model IEnumerable<Beer>
 
 <div class="products">
     @foreach (var item in Model)
@@ -23,7 +24,7 @@
                 </div>
                 <div class="buttons">
                     <div>
-                        @if (!BloodTypeC.DAL.DB.FavoriteBeers.Any(x => x.Id == item.Id.ToString()))
+                        @if (!DB.FavoriteBeers.Any(x => x.Id == item.Id.ToString()))
                         {
                             <button class="fav-button">
                                 <a asp-controller="FavoriteBeers" asp-action="AddToFavorites" asp-route-id="@item.Id">❤ Fav it!</a>

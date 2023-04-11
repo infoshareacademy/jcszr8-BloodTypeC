@@ -9,6 +9,7 @@ using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using System.Diagnostics;
 using System.Reflection;
+using BloodTypeC.DAL.Models;
 
 namespace BloodTypeC.Logic
 {

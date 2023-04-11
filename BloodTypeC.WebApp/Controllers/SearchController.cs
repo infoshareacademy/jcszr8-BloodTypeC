@@ -1,4 +1,5 @@
-﻿using BloodTypeC.DAL;
+﻿using BloodTypeC.DAL.Models;
+using BloodTypeC.DAL.Repository;
 using BloodTypeC.Logic;
 using BloodTypeC.WebApp.Models;
 using Microsoft.AspNetCore.Http;
@@ -10,16 +11,20 @@ namespace BloodTypeC.WebApp.Controllers
     {
         private static List<FlavorToSearch> _flavorsToSearch;
         private static List<Beer> _allBeers;
-        public SearchController() 
+        private static List<string> _allFlavors;
+        private readonly IRepository _repository;
+        public SearchController(IRepository repository) 
         {
+            _repository = repository;
             _flavorsToSearch = new List<FlavorToSearch>();
-            _allBeers = DB.AllBeers;
+            _allBeers = _repository.GetAll();
+            _allFlavors = BeerOperations.GetAllFlavors(_allBeers);
         }
         // GET: SearchController
         public IActionResult Index()
         {
-            DB.AllFlavors = BeerOperations.GetAllFlavors();
-            foreach (var flavor in DB.AllFlavors)
+            
+            foreach (var flavor in _allFlavors)
             {
                 var activeFlavor = new FlavorToSearch() { Name = flavor, IsChecked = false };
                 if (!_flavorsToSearch.Contains(activeFlavor))
@@ -92,75 +97,6 @@ namespace BloodTypeC.WebApp.Controllers
             resultList = BeerOperations.SearchByAlcVol(resultList, minimumAlcohol, maximumAlcohol);
             model.Beers = resultList;
             return View(model);
-        }
-
-        // GET: SearchController/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
-        // GET: SearchController/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: SearchController/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: SearchController/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: SearchController/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: SearchController/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: SearchController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
+        }    
     }
 }
