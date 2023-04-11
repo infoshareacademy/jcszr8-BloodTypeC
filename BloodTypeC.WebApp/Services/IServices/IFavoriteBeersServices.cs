@@ -1,4 +1,4 @@
-﻿using BloodTypeC.DAL;
+﻿using BloodTypeC.DAL.Models;
 
 namespace BloodTypeC.WebApp.Services.IServices
 {

@@ -110,7 +110,7 @@ a:hover {
 .product-card {
     flex: 1 0 21%;
     margin: 25px;
-    height: 450px;
+    height: 415px;
     background-color: rgb(128, 128, 128);
     max-width: 300px;
     min-width: 284px;
@@ -137,10 +137,9 @@ a:hover {
     justify-content: center
 }
 
-.empty{
+.empty {
     color: white;
 }
-
 .product-button {
     height: 45px;
     width: 70px;
@@ -253,6 +252,13 @@ a:hover {
 .details {
     color: white;
     padding: 20px;
+    
+}
+
+.details-product {
+    color: white;
+    padding-left: 20px;
+    padding-bottom: 20px;
 }
 
 .section {
@@ -433,4 +439,13 @@ a:hover {
 .form-check-input:checked {
     background-color: rgb(253, 197, 0);
     border-color: rgb(253, 197, 0);
+}
+
+.delete {
+    color: white;
+    font-size: 25px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin: auto;
 }

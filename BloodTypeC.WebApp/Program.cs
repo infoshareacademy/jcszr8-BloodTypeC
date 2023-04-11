@@ -8,6 +8,8 @@ using BloodTypeC.WebApp.Services.IServices;
 using Microsoft.AspNetCore.Localization;
 using System.Globalization;
 using BloodTypeC.WebApp.Models;
+using BloodTypeC.DAL.Contexts;
+using BloodTypeC.DAL.Repository;
 
 namespace BloodTypeC.WebApp
 {
@@ -22,11 +24,12 @@ namespace BloodTypeC.WebApp
             builder.Services.AddControllersWithViews();
             builder.Services.AddScoped<IBeerServices, BeerServices>();
             builder.Services.AddTransient<IFavoriteBeersServices, FavoriteBeersServices>();
-
+            builder.Services.AddScoped<IRepository, BeerRepository>();
             builder.Services.AddAutoMapper(typeof(Program));
+            builder.Services.AddDbContext<BeeropediaContext>();
 
             var app = builder.Build();
-
+            CreateDbIfNotExists(app);
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
             {
@@ -59,6 +62,21 @@ namespace BloodTypeC.WebApp
                 }
                 );
             app.Run();   
+        }
+        private static void CreateDbIfNotExists(IHost host)
+        {
+            using var scope = host.Services.CreateScope();
+            var services = scope.ServiceProvider;
+            try
+            {
+                var context = services.GetRequiredService<BeeropediaContext>();
+                Seed.Initialize(context);
+            }
+            catch (Exception ex)
+            {
+                var logger = services.GetRequiredService<ILogger<Program>>();
+                logger.LogError(ex, "An error occurred creating the DB.");
+            }
         }
     }
 }

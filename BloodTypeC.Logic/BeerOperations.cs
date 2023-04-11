@@ -1,5 +1,5 @@
 ﻿using BloodTypeC.ConsoleUI;
-using BloodTypeC.DAL;
+using BloodTypeC.DAL.Models;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -231,9 +231,9 @@ namespace BloodTypeC.Logic
             DB.FavoriteBeers?.Remove(beer);
         }
 
-        public static List<string> GetAllFlavors()
+        public static List<string> GetAllFlavors(List<Beer> beers)
         {
-            return DB.AllBeers.Where(x => x.Flavors != null).SelectMany(beer => beer.Flavors).Distinct().ToList();
+            return beers.Where(x => x.Flavors != null).SelectMany(beer => beer.Flavors).Distinct().ToList();
         }
         public static void GetAllBeers()
         {

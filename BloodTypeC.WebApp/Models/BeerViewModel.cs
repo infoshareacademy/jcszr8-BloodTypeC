@@ -1,12 +1,14 @@
 ﻿using BloodTypeC.DAL;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
 
 namespace BloodTypeC.WebApp.Models
 {
     public class BeerViewModel
     {
+        public string? Id { get; set; }
         [Required()]
         [MinLength(2)]
         [MaxLength(20)]
