@@ -16,7 +16,7 @@
         <div class="beer-image-possition"><img src="~/Images/mockup.png" class="beer-image"></div>
         <h1 class="details">@Model.Name</h1>
         <div class="details-product">
-            Brewery: @Model.Brewery><br>
+            Brewery: @Model.Brewery<br>
             Style: @Model.Style<br>
             Flavors: @Model.FlavorString<br>
             Alcohol volume: @Model.AlcoholByVolume<br>
@@ -24,15 +24,19 @@
             <div class="buttons">
                 @if (!DB.FavoriteBeers.Any(x => x.Id == Model.Id.ToString()))
                 {
-                    <button class="fav-button">
-                        <a asp-controller="FavoriteBeers" asp-action="AddToFavorites" asp-route-id="@Model.Id">❤ Fav it!</a>
-                    </button>
+                    <a asp-controller="FavoriteBeers" asp-action="AddToFavorites" asp-route-id="@Model.Id">
+                        <button class="fav-button">
+                            ❤ Fav it!
+                        </button>
+                    </a>
                 }
                 else
                 {
-                    <button class="fav-rem-button">
-                        <a asp-controller="FavoriteBeers" asp-action="RemoveFromFavorites" asp-route-id="@Model.Id">💔 Unfav</a>
-                    </button>
+                    <a asp-controller="FavoriteBeers" asp-action="RemoveFromFavorites" asp-route-id="@Model.Id">
+                        <button class="fav-rem-button">
+                            💔 Unfav
+                        </button>
+                    </a>
                 }
             </div>
         </div>

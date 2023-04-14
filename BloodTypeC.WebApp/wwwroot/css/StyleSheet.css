@@ -166,6 +166,7 @@ a:hover {
         font-size: 14px;
         background-color: rgb(253, 197, 0);
         margin: 5px;
+        font-weight: bold;
     }
 
 .fav-rem-button {
@@ -180,6 +181,7 @@ a:hover {
     margin: 5px;
     transition: color 0.3s;
     transition: background-color 0.3s;
+    font-weight: bold;
 }
 
     .fav-rem-button:hover {
@@ -192,6 +194,7 @@ a:hover {
         color: white;
         font-size: 14px;
         margin: 5px;
+        font-weight: normal;
     }
 
 .fav-button {
@@ -218,6 +221,7 @@ a:hover {
         color: rgb(39, 41, 42);
         font-size: 14px;
         margin: 5px;
+        font-weight: bold;
     }
 
 .search-button {
