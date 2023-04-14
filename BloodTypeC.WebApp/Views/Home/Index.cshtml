@@ -14,9 +14,11 @@
     <div class="page-name">
         All Beers
     </div>
-    <div > 
-        @Html.RenderPartialAsync("_BeerPartialView", Model.Beers);
-    </div>
+
+    @{
+        await Html.RenderPartialAsync("_BeerPartialView", Model.Beers);
+    }
+    
 </body>
 
 @section Scripts {
