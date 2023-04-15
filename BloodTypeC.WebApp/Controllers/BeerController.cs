@@ -32,7 +32,6 @@ namespace BloodTypeC.WebApp.Controllers
         public ActionResult Details(string id)
         {
             var model = _repository.GetById(id);
-            if (model.Flavors.Count() == 0) model.Flavors = new List<string>() { "" };
             var newBeerDto = _mapper.Map<BeerViewModel>(model);
             return View(newBeerDto);
         }
@@ -73,7 +72,6 @@ namespace BloodTypeC.WebApp.Controllers
         public ActionResult Edit(string id)
         {
             var model = _repository.GetById(id);
-            if (model.Flavors.Count() == 0) model.Flavors = new List<string>() { "" };
             var newBeerDto = _mapper.Map<BeerViewModel>(model);
             return View(newBeerDto);
         }
@@ -103,7 +101,6 @@ namespace BloodTypeC.WebApp.Controllers
         public ActionResult Delete(string id)
         {
             var model = _repository.GetById(id);
-            if (model.Flavors.Count() == 0) model.Flavors = new List<string>() { "" };
             var newBeerDto = _mapper.Map<BeerViewModel>(model);
             return View(newBeerDto);
         }

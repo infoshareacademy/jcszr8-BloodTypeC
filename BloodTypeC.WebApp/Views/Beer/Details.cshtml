@@ -38,6 +38,12 @@
                         </button>
                     </a>
                 }
+                <a asp-action="Edit" asp-route-id="@Model.Id" asp-controller="Beer">
+                    <button class="product-button">Edit</button>
+                </a>
+                <a asp-action="Delete" asp-route-id="@Model.Id" asp-controller="Beer">
+                    <button class="product-button">Delete</button>
+                </a>
             </div>
         </div>
     </div>
