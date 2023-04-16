@@ -30,7 +30,7 @@ namespace BloodTypeC.WebApp.Controllers
             _favoriteBeersServices.RemoveFromFavs(id);
             var referer = GetReferer();
 
-            return RedirectToAction(referer[1], referer[0], new { id });
+            return RedirectToAction(referer[1], referer[0], id );
 
         }
         public IActionResult Favorites()
