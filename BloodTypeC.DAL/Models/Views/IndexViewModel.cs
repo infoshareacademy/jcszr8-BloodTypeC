@@ -1,8 +1,4 @@
 ﻿using BloodTypeC.DAL.Models;
-using BloodTypeC.Logic;
-using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
-using System.ComponentModel.DataAnnotations;
-using System.Diagnostics.CodeAnalysis;
 
 namespace BloodTypeC.WebApp.Models
 {
@@ -21,15 +17,15 @@ namespace BloodTypeC.WebApp.Models
         public double? maxAbv { get; set; }
     }
 
-        public class FlavorToSearch 
+    public class FlavorToSearch
     {
         public string Name { get; set; }
-        public bool IsChecked { get; set;}
+        public bool IsChecked { get; set; }
 
-        public FlavorToSearch() 
+        public FlavorToSearch()
         {
             this.Name = string.Empty;
-            this.IsChecked= false;
+            this.IsChecked = false;
         }
     }
 }

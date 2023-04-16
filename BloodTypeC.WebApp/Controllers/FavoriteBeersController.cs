@@ -1,11 +1,5 @@
-﻿using BloodTypeC.DAL;
-using BloodTypeC.Logic;
-using BloodTypeC.WebApp.Services.IServices;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Http.Extensions;
+﻿using BloodTypeC.Logic.Services.IServices;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.Extensions.Primitives;
 
 namespace BloodTypeC.WebApp.Controllers
 {
@@ -16,8 +10,13 @@ namespace BloodTypeC.WebApp.Controllers
         {
             _favoriteBeersServices = favoriteBeersServices;
         }
+        [HttpGet]        
+        
+        public IActionResult Favorites()
+        {
+            return View(_favoriteBeersServices.GetAllFavs());
+        }
 
-        [HttpGet]
         public IActionResult AddToFavorites(int id)
         {
             _favoriteBeersServices.AddToFavs(id);
@@ -25,17 +24,13 @@ namespace BloodTypeC.WebApp.Controllers
 
             return RedirectToAction(referer[1], referer[0], new { id });
         }
+        
         public IActionResult RemoveFromFavorites(int id)
         {
             _favoriteBeersServices.RemoveFromFavs(id);
             var referer = GetReferer();
 
             return RedirectToAction(referer[1], referer[0], new { id });
-
-        }
-        public IActionResult Favorites()
-        {
-            return View(_favoriteBeersServices.GetAllFavs());
         }
 
         public string[] GetReferer()

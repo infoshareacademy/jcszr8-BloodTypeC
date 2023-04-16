@@ -1,13 +1,8 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using BloodTypeC.DAL;
-using BloodTypeC.WebApp.Services;
-using BloodTypeC.WebApp.Services.IServices;
-using BloodTypeC.Logic;
-using AutoMapper;
-using BloodTypeC.WebApp.Models;
+﻿using AutoMapper;
 using BloodTypeC.DAL.Models;
-using BloodTypeC.DAL.Repository;
+using BloodTypeC.WebApp.Models;
+using BloodTypeC.Logic.Services.IServices;
+using Microsoft.AspNetCore.Mvc;
 
 namespace BloodTypeC.WebApp.Controllers
 {
@@ -17,7 +12,7 @@ namespace BloodTypeC.WebApp.Controllers
         private readonly IMapper _mapper;
         public BeerController(IBeerServices beerServices, IMapper mapper)
         {
-            _beerServices= beerServices;
+            _beerServices = beerServices;
             _mapper= mapper;
         }
         // GET: BeerController

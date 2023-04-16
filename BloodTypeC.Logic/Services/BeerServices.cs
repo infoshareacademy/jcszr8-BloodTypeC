@@ -1,18 +1,18 @@
 ﻿using BloodTypeC.DAL.Models;
 using BloodTypeC.DAL.Repository;
 using BloodTypeC.Logic;
+using BloodTypeC.Logic.Services.IServices;
 using BloodTypeC.WebApp.Models;
-using BloodTypeC.WebApp.Services.IServices;
 
-namespace BloodTypeC.WebApp.Services
+namespace BloodTypeC.Logic.Services
 {
     public class BeerServices : IBeerServices
     {
-        private readonly IRepository _repository;
+        private readonly IRepository<Beer> _repository;
         private const double MaxAlcoholValue = 94.99;
         private const double MaxScore = 10;
 
-        public BeerServices(IRepository repository)
+        public BeerServices(IRepository<Beer> repository)
         {
             _repository = repository;
         }

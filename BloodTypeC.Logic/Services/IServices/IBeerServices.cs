@@ -1,7 +1,7 @@
 ﻿using BloodTypeC.DAL.Models;
 using BloodTypeC.WebApp.Models;
 
-namespace BloodTypeC.WebApp.Services.IServices
+namespace BloodTypeC.Logic.Services.IServices
 {
     public interface IBeerServices
     {

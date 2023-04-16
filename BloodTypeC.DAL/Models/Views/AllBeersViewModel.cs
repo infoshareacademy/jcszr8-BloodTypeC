@@ -1,4 +1,4 @@
-namespace BloodTypeC.WebApp.Models
+﻿namespace BloodTypeC.WebApp.Models
 {
     public class AllBeersViewModel
     {

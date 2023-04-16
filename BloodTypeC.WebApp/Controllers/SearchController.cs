@@ -1,8 +1,7 @@
 ﻿using BloodTypeC.DAL.Models;
-using BloodTypeC.DAL.Repository;
-using BloodTypeC.Logic;
+using BloodTypeC.Logic.Services;
+using BloodTypeC.Logic.Services.IServices;
 using BloodTypeC.WebApp.Models;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BloodTypeC.WebApp.Controllers
@@ -10,15 +9,14 @@ namespace BloodTypeC.WebApp.Controllers
     public class SearchController : Controller
     {
         private static List<FlavorToSearch> _flavorsToSearch;
-        private static List<Beer> _allBeers;
         private static List<string> _allFlavors;
-        private readonly IRepository _repository;
-        public SearchController(IRepository repository) 
+        private readonly IBeerServices _beerServices;
+        private readonly IBeerSearchServices _beerSearchServices;
+        public SearchController(IBeerServices beerServices, IBeerSearchServices beerSearchServices) 
         {
-            _repository = repository;
+            _beerServices = beerServices;
             _flavorsToSearch = new List<FlavorToSearch>();
-            _allBeers = _repository.GetAll();
-            _allFlavors = BeerOperations.GetAllFlavors(_allBeers);
+            _allFlavors = beerSearchServices.GetAllFlavors(_beerServices.GetAll().ToList());
         }
         // GET: SearchController
         public IActionResult Index()
@@ -34,7 +32,7 @@ namespace BloodTypeC.WebApp.Controllers
             }
             var model = new IndexViewModel();
             model.CheckedListOfFlavors = _flavorsToSearch;
-            model.Beers = _allBeers;
+            model.Beers = _beerServices.GetAll().ToList();
             return View(model);
         }
         [HttpPost]
@@ -42,7 +40,7 @@ namespace BloodTypeC.WebApp.Controllers
         {
             var minimumAlcohol = 0.0;
             var maximumAlcohol = double.MaxValue;
-            var resultList = _allBeers;
+            var resultList = _beerServices.GetAll().ToList();
 
             if (!ModelState.IsValid)
             {
@@ -68,12 +66,12 @@ namespace BloodTypeC.WebApp.Controllers
             //filtring by brewery name
             if (!string.IsNullOrWhiteSpace(model.searchBrewery))
             {
-                resultList = BeerOperations.SearchByBrewery(resultList, model.searchBrewery);
+                resultList = BeerSearchServices.SearchByBrewery(resultList, model.searchBrewery);
             }
             //filtering by beer name
             if (!string.IsNullOrWhiteSpace(model.searchBeerName))
             {
-                resultList = BeerOperations.SearchByName(resultList, model.searchBeerName);
+                resultList = BeerSearchServices.SearchByName(resultList, model.searchBeerName);
             }
             List<string> activeFlavors = new List<string>();
             foreach (var item in model.CheckedListOfFlavors)
@@ -89,12 +87,12 @@ namespace BloodTypeC.WebApp.Controllers
                 var tmpResultList = new List<Beer>();
                 foreach (var flavor in activeFlavors)
                 {
-                    tmpResultList.AddRange(BeerOperations.SearchByFlavor(resultList, flavor));
+                    tmpResultList.AddRange(BeerSearchServices.SearchByFlavor(resultList, flavor));
                 }
                 resultList = tmpResultList.Distinct().ToList();
             }
 
-            resultList = BeerOperations.SearchByAlcVol(resultList, minimumAlcohol, maximumAlcohol);
+            resultList = BeerSearchServices.SearchByAlcVol(resultList, minimumAlcohol, maximumAlcohol);
             model.Beers = resultList;
             return View(model);
         }    

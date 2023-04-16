@@ -1,7 +1,7 @@
 ﻿using BloodTypeC.DAL.Models;
-using BloodTypeC.WebApp.Services.IServices;
+using BloodTypeC.Logic.Services.IServices;
 
-namespace BloodTypeC.WebApp.Services
+namespace BloodTypeC.Logic.Services
 {
     public class FavoriteBeersServices : IFavoriteBeersServices
     {
