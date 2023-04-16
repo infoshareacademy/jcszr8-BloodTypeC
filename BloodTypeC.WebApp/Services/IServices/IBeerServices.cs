@@ -7,10 +7,9 @@ namespace BloodTypeC.WebApp.Services.IServices
     {
         IEnumerable<Beer> GetAll();
         Beer GetById(int id);
-        void Add(Beer beer);
         void Delete(int id);
-        void Edit(int id);
-        public Beer AddFromView(BeerViewModel beerFromView);
+        void AddFromView(BeerViewModel beerFromView);
+        void EditFromView(BeerViewModel beerFromView);
 
     }
 }
