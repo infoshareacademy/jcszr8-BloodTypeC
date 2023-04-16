@@ -40,11 +40,6 @@ namespace BloodTypeC.WebApp.Controllers
 
         public string[] GetReferer()
         {
-            // Extracts the Controller and Action strings from the referer url
-            // [0] = Controller
-            // [1] = Action
-            // [2] = Id (when available)
-
             var host = Request.Host.ToUriComponent();
             var referer = Request.Headers.Referer.ToString() ?? string.Empty;
             var trimmedUrl = referer.Substring(referer.IndexOf(host) + host.Length + 1);
