@@ -31,6 +31,7 @@
     "style": "Kellerbier",
     "score": 2.14,
     "abv": 0,
+    "image": "\\Repozytoria\\jcszr8-BloodTypeC\\BloodTypeC.WebApp\\wwwroot\\Images\\SantaClausthaler.png",
     "flavors": [
       "coffee",
       "bitter",
