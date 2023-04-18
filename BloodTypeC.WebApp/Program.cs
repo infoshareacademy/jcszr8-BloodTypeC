@@ -18,6 +18,7 @@ namespace BloodTypeC.WebApp
             // Add services to the container.
             builder.Services.AddControllersWithViews();
             builder.Services.AddScoped<IBeerServices, BeerServices>();
+            builder.Services.AddScoped<IBeerSearchServices, BeerSearchServices>();
             builder.Services.AddTransient<IFavoriteBeersServices, FavoriteBeersServices>();
             builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             builder.Services.AddAutoMapper(typeof(Program));

@@ -1,39 +1,35 @@
 ﻿using BloodTypeC.DAL.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using BloodTypeC.Logic.Services.IServices;
 
 namespace BloodTypeC.Logic.Services
 {
-    public class BeerSearchServices
+    public class BeerSearchServices : IBeerSearchServices
     {
-        public static List<Beer> SearchByName(List<Beer> listToSearch, string name)
+        public List<Beer> SearchByName(List<Beer> listToSearch, string name)
         {
             return listToSearch.Where(beer => beer.Name.Contains(name, StringComparison.InvariantCultureIgnoreCase)).ToList();
         }
 
-        public static List<Beer> SearchByBrewery(List<Beer> listToSearch, string brewery)
+        public List<Beer> SearchByBrewery(List<Beer> listToSearch, string brewery)
         {
             return listToSearch.Where(beer => beer.Brewery.Contains(brewery, StringComparison.InvariantCultureIgnoreCase)).ToList();
         }
-        public static List<Beer> SearchByStyle(List<Beer> listToSearch, string style)
+        public List<Beer> SearchByStyle(List<Beer> listToSearch, string style)
         {
             return listToSearch.Where(beer => beer.Style.Contains(style, StringComparison.InvariantCultureIgnoreCase)).ToList();
         }
 
-        public static List<Beer> SearchByFlavor(List<Beer> listToSearch, string searchflavor)
+        public List<Beer> SearchByFlavor(List<Beer> listToSearch, string searchflavor)
         {
             return listToSearch.Where(beer => beer.Flavors.Contains(searchflavor, StringComparer.InvariantCultureIgnoreCase)).ToList();
         }
 
-        public static List<Beer> SearchByAlcVol(List<Beer> listToSearch, double minAbv, double maxAbv)
+        public List<Beer> SearchByAlcVol(List<Beer> listToSearch, double minAbv, double maxAbv)
         {
             return listToSearch.Where(beer => beer.AlcoholByVolume >= minAbv && beer.AlcoholByVolume <= maxAbv).ToList();
         }
 
-        public static List<string> GetAllFlavors(List<Beer> beers)
+        public List<string> GetAllFlavors(List<Beer> beers)
         {
             return beers.Where(x => x.Flavors != null).SelectMany(beer => beer.Flavors).Distinct().ToList();
         }

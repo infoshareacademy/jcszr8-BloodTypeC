@@ -15,6 +15,7 @@ namespace BloodTypeC.WebApp.Controllers
         public SearchController(IBeerServices beerServices, IBeerSearchServices beerSearchServices) 
         {
             _beerServices = beerServices;
+            _beerSearchServices = beerSearchServices;
             _flavorsToSearch = new List<FlavorToSearch>();
             _allFlavors = beerSearchServices.GetAllFlavors(_beerServices.GetAll().ToList());
         }
@@ -66,12 +67,12 @@ namespace BloodTypeC.WebApp.Controllers
             //filtring by brewery name
             if (!string.IsNullOrWhiteSpace(model.searchBrewery))
             {
-                resultList = BeerSearchServices.SearchByBrewery(resultList, model.searchBrewery);
+                resultList = _beerSearchServices.SearchByBrewery(resultList, model.searchBrewery);
             }
             //filtering by beer name
             if (!string.IsNullOrWhiteSpace(model.searchBeerName))
             {
-                resultList = BeerSearchServices.SearchByName(resultList, model.searchBeerName);
+                resultList = _beerSearchServices.SearchByName(resultList, model.searchBeerName);
             }
             List<string> activeFlavors = new List<string>();
             foreach (var item in model.CheckedListOfFlavors)
@@ -87,12 +88,12 @@ namespace BloodTypeC.WebApp.Controllers
                 var tmpResultList = new List<Beer>();
                 foreach (var flavor in activeFlavors)
                 {
-                    tmpResultList.AddRange(BeerSearchServices.SearchByFlavor(resultList, flavor));
+                    tmpResultList.AddRange(_beerSearchServices.SearchByFlavor(resultList, flavor));
                 }
                 resultList = tmpResultList.Distinct().ToList();
             }
 
-            resultList = BeerSearchServices.SearchByAlcVol(resultList, minimumAlcohol, maximumAlcohol);
+            resultList = _beerSearchServices.SearchByAlcVol(resultList, minimumAlcohol, maximumAlcohol);
             model.Beers = resultList;
             return View(model);
         }    
