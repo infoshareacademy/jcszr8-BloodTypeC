@@ -44,7 +44,7 @@ namespace BloodTypeC.WebApp.Controllers
             return View();
         }
 
-        public IActionResult GP()
+        public IActionResult GandalfProtocol()
         {
             return View();
         }

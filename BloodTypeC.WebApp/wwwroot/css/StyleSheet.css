@@ -74,6 +74,13 @@ a:hover {
     justify-content: center;
 }
 
+.buttons-space {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 20px;
+}
+
 .page-name {
     color: white;
     font-family: 'Great Vibes', cursive;
@@ -139,6 +146,7 @@ a:hover {
 
 .empty {
     color: white;
+    margin-bottom:20px;
 }
 .product-button {
     height: 45px;

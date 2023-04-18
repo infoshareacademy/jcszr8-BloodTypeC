@@ -33,7 +33,12 @@
 
     <form asp-action="Delete">
         <div class="buttons">
-            <input type="submit" value="Delete" class="search-button" /> |
+            <input type="submit" value="Delete" class="search-button">
+        </div>
+        <div class="buttons-space">
+            <button onclick="@("window.location.href='" + Url.Action("Index", "Home") + "'")" class="search-button">
+                Back to list
+            </button>
         </div>
 
     </form>

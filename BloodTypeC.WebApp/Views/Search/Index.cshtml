@@ -72,15 +72,17 @@
                             </div>
 
                             <div class="buttons">
-                                <div class="form-btn">
-                                    <button class="search-button">Show beers</button>
-                                    <button class="search-button" asp-controller="Home" asp-action="Index">Back to list</button>
-                                </div>
+                                <button class="search-button">
+                                    Show beers
+                                </button>
                             </div>
-                            </form>
-                            
+                            <div class="buttons-space">
+                                <button onclick="@("window.location.href='" + Url.Action("Index", "Home") + "'")" class="search-button">
+                                    Back to list
+                                </button>
+                            </div>
+                        </form>
                     </div>
-
                 </div>
             </div>
         </div>
@@ -89,7 +91,7 @@
     @{
         await Html.RenderPartialAsync("_BeerPartialView", Model.Beers);
     }
-    
+
 
 </body>
 
