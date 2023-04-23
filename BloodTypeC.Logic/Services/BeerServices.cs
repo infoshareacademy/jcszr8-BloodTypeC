@@ -9,7 +9,7 @@ namespace BloodTypeC.Logic.Services
     public class BeerServices : IBeerServices
     {
         private readonly IRepository<Beer> _repository;
-        private const double MaxAlcoholValue = 94.99;
+        private const double MaxAlcoholValue = 95;
         private const double MaxScore = 10;
 
         public BeerServices(IRepository<Beer> repository)

@@ -6,14 +6,12 @@ namespace BloodTypeC.WebApp.Controllers
     public class FavoriteBeersController : Controller
     {
         private readonly IFavoriteBeersServices _favoriteBeersServices;
-        private readonly IBeerServices _beerServices;
-        public FavoriteBeersController(IFavoriteBeersServices favoriteBeersServices, IBeerServices beerServices)
+        public FavoriteBeersController(IFavoriteBeersServices favoriteBeersServices)
         {
             _favoriteBeersServices = favoriteBeersServices;
-            _beerServices = beerServices;
         }
-        [HttpGet]        
-        
+        [HttpGet]
+
         public IActionResult Favorites()
         {
             return View(_favoriteBeersServices.GetAllFavs());
@@ -24,25 +22,38 @@ namespace BloodTypeC.WebApp.Controllers
             _favoriteBeersServices.AddToFavs(id);
             var referer = GetReferer();
 
-            return RedirectToAction(referer[1], referer[0], new { id });
+            return RedirectToAction(referer.Action, referer.Controller, referer);
         }
-        
+
         public IActionResult RemoveFromFavorites(int id)
         {
             _favoriteBeersServices.RemoveFromFavs(id);
             var referer = GetReferer();
 
-            return RedirectToAction(referer[1], referer[0], new { id });
+            return RedirectToAction(referer.Action, referer.Controller, referer);
         }
 
-        public string[] GetReferer()
+        private Referer GetReferer()
         {
+            var result = new Referer();
             var host = Request.Host.ToUriComponent();
             var referer = Request.Headers.Referer.ToString() ?? string.Empty;
             var trimmedUrl = referer.Substring(referer.IndexOf(host) + host.Length + 1);
             string[] path = trimmedUrl.Split('/');
-            return path;
+            result.Controller = path[0];
+            result.Action = path[1];
+            if (path.Length > 2)
+            {
+                result.Id = path[2];
+            }
+            return result;
+        }
+        private class Referer
+        {
+            public string Controller { get; set; }
+            public string Action { get; set; }
+            public string Id { get; set; }
         }
     }
+
 }
- 
