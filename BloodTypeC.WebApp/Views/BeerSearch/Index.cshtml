@@ -23,18 +23,18 @@
             <div class="container">
                 <div class="row">
                     <div class="search-form">
-                        <form asp-controller="Search" asp-action="Index" method="post">
+                        <form asp-controller="BeerSearch" asp-action="Index" method="post">
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <span class="form-label text-white">Beer name</span>
-                                        <input class="form-control" type="text" placeholder="Beer name" asp-for="@Model.searchBeerName">
+                                        <input class="form-control" type="text" placeholder="Beer name" asp-for="@Model.SearchBeerName">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <span class="form-label text-white">Brewery</span>
-                                        <input class="form-control" type="text" placeholder="Brewery name" asp-for="@Model.searchBrewery">
+                                        <input class="form-control" type="text" placeholder="Brewery name" asp-for="@Model.SearchBrewery">
                                     </div>
                                 </div>
                             </div>
@@ -42,14 +42,14 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <span class="form-label text-white">Minimum alcohol volume</span>
-                                        <span asp-validation-for="minAbv" class="text-danger"></span>
-                                        <input class="form-control" type="number" step="0.01" min="0" placeholder="Minimum alcohol %" asp-for="@Model.minAbv">
+                                        <span asp-validation-for="MinAbv" class="text-danger"></span>
+                                        <input class="form-control" type="number" step="0.01" min="0" placeholder="Minimum alcohol %" asp-for="@Model.MinAbv">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <span class="form-label text-white">Maximum alcohol volume</span>
-                                        <input class="form-control" type="number" step="0.01" min="0" placeholder="Maximum alcohol %" asp-for="@Model.maxAbv">
+                                        <input class="form-control" type="number" step="0.01" min="0" placeholder="Maximum alcohol %" asp-for="@Model.MaxAbv">
                                     </div>
                                 </div>
                             </div>

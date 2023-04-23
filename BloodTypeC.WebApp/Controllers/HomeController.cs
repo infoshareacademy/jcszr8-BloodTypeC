@@ -1,6 +1,4 @@
-﻿using BloodTypeC.DAL.Models;
-using BloodTypeC.DAL.Repository;
-using BloodTypeC.Logic.Services.IServices;
+﻿using BloodTypeC.Logic.Services.IServices;
 using BloodTypeC.WebApp.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;

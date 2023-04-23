@@ -6,13 +6,13 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BloodTypeC.WebApp.Controllers
 {
-    public class SearchController : Controller
+    public class BeerSearchController : Controller
     {
         private static List<FlavorToSearch> _flavorsToSearch;
         private static List<string> _allFlavors;
         private readonly IBeerServices _beerServices;
         private readonly IBeerSearchServices _beerSearchServices;
-        public SearchController(IBeerServices beerServices, IBeerSearchServices beerSearchServices) 
+        public BeerSearchController(IBeerServices beerServices, IBeerSearchServices beerSearchServices) 
         {
             _beerServices = beerServices;
             _beerSearchServices = beerSearchServices;
@@ -48,31 +48,31 @@ namespace BloodTypeC.WebApp.Controllers
                 return View(model);
             }
 
-            if (model.minAbv.HasValue && model.maxAbv.HasValue && model.minAbv.Value > model.maxAbv.Value)
+            if (model.MinAbv.HasValue && model.MaxAbv.HasValue && model.MinAbv.Value > model.MaxAbv.Value)
             {
-                ModelState.AddModelError(nameof(model.minAbv), "Minimum value has to be lower than maximum value.");
+                ModelState.AddModelError(nameof(model.MinAbv), "Minimum value has to be lower than maximum value.");
                 return View(model);
             }
 
             //filtering by alcohol volume
-            if (model.minAbv.HasValue)
+            if (model.MinAbv.HasValue)
             {
-                minimumAlcohol = (double)model.minAbv;
+                minimumAlcohol = (double)model.MinAbv;
             }
-            if (model.maxAbv.HasValue)
+            if (model.MaxAbv.HasValue)
             {
-                maximumAlcohol = (double)model.maxAbv;
+                maximumAlcohol = (double)model.MaxAbv;
             }
 
             //filtring by brewery name
-            if (!string.IsNullOrWhiteSpace(model.searchBrewery))
+            if (!string.IsNullOrWhiteSpace(model.SearchBrewery))
             {
-                resultList = _beerSearchServices.SearchByBrewery(resultList, model.searchBrewery);
+                resultList = _beerSearchServices.SearchByBrewery(resultList, model.SearchBrewery);
             }
             //filtering by beer name
-            if (!string.IsNullOrWhiteSpace(model.searchBeerName))
+            if (!string.IsNullOrWhiteSpace(model.SearchBeerName))
             {
-                resultList = _beerSearchServices.SearchByName(resultList, model.searchBeerName);
+                resultList = _beerSearchServices.SearchByName(resultList, model.SearchBeerName);
             }
             List<string> activeFlavors = new List<string>();
             foreach (var item in model.CheckedListOfFlavors)

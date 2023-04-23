@@ -6,9 +6,11 @@ namespace BloodTypeC.WebApp.Controllers
     public class FavoriteBeersController : Controller
     {
         private readonly IFavoriteBeersServices _favoriteBeersServices;
-        public FavoriteBeersController(IFavoriteBeersServices favoriteBeersServices)
+        private readonly IBeerServices _beerServices;
+        public FavoriteBeersController(IFavoriteBeersServices favoriteBeersServices, IBeerServices beerServices)
         {
             _favoriteBeersServices = favoriteBeersServices;
+            _beerServices = beerServices;
         }
         [HttpGet]        
         
@@ -43,3 +45,4 @@ namespace BloodTypeC.WebApp.Controllers
         }
     }
 }
+ 

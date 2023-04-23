@@ -1,14 +1,10 @@
 ﻿using BloodTypeC.DAL.Models.BaseEntity;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
 
 namespace BloodTypeC.DAL.Models
 {
     public class Beer : Entity
-    {
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        [JsonPropertyName("beer_id")]
-        public string? Id { get; set; }
+    {             
         public string? Name { get; set; }
 
         public string? Brewery { get; set; }

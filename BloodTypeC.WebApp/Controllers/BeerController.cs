@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using BloodTypeC.DAL.Models;
-using BloodTypeC.WebApp.Models;
 using BloodTypeC.Logic.Services.IServices;
+using BloodTypeC.WebApp.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BloodTypeC.WebApp.Controllers

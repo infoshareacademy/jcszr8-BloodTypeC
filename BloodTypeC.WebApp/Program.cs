@@ -12,7 +12,6 @@ namespace BloodTypeC.WebApp
     {
         public static void Main(string[] args)
         {
-            Load.LoadFromFile();
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
