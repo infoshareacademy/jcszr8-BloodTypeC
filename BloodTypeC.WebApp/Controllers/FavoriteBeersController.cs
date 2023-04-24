@@ -1,6 +1,6 @@
 ﻿using BloodTypeC.Logic.Services.IServices;
 using Microsoft.AspNetCore.Mvc;
-using static BloodTypeC.Logic.Extensions.HttpContextExt;
+using static BloodTypeC.Logic.Extensions.HttpContextExtensions;
 
 namespace BloodTypeC.WebApp.Controllers
 {

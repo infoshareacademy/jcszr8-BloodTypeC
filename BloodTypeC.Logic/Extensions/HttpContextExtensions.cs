@@ -2,7 +2,7 @@
 
 namespace BloodTypeC.Logic.Extensions
 {
-    public static class HttpContextExt
+    public static class HttpContextExtensions
     {
         public static string GetController(this HttpContext context)
         {
