@@ -21,17 +21,15 @@ namespace BloodTypeC.WebApp.Controllers
         public IActionResult AddToFavorites(int id)
         {
             _favoriteBeersServices.AddToFavs(id);
-            var httpContext = this.HttpContext.Request;
 
-            return RedirectToAction(httpContext.GetController(), httpContext.GetAction(), new { id });
+            return RedirectToAction(this.HttpContext.GetController(), this.HttpContext.GetAction(), new { id });
         }
 
         public IActionResult RemoveFromFavorites(int id)
         {
             _favoriteBeersServices.RemoveFromFavs(id);
-            var httpContext = this.HttpContext.Request;
 
-            return RedirectToAction(httpContext.GetController(), httpContext.GetAction(), new { id });
+            return RedirectToAction(this.HttpContext.GetController(), this.HttpContext.GetAction(), new { id });
         }
     }
 
