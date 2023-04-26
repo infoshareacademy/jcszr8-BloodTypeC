@@ -25,35 +25,41 @@ namespace BloodTypeC.Logic
         /// </summary>
         public static string AsNameOrTitle(string name, CapitalsOptions capsOpt, bool alphabetDashOnly)
         {
-            name = string.IsNullOrWhiteSpace(name) ? string.Empty : name;
-            name = Regex.Replace(name, @"\s+", " ");
-
-            // Remove all chars that are not a dash, space or letter
-            if (alphabetDashOnly)
+            if (!string.IsNullOrWhiteSpace(name))
             {
-                name = Regex.Replace(name, "[^A-Z^a-z -]", string.Empty).ToLowerInvariant();
-                name = Regex.Replace(name.Trim(), @"-+", "-");
+                name = Regex.Replace(name, @"\s+", " ");
 
-                // Remove dash if it's the first or last character
-                name = name.IndexOf("-") == 0 ? name.Substring(1) : name;
-                if (name.Contains("-") && name.Length > 1)
+                // Remove all chars that are not a dash, space or letter
+                if (alphabetDashOnly)
                 {
-                    name = name.LastIndexOf("-") == name.Length - 1 ? name.Remove(name.Length - 1) : name;
+                    name = Regex.Replace(name, "[^A-Z^a-z -]", string.Empty).ToLowerInvariant();
+                    name = Regex.Replace(name.Trim(), @"-+", "-");
+
+                    // Remove dash if it's the first or last character
+                    name = name.IndexOf("-") == 0 ? name.Substring(1) : name;
+                    if (name.Contains("-") && name.Length > 1)
+                    {
+                        name = name.LastIndexOf("-") == name.Length - 1 ? name.Remove(name.Length - 1) : name;
+                    }
+
+                    name = Regex.Replace(name, @"\s+", " ");
                 }
 
-            name = Regex.Replace(name, @"\s+", " ");
-            }
-
-            switch (capsOpt)
-            {
-                case CapitalsOptions.FirstWord:
-                    name = Char.ToUpper(name[0]) + name.Substring(1);
-                    break;
-                case CapitalsOptions.EachWord:
-                    name = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(name);
-                    break;
-            }
+                switch (capsOpt)
+                {
+                    case CapitalsOptions.FirstWord:
+                        name = Char.ToUpper(name[0]) + name.Substring(1);
+                        break;
+                    case CapitalsOptions.EachWord:
+                        name = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(name);
+                        break;
+                }
             return name.Trim();
+            }
+            else
+            {
+                return null;
+            }
         }
 
         public static List<string> AsTags(string tagsInput)
@@ -66,7 +72,7 @@ namespace BloodTypeC.Logic
             {
                 return new List<string>();
             }
-            
+
             var tags = new List<string>();
             tagsInput = new String(tagsInput.Normalize(NormalizationForm.FormD)
                             .Where(c => char.GetUnicodeCategory(c) != UnicodeCategory.NonSpacingMark).ToArray());
