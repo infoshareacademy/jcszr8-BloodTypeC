@@ -1,4 +1,5 @@
-﻿using BloodTypeC.DAL.Models;
+﻿using AutoMapper;
+using BloodTypeC.DAL.Models;
 using BloodTypeC.DAL.Repository;
 using BloodTypeC.Logic;
 using BloodTypeC.Logic.Services.IServices;
@@ -9,23 +10,18 @@ namespace BloodTypeC.Logic.Services
     public class BeerServices : IBeerServices
     {
         private readonly IRepository<Beer> _repository;
+        private readonly IMapper _mapper;
         private const double MaxAlcoholValue = 95;
         private const double MaxScore = 10;
 
-        public BeerServices(IRepository<Beer> repository)
+        public BeerServices(IRepository<Beer> repository, IMapper mapper)
         {
             _repository = repository;
+            _mapper = mapper;
         }
         public void AddFromView(BeerViewModel beerFromView)
         {
-            var beerToAdd = new Beer();
-            beerToAdd.Name = Format.AsNameOrTitle(beerFromView.Name, Format.CapitalsOptions.FirstWord, false);
-            beerToAdd.Brewery = Format.AsNameOrTitle(beerFromView.Brewery, Format.CapitalsOptions.EachWord, false);
-            beerToAdd.Style = Format.AsNameOrTitle(beerFromView.Style, Format.CapitalsOptions.EachWord, true);
-            beerToAdd.Flavors = Format.AsTags(beerFromView.FlavorString);
-            beerToAdd.AlcoholByVolume = Format.AsScoreOrABV(beerFromView.AlcoholByVolume.ToString(), MaxAlcoholValue);
-            beerToAdd.Score = Format.AsScoreOrABV(beerFromView.Score.ToString(), MaxScore);
-            beerToAdd.Added = DateTime.Now;
+            var beerToAdd = _mapper.Map<Beer>(beerFromView);
             _repository.Insert(beerToAdd);
         }
 
@@ -42,12 +38,12 @@ namespace BloodTypeC.Logic.Services
         public void EditFromView(BeerViewModel beerFromView)
         {
             var beerToEdit = _repository.GetById(beerFromView.Id);
-            beerToEdit.Name = Format.AsNameOrTitle(beerFromView.Name, Format.CapitalsOptions.FirstWord, false);
-            beerToEdit.Brewery = Format.AsNameOrTitle(beerFromView.Brewery, Format.CapitalsOptions.EachWord, false);
-            beerToEdit.Style = Format.AsNameOrTitle(beerFromView.Style, Format.CapitalsOptions.EachWord, true);
-            beerToEdit.Flavors = Format.AsTags(beerFromView.FlavorString);
-            beerToEdit.AlcoholByVolume = Format.AsScoreOrABV(beerFromView.AlcoholByVolume.ToString(), MaxAlcoholValue);
-            beerToEdit.Score = Format.AsScoreOrABV(beerFromView.Score.ToString(), MaxScore);
+            beerToEdit.Name = Formatters.AsNameOrTitle(beerFromView.Name, Formatters.CapitalsOptions.FirstWord, false);
+            beerToEdit.Brewery = Formatters.AsNameOrTitle(beerFromView.Brewery, Formatters.CapitalsOptions.EachWord, false);
+            beerToEdit.Style = Formatters.AsNameOrTitle(beerFromView.Style, Formatters.CapitalsOptions.EachWord, true);
+            beerToEdit.Flavors = Formatters.AsTags(beerFromView.FlavorString);
+            beerToEdit.AlcoholByVolume = Formatters.AsScoreOrABV(beerFromView.AlcoholByVolume.ToString(), MaxAlcoholValue);
+            beerToEdit.Score = Formatters.AsScoreOrABV(beerFromView.Score.ToString(), MaxScore);
             beerToEdit.Added = DateTime.Now;
             _repository.Update(beerToEdit);
         }

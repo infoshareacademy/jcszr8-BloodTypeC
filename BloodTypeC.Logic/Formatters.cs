@@ -12,27 +12,26 @@ using System.Xml.Linq;
 
 namespace BloodTypeC.Logic
 {
-    public class Format
+    public class Formatters
     {
         public enum CapitalsOptions
         {
             FirstWord = 1,
             EachWord = 2,
         }
-
+        /// <summary>
+        /// Removes duplicate spaces and sets the first letter as capital (optionally: in each word).
+        /// Can also remove any non-english letter characters with the exception of the dash character.
+        /// </summary>
         public static string AsNameOrTitle(string name, CapitalsOptions capsOpt, bool alphabetDashOnly)
         {
-            name = string.IsNullOrWhiteSpace(name) ? "" : name;
-            // Remove diacritics
-            name = new String(name.Normalize(NormalizationForm.FormD)
-                        .Where(c => char.GetUnicodeCategory(c) != UnicodeCategory.NonSpacingMark).ToArray());
-            name = name.Replace("Ł", "L");
-            name = name.Replace("ł", "l");
+            name = string.IsNullOrWhiteSpace(name) ? string.Empty : name;
+            name = Regex.Replace(name, @"\s+", " ");
+
             // Remove all chars that are not a dash, space or letter
             if (alphabetDashOnly)
             {
-                name = Regex.Replace(name, "[^A-Z^a-z -]", "");
-                name = Regex.Replace(name, @"\s+", " ");
+                name = Regex.Replace(name, "[^A-Z^a-z -]", string.Empty).ToLowerInvariant();
                 name = Regex.Replace(name.Trim(), @"-+", "-");
 
                 // Remove dash if it's the first or last character
@@ -41,8 +40,9 @@ namespace BloodTypeC.Logic
                 {
                     name = name.LastIndexOf("-") == name.Length - 1 ? name.Remove(name.Length - 1) : name;
                 }
-            }
+
             name = Regex.Replace(name, @"\s+", " ");
+            }
 
             switch (capsOpt)
             {
@@ -58,8 +58,10 @@ namespace BloodTypeC.Logic
 
         public static List<string> AsTags(string tagsInput)
         {
-            // Remove any multiple spaces and change the input of tags separated by commas
-            // and/or spaces into a list of lowercase tags.
+            /// <summary>
+            /// Removes any multiple spaces and changes the input of tags separated by any non-letter 
+            /// characters into a list of lowercase tags.
+            /// </summary>
             if (string.IsNullOrWhiteSpace(tagsInput))
             {
                 return new List<string>();
@@ -85,16 +87,16 @@ namespace BloodTypeC.Logic
 
         public static double AsScoreOrABV(string valueInput, double maxValue)
         {
-            // Replace commas with a dot and remove any unnecessary characters, then parse
-            // the input into a correct value.
+            /// <summary>
+            /// Replaces commas with a dot and removes any unnecessary characters, then parses
+            /// the input into a correct value within the given boundaries.
+            /// </summary>
             valueInput = valueInput.Replace(".", ",");
             valueInput = Regex.Replace(valueInput, @"\.+", ",");
             valueInput = Regex.Replace(valueInput, "[^0-9,]", "");
-            double value = 0;
-            double.TryParse(valueInput, out value);
+            _ = double.TryParse(valueInput, out double value);
             if (value > maxValue)
             {
-                Console.WriteLine($"Did you mean {value}? It exceeds the accepted maximum!");
                 value = 0;
             }
             return Math.Round(value, 2);

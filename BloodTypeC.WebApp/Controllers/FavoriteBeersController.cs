@@ -22,14 +22,14 @@ namespace BloodTypeC.WebApp.Controllers
         {
             _favoriteBeersServices.AddToFavs(id);
 
-            return RedirectToAction(this.HttpContext.GetAction(), this.HttpContext.GetController(), new { id });
+            return RedirectToAction(this.HttpContext.GetController(), this.HttpContext.GetAction(), new { id });
         }
 
         public IActionResult RemoveFromFavorites(int id)
         {
             _favoriteBeersServices.RemoveFromFavs(id);
 
-            return RedirectToAction(this.HttpContext.GetAction(), this.HttpContext.GetController(), new { id });
+            return RedirectToAction(this.HttpContext.GetController(), this.HttpContext.GetAction(), new { id });
         }
     }
 

@@ -4,13 +4,13 @@ namespace BloodTypeC.Logic.Extensions
 {
     public static class HttpContextExtensions
     {
-        public static string GetAction(this HttpContext context)
+        public static string GetController(this HttpContext context)
         {
             var controller = GetPath(context).ElementAt(1);
 
             return controller;
         }
-        public static string GetController(this HttpContext context)
+        public static string GetAction(this HttpContext context)
         {
             var action = GetPath(context).ElementAt(0);
 
