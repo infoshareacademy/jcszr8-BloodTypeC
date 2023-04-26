@@ -37,14 +37,7 @@ namespace BloodTypeC.Logic.Services
 
         public void EditFromView(BeerViewModel beerFromView)
         {
-            var beerToEdit = _repository.GetById(beerFromView.Id);
-            beerToEdit.Name = Formatters.AsNameOrTitle(beerFromView.Name, Formatters.CapitalsOptions.FirstWord, false);
-            beerToEdit.Brewery = Formatters.AsNameOrTitle(beerFromView.Brewery, Formatters.CapitalsOptions.EachWord, false);
-            beerToEdit.Style = Formatters.AsNameOrTitle(beerFromView.Style, Formatters.CapitalsOptions.EachWord, true);
-            beerToEdit.Flavors = Formatters.AsTags(beerFromView.FlavorString);
-            beerToEdit.AlcoholByVolume = Formatters.AsScoreOrABV(beerFromView.AlcoholByVolume.ToString(), MaxAlcoholValue);
-            beerToEdit.Score = Formatters.AsScoreOrABV(beerFromView.Score.ToString(), MaxScore);
-            beerToEdit.Added = DateTime.Now;
+            var beerToEdit = _mapper.Map<BeerViewModel, Beer>(beerFromView, _repository.GetById(beerFromView.Id));
             _repository.Update(beerToEdit);
         }
 
