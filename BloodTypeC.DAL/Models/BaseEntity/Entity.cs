@@ -6,7 +6,6 @@ namespace BloodTypeC.DAL.Models.BaseEntity
     public class Entity
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        [JsonPropertyName("beer_id")]
         public string Id { get; set; }
     }
 }

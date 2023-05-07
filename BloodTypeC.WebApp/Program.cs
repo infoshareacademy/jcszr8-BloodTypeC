@@ -16,7 +16,7 @@ namespace BloodTypeC.WebApp
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
-                        var connectionString = builder.Configuration.GetConnectionString("BloodTypeCWebAppContextConnection") ?? throw new InvalidOperationException("Connection string 'BloodTypeCWebAppContextConnection' not found.");
+            //var connectionString = builder.Configuration.GetConnectionString("BloodTypeCWebAppContextConnection") ?? throw new InvalidOperationException("Connection string 'BloodTypeCWebAppContextConnection' not found.");
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
