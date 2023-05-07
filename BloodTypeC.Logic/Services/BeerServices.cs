@@ -30,9 +30,9 @@ namespace BloodTypeC.Logic.Services
             return _repository.GetAll();
         }
 
-        public Beer GetById(int id)
+        public Beer GetById(string id)
         {
-            return _repository.GetById(id.ToString());
+            return _repository.GetById(id);
         }
 
         public void EditFromView(BeerViewModel beerFromView)
@@ -41,7 +41,7 @@ namespace BloodTypeC.Logic.Services
             _repository.Update(beerToEdit);
         }
 
-        public void Delete(int id)
+        public void Delete(string id)
         {
             _repository.Delete(GetById(id));
         }

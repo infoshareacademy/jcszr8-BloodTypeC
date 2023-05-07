@@ -18,14 +18,14 @@ namespace BloodTypeC.WebApp.Controllers
             return View(_favoriteBeersServices.GetAllFavs());
         }
 
-        public IActionResult AddToFavorites(int id)
+        public IActionResult AddToFavorites(string id)
         {
             _favoriteBeersServices.AddToFavs(id);
 
             return RedirectToAction(this.HttpContext.GetController(), this.HttpContext.GetAction(), new { id });
         }
 
-        public IActionResult RemoveFromFavorites(int id)
+        public IActionResult RemoveFromFavorites(string id)
         {
             _favoriteBeersServices.RemoveFromFavs(id);
 
