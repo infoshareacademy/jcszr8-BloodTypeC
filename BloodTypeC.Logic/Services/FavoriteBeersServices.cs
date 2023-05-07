@@ -1,13 +1,14 @@
 ﻿using BloodTypeC.DAL.Models;
 using BloodTypeC.DAL.Repository;
 using BloodTypeC.Logic.Services.IServices;
+using System.Security.Cryptography.X509Certificates;
 
 namespace BloodTypeC.Logic.Services
 {
     public class FavoriteBeersServices : IFavoriteBeersServices
     {
         private readonly List<Beer> _allBeers;
-        private readonly List<Beer> _favoriteBeers = DB.FavoriteBeers;
+        private List<Beer> _favoriteBeers = DB.FavoriteBeers;
         private readonly IRepository<Beer> _beerRepository;
 
         public FavoriteBeersServices(IRepository<Beer> beerRepository)
@@ -37,7 +38,7 @@ namespace BloodTypeC.Logic.Services
 
         public void RemoveFromFavs(int id)
         {
-            var beer = _allBeers.FirstOrDefault(x => x.Id == id.ToString());
+            var beer = _favoriteBeers.FirstOrDefault(x => x.Id == id.ToString());
             _favoriteBeers?.Remove(beer);
         }
     }
