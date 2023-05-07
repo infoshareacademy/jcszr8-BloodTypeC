@@ -41,7 +41,9 @@ namespace BloodTypeC.DAL.Contexts
                 .HasMany(b=>b.Beers)
                 .WithMany();
 
-            
+            modelBuilder.Entity<User>()
+                .Property(prop => prop.Id)
+                .ValueGeneratedOnAdd();
         }
     }
 }

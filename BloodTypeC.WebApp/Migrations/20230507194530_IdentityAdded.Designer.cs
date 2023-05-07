@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BloodTypeC.WebApp.Migrations
 {
     [DbContext(typeof(BeeropediaContext))]
-    [Migration("20230507190844_IdentityAdded")]
+    [Migration("20230507194530_IdentityAdded")]
     partial class IdentityAdded
     {
         /// <inheritdoc />
@@ -94,6 +94,7 @@ namespace BloodTypeC.WebApp.Migrations
             modelBuilder.Entity("BloodTypeC.DAL.Models.User", b =>
                 {
                     b.Property<string>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("AccessFailedCount")

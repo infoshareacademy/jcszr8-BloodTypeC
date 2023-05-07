@@ -91,6 +91,7 @@ namespace BloodTypeC.WebApp.Migrations
             modelBuilder.Entity("BloodTypeC.DAL.Models.User", b =>
                 {
                     b.Property<string>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("AccessFailedCount")
