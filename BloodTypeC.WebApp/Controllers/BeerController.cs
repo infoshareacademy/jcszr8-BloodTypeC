@@ -24,6 +24,7 @@ namespace BloodTypeC.WebApp.Controllers
         // GET: BeerController/Details/5
         public ActionResult Details(int id)
         {
+            //var isAdmin = HttpContext.User.IsInRole("Admin");
             var model = _beerServices.GetById(id);
             var newBeerDto = _mapper.Map<BeerViewModel>(model);
             return View(newBeerDto);

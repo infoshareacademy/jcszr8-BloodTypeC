@@ -1,16 +1,18 @@
 ﻿using BloodTypeC.DAL.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace BloodTypeC.DAL.Contexts
 {
-    public class BeeropediaContext : DbContext
+    public class BeeropediaContext : IdentityDbContext<User, IdentityRole, string>
     {
         public DbSet<Beer> AllBeers { get; set;}
         public DbSet<BeerFavorites> FavoriteBeers { get; set;}
         //public DbSet<FlavorEntity> AllFlavors { get; set;}
 
-        public BeeropediaContext(DbContextOptions options) : base(options)
+        public BeeropediaContext(DbContextOptions<BeeropediaContext> options) : base(options)
         {
 
         }
@@ -37,6 +39,7 @@ namespace BloodTypeC.DAL.Contexts
                 .HasMany(b=>b.Beers)
                 .WithMany();
 
+            modelBuilder.Entity<User>().HasKey(f => f.Id);
             //modelBuilder.Entity<FlavorEntity>();
         }
     }
