@@ -23,6 +23,8 @@ namespace BloodTypeC.DAL.Contexts
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
+
             modelBuilder.Entity<Beer>()
                 .Property(f=>f.Flavors)
                 .HasConversion(v => string.Join(',', v),
@@ -39,8 +41,7 @@ namespace BloodTypeC.DAL.Contexts
                 .HasMany(b=>b.Beers)
                 .WithMany();
 
-            modelBuilder.Entity<User>().HasKey(f => f.Id);
-            //modelBuilder.Entity<FlavorEntity>();
+            
         }
     }
 }
