@@ -22,7 +22,7 @@ namespace BloodTypeC.WebApp.Controllers
         }
 
         // GET: BeerController/Details/5
-        public ActionResult Details(int id)
+        public ActionResult Details(string id)
         {
             var model = _beerServices.GetById(id);
             var newBeerDto = _mapper.Map<BeerViewModel>(model);
@@ -61,7 +61,7 @@ namespace BloodTypeC.WebApp.Controllers
         }
 
         // GET: BeerController/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(string id)
         {
             var model = _beerServices.GetById(id);
             var newBeerDto = _mapper.Map<BeerViewModel>(model);
@@ -90,7 +90,7 @@ namespace BloodTypeC.WebApp.Controllers
         }
 
         // GET: BeerController/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult Delete(string id)
         {
             var model = _beerServices.GetById(id);
             var newBeerDto = _mapper.Map<BeerViewModel>(model);
@@ -100,7 +100,7 @@ namespace BloodTypeC.WebApp.Controllers
         // POST: BeerController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public ActionResult Delete(string id, IFormCollection collection)
         {
             try
             {

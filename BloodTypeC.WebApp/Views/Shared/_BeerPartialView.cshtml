@@ -10,7 +10,7 @@
         {
             <div class="product-card">
                 <div class="card-body">
-                    <div class="beer-image-possition"><img src="~/Images/mockup.png" class="beer-image"></div>
+                    <div class="beer-image-possition"><img src="@string.Format($"{item.Image}")" class="beer-image"></div>
                     <h5>@item.Name</h5>
                     <p>@item.Brewery</p>
                     <div class="buttons">

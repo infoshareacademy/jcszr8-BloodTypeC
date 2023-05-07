@@ -5,7 +5,7 @@
     "brewery": "Brasserie Cantillon",
     "style": "Lambic - Fruit",
     "abv": 5.0,
-    "image": "Images/SaintLamvinus.png",
+    "image": "~/Images/SaintLamvinus.png",
     "score": 3.22,
     "flavors": [
       "buttery",
@@ -17,7 +17,7 @@
     "brewery": "Austmann",
     "name": "Jingle Beer",
     "style": "American Amber Ale",
-    "image": "Images/JingleBeer.png",
+    "image": "~/Images/JingleBeer.png",
     "score": 6.49,
     "abv": 7,
     "flavors": [

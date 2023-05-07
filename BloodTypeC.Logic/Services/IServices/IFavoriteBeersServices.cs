@@ -4,8 +4,8 @@ namespace BloodTypeC.Logic.Services.IServices
 {
     public interface IFavoriteBeersServices
     {
-        void AddToFavs(int id);
-        void RemoveFromFavs(int id);
+        void AddToFavs(string id);
+        void RemoveFromFavs(string id);
         List<Beer> GetAllBeers();
         List<Beer> GetAllFavs();
     }

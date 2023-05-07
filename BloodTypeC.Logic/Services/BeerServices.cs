@@ -11,8 +11,6 @@ namespace BloodTypeC.Logic.Services
     {
         private readonly IRepository<Beer> _repository;
         private readonly IMapper _mapper;
-        private const double MaxAlcoholValue = 95;
-        private const double MaxScore = 10;
 
         public BeerServices(IRepository<Beer> repository, IMapper mapper)
         {
@@ -30,9 +28,9 @@ namespace BloodTypeC.Logic.Services
             return _repository.GetAll();
         }
 
-        public Beer GetById(int id)
+        public Beer GetById(string id)
         {
-            return _repository.GetById(id.ToString());
+            return _repository.GetById(id);
         }
 
         public void EditFromView(BeerViewModel beerFromView)
@@ -41,7 +39,7 @@ namespace BloodTypeC.Logic.Services
             _repository.Update(beerToEdit);
         }
 
-        public void Delete(int id)
+        public void Delete(string id)
         {
             _repository.Delete(GetById(id));
         }

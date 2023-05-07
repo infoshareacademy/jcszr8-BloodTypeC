@@ -6,8 +6,8 @@ namespace BloodTypeC.Logic.Services.IServices
     public interface IBeerServices
     {
         IEnumerable<Beer> GetAll();
-        Beer GetById(int id);
-        void Delete(int id);
+        Beer GetById(string id);
+        void Delete(string id);
         void AddFromView(BeerViewModel beerFromView);
         void EditFromView(BeerViewModel beerFromView);
 

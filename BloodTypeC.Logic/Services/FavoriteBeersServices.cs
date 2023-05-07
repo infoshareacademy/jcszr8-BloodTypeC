@@ -17,9 +17,9 @@ namespace BloodTypeC.Logic.Services
             _allBeers = _beerRepository.GetAll();
         }
 
-        public void AddToFavs(int id)
+        public void AddToFavs(string id)
         {
-            var beer = _allBeers.FirstOrDefault(x => x.Id == id.ToString());
+            var beer = _allBeers.FirstOrDefault(x => x.Id == id);
             if (!_favoriteBeers.Contains(beer))
             {
                 _favoriteBeers?.Add(beer);
@@ -36,9 +36,9 @@ namespace BloodTypeC.Logic.Services
             return _favoriteBeers;
         }
 
-        public void RemoveFromFavs(int id)
+        public void RemoveFromFavs(string id)
         {
-            var beer = _favoriteBeers.FirstOrDefault(x => x.Id == id.ToString());
+            var beer = _favoriteBeers.FirstOrDefault(x => x.Id == id);
             _favoriteBeers?.Remove(beer);
         }
     }

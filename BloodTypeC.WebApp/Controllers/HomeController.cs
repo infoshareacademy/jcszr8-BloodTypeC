@@ -27,7 +27,7 @@ namespace BloodTypeC.WebApp.Controllers
             return View(model);        
         }
 
-        public IActionResult Details(int id)
+        public IActionResult Details(string id)
         {
             var model = _beerServices.GetById(id);
             return View(model);
