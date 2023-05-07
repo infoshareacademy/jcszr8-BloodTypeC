@@ -1,6 +1,6 @@
 ﻿using BloodTypeC.DAL.Models;
 
-namespace BloodTypeC.WebApp.Services.IServices
+namespace BloodTypeC.Logic.Services.IServices
 {
     public interface IFavoriteBeersServices
     {

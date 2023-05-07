@@ -1,13 +1,8 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using BloodTypeC.DAL;
-using BloodTypeC.WebApp.Services;
-using BloodTypeC.WebApp.Services.IServices;
-using BloodTypeC.Logic;
-using AutoMapper;
-using BloodTypeC.WebApp.Models;
+﻿using AutoMapper;
 using BloodTypeC.DAL.Models;
-using BloodTypeC.DAL.Repository;
+using BloodTypeC.Logic.Services.IServices;
+using BloodTypeC.WebApp.Models;
+using Microsoft.AspNetCore.Mvc;
 
 namespace BloodTypeC.WebApp.Controllers
 {
@@ -15,12 +10,10 @@ namespace BloodTypeC.WebApp.Controllers
     {
         private readonly IBeerServices _beerServices;
         private readonly IMapper _mapper;
-        private readonly IRepository _repository;
-        public BeerController(IBeerServices beerServices, IMapper mapper, IRepository repository)
+        public BeerController(IBeerServices beerServices, IMapper mapper)
         {
-            _beerServices= beerServices;
+            _beerServices = beerServices;
             _mapper= mapper;
-            _repository= repository;
         }
         // GET: BeerController
         public ActionResult Index()
@@ -29,9 +22,9 @@ namespace BloodTypeC.WebApp.Controllers
         }
 
         // GET: BeerController/Details/5
-        public ActionResult Details(string id)
+        public ActionResult Details(int id)
         {
-            var model = _repository.GetById(id);
+            var model = _beerServices.GetById(id);
             var newBeerDto = _mapper.Map<BeerViewModel>(model);
             return View(newBeerDto);
         }
@@ -58,8 +51,7 @@ namespace BloodTypeC.WebApp.Controllers
                 {
                     return View(beerFromView);
                 }
-                var a = _beerServices.AddFromView(beerFromView);
-                _repository.Insert(a);
+                _beerServices.AddFromView(beerFromView);
                 return RedirectToAction("Index", "Home");
             }
             catch
@@ -69,9 +61,9 @@ namespace BloodTypeC.WebApp.Controllers
         }
 
         // GET: BeerController/Edit/5
-        public ActionResult Edit(string id)
+        public ActionResult Edit(int id)
         {
-            var model = _repository.GetById(id);
+            var model = _beerServices.GetById(id);
             var newBeerDto = _mapper.Map<BeerViewModel>(model);
             return View(newBeerDto);
         }
@@ -87,8 +79,8 @@ namespace BloodTypeC.WebApp.Controllers
                 {
                     return View();
                 }
-                var beerDto = _mapper.Map<Beer>(model);
-                _repository.Update(beerDto);
+                var beerDto = _mapper.Map<BeerViewModel>(model);
+                _beerServices.EditFromView(beerDto);
                 return RedirectToAction("Index", "Home");
             }
             catch
@@ -98,9 +90,9 @@ namespace BloodTypeC.WebApp.Controllers
         }
 
         // GET: BeerController/Delete/5
-        public ActionResult Delete(string id)
+        public ActionResult Delete(int id)
         {
-            var model = _repository.GetById(id);
+            var model = _beerServices.GetById(id);
             var newBeerDto = _mapper.Map<BeerViewModel>(model);
             return View(newBeerDto);
         }
@@ -108,7 +100,7 @@ namespace BloodTypeC.WebApp.Controllers
         // POST: BeerController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(string id, IFormCollection collection)
+        public ActionResult Delete(int id, IFormCollection collection)
         {
             try
             {
@@ -116,7 +108,7 @@ namespace BloodTypeC.WebApp.Controllers
                 {
                     return View();
                 }
-                _repository.Delete(_repository.GetById(id));
+                _beerServices.Delete(id);
                 return RedirectToAction("Index", "Home");
             }
             catch

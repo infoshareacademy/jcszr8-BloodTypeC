@@ -1,17 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Text.Json;
+﻿using BloodTypeC.DAL.Models.BaseEntity;
 using System.Text.Json.Serialization;
 
 namespace BloodTypeC.DAL.Models
 {
-    public class Beer
-    {
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        [JsonPropertyName("beer_id")]
-        public string? Id { get; set; }
+    public class Beer : Entity
+    {             
         public string? Name { get; set; }
 
         public string? Brewery { get; set; }

@@ -1,16 +1,15 @@
 ﻿using BloodTypeC.DAL.Models;
 using BloodTypeC.WebApp.Models;
 
-namespace BloodTypeC.WebApp.Services.IServices
+namespace BloodTypeC.Logic.Services.IServices
 {
     public interface IBeerServices
     {
         IEnumerable<Beer> GetAll();
         Beer GetById(int id);
-        void Add(Beer beer);
         void Delete(int id);
-        void Edit(int id);
-        public Beer AddFromView(BeerViewModel beerFromView);
+        void AddFromView(BeerViewModel beerFromView);
+        void EditFromView(BeerViewModel beerFromView);
 
     }
 }

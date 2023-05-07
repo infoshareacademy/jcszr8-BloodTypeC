@@ -1,12 +1,7 @@
-﻿using BloodTypeC.WebApp.Models;
-using BloodTypeC.Logic;
+﻿using BloodTypeC.Logic.Services.IServices;
+using BloodTypeC.WebApp.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
-using Microsoft.AspNetCore.Http;
-using System.Drawing.Text;
-using System.Reflection;
-using BloodTypeC.DAL.Models;
-using BloodTypeC.DAL.Repository;
 
 namespace BloodTypeC.WebApp.Controllers
 {
@@ -15,28 +10,26 @@ namespace BloodTypeC.WebApp.Controllers
         
         private readonly ILogger<HomeController> _logger;
         private static List<FlavorToSearch> _flavorsToSearch;
-        private static List<Beer> _allBeers;
-        private readonly IRepository _repository;
+        private readonly IBeerServices _beerServices;
 
-        public HomeController(ILogger<HomeController> logger,IRepository repository)
+        public HomeController(ILogger<HomeController> logger, IBeerServices beerServices)
         {
             _logger = logger;
-            _repository = repository;
             _flavorsToSearch = new List<FlavorToSearch>();
-            _allBeers = _repository.GetAll();
+            _beerServices = beerServices;
         }
 
         public IActionResult Index()
         {
             var model = new IndexViewModel();
             model.CheckedListOfFlavors = _flavorsToSearch;
-            model.Beers = _allBeers;
+            model.Beers = _beerServices.GetAll().ToList();
             return View(model);        
         }
 
-        public IActionResult Details(string id)
+        public IActionResult Details(int id)
         {
-            var model = _repository.GetById(id);
+            var model = _beerServices.GetById(id);
             return View(model);
         }
         public IActionResult AgeCheck()

@@ -1,15 +1,10 @@
-using BloodTypeC.DAL;
-using BloodTypeC.Logic;
-
-using Microsoft.AspNetCore.Mvc;
-using System;
-using BloodTypeC.WebApp.Services;
-using BloodTypeC.WebApp.Services.IServices;
-using Microsoft.AspNetCore.Localization;
-using System.Globalization;
-using BloodTypeC.WebApp.Models;
 using BloodTypeC.DAL.Contexts;
 using BloodTypeC.DAL.Repository;
+using BloodTypeC.Logic;
+using BloodTypeC.Logic.Services;
+using BloodTypeC.Logic.Services.IServices;
+using Microsoft.AspNetCore.Localization;
+using System.Globalization;
 
 namespace BloodTypeC.WebApp
 {
@@ -17,14 +12,14 @@ namespace BloodTypeC.WebApp
     {
         public static void Main(string[] args)
         {
-            Load.LoadFromFile();
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
             builder.Services.AddScoped<IBeerServices, BeerServices>();
+            builder.Services.AddScoped<IBeerSearchServices, BeerSearchServices>();
             builder.Services.AddTransient<IFavoriteBeersServices, FavoriteBeersServices>();
-            builder.Services.AddScoped<IRepository, BeerRepository>();
+            builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             builder.Services.AddAutoMapper(typeof(Program));
             builder.Services.AddDbContext<BeeropediaContext>();
 
