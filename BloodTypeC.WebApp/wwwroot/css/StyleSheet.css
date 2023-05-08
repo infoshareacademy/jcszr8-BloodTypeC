@@ -254,6 +254,11 @@ a:hover {
         margin: 0;
         }
 
+#info-icon {
+    font-size: 2rem;
+    color: rgb(253, 197, 0) !important;
+}
+
 .details {
     color: white;
     padding: 20px;
