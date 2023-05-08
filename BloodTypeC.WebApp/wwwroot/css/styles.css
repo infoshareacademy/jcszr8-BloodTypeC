@@ -2889,18 +2889,29 @@ textarea.form-control-lg {
         }
 
 .input-group-text {
+    position: relative;
     display: flex;
     align-items: center;
-    padding: 0.375rem 0.75rem;
-    font-size: 1rem;
+    padding: 0px 25px;
+    font-size: 16px;
     font-weight: 400;
     line-height: 1.5;
-    color: #212529;
-    text-align: center;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    color: #191a1e;
+    text-align: left;
     white-space: nowrap;
-    background-color: #e9ecef;
-    border: 1px solid #ced4da;
-    border-radius: 0.25rem;
+    background-color: #fff;
+    border: none;
+    width: stretch;
+}
+
+.input-group-prepend {
+    height: auto;
+    align-items: center;
+    font-size: 16px;
+    font-weight: 400;
+    border: none;
 }
 
 .input-group-lg > .form-control,
@@ -3490,6 +3501,8 @@ textarea.form-control-lg {
 .btn-outline-secondary {
     color: #6c757d;
     border-color: #6c757d;
+    border-top-left-radius: 50px;
+    border-bottom-left-radius: 50px;
 }
 
     .btn-outline-secondary:hover {
