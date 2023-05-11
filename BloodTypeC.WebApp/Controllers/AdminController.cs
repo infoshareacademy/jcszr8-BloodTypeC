@@ -88,5 +88,26 @@ namespace BloodTypeC.WebApp.Controllers
                 return View();
             }
         }
+
+        //TODO
+        public ActionResult ActivateUser(string id)
+        {
+            return View();
+        }
+
+        //TODO
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult ActivateUser(string id, IFormCollection collection)
+        {
+            try
+            {
+                return RedirectToAction(nameof(Index));
+            }
+            catch
+            {
+                return View();
+            }
+        }
     }
 }
