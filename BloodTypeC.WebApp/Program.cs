@@ -27,6 +27,7 @@ namespace BloodTypeC.WebApp
             builder.Services.AddAutoMapper(typeof(Program));
             builder.Services.AddDbContext<BeeropediaContext>();
             builder.Services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = true)
+                .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<BeeropediaContext>();
 
             var app = builder.Build();
@@ -50,8 +51,7 @@ namespace BloodTypeC.WebApp
             app.UseStaticFiles();
 
             app.UseRouting();
-                        app.UseAuthentication();;
-
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.MapControllerRoute(

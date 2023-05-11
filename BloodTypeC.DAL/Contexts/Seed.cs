@@ -12,7 +12,7 @@ namespace BloodTypeC.DAL.Contexts
 {
     public static class Seed
     {
-        public static void Initialize(BeeropediaContext context) ///, RoleManager<IdentityRole> roleManager, UserManager<User> userManager)
+        public static void Initialize(BeeropediaContext context)//, RoleManager<IdentityRole> roleManager, UserManager<User> userManager)
         {
             context.Database.EnsureCreated();
             //Seeding beers to DB
@@ -34,21 +34,6 @@ namespace BloodTypeC.DAL.Contexts
                 context.AllBeers.Add(beer);
                 context.SaveChanges();
             }
-            /*//Seeding flavors to DB
-            if (context.AllFlavors.Any())
-            {
-                return;   // Flavors has been seeded
-            }
-            var flavorsToSeed = beersToSeed.Where(x => x.Flavors != null).SelectMany(beer => beer.Flavors).Distinct().ToList();
-            
-            foreach (var flavor in flavorsToSeed)
-            {
-                FlavorEntity flavorEntity = new();
-                flavorEntity.Flavor = flavor;
-                //flavorEntity.Flavor = flavor;
-                context.AllFlavors.Add(flavorEntity);
-                context.SaveChanges();
-            }*/
         }
     }
 }
