@@ -4,7 +4,7 @@
     ViewData["Title"] = "Index";
 }
 
-<button class="search-button" asp-controller="Admin" asp-action="Create">Create new user</button>
+<a class="search-button" asp-action="Create">Create user</a>
 <table class="table text-white">
     <thead>
         <tr>
@@ -41,5 +41,38 @@
             </td>
         </tr>
 }
+    </tbody>
+</table>
+<a class="search-button" asp-action="CreateRole">Create role</a>
+<table class="table text-white">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Roles.FirstOrDefault().Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Roles.FirstOrDefault().Name)
+            </th>
+            <th>
+                Actions
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Roles)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                    @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Identity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,5 +10,6 @@ namespace BloodTypeC.DAL.Models.Views
     public class AdminPanelViewModel
     {
         public IEnumerable<User> Users { get; set; }
+        public IEnumerable<IdentityRole> Roles { get; set; }
     }
 }

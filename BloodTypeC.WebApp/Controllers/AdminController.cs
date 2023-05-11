@@ -9,16 +9,19 @@ namespace BloodTypeC.WebApp.Controllers
     public class AdminController : Controller
     {
         private readonly UserManager<User> _userManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
 
-        public AdminController(UserManager<User> userManager)
+        public AdminController(UserManager<User> userManager, RoleManager<IdentityRole> roleManager)
         {
             _userManager = userManager;
+            _roleManager = roleManager;
         }
 
         public IActionResult Index()
         {
             var model = new AdminPanelViewModel();
             model.Users = _userManager.Users;
+            model.Roles= _roleManager.Roles;
             return View(model);
         }
         public IActionResult Create() 
