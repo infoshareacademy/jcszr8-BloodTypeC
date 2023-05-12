@@ -1,7 +1,13 @@
-﻿@model BeerViewModel
+﻿@using BloodTypeC.Logic.Extensions;
+@using System.ComponentModel.DataAnnotations;
+@model BeerViewModel
 
 @{
     ViewData["Title"] = "Create beer";
+    var nameMaxLength = Model.GetAttributeFrom<StringLengthAttribute>(nameof(Model.Name)).MaximumLength;
+    var nameMinLength = Model.GetAttributeFrom<StringLengthAttribute>(nameof(Model.Name)).MinimumLength;
+    var maxScore = Convert.ToDouble(Model.GetAttributeFrom<RangeAttribute>(nameof(Model.Score)).Maximum);
+    var maxAbv = Convert.ToDouble(Model.GetAttributeFrom<RangeAttribute>(nameof(Model.AlcoholByVolume)).Maximum);
 }
 
 <head>
@@ -16,71 +22,88 @@
         Add Beer
     </div>
 
-    <div class="col-md-12">
-        <div class="section-center">
-            <div class="container">
-                <div class="row">
-                    <div class="search-form">
-                        <form asp-action="Create">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                                    <div class="form-group">
-                                        <span class="form-label text-white">Beer Name</span>
-                                        <input asp-for="Name" class="form-control" placeholder="Beer name" />
-                                        <span asp-validation-for="Name" class="text-danger"></span>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label asp-for="Brewery" class="form-label text-white"></label>
-                                        <input asp-for="Brewery" class="form-control" placeholder="Brewery name" />
-                                        <span asp-validation-for="Brewery" class="text-danger"></span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label asp-for="Style" class="form-label text-white"></label>
-                                        <input asp-for="Style" class="form-control" placeholder="Style" />
-                                        <span asp-validation-for="Style" class="text-danger"></span>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label asp-for="FlavorString" class="form-label text-white"></label>
-                                        <input asp-for="FlavorString" class="form-control" placeholder="Flavors" />
-                                        <span asp-validation-for="FlavorString" class="text-danger"></span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <span class="form-label text-white">Alcohol volume</span>
-                                        <input asp-for="AlcoholByVolume" class="form-control" placeholder="Alcohol volume" />
-                                        <span asp-validation-for="AlcoholByVolume" class="text-danger"></span>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label asp-for="Score" class="form-label text-whitel"></label>
-                                        <input asp-for="Score" class="form-control" placeholder="Score" />
-                                        <span asp-validation-for="Score" class="text-danger"></span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="buttons">
-                                <div class="form-group">
-                                    <input type="submit" value="Create" class="search-button" />
-                                </div>
-                            </div>
-                        </form>
+    <div class="col-md-12 section-center container search-form">
+        <form asp-action="Create">
+            <div class="row">
+                <div class="col-md-6">
+                    <div> <span class="form-label text-white">Beer Name<font color="red">*</font></span></div>
+                    <div class="input-group col-md-6 tooltip-container">
+                        <input type="text" asp-for="Name" class="form-control" placeholder="Beer name" />
+                        <button class="btn btn-outline-secondary tooltip-button" type="button">
+                            <p class="tooltip-text">The name needs to be @nameMinLength - @nameMaxLength characters long.</p>
+                            <i class="bi bi-info-circle" id="info-icon"></i>
+                        </button>
                     </div>
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+                <div class="col-md-6">
+                    <div> <span class="form-label text-white">Brewery</span></div>
+                    <div class="input-group col-md-6 tooltip-container">
+                        <input type="text" asp-for="Brewery" class="form-control" placeholder="Brewery name" />
+                        <button class="btn btn-outline-secondary tooltip-button" type="button">
+                            <p class="tooltip-text">We will capitalise the first letter.</p>
+                            <i class="bi bi-info-circle" id="info-icon"></i>
+                        </button>
+                    </div>
+                    <span asp-validation-for="Brewery" class="text-danger"></span>
                 </div>
             </div>
-        </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div> <span class="form-label text-white">Style</span></div>
+                    <div class="input-group col-md-6 tooltip-container">
+                        <input type="text" asp-for="Style" class="form-control" placeholder="Style" />
+                        <button class="btn btn-outline-secondary tooltip-button" type="button">
+                            <p class="tooltip-text">We will capitalise the first letters and remove any non-letter characters, except dash (-).</p>
+                            <i class="bi bi-info-circle" id="info-icon"></i>
+                        </button>
+                    </div>
+                    <span asp-validation-for="Style" class="text-danger"></span>
+                </div><div class="col-md-6">
+                    <div> <span class="form-label text-white">Flavors</span></div>
+                    <div class="input-group col-md-6 tooltip-container">
+                        <input type="text" asp-for="FlavorString" class="form-control" placeholder="Flavors" />
+                        <button class="btn btn-outline-secondary tooltip-button" type="button">
+                            <p class="tooltip-text">Separate multiple flavors using <b>any</b> non-letter characters (#%$^!&* etc).<br>But pros simply use commas or spaces.</p>
+                            <i class="bi bi-info-circle" id="info-icon"></i>
+                        </button>
+                    </div>
+                    <span asp-validation-for="FlavorString" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div> <span class="form-label text-white">Alcohol by volume</span></div>
+                    <div class="input-group col-md-6 tooltip-container">
+                        <input type="text" asp-for="AlcoholByVolume" class="form-control" placeholder="Alcohol by volume" />
+                            <button class="btn btn-outline-secondary tooltip-button" type="button">
+                                <p class="tooltip-text">Leaving this empty will set the value to 0.<br>Max value is @maxAbv.</p>
+                                <i class="bi bi-info-circle" id="info-icon"></i>
+                            </button>
+                    </div>
+                    <span asp-validation-for="AlcoholByVolume" class="text-danger"></span>
+                </div><div class="col-md-6">
+                    <div> <span class="form-label text-white">Brewery</span></div>
+                    <div class="input-group col-md-6 tooltip-container">
+                        <input type="text" asp-for="Score" class="form-control" placeholder="Score" />
+                        
+                            <button class="btn btn-outline-secondary tooltip-button" type="button">
+                            <p class="tooltip-text">Leaving this empty will set the score to 0.<br>Max value is @maxScore.</p>
+                                <i class="bi bi-info-circle" id="info-icon"></i>
+                            </button>
+                        
+                    </div>
+                    <span asp-validation-for="Score" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="buttons">
+                <div class="form-group">
+                    <br /><input type="submit" value="Create" class="search-button" />
+                </div>
+            </div>
+        </form>
     </div>
 </body>
 @section Scripts {

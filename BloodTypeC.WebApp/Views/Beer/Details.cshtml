@@ -1,8 +1,11 @@
 ﻿@model BloodTypeC.WebApp.Models.BeerViewModel
 @using BloodTypeC.DAL.Models;
+@using BloodTypeC.Logic.Extensions;
+@using System.ComponentModel.DataAnnotations;
 
 @{
     ViewData["Title"] = "Details";
+    var maxScore = Convert.ToDouble(Model.GetAttributeFrom<RangeAttribute>(nameof(Model.Score)).Maximum);
 }
 
 <head>
@@ -19,8 +22,8 @@
             Brewery: @Model.Brewery<br>
             Style: @Model.Style<br>
             Flavors: @Model.FlavorString<br>
-            Alcohol volume: @Model.AlcoholByVolume<br>
-            Score: @Model.Score<br>
+            Alcohol by volume: @Model.AlcoholByVolume%<br>
+            Score: @Model.Score/@maxScore<br>
             <div class="buttons">
                 <a asp-action="Edit" asp-route-id="@Model.Id" asp-controller="Beer">
                     <button class="product-button">Edit</button>
