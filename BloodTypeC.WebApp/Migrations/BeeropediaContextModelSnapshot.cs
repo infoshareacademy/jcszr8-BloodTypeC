@@ -34,7 +34,7 @@ namespace BloodTypeC.WebApp.Migrations
 
                     b.HasIndex("FavoriteUsersId");
 
-                    b.ToTable("BeerUser");
+                    b.ToTable("BeerUser", (string)null);
                 });
 
             modelBuilder.Entity("BloodTypeC.DAL.Models.Beer", b =>

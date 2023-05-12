@@ -10,12 +10,10 @@ namespace BloodTypeC.WebApp.Controllers
     public class FavoriteBeersController : Controller
     {
         private readonly IFavoriteBeersServices _favoriteBeersServices;
-        private UserManager<User> _userManager;
         private readonly string _userId;
-        public FavoriteBeersController(IFavoriteBeersServices favoriteBeersServices, UserManager<User> userManager)
+        public FavoriteBeersController(IFavoriteBeersServices favoriteBeersServices)
         {
             _favoriteBeersServices = favoriteBeersServices;
-            _userManager = userManager;
             _userId = "da1ae07a-873f-4f8e-b922-c9cf9935d059";
         }
         [HttpGet]

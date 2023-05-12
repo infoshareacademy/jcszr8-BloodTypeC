@@ -11,8 +11,6 @@ namespace BloodTypeC.Logic.Services
     {
         private readonly IRepository<Beer> _repository;
         private readonly IMapper _mapper;
-        private const double MaxAlcoholValue = 95;
-        private const double MaxScore = 10;
 
         public BeerServices(IRepository<Beer> repository, IMapper mapper)
         {

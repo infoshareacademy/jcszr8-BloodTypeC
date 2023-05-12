@@ -2,6 +2,7 @@
 using BloodTypeC.DAL.Models;
 using BloodTypeC.DAL.Models.BaseEntity;
 using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
 
 namespace BloodTypeC.DAL.Repository
 {
@@ -16,9 +17,13 @@ namespace BloodTypeC.DAL.Repository
             _entities = context.Set<T>();
         }
 
-        public List<T> GetAll()
+        public List<T> GetAll(Expression<Func<T, object>>? include = null)
         {
-            return _entities.AsEnumerable().ToList();
+            if (include != null)
+            {
+                return _entities.Include(include).ToList();
+            }
+            return _entities.ToList();
         }
         public void Insert(T entity)
         {

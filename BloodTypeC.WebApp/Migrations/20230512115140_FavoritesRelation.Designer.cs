@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BloodTypeC.WebApp.Migrations
 {
     [DbContext(typeof(BeeropediaContext))]
-    [Migration("20230512110228_FavoritesRelation")]
+    [Migration("20230512115140_FavoritesRelation")]
     partial class FavoritesRelation
     {
         /// <inheritdoc />
@@ -37,7 +37,7 @@ namespace BloodTypeC.WebApp.Migrations
 
                     b.HasIndex("FavoriteUsersId");
 
-                    b.ToTable("BeerUser");
+                    b.ToTable("BeerUser", (string)null);
                 });
 
             modelBuilder.Entity("BloodTypeC.DAL.Models.Beer", b =>

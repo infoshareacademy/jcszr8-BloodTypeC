@@ -9,7 +9,7 @@ namespace BloodTypeC.DAL.Contexts
     public class BeeropediaContext : IdentityDbContext<User, IdentityRole, string>
     {
         public DbSet<Beer> AllBeers { get; set;}
-
+        public DbSet<User> AllUsers { get; set;}
         public BeeropediaContext(DbContextOptions<BeeropediaContext> options) : base(options)
         {
 
@@ -23,6 +23,11 @@ namespace BloodTypeC.DAL.Contexts
         {
             base.OnModelCreating(modelBuilder);
 
+            modelBuilder.Entity<Beer>()
+                .HasMany(b => b.FavoriteUsers)
+                .WithMany(u => u.FavoriteBeers)
+                .UsingEntity(e => e.ToTable("BeerUser"));
+            
             modelBuilder.Entity<Beer>()
                 .Property(f=>f.Flavors)
                 .HasConversion(v => string.Join(',', v),
