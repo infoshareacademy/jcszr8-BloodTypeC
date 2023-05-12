@@ -3,6 +3,8 @@ using BloodTypeC.DAL.Models.Views;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using System.Data;
 
 namespace BloodTypeC.WebApp.Controllers
 {
@@ -111,6 +113,72 @@ namespace BloodTypeC.WebApp.Controllers
             {
                 return View();
             }
+        }
+        public IActionResult CreateRole()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CreateRole(IdentityRole role)
+        {
+            if (ModelState.IsValid)
+            {
+                IdentityRole appRole = new IdentityRole();
+                appRole = role;
+                var result = await _roleManager.CreateAsync(appRole);
+                if (result.Succeeded)
+                {
+                    return RedirectToAction("Index");
+                }
+            }
+            return View();
+        }
+        public async Task<IActionResult> EditRole(string id)
+        {
+            var model = await _roleManager.FindByIdAsync(id);
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditRole(string id,IdentityRole role)
+        {
+            if (ModelState.IsValid)
+            {
+                var roleToUpdate = await _roleManager.FindByIdAsync(role.Id);
+                roleToUpdate.Name = role.Name;
+                var result = await _roleManager.UpdateAsync(roleToUpdate);
+                if (result.Succeeded)
+                {
+                    return RedirectToAction("Index");
+                }
+            }
+            return View();
+        }
+        public async Task<IActionResult> DeleteRole(string id)
+        {
+            var roleToDelete = await _roleManager.FindByIdAsync(id);
+            //var result = await _roleManager.DeleteAsync(roleToDelete);
+            //if (result.Succeeded)
+            //{
+             //   return RedirectToAction("Index");
+            //}
+            return View(roleToDelete);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteRole(string id,IdentityRole role)
+        {
+            var roleToDelete = await _roleManager.FindByIdAsync(id);
+            var result = await _roleManager.DeleteAsync(roleToDelete);
+            if (result.Succeeded)
+            {
+               return RedirectToAction("Index");
+            }
+            return View(role);
         }
     }
 }
