@@ -70,17 +70,14 @@
                                     </div>
                                 </div>
                             </div>
-
                             <div class="buttons">
                                 <div class="form-btn">
                                     <button class="search-button">Show beers</button>
                                     <button class="search-button" asp-controller="Home" asp-action="Index">Back to list</button>
                                 </div>
                             </div>
-                            </form>
-                            
+                        </form>
                     </div>
-
                 </div>
             </div>
         </div>
@@ -89,7 +86,7 @@
     @{
         await Html.RenderPartialAsync("_BeerPartialView", Model.Beers);
     }
-    
+
 
 </body>
 

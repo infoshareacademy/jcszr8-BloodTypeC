@@ -453,3 +453,37 @@ a:hover {
     justify-content: center;
     margin: auto;
 }
+
+.center-elements {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.reset-button {
+    height: 45px;
+    width: 200px;
+    border-radius: 12px;
+    border-width: 2px;
+    border: solid;
+    border-color: rgb(253, 197, 0);
+    color: white;
+    font-size: 18px;
+    background-color: rgb(128, 128, 128);
+    transition: color 0.3s;
+    transition: background-color 0.3s;
+    margin: 0;
+}
+.reset-button:hover {
+    height: 45px;
+    width: 200px;
+    border-radius: 12px;
+    border-width: 2px;
+    border: solid;
+    border-color: rgb(253, 197, 0);
+    color: rgb(39, 41, 42);
+    font-size: 18px;
+    background-color: rgb(253, 197, 0);
+    font-weight: bold;
+    margin: 0;
+}
