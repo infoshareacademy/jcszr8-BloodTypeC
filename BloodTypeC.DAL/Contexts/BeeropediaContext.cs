@@ -35,6 +35,9 @@ namespace BloodTypeC.DAL.Contexts
                 .Metadata
                 .SetValueComparer(valueComparer);
 
+            modelBuilder.Entity<Beer>()
+                .HasMany(beer => beer.FavoriteUsers).WithMany(user => user.FavoriteBeers);
+
             modelBuilder.Entity<User>()
                 .Property(prop => prop.Id)
                 .ValueGeneratedOnAdd();

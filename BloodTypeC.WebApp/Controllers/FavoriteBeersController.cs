@@ -16,7 +16,7 @@ namespace BloodTypeC.WebApp.Controllers
         {
             _favoriteBeersServices = favoriteBeersServices;
             _userManager = userManager;
-            _userId = _userManager.GetUserId(User);
+            _userId = "da1ae07a-873f-4f8e-b922-c9cf9935d059";
         }
         [HttpGet]
 

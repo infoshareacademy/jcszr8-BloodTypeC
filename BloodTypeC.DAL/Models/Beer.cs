@@ -18,6 +18,6 @@ namespace BloodTypeC.DAL.Models
         public DateTime Added { get; set; }
         public DateTime LastModified { get; set; }
 
-        public List<User> FavoriteUsers { get; set; }
+        public List<User> FavoriteUsers { get; set; } = new List<User>();
     }
 }
