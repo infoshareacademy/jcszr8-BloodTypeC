@@ -16,7 +16,7 @@ namespace BloodTypeC.WebApp
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
-            //var connectionString = builder.Configuration.GetConnectionString("BloodTypeCWebAppContextConnection") ?? throw new InvalidOperationException("Connection string 'BloodTypeCWebAppContextConnection' not found.");
+            
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
@@ -28,6 +28,7 @@ namespace BloodTypeC.WebApp
             builder.Services.AddDbContext<BeeropediaContext>();
             builder.Services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<BeeropediaContext>();
+            builder.Services.AddScoped<UserManager<User>>();
 
             var app = builder.Build();
             CreateDbIfNotExists(app);

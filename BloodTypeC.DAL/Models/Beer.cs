@@ -17,5 +17,7 @@ namespace BloodTypeC.DAL.Models
         public double? Score { get; set; }
         public DateTime Added { get; set; }
         public DateTime LastModified { get; set; }
+
+        public List<User> FavoriteUsers { get; set; }
     }
 }

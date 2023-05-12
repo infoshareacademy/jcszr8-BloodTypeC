@@ -9,6 +9,6 @@ namespace BloodTypeC.DAL.Models
 {
     public class User : IdentityUser<string>
     {
-
+        public List<Beer> FavoriteBeers { get; set; }
     }
 }

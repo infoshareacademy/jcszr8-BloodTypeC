@@ -9,8 +9,6 @@ namespace BloodTypeC.DAL.Contexts
     public class BeeropediaContext : IdentityDbContext<User, IdentityRole, string>
     {
         public DbSet<Beer> AllBeers { get; set;}
-        public DbSet<BeerFavorites> FavoriteBeers { get; set;}
-        //public DbSet<FlavorEntity> AllFlavors { get; set;}
 
         public BeeropediaContext(DbContextOptions<BeeropediaContext> options) : base(options)
         {
@@ -36,10 +34,6 @@ namespace BloodTypeC.DAL.Contexts
                 .Property(f => f.Flavors)
                 .Metadata
                 .SetValueComparer(valueComparer);
-
-            modelBuilder.Entity<BeerFavorites>()
-                .HasMany(b=>b.Beers)
-                .WithMany();
 
             modelBuilder.Entity<User>()
                 .Property(prop => prop.Id)

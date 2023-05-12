@@ -1,45 +1,39 @@
 ﻿using BloodTypeC.DAL.Models;
 using BloodTypeC.DAL.Repository;
 using BloodTypeC.Logic.Services.IServices;
-using System.Security.Cryptography.X509Certificates;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 
 namespace BloodTypeC.Logic.Services
 {
     public class FavoriteBeersServices : IFavoriteBeersServices
     {
-        private readonly List<Beer> _allBeers;
-        private List<Beer> _favoriteBeers = DB.FavoriteBeers;
+        private IEnumerable<Beer> _favoriteBeers;
         private readonly IRepository<Beer> _beerRepository;
+        private readonly UserManager<User> _userManager;
 
-        public FavoriteBeersServices(IRepository<Beer> beerRepository)
+        public FavoriteBeersServices(IRepository<Beer> beerRepository, UserManager<User> userManager)
         {
             _beerRepository = beerRepository;
-            _allBeers = _beerRepository.GetAll();
+            _userManager = userManager;
         }
 
-        public void AddToFavs(string id)
+        public void AddToFavs(string beerId, string userId)
         {
-            var beer = _allBeers.FirstOrDefault(x => x.Id == id);
-            if (!_favoriteBeers.Contains(beer))
-            {
-                _favoriteBeers?.Add(beer);
-            }
+            var beer = _beerRepository.GetById(beerId);
+            beer.FavoriteUsers.Add(_userManager.Users.FirstOrDefault(x => x.Id == userId));
+            _beerRepository.Update(beer);
         }
 
-        public List<Beer> GetAllBeers()
+        public IEnumerable<Beer> GetAllFavs(string userId)
         {
-            return _allBeers;
+            var favoriteBeers = _beerRepository.GetAll().Where(beer => beer.FavoriteUsers.Any(user => user.Id == userId)); 
+            return favoriteBeers;
         }
 
-        public List<Beer> GetAllFavs()
+        public void RemoveFromFavs(string beerId, string userId)
         {
-            return _favoriteBeers;
-        }
-
-        public void RemoveFromFavs(string id)
-        {
-            var beer = _favoriteBeers.FirstOrDefault(x => x.Id == id);
-            _favoriteBeers?.Remove(beer);
+            
         }
     }
 }
