@@ -8,6 +8,7 @@ using System.Globalization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using BloodTypeC.DAL.Models;
+using BloodTypeC.WebApp.Data;
 
 namespace BloodTypeC.WebApp
 {
@@ -16,6 +17,7 @@ namespace BloodTypeC.WebApp
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+                        var connectionString = builder.Configuration.GetConnectionString("BloodTypeCWebAppContextConnection") ?? throw new InvalidOperationException("Connection string 'BloodTypeCWebAppContextConnection' not found.");
             //var connectionString = builder.Configuration.GetConnectionString("BloodTypeCWebAppContextConnection") ?? throw new InvalidOperationException("Connection string 'BloodTypeCWebAppContextConnection' not found.");
 
             // Add services to the container.
@@ -28,6 +30,7 @@ namespace BloodTypeC.WebApp
             builder.Services.AddDbContext<BeeropediaContext>();
             builder.Services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<BeeropediaContext>();
+            builder.Services.AddScoped<UserManager<User>>();
 
             var app = builder.Build();
             CreateDbIfNotExists(app);
