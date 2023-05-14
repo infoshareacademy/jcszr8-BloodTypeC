@@ -6,11 +6,27 @@
 <div class="products">
     @if (Model.Any())
     {
-        @foreach (var item in Model)
-        {
+    //   var host = this.ViewContext.HttpContext.Request.Headers.Host;
+    //
+       @foreach (var item in Model)
+       {
+            //var image = new Uri(item.Image, UriKind.Relative);
+            //   if (!item.Image.Contains("http"))
+    //       {
+    //           item.Image = host + "/" + item.Image;
+    //       }
             <div class="product-card">
                 <div class="card-body">
-                    <div class="beer-image-possition"><img src="@string.Format($"{item.Image}")" class="beer-image"></div>
+                    <div class="beer-image-possition">
+                    @if(item.Image.Contains("/"))
+                    {
+                        <img src="@item.Image" class="beer-image">
+                    }
+                    else
+                    {
+                        <img src="~/Images/@item.Image" class="beer-image">
+                    }
+                    </div>
                     <h5>@item.Name</h5>
                     <p>@item.Brewery</p>
                     <div class="buttons">
