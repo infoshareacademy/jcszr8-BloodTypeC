@@ -26,21 +26,24 @@
                 </a>
             </div>
             <div class="buttons">
-                @if (!DB.FavoriteBeers.Any(x => x.Id == Model.Id.ToString()))
+                @if (User.Identity.Name != null)
                 {
-                    <a asp-controller="FavoriteBeers" asp-action="AddToFavorites" asp-route-id="@Model.Id">
-                        <button class="fav-button">
-                            ❤ Fav it!
-                        </button>
-                    </a>
-                }
-                else
-                {
-                    <a asp-controller="FavoriteBeers" asp-action="RemoveFromFavorites" asp-route-id="@Model.Id">
-                        <button class="fav-rem-button">
-                            💔 Unfav
-                        </button>
-                    </a>
+                    @if (!Model.FavoriteUsers.Any(u => u.UserName == User.Identity.Name))
+                    {
+                        <a asp-controller="FavoriteBeers" asp-action="AddToFavorites" asp-route-id="@Model.Id">
+                            <button class="fav-button">
+                                ❤ Fav it!
+                            </button>
+                        </a>
+                    }
+                    else
+                    {
+                        <a asp-controller="FavoriteBeers" asp-action="RemoveFromFavorites" asp-route-id="@Model.Id">
+                            <button class="fav-rem-button">
+                                💔 Unfav
+                            </button>
+                        </a>
+                    }
                 }
             </div>
         </div>
