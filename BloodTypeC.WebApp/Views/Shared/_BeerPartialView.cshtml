@@ -12,7 +12,7 @@
                 <div class="card-body">
                     <div class="beer-image-possition"><img src="~/Images/mockup.png" class="beer-image"></div>
                     <h5>@item.Name</h5>
-                    <p>@item.Brewery</p>
+                    <p>by @item.Brewery</p>
                     <div class="buttons">
                         <a asp-action="Details" asp-route-id="@item.Id" asp-controller="Beer">
                             <button class="product-button">

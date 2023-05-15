@@ -1,15 +1,14 @@
-﻿@model BeerViewModel
+﻿@using BloodTypeC.Logic.Extensions;
+@using System.ComponentModel.DataAnnotations;
+@model BeerViewModel
 
 @{
     ViewData["Title"] = "Create beer";
+    var nameMaxLength = Model.GetAttributeFrom<StringLengthAttribute>(nameof(Model.Name)).MaximumLength;
+    var nameMinLength = Model.GetAttributeFrom<StringLengthAttribute>(nameof(Model.Name)).MinimumLength;
+    var maxScore = Convert.ToDouble(Model.GetAttributeFrom<RangeAttribute>(nameof(Model.Score)).Maximum);
+    var maxAbv = Convert.ToDouble(Model.GetAttributeFrom<RangeAttribute>(nameof(Model.AlcoholByVolume)).Maximum);
 }
-
-<head>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
-    <link href="~/css/StyleSheet.css" rel="stylesheet" />
-</head>
 
 <div class="page-name">
     Add Beer
