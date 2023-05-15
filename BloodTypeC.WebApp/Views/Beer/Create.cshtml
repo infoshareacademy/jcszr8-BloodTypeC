@@ -11,83 +11,83 @@
     <link href="~/css/StyleSheet.css" rel="stylesheet" />
 </head>
 
-<body>
-    <div class="page-name">
-        Add Beer
-    </div>
-
-    <div class="col-md-12">
-        <div class="section-center">
-            <div class="container">
-                <div class="row">
-                    <div class="search-form">
-                        <form asp-action="Create">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                                    <div class="form-group">
-                                        <span class="form-label text-white">Beer Name</span>
-                                        <input asp-for="Name" class="form-control" placeholder="Beer name" />
-                                        <span asp-validation-for="Name" class="text-danger"></span>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label asp-for="Brewery" class="form-label text-white"></label>
-                                        <input asp-for="Brewery" class="form-control" placeholder="Brewery name" />
-                                        <span asp-validation-for="Brewery" class="text-danger"></span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label asp-for="Style" class="form-label text-white"></label>
-                                        <input asp-for="Style" class="form-control" placeholder="Style" />
-                                        <span asp-validation-for="Style" class="text-danger"></span>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label asp-for="FlavorString" class="form-label text-white"></label>
-                                        <input asp-for="FlavorString" class="form-control" placeholder="Flavors" />
-                                        <span asp-validation-for="FlavorString" class="text-danger"></span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <span class="form-label text-white">Alcohol volume</span>
-                                        <input asp-for="AlcoholByVolume" class="form-control" placeholder="Alcohol volume" />
-                                        <span asp-validation-for="AlcoholByVolume" class="text-danger"></span>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label asp-for="Score" class="form-label text-whitel"></label>
-                                        <input asp-for="Score" class="form-control" placeholder="Score" />
-                                        <span asp-validation-for="Score" class="text-danger"></span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="buttons">
+<div class="page-name">
+    Add Beer
+</div>
+<div class="col-md-12">
+    <div class="section-center">
+        <div class="container">
+            <div class="row">
+                <div class="search-form">
+                    <form asp-action="Create">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                                 <div class="form-group">
-                                    <input type="submit" value="Create" class="search-button" />
+                                    <span class="form-label text-white">Beer Name</span>
+                                    <input asp-for="Name" class="form-control" placeholder="Beer name" />
+                                    <span asp-validation-for="Name" class="text-danger"></span>
                                 </div>
                             </div>
-                            <div class="buttons">
+                            <div class="col-md-6">
                                 <div class="form-group">
-                                    <button class="search-button" asp-controller="Home" asp-action="Index">Back to list</button>
+                                    <label asp-for="Brewery" class="form-label text-white"></label>
+                                    <input asp-for="Brewery" class="form-control" placeholder="Brewery name" />
+                                    <span asp-validation-for="Brewery" class="text-danger"></span>
                                 </div>
                             </div>
-                        </form>
-                    </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label asp-for="Style" class="form-label text-white"></label>
+                                    <input asp-for="Style" class="form-control" placeholder="Style" />
+                                    <span asp-validation-for="Style" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label asp-for="FlavorString" class="form-label text-white"></label>
+                                    <input asp-for="FlavorString" class="form-control" placeholder="Flavors" />
+                                    <span asp-validation-for="FlavorString" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <span class="form-label text-white">Alcohol volume</span>
+                                    <input asp-for="AlcoholByVolume" class="form-control" placeholder="Alcohol volume" />
+                                    <span asp-validation-for="AlcoholByVolume" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label asp-for="Score" class="form-label text-whitel"></label>
+                                    <input asp-for="Score" class="form-control" placeholder="Score" />
+                                    <span asp-validation-for="Score" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="buttons">
+                            <div class="form-group">
+                                <input type="submit" value="Create" class="search-button" />
+                            </div>
+                        </div>
+                        <div class="button-margin">
+                            <div class="buttons">
+                                <button onclick="@("window.location.href='" + Url.Action("Index", "Home") + "'")" class="search-button">
+                                    Back to list
+                                </button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
-</body>
+</div>
+
 @section Scripts {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");

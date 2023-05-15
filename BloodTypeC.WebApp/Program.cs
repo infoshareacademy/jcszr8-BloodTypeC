@@ -1,14 +1,11 @@
 using BloodTypeC.DAL.Contexts;
+using BloodTypeC.DAL.Models;
 using BloodTypeC.DAL.Repository;
-using BloodTypeC.Logic;
 using BloodTypeC.Logic.Services;
 using BloodTypeC.Logic.Services.IServices;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
 using System.Globalization;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
-using BloodTypeC.DAL.Models;
-using BloodTypeC.WebApp.Data;
 
 namespace BloodTypeC.WebApp
 {
@@ -17,7 +14,7 @@ namespace BloodTypeC.WebApp
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
-                        var connectionString = builder.Configuration.GetConnectionString("BloodTypeCWebAppContextConnection") ?? throw new InvalidOperationException("Connection string 'BloodTypeCWebAppContextConnection' not found.");
+            
             //var connectionString = builder.Configuration.GetConnectionString("BloodTypeCWebAppContextConnection") ?? throw new InvalidOperationException("Connection string 'BloodTypeCWebAppContextConnection' not found.");
 
             // Add services to the container.
