@@ -98,9 +98,17 @@ a:hover {
 }
 
 .beer-image {
-    max-width: 200px;
+    max-width: auto;
     max-height: 200px;
     margin: auto;
+    display: block;
+}
+
+.beer-image-center {
+    margin: auto;
+    max-width: 200px;
+    max-height: 200px;
+   
 }
 
 .product-card {
