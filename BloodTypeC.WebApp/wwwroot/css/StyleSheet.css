@@ -106,7 +106,7 @@ a:hover {
 .product-card {
     flex: 1 0 21%;
     margin: 25px;
-    height: 450px;
+    height: auto;
     background-color: rgb(128, 128, 128);
     max-width: 300px;
     min-width: 284px;
@@ -114,16 +114,6 @@ a:hover {
     color: white;
 }
 
-.product-card {
-    flex: 1 0 21%;
-    margin: 25px;
-    height: 415px;
-    background-color: rgb(128, 128, 128);
-    max-width: 300px;
-    min-width: 284px;
-    border-radius: 15px;
-    color: white;
-}
 
 .product-card-details {
     flex: 1 0 21%;
@@ -134,6 +124,8 @@ a:hover {
     min-width: 284px;
     border-radius: 15px;
     color: white;
+    padding-top: 15px;
+    padding-bottom:10px;
 }
 
 .products {

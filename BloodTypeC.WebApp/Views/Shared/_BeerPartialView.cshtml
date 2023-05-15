@@ -15,11 +15,15 @@
                         {
                             if (item.Image.Contains("/"))
                             {
-                                <img src="@item.Image" class="beer-image">
+                                <div class="beer-image-position">
+                                    <img src="@item.Image" class="beer-image">
+                                </div>
                             }
-                            else if (!item.Image.Contains("/"))
+                            else
                             {
-                                <img src="~/Images/@item.Image" class="beer-image">
+                                <div class="beer-image-position">
+                                    <img src="~/Images/@item.Image" class="beer-image">
+                                </div>
                             }
                         }
                         else

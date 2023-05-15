@@ -19,18 +19,34 @@
     </div>
     <div class="products">
         <div class="product-card-details">
-            <div class="beer-image-position"><img src="~/Images/mockup.png" class="beer-image"></div>
-            <h1 class="details">@Model.Name</h1>
-            <div class="details-product">
-                Brewery: @Model.Brewery<br>
-                Style: @Model.Style<br>
-                Flavors: @Model.FlavorString<br>
-                Alcohol volume: @Model.AlcoholByVolume<br>
-                Score: @Model.Score<br>
+            <div class="beer-image-position">
+                @if (@Model.Image != null)
+                {
+                    if (@Model.Image.Contains("/"))
+                    {
+                        <img src="@Model.Image" class="beer-image">
+                    }
+                    else
+                    {
+                        <img src="~/Images/@Model.Image" class="beer-image">
+                    }
+                }
+                else
+                {
+                    <img src="~/Images/mockup.png" class="beer-image">
+                }
+                </div>
+                <h1 class="details">@Model.Name</h1>
+                <div class="details-product">
+                    Brewery: @Model.Brewery<br>
+                    Style: @Model.Style<br>
+                    Flavors: @Model.FlavorString<br>
+                    Alcohol volume: @Model.AlcoholByVolume<br>
+                    Score: @Model.Score<br>
+                </div>
             </div>
         </div>
     </div>
-
     <form asp-action="Delete">
         <div class="buttons">
             <input type="submit" value="Delete" class="search-button">
