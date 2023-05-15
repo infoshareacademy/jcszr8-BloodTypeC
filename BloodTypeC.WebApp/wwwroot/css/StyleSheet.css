@@ -137,6 +137,7 @@ a:hover {
     justify-content: center
 }
 
+
 .empty {
     color: white;
 }
@@ -252,6 +253,11 @@ a:hover {
         font-weight: bold;
         margin: 0;
         }
+
+#info-icon {
+    font-size: 2rem;
+    color: rgb(253, 197, 0) !important;
+}
 
 .details {
     color: white;

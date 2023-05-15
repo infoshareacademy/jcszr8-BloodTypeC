@@ -4,14 +4,6 @@
     ViewData["Title"] = "Edit";
 }
 
-<head>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
-    <link href="~/css/StyleSheet.css" rel="stylesheet" />
-</head>
-
-<body>
     <div class="page-name">
         Edit Beer
     </div>
@@ -81,5 +73,9 @@
                 </div>
             </div>
         </div>
-    </div>
-</body>
+</div>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

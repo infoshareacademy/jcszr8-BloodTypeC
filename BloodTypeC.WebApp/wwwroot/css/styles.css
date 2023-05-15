@@ -2889,18 +2889,29 @@ textarea.form-control-lg {
         }
 
 .input-group-text {
+    position: relative;
     display: flex;
     align-items: center;
-    padding: 0.375rem 0.75rem;
-    font-size: 1rem;
+    padding: 0px 25px;
+    font-size: 16px;
     font-weight: 400;
     line-height: 1.5;
-    color: #212529;
-    text-align: center;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    color: #191a1e;
+    text-align: left;
     white-space: nowrap;
-    background-color: #e9ecef;
-    border: 1px solid #ced4da;
-    border-radius: 0.25rem;
+    background-color: #fff;
+    border: none;
+    width: stretch;
+}
+
+.input-group-prepend {
+    height: auto;
+    align-items: center;
+    font-size: 16px;
+    font-weight: 400;
+    border: none;
 }
 
 .input-group-lg > .form-control,
@@ -3489,27 +3500,31 @@ textarea.form-control-lg {
 
 .btn-outline-secondary {
     color: #6c757d;
-    border-color: #6c757d;
+    border: none;
+    border-top-right-radius: 50px;
+    border-bottom-right-radius: 50px;
+    height: 50px;
+    background-color: white;
 }
 
     .btn-outline-secondary:hover {
         color: #fff;
-        background-color: #6c757d;
+        background-color: white;
         border-color: #6c757d;
     }
 
     .btn-check:focus + .btn-outline-secondary, .btn-outline-secondary:focus {
-        box-shadow: 0 0 0 0.25rem rgba(108, 117, 125, 0.5);
+        box-shadow: none;
     }
 
     .btn-check:checked + .btn-outline-secondary, .btn-check:active + .btn-outline-secondary, .btn-outline-secondary:active, .btn-outline-secondary.active, .btn-outline-secondary.dropdown-toggle.show {
         color: #fff;
-        background-color: #6c757d;
+        background-color: white;
         border-color: #6c757d;
     }
 
         .btn-check:checked + .btn-outline-secondary:focus, .btn-check:active + .btn-outline-secondary:focus, .btn-outline-secondary:active:focus, .btn-outline-secondary.active:focus, .btn-outline-secondary.dropdown-toggle.show:focus {
-            box-shadow: 0 0 0 0.25rem rgba(108, 117, 125, 0.5);
+            box-shadow: none;
         }
 
     .btn-outline-secondary:disabled, .btn-outline-secondary.disabled {
@@ -6316,7 +6331,7 @@ textarea.form-control-lg {
 .tooltip {
     position: absolute;
     z-index: 1080;
-    display: block;
+    display: inline-block;
     margin: 0;
     font-family: var(--bs-font-sans-serif);
     font-style: normal;
@@ -6335,6 +6350,53 @@ textarea.form-control-lg {
     font-size: 0.875rem;
     word-wrap: break-word;
     opacity: 0;
+}
+
+.tooltip-container {
+    position: relative;
+    display: flex;
+    place-content: center;
+}
+
+/* styling of the tooltip display */
+.tooltip-text {
+    display: none;
+    position: absolute;
+    bottom: 90%;
+    right: 1px;
+    width: 500%;
+    z-index: 1080;
+    background-color: rgb(39, 41, 42);
+    padding: 6px;
+    font-size: 0.75rem;
+    font-family: 'PT Sans', sans-serif;
+    color: #fff;
+    border-radius: 20px;
+    border-width: 0.5px;
+    border: solid 2px;
+    border-color: rgb(253, 197, 0);
+    animation: fadeIn 0.6s;
+}
+
+    /* optional styling to add a "wedge" to the tooltip */
+    .tooltip-text:before {
+        content: "";
+        position: absolute;
+        top: 100%;
+        left: 90%;
+        margin-left: -8px;
+        border: 8px solid transparent;
+        border-top: 8px solid rgb(253, 197, 0);
+    }
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
 }
 
     .tooltip.show {

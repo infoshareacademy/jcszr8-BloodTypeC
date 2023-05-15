@@ -16,12 +16,13 @@ namespace BloodTypeC.Logic
     {
         public enum CapitalsOptions
         {
+            None = 0,
             FirstWord = 1,
             EachWord = 2,
         }
         /// <summary>
-        /// Removes duplicate spaces and sets the first letter as capital (optionally: in each word).
-        /// Can also remove any non-english letter characters with the exception of the dash character.
+        /// Removes duplicate spaces (and optionally sets the first letter as capital in the first or each word).
+        /// Can also remove any non-letter characters with the exception of the dash character.
         /// </summary>
         public static string AsNameOrTitle(string name, CapitalsOptions capsOpt, bool alphabetDashOnly)
         {
@@ -32,7 +33,7 @@ namespace BloodTypeC.Logic
                 // Remove all chars that are not a dash, space or letter
                 if (alphabetDashOnly)
                 {
-                    name = Regex.Replace(name, "[^A-Z^a-z -]", string.Empty).ToLowerInvariant();
+                    name = Regex.Replace(name.ToLowerInvariant(), @"[^\w\-][0-9]", string.Empty);
                     name = Regex.Replace(name.Trim(), @"-+", "-");
 
                     // Remove dash if it's the first or last character
@@ -47,6 +48,8 @@ namespace BloodTypeC.Logic
 
                 switch (capsOpt)
                 {
+                    case CapitalsOptions.None:
+                        return name;
                     case CapitalsOptions.FirstWord:
                         name = Char.ToUpper(name[0]) + name.Substring(1);
                         break;
