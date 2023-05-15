@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using BloodTypeC.DAL.Models;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace BloodTypeC.WebApp.Models
@@ -23,6 +24,7 @@ namespace BloodTypeC.WebApp.Models
         public DateTime LastModified { get; set; }
         [DisplayName("Flavors")]
         public string? FlavorString { get; set; }
+        public ICollection<User>? FavoriteUsers { get; set; }
     }
 }
 

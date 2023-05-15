@@ -17,7 +17,7 @@ namespace BloodTypeC.WebApp.Controllers
             _beerServices = beerServices;
             _beerSearchServices = beerSearchServices;
             _flavorsToSearch = new List<FlavorToSearch>();
-            _allFlavors = beerSearchServices.GetAllFlavors(_beerServices.GetAll().ToList());
+            _allFlavors = beerSearchServices.GetAllFlavors(_beerServices.GetAll().Result.ToList());
         }
         // GET: SearchController
         public IActionResult Index()
@@ -33,7 +33,7 @@ namespace BloodTypeC.WebApp.Controllers
             }
             var model = new IndexViewModel();
             model.CheckedListOfFlavors = _flavorsToSearch;
-            model.Beers = _beerServices.GetAll().ToList();
+            model.Beers = _beerServices.GetAll().Result.ToList();
             return View(model);
         }
         [HttpPost]
@@ -41,7 +41,7 @@ namespace BloodTypeC.WebApp.Controllers
         {
             var minimumAlcohol = 0.0;
             var maximumAlcohol = double.MaxValue;
-            var resultList = _beerServices.GetAll().ToList();
+            var resultList = _beerServices.GetAll().Result.ToList();
 
             if (!ModelState.IsValid)
             {

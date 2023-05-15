@@ -5,11 +5,11 @@ namespace BloodTypeC.Logic.Services.IServices
 {
     public interface IBeerServices
     {
-        IEnumerable<Beer> GetAll();
-        Beer GetById(string id);
-        void Delete(string id);
-        void AddFromView(BeerViewModel beerFromView);
-        void EditFromView(BeerViewModel beerFromView);
+        Task<IEnumerable<Beer>> GetAll();
+        Task<Beer> GetById(string id);
+        Task Delete(string id);
+        Task AddFromView(BeerViewModel beerFromView);
+        Task EditFromView(BeerViewModel beerFromView);
 
     }
 }

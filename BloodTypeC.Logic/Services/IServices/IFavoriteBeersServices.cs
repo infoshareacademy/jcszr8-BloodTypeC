@@ -1,11 +1,12 @@
 ﻿using BloodTypeC.DAL.Models;
+using BloodTypeC.WebApp.Models;
 
 namespace BloodTypeC.Logic.Services.IServices
 {
     public interface IFavoriteBeersServices
     {
-        void AddToFavs(string beerId, string userId);
-        void RemoveFromFavs(string beerId, string userId);
-        IEnumerable<Beer> GetAllFavs(string userId);
+        Task AddToFavs(string beerId, string userName);
+        Task RemoveFromFavs(string beerId, string userName);
+        Task<IEnumerable<Beer>> GetAllFavs(string userName);
     }
 }

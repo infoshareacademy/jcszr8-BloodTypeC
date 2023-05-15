@@ -22,10 +22,10 @@ namespace BloodTypeC.WebApp.Controllers
         }
 
         // GET: BeerController/Details/5
-        public ActionResult Details(string id)
+        public async Task<ActionResult> Details(string id)
         {
             //var isAdmin = HttpContext.User.IsInRole("Admin");
-            var model = _beerServices.GetById(id);
+            var model = await _beerServices.GetById(id);
             var newBeerDto = _mapper.Map<BeerViewModel>(model);
             return View(newBeerDto);
         }
@@ -43,7 +43,7 @@ namespace BloodTypeC.WebApp.Controllers
         // POST: BeerController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(BeerViewModel beerFromView)
+        public async Task<ActionResult> Create(BeerViewModel beerFromView)
         {
             
             try
@@ -52,7 +52,7 @@ namespace BloodTypeC.WebApp.Controllers
                 {
                     return View(beerFromView);
                 }
-                _beerServices.AddFromView(beerFromView);
+                await _beerServices.AddFromView(beerFromView);
                 return RedirectToAction("Index", "Home");
             }
             catch
@@ -62,9 +62,9 @@ namespace BloodTypeC.WebApp.Controllers
         }
 
         // GET: BeerController/Edit/5
-        public ActionResult Edit(string id)
+        public async Task<ActionResult> Edit(string id)
         {
-            var model = _beerServices.GetById(id);
+            var model = await _beerServices.GetById(id);
             var newBeerDto = _mapper.Map<BeerViewModel>(model);
             return View(newBeerDto);
         }
@@ -72,7 +72,7 @@ namespace BloodTypeC.WebApp.Controllers
         // POST: BeerController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(BeerViewModel model, IFormCollection collection)
+        public async Task<ActionResult> Edit(BeerViewModel model, IFormCollection collection)
         {
             try
             {
@@ -81,7 +81,7 @@ namespace BloodTypeC.WebApp.Controllers
                     return View();
                 }
                 var beerDto = _mapper.Map<BeerViewModel>(model);
-                _beerServices.EditFromView(beerDto);
+                await _beerServices.EditFromView(beerDto);
                 return RedirectToAction("Index", "Home");
             }
             catch
@@ -91,9 +91,9 @@ namespace BloodTypeC.WebApp.Controllers
         }
 
         // GET: BeerController/Delete/5
-        public ActionResult Delete(string id)
+        public async Task<ActionResult> Delete(string id)
         {
-            var model = _beerServices.GetById(id);
+            var model = await _beerServices.GetById(id);
             var newBeerDto = _mapper.Map<BeerViewModel>(model);
             return View(newBeerDto);
         }
@@ -101,7 +101,7 @@ namespace BloodTypeC.WebApp.Controllers
         // POST: BeerController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(string id, IFormCollection collection)
+        public async Task<ActionResult> Delete(string id, IFormCollection collection)
         {
             try
             {
@@ -109,7 +109,7 @@ namespace BloodTypeC.WebApp.Controllers
                 {
                     return View();
                 }
-                _beerServices.Delete(id);
+                await _beerServices.Delete(id);
                 return RedirectToAction("Index", "Home");
             }
             catch

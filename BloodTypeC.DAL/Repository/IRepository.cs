@@ -5,10 +5,10 @@ namespace BloodTypeC.DAL.Repository
 {
     public interface IRepository<T> where T : Entity
     {
-        public List<T> GetAll(Expression<Func<T, object>>? include = null);
-        public void Insert(T entity);
-        public void Delete(T entity);
-        public void Update(T entity);
-        public T GetById(string id);
+        public Task<List<T>> GetAll(Expression<Func<T, object>>? include = null);
+        public Task Insert(T entity);
+        public Task Delete(T entity);
+        public Task Update(T entity);
+        public Task<T> GetById(string id);
     }
 }

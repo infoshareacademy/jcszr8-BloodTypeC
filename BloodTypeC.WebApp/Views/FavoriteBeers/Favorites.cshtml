@@ -1,5 +1,6 @@
 ﻿@using BloodTypeC.DAL.Models
-@model IEnumerable<Beer>
+@using BloodTypeC.DAL.Models.Views;
+@model FavoriteBeersViewModel
 @{
     ViewData["Title"] = "★ Favorites";
 }
@@ -9,9 +10,9 @@
 </div>
 
 <div class="products">
-    @if (Model.Any())
+    @if (Model.FavoriteBeers.Any())
     {
-        @Html.Partial("_BeerPartialView", Model)
+        @Html.Partial("_BeerPartialView", Model.FavoriteBeers)
     }
     else
     {

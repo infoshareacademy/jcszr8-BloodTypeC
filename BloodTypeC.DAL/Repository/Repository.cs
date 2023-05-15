@@ -17,40 +17,38 @@ namespace BloodTypeC.DAL.Repository
             _entities = context.Set<T>();
         }
 
-        public List<T> GetAll(Expression<Func<T, object>>? include = null)
+        public async Task<List<T>> GetAll(Expression<Func<T, object>>? include = null)
         {
             if (include != null)
             {
-                return _entities.Include(include).ToList();
+                return await _entities.Include(include).ToListAsync();
             }
-            return _entities.ToList();
+            return await _entities.ToListAsync();
         }
-        public void Insert(T entity)
+        public async Task Insert(T entity)
         {
-            if (entity == null)
+            if (entity != null)
             {
-                return; // throw exception - incorrect usage
+            _entities.Add(entity);
+            await _context.SaveChangesAsync();
             }
-
-            this._entities.Add(entity);
-            this._context.SaveChanges();
         }
 
-        public void Delete(T entity)
+        public async Task Delete(T entity)
         {
-            this._entities.Remove(entity);
-            this._context.SaveChanges();
+            _entities.Remove(entity);
+            await _context.SaveChangesAsync();
         }
 
-        public void Update(T entity)
+        public async Task Update(T entity)
         {
-            this._entities.Update(entity);
-            this._context.SaveChanges();
+            _entities.Update(entity);
+            await _context.SaveChangesAsync();
         }
 
-        public T GetById(string id)
+        public async Task<T> GetById(string id)
         {
-            return _entities.FirstOrDefault(x => x.Id == id);
+            return await _entities.FirstOrDefaultAsync(x => x.Id == id);
         }
     }
 }
