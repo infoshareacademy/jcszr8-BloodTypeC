@@ -30,11 +30,16 @@
             </div>
         </div>
     </div>
-
     <form asp-action="Delete">
         <div class="buttons">
-            <input type="submit" value="Delete" class="search-button" /> |
+            <input type="submit" value="Delete" class="search-button" /> 
         </div>
-
+        <div class="button-margin">
+        <div class="buttons">
+            <div class="form-btn">
+                <button class="search-button" asp-controller="Home" asp-action="Index">Back to list</button>
+            </div>
+        </div>
+        </div>
     </form>
 </body>

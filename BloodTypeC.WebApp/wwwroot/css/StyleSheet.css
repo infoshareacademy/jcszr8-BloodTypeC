@@ -487,3 +487,8 @@ a:hover {
     font-weight: bold;
     margin: 0;
 }
+
+.button-margin{
+    margin-top: 10px;
+    margin-bottom: 15px;
+}
