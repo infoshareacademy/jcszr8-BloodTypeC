@@ -16,8 +16,8 @@
             Brewery: @Model.Brewery<br>
             Style: @Model.Style<br>
             Flavors: @Model.FlavorString<br>
-            Alcohol volume: @Model.AlcoholByVolume<br>
-            Score: @Model.Score<br>
+            Alcohol by volume: @Model.AlcoholByVolume<br>
+            Score: @Model.Score/@maxScore<br>
         </div>
         <div class="buttons">
             <a asp-action="Edit" asp-route-id="@Model.Id" asp-controller="Beer">
