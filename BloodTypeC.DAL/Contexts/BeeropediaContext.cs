@@ -9,7 +9,6 @@ namespace BloodTypeC.DAL.Contexts
     public class BeeropediaContext : IdentityDbContext<User, IdentityRole, string>
     {
         public DbSet<Beer> AllBeers { get; set;}
-        public DbSet<User> AllUsers { get; set;}
         public BeeropediaContext(DbContextOptions<BeeropediaContext> options) : base(options)
         {
 
