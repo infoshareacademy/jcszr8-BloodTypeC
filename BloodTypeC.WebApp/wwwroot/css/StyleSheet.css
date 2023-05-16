@@ -74,6 +74,13 @@ a:hover {
     justify-content: center;
 }
 
+.buttons-space {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 20px;
+}
+
 .page-name {
     color: white;
     font-family: 'Great Vibes', cursive;
@@ -84,22 +91,30 @@ a:hover {
     margin: auto;
 }
 
-.beer-image-possition {
+.beer-image-position {
     max-width: 200px;
     max-height: 200px;
     margin: auto;
 }
 
 .beer-image {
-    max-width: 200px;
+    max-width: auto;
     max-height: 200px;
     margin: auto;
+    display: block;
+}
+
+.beer-image-center {
+    margin: auto;
+    max-width: 200px;
+    max-height: 200px;
+   
 }
 
 .product-card {
     flex: 1 0 21%;
     margin: 25px;
-    height: 450px;
+    height: auto;
     background-color: rgb(128, 128, 128);
     max-width: 300px;
     min-width: 284px;
@@ -107,16 +122,6 @@ a:hover {
     color: white;
 }
 
-.product-card {
-    flex: 1 0 21%;
-    margin: 25px;
-    height: 415px;
-    background-color: rgb(128, 128, 128);
-    max-width: 300px;
-    min-width: 284px;
-    border-radius: 15px;
-    color: white;
-}
 
 .product-card-details {
     flex: 1 0 21%;
@@ -127,6 +132,8 @@ a:hover {
     min-width: 284px;
     border-radius: 15px;
     color: white;
+    padding-top: 15px;
+    padding-bottom:10px;
 }
 
 .products {
@@ -140,6 +147,7 @@ a:hover {
 
 .empty {
     color: white;
+    margin-bottom:20px;
 }
 .product-button {
     height: 45px;
@@ -458,4 +466,43 @@ a:hover {
     flex-direction: row;
     justify-content: center;
     margin: auto;
+}
+
+.center-elements {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.reset-button {
+    height: 45px;
+    width: 200px;
+    border-radius: 12px;
+    border-width: 2px;
+    border: solid;
+    border-color: rgb(253, 197, 0);
+    color: white;
+    font-size: 18px;
+    background-color: rgb(128, 128, 128);
+    transition: color 0.3s;
+    transition: background-color 0.3s;
+    margin: 0;
+}
+.reset-button:hover {
+    height: 45px;
+    width: 200px;
+    border-radius: 12px;
+    border-width: 2px;
+    border: solid;
+    border-color: rgb(253, 197, 0);
+    color: rgb(39, 41, 42);
+    font-size: 18px;
+    background-color: rgb(253, 197, 0);
+    font-weight: bold;
+    margin: 0;
+}
+
+.button-margin{
+    margin-top: 10px;
+    margin-bottom: 15px;
 }

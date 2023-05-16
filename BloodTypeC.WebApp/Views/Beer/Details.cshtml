@@ -7,15 +7,32 @@
     ViewData["Title"] = "Details";
     var maxScore = Convert.ToDouble(Model.GetAttributeFrom<RangeAttribute>(nameof(Model.Score)).Maximum);
 }
+
 <div class="products">
     <div class="product-card-details">
-        <div class="beer-image-possition"><img src="~/Images/mockup.png" class="beer-image"></div>
+       <div class="beer-image-position">
+            @if (@Model.Image != null)
+                {
+                    if (@Model.Image.Contains("/"))
+                    {
+                        <img src="@Model.Image" class="beer-image">
+                    }
+                    else
+                    {
+                        <img src="~/Images/@Model.Image" class="beer-image">
+                    }
+                }
+                else
+                {
+                    <img src="~/Images/mockup.png" class="beer-image">
+                }
+        </div>
         <h1 class="details">@Model.Name</h1>
         <div class="details-product">
             Brewery: @Model.Brewery<br>
             Style: @Model.Style<br>
             Flavors: @Model.FlavorString<br>
-            Alcohol by volume: @Model.AlcoholByVolume%<br>
+            Alcohol by volume: @Model.AlcoholByVolume<br>
             Score: @Model.Score/@maxScore<br>
             <div class="buttons">
                 <a asp-action="Edit" asp-route-id="@Model.Id" asp-controller="Beer">
@@ -49,4 +66,10 @@
         </div>
     </div>
 </div>
-
+<div class="button-margin">
+    <div class="buttons">
+        <button onclick="@("window.location.href='" + Url.Action("Index", "Home") + "'")" class="search-button">
+            Back to list
+        </button>
+    </div>
+</div>

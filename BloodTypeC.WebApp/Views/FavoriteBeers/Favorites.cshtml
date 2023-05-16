@@ -8,7 +8,6 @@
 <div class="page-name">
     Your favorite beers
 </div>
-
 <div class="products">
     @if (Model.FavoriteBeers.Any())
     {
@@ -20,4 +19,11 @@
             The list is currently empty.
         </div>
     }
+</div>
+<div class="button-margin">
+    <div class="buttons">
+        <button onclick="@("window.location.href='" + Url.Action("Index", "Home") + "'")" class="search-button">
+            Back to list
+        </button>
+    </div>
 </div>

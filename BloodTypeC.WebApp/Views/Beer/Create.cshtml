@@ -89,12 +89,30 @@
                     <span asp-validation-for="Score" class="text-danger"></span>
                 </div>
             </div>
+            <div class="buttons">
+                            <div class="col-md-6">
+                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                <div class="form-group">
+                                    <span class="form-label text-white">Image</span>
+                                    <input asp-for="Image" class="form-control" placeholder="Image URL" />
+                                    <span asp-validation-for="Image" class="text-danger"></span>
+                                </div>
+                            </div>
+                            </div>
+
 
             <div class="buttons">
                 <div class="form-group">
                     <br /><input type="submit" value="Create" class="search-button" />
                 </div>
             </div>
+            <div class="button-margin">
+                            <div class="buttons">
+                                <button onclick="@("window.location.href='" + Url.Action("Index", "Home") + "'")" class="search-button">
+                                    Back to list
+                                </button>
+                            </div>
+                        </div>
         </form>
     </div>
 @section Scripts {

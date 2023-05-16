@@ -8,6 +8,8 @@ namespace BloodTypeC.DAL.Models
         public string? Name { get; set; }
         public string? Image { get; set; }
 
+        public string? Image { get; set; }
+
         public string? Brewery { get; set; }
 
         public string? Style { get; set; }

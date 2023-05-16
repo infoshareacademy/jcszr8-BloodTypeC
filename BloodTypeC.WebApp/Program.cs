@@ -1,13 +1,11 @@
 using BloodTypeC.DAL.Contexts;
+using BloodTypeC.DAL.Models;
 using BloodTypeC.DAL.Repository;
-using BloodTypeC.Logic;
 using BloodTypeC.Logic.Services;
 using BloodTypeC.Logic.Services.IServices;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
 using System.Globalization;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
-using BloodTypeC.DAL.Models;
 
 namespace BloodTypeC.WebApp
 {
@@ -17,8 +15,7 @@ namespace BloodTypeC.WebApp
         {
             var builder = WebApplication.CreateBuilder(args);
             
-
-            // Add services to the container.
+             // Add services to the container.
             builder.Services.AddControllersWithViews();
             builder.Services.AddScoped<IBeerServices, BeerServices>();
             builder.Services.AddScoped<IBeerSearchServices, BeerSearchServices>();
