@@ -5,7 +5,7 @@
 namespace BloodTypeC.WebApp.Migrations
 {
     /// <inheritdoc />
-    public partial class ImagePropForBeer : Migration
+    public partial class ImagePropertyInBeer : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

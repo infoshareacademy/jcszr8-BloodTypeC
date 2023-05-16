@@ -8,6 +8,7 @@
     var nameMinLength = Model.GetAttributeFrom<StringLengthAttribute>(nameof(Model.Name)).MinimumLength;
     var maxScore = Convert.ToDouble(Model.GetAttributeFrom<RangeAttribute>(nameof(Model.Score)).Maximum);
     var maxAbv = Convert.ToDouble(Model.GetAttributeFrom<RangeAttribute>(nameof(Model.AlcoholByVolume)).Maximum);
+    var breweryMaxLength = Model.GetAttributeFrom<StringLengthAttribute>(nameof(Model.Brewery)).MaximumLength;
 }
 
 <div class="page-name">
@@ -33,7 +34,7 @@
                 <div class="input-group col-md-6 tooltip-container">
                     <input type="text" asp-for="Brewery" class="form-control" placeholder="Brewery name" />
                     <button class="btn btn-outline-secondary tooltip-button" type="button">
-                        <p class="tooltip-text">We will capitalise the first letter.</p>
+                        <p class="tooltip-text">We will capitalise the first letter. <br>Max @breweryMaxLength characters.</p>
                         <i class="bi bi-info-circle" id="info-icon"></i>
                     </button>
                 </div>

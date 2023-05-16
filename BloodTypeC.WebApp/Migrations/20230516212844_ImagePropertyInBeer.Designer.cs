@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BloodTypeC.WebApp.Migrations
 {
     [DbContext(typeof(BeeropediaContext))]
-    [Migration("20230516202003_ImagePropForBeer")]
-    partial class ImagePropForBeer
+    [Migration("20230516212844_ImagePropertyInBeer")]
+    partial class ImagePropertyInBeer
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
