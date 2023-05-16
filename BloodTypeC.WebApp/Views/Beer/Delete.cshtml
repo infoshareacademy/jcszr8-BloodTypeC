@@ -12,7 +12,23 @@
 </div>
 <div class="products">
     <div class="product-card-details">
-        <div class="beer-image-possition"><img src="~/Images/mockup.png" class="beer-image"></div>
+        <div class="beer-image-position">
+                @if (@Model.Image != null)
+                {
+                    if (@Model.Image.Contains("/"))
+                    {
+                        <img src="@Model.Image" class="beer-image">
+                    }
+                    else
+                    {
+                        <img src="~/Images/@Model.Image" class="beer-image">
+                    }
+                }
+                else
+                {
+                    <img src="~/Images/mockup.png" class="beer-image">
+                }
+            </div>
         <h1 class="details">@Model.Name</h1>
         <div class="details-product">
             Brewery: @Model.Brewery<br>
@@ -27,6 +43,7 @@
     <div class="buttons">
         <input type="submit" value="Delete" class="search-button" />
     </div>
+</form>
     <div class="button-margin">
         <div class="buttons">
             <div class="form-btn">
@@ -34,4 +51,3 @@
             </div>
         </div>
     </div>
-</form>

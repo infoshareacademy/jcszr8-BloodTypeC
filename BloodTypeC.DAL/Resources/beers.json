@@ -5,6 +5,7 @@
     "brewery": "Brasserie Cantillon",
     "style": "Lambic - Fruit",
     "abv": 5.0,
+    "image": "SaintLamvinus.png",
     "score": 3.22,
     "flavors": [
       "buttery",
@@ -16,6 +17,7 @@
     "brewery": "Austmann",
     "name": "Jingle Beer",
     "style": "American Amber Ale",
+    "image": "JingleBeer.png",
     "score": 6.49,
     "abv": 7,
     "flavors": [
@@ -31,6 +33,7 @@
     "style": "Kellerbier",
     "score": 2.14,
     "abv": 0,
+    "image": "SantaClausthaler.png",
     "flavors": [
       "coffee",
       "bitter",
@@ -42,6 +45,7 @@
     "brewery": "Brasserie St-Feuillien",
     "name": "Cuvée de Noël",
     "style": "Helles Lager",
+    "image": "CuveeDeNoel.png",
     "score": 6.43,
     "flavors": [
       "woody"
@@ -54,6 +58,7 @@
     "name": "Julebrygg",
     "style": "American Amber Ale",
     "score": 5.19,
+    "image": "Julebrygg.png",
     "flavors": [
       "sour",
       "earthy",
@@ -70,6 +75,7 @@
       "clean"
     ],
     "name": "Julebryg",
+    "image": "Julebryg.png",
     "style": "Kolsch",
     "score": 5.74,
     "abv": 7.2
@@ -80,6 +86,7 @@
     "name": "Lade Gaards Brygghus Juleøl",
     "style": "Cream Ale",
     "score": 5.92,
+    "image": "LadeGaardsBrygghusJuleol.png",
     "abv": 6.5,
     "flavors": [
       "refreshing",
