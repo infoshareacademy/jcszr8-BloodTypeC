@@ -10,6 +10,7 @@ namespace BloodTypeC.WebApp.Models
         [Required()]
         [StringLength(25, MinimumLength = 2, ErrorMessage = "The name has to be between 2 and 20 characters long")]
         public string Name { get; set; }
+        public string? Image { get; set; }
 
         public string? Brewery { get; set; }
 
