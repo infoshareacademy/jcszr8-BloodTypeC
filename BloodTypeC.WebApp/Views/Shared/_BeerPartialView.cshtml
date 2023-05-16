@@ -32,7 +32,7 @@
                         }
                     </div>
                     <h5>@item.Name</h5>
-                    <p>@item.Brewery</p>
+                    <p>@item.Brewery?.Substring(0,item.Brewery.Length<30?item.Brewery.Length:30) &nbsp</p>
                     <div class="buttons">
                         <a asp-action="Details" asp-route-id="@item.Id" asp-controller="Beer">
                             <button class="product-button">
