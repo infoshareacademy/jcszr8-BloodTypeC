@@ -7,6 +7,6 @@
     All Beers
 </div>
 <div>
-        @Html.RenderPartialAsync("_BeerPartialView", Model.Beers);
+        @{await Html.RenderPartialAsync("_BeerPartialView", Model.Beers);}
 
 </div>

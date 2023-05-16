@@ -1,14 +1,9 @@
 ﻿using AutoMapper;
-using BloodTypeC.DAL.Models;
 using BloodTypeC.DAL.Models.Views;
 using BloodTypeC.Logic.Services.IServices;
-using BloodTypeC.WebApp.Models;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using NuGet.Packaging;
-using System.Security.Claims;
-using System.Security.Policy;
 using static BloodTypeC.Logic.Extensions.HttpContextExtensions;
 
 namespace BloodTypeC.WebApp.Controllers
