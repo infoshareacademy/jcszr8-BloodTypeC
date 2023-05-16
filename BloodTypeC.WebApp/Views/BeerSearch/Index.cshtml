@@ -73,13 +73,13 @@
                             
                     </div>
 
-                </div>
+            </div>
+            @Html.RenderPartialAsync("_BeerPartialView", Model.Beers);
             </div>
         </div>
     </div>
 @section Scripts {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
-        await Html.RenderPartialAsync("_BeerPartialView", Model.Beers);
     }
 }

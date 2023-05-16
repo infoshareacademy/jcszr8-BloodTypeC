@@ -3,13 +3,10 @@
 @{
     ViewData["Title"] = "All beers";
 }
-    <div class="page-name">
-        All Beers
-    </div>
+<div class="page-name">
+    All Beers
+</div>
+<div>
+        @Html.RenderPartialAsync("_BeerPartialView", Model.Beers);
 
-@section Scripts {
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-        await Html.RenderPartialAsync("_BeerPartialView", Model.Beers);
-    }
- }
+</div>

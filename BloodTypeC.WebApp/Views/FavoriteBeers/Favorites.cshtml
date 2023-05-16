@@ -12,7 +12,7 @@
 <div class="products">
     @if (Model.FavoriteBeers.Any())
     {
-        @Html.Partial("_BeerPartialView", Model.FavoriteBeers)
+        await Html.RenderPartialAsync("_BeerPartialView", Model.FavoriteBeers);
     }
     else
     {
