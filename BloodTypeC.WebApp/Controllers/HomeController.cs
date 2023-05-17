@@ -23,7 +23,7 @@ namespace BloodTypeC.WebApp.Controllers
         {
             var model = new IndexViewModel();
             model.CheckedListOfFlavors = _flavorsToSearch;
-            model.Beers = _beerServices.GetAll().ToList();
+            model.Beers = _beerServices.GetAll().Result.ToList();
             return View(model);        
         }
 

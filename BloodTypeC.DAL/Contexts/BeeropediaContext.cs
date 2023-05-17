@@ -9,9 +9,6 @@ namespace BloodTypeC.DAL.Contexts
     public class BeeropediaContext : IdentityDbContext<User, IdentityRole, string>
     {
         public DbSet<Beer> AllBeers { get; set;}
-        public DbSet<BeerFavorites> FavoriteBeers { get; set;}
-        //public DbSet<FlavorEntity> AllFlavors { get; set;}
-
         public BeeropediaContext(DbContextOptions<BeeropediaContext> options) : base(options)
         {
 
@@ -26,6 +23,11 @@ namespace BloodTypeC.DAL.Contexts
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.Entity<Beer>()
+                .HasMany(b => b.FavoriteUsers)
+                .WithMany(u => u.FavoriteBeers)
+                .UsingEntity(e => e.ToTable("BeerUser"));
+            
+            modelBuilder.Entity<Beer>()
                 .Property(f=>f.Flavors)
                 .HasConversion(v => string.Join(',', v),
                 v => v.Split(',', StringSplitOptions.RemoveEmptyEntries).ToList());
@@ -37,9 +39,8 @@ namespace BloodTypeC.DAL.Contexts
                 .Metadata
                 .SetValueComparer(valueComparer);
 
-            modelBuilder.Entity<BeerFavorites>()
-                .HasMany(b=>b.Beers)
-                .WithMany();
+            modelBuilder.Entity<Beer>()
+                .HasMany(beer => beer.FavoriteUsers).WithMany(user => user.FavoriteBeers);
 
             modelBuilder.Entity<User>()
                 .Property(prop => prop.Id)

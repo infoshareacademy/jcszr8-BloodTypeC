@@ -28,7 +28,8 @@ namespace BloodTypeC.WebApp.Profiles
                 .ForMember(dest => dest.Score, opt => opt.MapFrom(src => Formatters.AsScoreOrABV(src.Score.ToString(), maxScore)))
                 .ForMember(dest => dest.AlcoholByVolume, opt => opt.MapFrom(src => Formatters.AsScoreOrABV(src.AlcoholByVolume.ToString(), maxAbv)))
                 .ForMember(dest => dest.Added, opt => opt.MapFrom(src => DateTime.Now))
-                .ForMember(dest => dest.LastModified, opt => opt.MapFrom(src => DateTime.Now));
+                .ForMember(dest => dest.LastModified, opt => opt.MapFrom(src => DateTime.Now))
+                .ForMember(dest => dest.FavoriteUsers, opt => opt.MapFrom(src => src.FavoriteUsers));
         }
     }
 }

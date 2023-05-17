@@ -2,6 +2,7 @@
 using BloodTypeC.DAL.Models;
 using BloodTypeC.DAL.Models.BaseEntity;
 using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
 
 namespace BloodTypeC.DAL.Repository
 {
@@ -16,36 +17,38 @@ namespace BloodTypeC.DAL.Repository
             _entities = context.Set<T>();
         }
 
-        public List<T> GetAll()
+        public async Task<List<T>> GetAll(Expression<Func<T, object>>? include = null)
         {
-            return _entities.AsEnumerable().ToList();
-        }
-        public void Insert(T entity)
-        {
-            if (entity == null)
+            if (include != null)
             {
-                return; // throw exception - incorrect usage
+                return await _entities.Include(include).ToListAsync();
             }
-
-            this._entities.Add(entity);
-            this._context.SaveChanges();
+            return await _entities.ToListAsync();
+        }
+        public async Task Insert(T entity)
+        {
+            if (entity != null)
+            {
+            _entities.Add(entity);
+            await _context.SaveChangesAsync();
+            }
         }
 
-        public void Delete(T entity)
+        public async Task Delete(T entity)
         {
-            this._entities.Remove(entity);
-            this._context.SaveChanges();
+            _entities.Remove(entity);
+            await _context.SaveChangesAsync();
         }
 
-        public void Update(T entity)
+        public async Task Update(T entity)
         {
-            this._entities.Update(entity);
-            this._context.SaveChanges();
+            _entities.Update(entity);
+            await _context.SaveChangesAsync();
         }
 
-        public T GetById(string id)
+        public async Task<T> GetById(string id)
         {
-            return _entities.FirstOrDefault(x => x.Id == id);
+            return await _entities.FirstOrDefaultAsync(x => x.Id == id);
         }
     }
 }

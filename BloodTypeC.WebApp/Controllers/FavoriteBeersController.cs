@@ -1,35 +1,48 @@
-﻿using BloodTypeC.Logic.Services.IServices;
+﻿using AutoMapper;
+using BloodTypeC.DAL.Models.Views;
+using BloodTypeC.Logic.Services.IServices;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using NuGet.Packaging;
 using static BloodTypeC.Logic.Extensions.HttpContextExtensions;
 
 namespace BloodTypeC.WebApp.Controllers
 {
+    [Authorize]
     public class FavoriteBeersController : Controller
     {
         private readonly IFavoriteBeersServices _favoriteBeersServices;
-        public FavoriteBeersController(IFavoriteBeersServices favoriteBeersServices)
+        private readonly IMapper _mapper;
+        public FavoriteBeersController(IFavoriteBeersServices favoriteBeersServices, IMapper mapper)
         {
             _favoriteBeersServices = favoriteBeersServices;
+            _mapper = mapper;
         }
         [HttpGet]
 
-        public IActionResult Favorites()
+        public async Task<IActionResult> Favorites()
         {
-            return View(_favoriteBeersServices.GetAllFavs());
+            var userName = User.Identity.Name;
+            var userFavorites = await _favoriteBeersServices.GetAllFavs(userName);
+            var model = new FavoriteBeersViewModel();
+            model.FavoriteBeers.AddRange(userFavorites);
+            return View(model);
         }
 
-        public IActionResult AddToFavorites(string id)
+        public async Task<IActionResult> AddToFavorites(string id)
         {
-            _favoriteBeersServices.AddToFavs(id);
+            var userName = User.Identity.Name;
+            await _favoriteBeersServices.AddToFavs(id, userName);
 
-            return RedirectToAction(this.HttpContext.GetController(), this.HttpContext.GetAction(), new { id });
+            return RedirectToAction(HttpContext.GetController(), HttpContext.GetAction(), new { id });
         }
 
-        public IActionResult RemoveFromFavorites(string id)
+        public async Task<IActionResult> RemoveFromFavorites(string id)
         {
-            _favoriteBeersServices.RemoveFromFavs(id);
+            var userName = User.Identity.Name;
+            await _favoriteBeersServices.RemoveFromFavs(id, userName);
 
-            return RedirectToAction(this.HttpContext.GetController(), this.HttpContext.GetAction(), new { id });
+            return RedirectToAction(HttpContext.GetController(), HttpContext.GetAction(), new { id });
         }
     }
 

@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using BloodTypeC.DAL.Models;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace BloodTypeC.WebApp.Models
@@ -9,8 +10,8 @@ namespace BloodTypeC.WebApp.Models
         [Required()]
         [StringLength(25, MinimumLength = 2, ErrorMessage = "The name has to be between 2 and 20 characters long")]
         public string Name { get; set; }
-
         public string? Image { get; set; }
+        [StringLength(35, ErrorMessage = "The brewery name cannot exceed 35 characters.")]
         public string? Brewery { get; set; }
         
         public string? Style { get; set; }
@@ -24,6 +25,7 @@ namespace BloodTypeC.WebApp.Models
         public DateTime LastModified { get; set; }
         [DisplayName("Flavors")]
         public string? FlavorString { get; set; }
+        public ICollection<User>? FavoriteUsers { get; set; }
     }
 }
 

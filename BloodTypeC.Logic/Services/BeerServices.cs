@@ -17,31 +17,31 @@ namespace BloodTypeC.Logic.Services
             _repository = repository;
             _mapper = mapper;
         }
-        public void AddFromView(BeerViewModel beerFromView)
+        public async Task AddFromView(BeerViewModel beerFromView)
         {
             var beerToAdd = _mapper.Map<Beer>(beerFromView);
-            _repository.Insert(beerToAdd);
+            await _repository.Insert(beerToAdd);
         }
 
-        public IEnumerable<Beer> GetAll()
+        public async Task<IEnumerable<Beer>> GetAll()
         {
-            return _repository.GetAll();
+            return await _repository.GetAll(x=>x.FavoriteUsers);
         }
 
-        public Beer GetById(string id)
+        public async Task<Beer> GetById(string id)
         {
-            return _repository.GetById(id);
+            return await _repository.GetById(id);
         }
 
-        public void EditFromView(BeerViewModel beerFromView)
+        public async Task EditFromView(BeerViewModel beerFromView)
         {
-            var beerToEdit = _mapper.Map<BeerViewModel, Beer>(beerFromView, _repository.GetById(beerFromView.Id));
-            _repository.Update(beerToEdit);
+            var beerToEdit = _mapper.Map<BeerViewModel, Beer>(beerFromView, await _repository.GetById(beerFromView.Id));
+            await _repository.Update(beerToEdit);
         }
 
-        public void Delete(string id)
+        public async Task Delete(string id)
         {
-            _repository.Delete(GetById(id));
+            await _repository.Delete(await GetById(id));
         }
     }
 

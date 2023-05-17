@@ -6,7 +6,6 @@ namespace BloodTypeC.DAL.Models
     public class Beer : Entity
     {             
         public string? Name { get; set; }
-
         public string? Image { get; set; }
 
         public string? Brewery { get; set; }
@@ -19,5 +18,7 @@ namespace BloodTypeC.DAL.Models
         public double? Score { get; set; }
         public DateTime Added { get; set; }
         public DateTime LastModified { get; set; }
+
+        public ICollection<User>? FavoriteUsers { get; set; } = new List<User>();
     }
 }

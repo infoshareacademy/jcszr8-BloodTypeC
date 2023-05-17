@@ -1,45 +1,48 @@
 ﻿using BloodTypeC.DAL.Models;
+using BloodTypeC.DAL.Models.Views;
 using BloodTypeC.DAL.Repository;
 using BloodTypeC.Logic.Services.IServices;
-using System.Security.Cryptography.X509Certificates;
+using BloodTypeC.WebApp.Models;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 namespace BloodTypeC.Logic.Services
 {
     public class FavoriteBeersServices : IFavoriteBeersServices
     {
-        private readonly List<Beer> _allBeers;
-        private List<Beer> _favoriteBeers = DB.FavoriteBeers;
         private readonly IRepository<Beer> _beerRepository;
+        private readonly UserManager<User> _userManager;
+        private readonly IHttpContextAccessor _contextAccessor;
 
-        public FavoriteBeersServices(IRepository<Beer> beerRepository)
+        public FavoriteBeersServices(IRepository<Beer> beerRepository, UserManager<User> userManager)
         {
             _beerRepository = beerRepository;
-            _allBeers = _beerRepository.GetAll();
+            _userManager = userManager;
         }
 
-        public void AddToFavs(string id)
+        public async Task AddToFavs(string beerId, string userName)
         {
-            var beer = _allBeers.FirstOrDefault(x => x.Id == id);
-            if (!_favoriteBeers.Contains(beer))
-            {
-                _favoriteBeers?.Add(beer);
-            }
+            var beer = await _beerRepository.GetById(beerId);
+            var user = await _userManager.Users.FirstOrDefaultAsync(x => x.UserName == userName);
+            beer.FavoriteUsers.Add(user);
+            await _beerRepository.Update(beer);
         }
 
-        public List<Beer> GetAllBeers()
+        public async Task<IEnumerable<Beer>> GetAllFavs(string userName)
         {
-            return _allBeers;
+            //var user = await _userManager.FindByEmailAsync(userName);
+            var user = await _userManager.Users.Include(x => x.FavoriteBeers).SingleOrDefaultAsync(u => u.UserName == userName);
+            var favoriteBeers = user.FavoriteBeers;
+            return favoriteBeers;
         }
 
-        public List<Beer> GetAllFavs()
+        public async Task RemoveFromFavs(string beerId, string userName)
         {
-            return _favoriteBeers;
-        }
-
-        public void RemoveFromFavs(string id)
-        {
-            var beer = _favoriteBeers.FirstOrDefault(x => x.Id == id);
-            _favoriteBeers?.Remove(beer);
+            var beer = await _beerRepository.GetById(beerId);
+            var user = await _userManager.Users.Include(x => x.FavoriteBeers).SingleOrDefaultAsync(u => u.UserName == userName);
+            beer.FavoriteUsers.Remove(user);
+            await _beerRepository.Update(beer);
         }
     }
 }
