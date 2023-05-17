@@ -4,7 +4,7 @@
     ViewData["Title"] = "Index";
 }
 
-<a class="search-button" asp-action="Create">Create user</a>
+<a class="search-button" asp-action="CreateUser">Create user</a>
 <table class="table text-white">
     <thead>
         <tr>
@@ -16,6 +16,9 @@
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Users.FirstOrDefault().Email)
+            </th>
+            <th>
+                Roles
             </th>
             <th>
                 Actions
@@ -34,10 +37,21 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Email)
             </td>
+                <td>
+                    @Html.ActionLink("Assigne roles", "AssigneUserRoles", new { userId=item.Id })
+
+                </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Activate", "Activate", new { /* id=item.PrimaryKey */ })
+                @Html.ActionLink("Edit", "EditUser", new { id=item.Id }) |
+                   @Html.ActionLink("Delete", "DeleteUser", new { id=item.Id }) |
+                   @if(item.EmailConfirmed==false)
+                    {
+                        @Html.ActionLink("Activate", "ActivateUser", new { id=item.Id })
+                    }
+                    else
+                    {
+                        @Html.ActionLink("Deactivate", "DeactivateUser", new { id=item.Id })
+                    }
             </td>
         </tr>
 }
@@ -76,3 +90,5 @@
         }
     </tbody>
 </table>
+
+

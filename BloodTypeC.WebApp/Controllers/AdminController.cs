@@ -26,14 +26,14 @@ namespace BloodTypeC.WebApp.Controllers
             model.Roles= _roleManager.Roles;
             return View(model);
         }
-        public IActionResult Create() 
+        public IActionResult CreateUser() 
         {
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(User user)
+        public async Task<IActionResult> CreateUser(User user)
         {
             if(ModelState.IsValid)
             {
@@ -41,8 +41,6 @@ namespace BloodTypeC.WebApp.Controllers
 
                 appUser.UserName = user.Email;
                 appUser.Email = user.Email;
-                //appUser.EmailConfirmed = true;
-
                 IdentityResult result = await _userManager.CreateAsync(appUser, user.PasswordHash);
                 if (result.Succeeded) 
                 {
@@ -53,67 +51,76 @@ namespace BloodTypeC.WebApp.Controllers
         }
 
         // TODO
-        public ActionResult Edit(string id)
+        public async Task<IActionResult> EditUser(string id)
         {
-            return View();
+            var model = await _userManager.FindByIdAsync(id);
+            return View(model);
         }
 
         //TODO
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(string id, IFormCollection collection)
+        public async Task<IActionResult> EditUser(string id, User user)
         {
-            try
+            if(ModelState.IsValid)
             {
-                return RedirectToAction(nameof(Index));
+                var userToEdit = await _userManager.FindByIdAsync(id);
+                userToEdit.UserName = user.UserName;
+                userToEdit.Email = user.Email;
+                userToEdit.EmailConfirmed = user.EmailConfirmed;
+                var result = await _userManager.UpdateAsync(userToEdit);
+                if (result.Succeeded)
+                {
+                    return RedirectToAction("Index");
+                }
             }
-            catch
-            {
-                return View();
-            }
+            return View(user);
         }
 
         //TODO
-        public ActionResult Delete(string id)
+        public async Task<IActionResult> DeleteUser(string id)
         {
-            return View();
-        }
-
-        //TODO
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(string id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        //TODO
-        public ActionResult ActivateUser(string id)
-        {
-            return View();
+            var model = await _userManager.FindByIdAsync(id);
+            return View(model);
         }
 
         //TODO
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult ActivateUser(string id, IFormCollection collection)
+        public async Task<IActionResult> DeleteUser(User user)
         {
-            try
+            var userToDelete = await _userManager.FindByIdAsync(user.Id);
+            var result = await _userManager.DeleteAsync(userToDelete);
+            if (result.Succeeded)
             {
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index");
             }
-            catch
-            {
-                return View();
-            }
+            return View(user);
         }
+
+        public async Task<IActionResult> ActivateUser(string id)
+        {
+            var userToActivate = await _userManager.FindByIdAsync(id);
+            if (userToActivate.EmailConfirmed == false)
+            {
+                userToActivate.EmailConfirmed = true;
+                await _userManager.UpdateAsync(userToActivate);
+            }
+            return RedirectToAction("Index");
+        }
+
+        public async Task<IActionResult> DeactivateUser(string id)
+        {
+            var userToDeactivate = await _userManager.FindByIdAsync(id);
+            if (userToDeactivate.EmailConfirmed == true)
+            {
+                userToDeactivate.EmailConfirmed = false;
+                await _userManager.UpdateAsync(userToDeactivate);
+            }
+            return RedirectToAction("Index");
+        }
+
+
         public IActionResult CreateRole()
         {
             return View();
@@ -143,7 +150,7 @@ namespace BloodTypeC.WebApp.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> EditRole(string id,IdentityRole role)
+        public async Task<IActionResult> EditRole(IdentityRole role)
         {
             if (ModelState.IsValid)
             {
@@ -160,25 +167,56 @@ namespace BloodTypeC.WebApp.Controllers
         public async Task<IActionResult> DeleteRole(string id)
         {
             var roleToDelete = await _roleManager.FindByIdAsync(id);
-            //var result = await _roleManager.DeleteAsync(roleToDelete);
-            //if (result.Succeeded)
-            //{
-             //   return RedirectToAction("Index");
-            //}
             return View(roleToDelete);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteRole(string id,IdentityRole role)
+        public async Task<IActionResult> DeleteRole(IdentityRole role)
         {
-            var roleToDelete = await _roleManager.FindByIdAsync(id);
+            var roleToDelete = await _roleManager.FindByIdAsync(role.Id);
             var result = await _roleManager.DeleteAsync(roleToDelete);
             if (result.Succeeded)
             {
                return RedirectToAction("Index");
             }
             return View(role);
+        }
+
+        public async Task<IActionResult> AssigneUserRoles(string userId)
+        {
+            AssigneRolesView model = new AssigneRolesView();
+            model.User = await _userManager.FindByIdAsync(userId);
+            model.AvalaibleRolesToAssigne = _roleManager.Roles;
+            var userRoles = await _userManager.GetRolesAsync(model.User);
+            model.UserRoles = userRoles.ToList();
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AssigneUserRoles(AssigneRolesView model)
+        {
+           
+                foreach (var roleId in model.RolesIdToAssigne)
+                {
+                    var user = await _userManager.FindByIdAsync(model.User.Id);
+                    var roleToAssigne = await _roleManager.FindByIdAsync(roleId);
+                    if (roleToAssigne != null)
+                    {
+                        await _userManager.AddToRoleAsync(user, roleToAssigne.Name);
+                    }
+                }
+            return RedirectToAction("Index");
+        }
+
+        //[HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> RemoveUserRole(string id,string roleName)
+        {
+                var user = await _userManager.FindByIdAsync(id);
+                await _userManager.RemoveFromRoleAsync(user, roleName);
+            return RedirectToAction("Index");
         }
     }
 }
