@@ -1,0 +1,33 @@
+﻿@page
+@model RegisterConfirmationModel
+@{
+    ViewData["Title"] = "Register confirmation";
+}
+
+<div class="page-name">
+    Register confirmation
+</div>
+@{
+    if (@Model.DisplayConfirmAccountLink)
+    {
+<p class="center-elements text-white">
+    This app does not currently have a real email sender registered. Normally this would be emailed!
+    </p>
+    <div class="buttons">
+        
+                <a id="confirm-link" href="@Model.EmailConfirmationUrl">
+                <button class="confirm-button">
+                Confirm your account
+                </button>
+                </a>
+        
+        </div>
+    }
+    else
+    {
+<p>
+        Please check your email to confirm your account.
+</p>
+    }
+}
+
