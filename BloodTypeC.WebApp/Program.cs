@@ -28,7 +28,6 @@ namespace BloodTypeC.WebApp
             builder.Services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<BeeropediaContext>();
             builder.Services.AddScoped<UserManager<User>>();
-            builder.Services.AddDefaultIdentity<SignInManager<User>>();
             
             var app = builder.Build();
             CreateDbIfNotExists(app);
