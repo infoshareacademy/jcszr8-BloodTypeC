@@ -245,7 +245,8 @@ a:hover {
     background-color: rgb(128, 128, 128);
     transition: color 0.3s;
     transition: background-color 0.3s;
-    margin: 0;
+    margin: auto;
+    display: block;
 }
 
     .search-button:hover {
@@ -259,7 +260,8 @@ a:hover {
         font-size: 18px;
         background-color: rgb(253, 197, 0);
         font-weight: bold;
-        margin: 0;
+        margin: auto;
+        display: block
         }
 
 #info-icon {
@@ -505,4 +507,56 @@ a:hover {
 .button-margin{
     margin-top: 10px;
     margin-bottom: 15px;
+}
+
+.logout {
+    color: rgb(253, 197, 0);
+    border: none;
+    background-color: inherit;
+    padding-top: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    display: inline-block;
+}
+
+.text-white{
+    color: white;
+}
+
+.confirm-button {
+    height: 45px;
+    width: 250px;
+    border-radius: 12px;
+    border-width: 2px;
+    border: solid;
+    border-color: rgb(253, 197, 0);
+    color: white;
+    font-size: 18px;
+    background-color: rgb(128, 128, 128);
+    transition: color 0.3s;
+    transition: background-color 0.3s;
+    margin: 0;
+}
+
+    .confirm-button:hover {
+        height: 45px;
+        width: 250px;
+        border-radius: 12px;
+        border-width: 2px;
+        border: solid;
+        border-color: rgb(253, 197, 0);
+        color: rgb(39, 41, 42);
+        font-size: 18px;
+        background-color: rgb(253, 197, 0);
+        font-weight: bold;
+        margin: 0;
+    }
+
+.profile-edit {
+    color: white;
+    font-size: 60px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin: auto;
 }

@@ -1,0 +1,28 @@
+﻿@page
+@model PersonalDataModel
+@{
+    ViewData["Title"] = "Personal Data";
+    ViewData["ActivePage"] = ManageNavPages.PersonalData;
+}
+
+<div class="profile-edit">
+    Delete your account
+</div>
+<div class="row">
+    <div class="search-form">
+        <div class="center-elements">
+            <div class="text-white">
+                Would you like to delete your account?
+            </div>
+        </div>
+        <div class="button-margin">
+            <a id="delete" asp-page="DeletePersonalData">
+                <button class="search-button">Delete</button>
+            </a>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

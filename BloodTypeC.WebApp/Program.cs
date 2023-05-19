@@ -6,6 +6,7 @@ using BloodTypeC.Logic.Services.IServices;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
 using System.Globalization;
+using Microsoft.EntityFrameworkCore;
 
 namespace BloodTypeC.WebApp
 {
@@ -14,7 +15,7 @@ namespace BloodTypeC.WebApp
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
-            
+                                   
              // Add services to the container.
             builder.Services.AddControllersWithViews();
             builder.Services.AddScoped<IBeerServices, BeerServices>();
@@ -26,7 +27,7 @@ namespace BloodTypeC.WebApp
             builder.Services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<BeeropediaContext>();
             builder.Services.AddScoped<UserManager<User>>();
-
+            
             var app = builder.Build();
             CreateDbIfNotExists(app);
             // Configure the HTTP request pipeline.
