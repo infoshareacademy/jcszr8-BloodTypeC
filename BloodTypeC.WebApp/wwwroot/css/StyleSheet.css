@@ -514,6 +514,7 @@ a:hover {
     border: none;
     background-color: inherit;
     padding-top: 8px;
+    padding-left: 0px;
     font-size: 16px;
     cursor: pointer;
     display: inline-block;
@@ -554,9 +555,35 @@ a:hover {
 
 .profile-edit {
     color: white;
-    font-size: 60px;
+    font-size: 30px;
     display: flex;
     flex-direction: row;
     justify-content: center;
     margin: auto;
+}
+
+.delete-button {
+    height: 45px;
+    width: 200px;
+    border-radius: 12px;
+    border-width: 2px;
+    border: solid;
+    border-color: rgb(205,49,50);
+    color: white;
+    font-size: 18px;
+    background-color: rgb(205,49,50);
+    font-weight: bold;
+    margin: 0;
+}
+
+.row-space{
+    margin-top:20px;
+}
+
+.profile-space {
+    margin-top: 16px;
+}
+
+.nav-margin{
+    margin-right: 6px;
 }

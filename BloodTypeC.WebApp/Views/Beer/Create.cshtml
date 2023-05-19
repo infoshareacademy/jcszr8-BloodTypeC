@@ -14,7 +14,6 @@
 <div class="page-name">
     Add Beer
 </div>
-
 <div class="col-md-12 section-center container search-form">
     <form asp-action="Create">
         <div class="row">
@@ -41,7 +40,7 @@
                 <span asp-validation-for="Brewery" class="text-danger"></span>
             </div>
         </div>
-        <div class="row">
+        <div class="row row-space">
             <div class="col-md-6">
                 <div> <span class="form-label text-white">Style</span></div>
                 <div class="input-group col-md-6 tooltip-container">
@@ -64,8 +63,7 @@
                 <span asp-validation-for="FlavorString" class="text-danger"></span>
             </div>
         </div>
-
-        <div class="row">
+        <div class="row row-space">
             <div class="col-md-6">
                 <div> <span class="form-label text-white">Alcohol by volume</span></div>
                 <div class="input-group col-md-6 tooltip-container">
@@ -80,17 +78,15 @@
                 <div> <span class="form-label text-white">Brewery</span></div>
                 <div class="input-group col-md-6 tooltip-container">
                     <input type="text" asp-for="Score" class="form-control" placeholder="Score" />
-
                     <button class="btn btn-outline-secondary tooltip-button" type="button">
                         <p class="tooltip-text">Leaving this empty will set the score to 0.<br>Max value is @maxScore.</p>
                         <i class="bi bi-info-circle" id="info-icon"></i>
                     </button>
-
                 </div>
                 <span asp-validation-for="Score" class="text-danger"></span>
             </div>
         </div>
-        <div class="row">
+        <div class="row row-space">
             <div class="col-md-3"></div><div class="col-md-6">
                 <div> <span class="form-label text-white">Image</span></div>
                 <div class="input-group col-md-6 tooltip-container">
@@ -103,19 +99,17 @@
                 <span asp-validation-for="Image" class="text-danger"></span>
             </div>
         </div>
-
-
-        <div class="buttons">
-            <div class="form-group button-margin">
-                <br /><input type="submit" value="Create" class="search-button button-margin" />
-
+        
+            <div class="button-margin">
+                <div class="form-group">
+                    <br /><input type="submit" value="Create" class="search-button" />
+                </div>
+            </div>
+      
+    </form>
                 <button onclick="@("window.location.href='" + Url.Action("Index", "Home") + "'")" class="search-button">
                     Back to list
                 </button>
-
-            </div>
-        </div>
-    </form>
 </div>
 @section Scripts {
     @{
