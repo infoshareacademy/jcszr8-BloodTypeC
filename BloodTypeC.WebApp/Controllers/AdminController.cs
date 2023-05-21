@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System.Data;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace BloodTypeC.WebApp.Controllers
 {
@@ -197,7 +198,8 @@ namespace BloodTypeC.WebApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> AssigneUserRoles(AssigneRolesView model)
         {
-           
+            if (model.RolesIdToAssigne != null)
+            {
                 foreach (var roleId in model.RolesIdToAssigne)
                 {
                     var user = await _userManager.FindByIdAsync(model.User.Id);
@@ -207,7 +209,9 @@ namespace BloodTypeC.WebApp.Controllers
                         await _userManager.AddToRoleAsync(user, roleToAssigne.Name);
                     }
                 }
-            return RedirectToAction("Index");
+                return RedirectToAction("Index");
+            }
+            return RedirectToAction("AssigneUserRoles",new {userId=model.User.Id});
         }
 
         //[HttpPost]
@@ -216,7 +220,7 @@ namespace BloodTypeC.WebApp.Controllers
         {
                 var user = await _userManager.FindByIdAsync(id);
                 await _userManager.RemoveFromRoleAsync(user, roleName);
-            return RedirectToAction("Index");
+            return RedirectToAction("AssigneUserRoles", new { userId = user.Id });
         }
     }
 }
