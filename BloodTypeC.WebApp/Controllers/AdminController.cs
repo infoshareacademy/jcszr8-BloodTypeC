@@ -1,14 +1,12 @@
 ﻿using BloodTypeC.DAL.Models;
 using BloodTypeC.DAL.Models.Views;
-using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using System.Data;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace BloodTypeC.WebApp.Controllers
 {
+    [Authorize]
     public class AdminController : Controller
     {
         private readonly UserManager<User> _userManager;
@@ -50,15 +48,11 @@ namespace BloodTypeC.WebApp.Controllers
             }
             return View(user);
         }
-
-        // TODO
         public async Task<IActionResult> EditUser(string id)
         {
             var model = await _userManager.FindByIdAsync(id);
             return View(model);
         }
-
-        //TODO
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> EditUser(string id, User user)
@@ -77,15 +71,11 @@ namespace BloodTypeC.WebApp.Controllers
             }
             return View(user);
         }
-
-        //TODO
         public async Task<IActionResult> DeleteUser(string id)
         {
             var model = await _userManager.FindByIdAsync(id);
             return View(model);
         }
-
-        //TODO
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteUser(User user)
@@ -98,7 +88,6 @@ namespace BloodTypeC.WebApp.Controllers
             }
             return View(user);
         }
-
         public async Task<IActionResult> ActivateUser(string id)
         {
             var userToActivate = await _userManager.FindByIdAsync(id);
@@ -109,7 +98,6 @@ namespace BloodTypeC.WebApp.Controllers
             }
             return RedirectToAction("Index");
         }
-
         public async Task<IActionResult> DeactivateUser(string id)
         {
             var userToDeactivate = await _userManager.FindByIdAsync(id);
@@ -120,13 +108,10 @@ namespace BloodTypeC.WebApp.Controllers
             }
             return RedirectToAction("Index");
         }
-
-
         public IActionResult CreateRole()
         {
             return View();
         }
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> CreateRole(IdentityRole role)
@@ -148,7 +133,6 @@ namespace BloodTypeC.WebApp.Controllers
             var model = await _roleManager.FindByIdAsync(id);
             return View(model);
         }
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> EditRole(IdentityRole role)

@@ -66,14 +66,16 @@ namespace BloodTypeC.WebApp
             app.MapRazorPages();
             app.Run();   
         }
-        private static void CreateDbIfNotExists(IHost host)
+        private async static Task CreateDbIfNotExists(IHost host)
         {
             using var scope = host.Services.CreateScope();
             var services = scope.ServiceProvider;
             try
             {
                 var context = services.GetRequiredService<BeeropediaContext>();
-                Seed.Initialize(context);
+                var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
+                var userManager = services.GetRequiredService<UserManager<User>>();
+                await Seed.Initialize(context,roleManager,userManager);
             }
             catch (Exception ex)
             {
