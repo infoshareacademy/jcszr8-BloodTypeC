@@ -11,20 +11,27 @@ namespace BloodTypeC.DAL.Contexts
 {
     public static class Seed
     {
-        public static void Initialize(BeeropediaContext context) ///, RoleManager<IdentityRole> roleManager, UserManager<User> userManager)
+        public async static Task Initialize(BeeropediaContext context, RoleManager<IdentityRole> roleManager, UserManager<User> userManager)
         {
-            context.Database.EnsureCreated();
+            await context.Database.EnsureCreatedAsync();
             //Seeding beers to DB
             if (context.AllBeers.Any())
             {
                 return;   // DB has been seeded
             }
-            var beersToSeed = JsonSerializer.Deserialize<List<Beer>>(Resources.beers, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+
+            await roleManager.CreateAsync(new IdentityRole { Name = "Admin" });
+            var serviceAdmin = new User { Email = "artur@example.com", UserName = "artur@example.com" };
+            await userManager.CreateAsync(serviceAdmin, "somePasssadsad123@");
+            await userManager.AddToRoleAsync(serviceAdmin, "Admin");
+
+            var beersToSeed = await JsonSerializer.DeserializeAsync<List<Beer>>(new MemoryStream(Resources.beers), new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
             foreach (var beer in beersToSeed)
             {
                 beer.Added = DateTime.Now;
-                context.AllBeers.Add(beer);
-                context.SaveChanges();
+                //beer.LastModified = DateTime.Now;
+                await context.AllBeers.AddAsync(beer);
+                await context.SaveChangesAsync();
             }
         }
     }
