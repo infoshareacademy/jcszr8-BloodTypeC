@@ -5,64 +5,62 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>AssigneUserRoles</h1>
-
-<h4>AssigneRolesView</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
+<div class="page-name">
+    Assigne User Role
+</div>
+<div class="row products">
+    <div class="col-md-12 products">
         <form asp-action="AssigneUserRoles">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="RolesIdToAssigne" class="control-label"></label>
+            <div class="form-group products">
+                <label asp-for="RolesIdToAssigne" class="text-white-large right-margin">Roles to assign</label>
                 <select class="selectpicker" multiple title="Select user roles..." asp-for="RolesIdToAssigne">
                     @foreach (var role in Model.AvalaibleRolesToAssigne)
                     {
-                                <option value="@role.Id">@role.Name</option>
+                        <option value="@role.Id">@role.Name</option>
                     }
                 </select>
                 <span asp-validation-for="RolesIdToAssigne" class="text-danger"></span>
             </div>
-             <div class="form-group">
-                <input type="hidden" asp-for="@Model.User.Id" class="form-control" value="@Model.User.Id" />                
+            <div class="form-group">
+                <input type="hidden" asp-for="@Model.User.Id" class="form-control" value="@Model.User.Id" />
                 <span asp-validation-for="User" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <input type="submit" value="Assigne roles" class="btn btn-primary" />
+            <div class="form-group row-space buttons">
+                <input type="submit" value="Assigne roles" class="confirm-button" />
             </div>
         </form>
     </div>
 </div>
-<h1 class="text-white">User roles</h1>
-<table class="table text-white">
-    <thead>
-        <tr>
-            <th>
-                Role
-            </th>
-            <th>
-                Actions
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model.UserRoles)
-        {
+
+<h1 class="text-white products">User roles</h1>
+<div class="buttons">
+    <div class="col-md-6">
+        <table class="table text-white">
+            <thead>
                 <tr>
-                    <td>
-                    @item
-                    </td>
-                    <td>
-                                <form asp-action="RemoveUserRole" asp-route-id="@Model.User.Id" asp-route-roleName="@item">
-                            <input type="submit" value="Remove" class="btn btn-danger" />
-                        </form>
+                    <th class="text-white-large">
+                        Role
+                    </th>
                 </tr>
-        }
-    </tbody>
-</table>
-
-
-<div>
-    <a asp-action="Index">Back to List</a>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.UserRoles)
+                {
+                    <tr>
+                        <td class="text-white-large">
+                            @item
+                        </td>
+                        <td>
+                            <form asp-action="RemoveUserRole" asp-route-id="@Model.User.Id" asp-route-roleName="@item" class="row-space">
+                                <input type="submit" value="Remove" class="search-button" />
+                            </form>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
 </div>
-
+<div>
+    <a asp-action="Index"><button class="search-button">Back to list</button></a>
+</div>

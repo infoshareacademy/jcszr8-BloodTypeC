@@ -524,6 +524,11 @@ a:hover {
     color: white;
 }
 
+.text-white-large {
+    color: white;
+    font-size: 25px;
+}
+
 .confirm-button {
     height: 45px;
     width: 250px;
@@ -576,6 +581,20 @@ a:hover {
     margin: 0;
 }
 
+.delete-button-slim {
+    height: 45px;
+    width: 120px;
+    border-radius: 12px;
+    border-width: 2px;
+    border: solid;
+    border-color: rgb(205,49,50);
+    color: white;
+    font-size: 18px;
+    background-color: rgb(205,49,50);
+    font-weight: bold;
+    margin: 0;
+}
+
 .row-space{
     margin-top:20px;
 }
@@ -586,4 +605,12 @@ a:hover {
 
 .nav-margin{
     margin-right: 6px;
+}
+
+.right-margin {
+    margin-right: 15px;
+}
+
+.text-yellow {
+    color: rgb(253, 197, 0)
 }

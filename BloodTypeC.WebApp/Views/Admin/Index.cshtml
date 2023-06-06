@@ -3,92 +3,89 @@
 @{
     ViewData["Title"] = "Index";
 }
+<div class="page-name">
+    Admin panel
+</div>
+<a asp-action="CreateUser"><button class="search-button">Create user</button></a>
+<div class="buttons">
+    <div class="col-md-10">
+        <table class="table text-white">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Users.FirstOrDefault().UserName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Users.FirstOrDefault().Email)
+                    </th>
+                    <th>
+                        Roles
+                    </th>
+                    <th>
+                        Actions
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Users)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.UserName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Email)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Assigne roles", "AssigneUserRoles", new { userId=item.Id })
 
-<a class="search-button" asp-action="CreateUser">Create user</a>
-<table class="table text-white">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Users.FirstOrDefault().Id)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Users.FirstOrDefault().UserName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Users.FirstOrDefault().Email)
-            </th>
-            <th>
-                Roles
-            </th>
-            <th>
-                Actions
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model.Users) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.UserName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Email)
-            </td>
-                <td>
-                    @Html.ActionLink("Assigne roles", "AssigneUserRoles", new { userId=item.Id })
-
-                </td>
-            <td>
-                @Html.ActionLink("Edit", "EditUser", new { id=item.Id }) |
-                   @Html.ActionLink("Delete", "DeleteUser", new { id=item.Id }) |
-                   @if(item.EmailConfirmed==false)
-                    {
-                        @Html.ActionLink("Activate", "ActivateUser", new { id=item.Id })
-                    }
-                    else
-                    {
-                        @Html.ActionLink("Deactivate", "DeactivateUser", new { id=item.Id })
-                    }
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
-<a class="search-button" asp-action="CreateRole">Create role</a>
-<table class="table text-white">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Roles.FirstOrDefault().Id)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Roles.FirstOrDefault().Name)
-            </th>
-            <th>
-                Actions
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model.Roles)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Id)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Name)
-                </td>
-                <td>
-                    @Html.ActionLink("Edit", "EditRole", new { id=item.Id }) |
-                    @Html.ActionLink("Delete", "DeleteRole", new { id=item.Id})
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
-
-
+                        </td>
+                        <td>
+                            @Html.ActionLink("Edit", "EditUser", new { id=item.Id }) |
+                            @Html.ActionLink("Delete", "DeleteUser", new { id=item.Id }) |
+                            @if (item.EmailConfirmed == false)
+                            {
+                                @Html.ActionLink("Activate", "ActivateUser", new { id=item.Id })
+                            }
+                            else
+                            {
+                                @Html.ActionLink("Deactivate", "DeactivateUser", new { id=item.Id })
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+<a asp-action="CreateRole"><button class="search-button">Create role</button></a>
+<div class="buttons">
+    <div class="col-md-4">
+        <table class="table text-white">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Roles.FirstOrDefault().Name)
+                    </th>
+                    <th>
+                        Actions
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Roles)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Edit", "EditRole", new { id=item.Id }) |
+                            @Html.ActionLink("Delete", "DeleteRole", new { id=item.Id})
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
