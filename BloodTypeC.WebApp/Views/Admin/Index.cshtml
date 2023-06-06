@@ -6,20 +6,19 @@
 <div class="page-name">
     Admin panel
 </div>
-<a asp-action="CreateUser"><button class="search-button">Create user</button></a>
+
 <div class="buttons">
-    <div class="col-md-10">
+<a asp-action="CreateUser"><button class="search-button right-margin">Create user</button></a>
+<a asp-action="CreateRole"><button class="search-button left-margin">Create role</button></a>
+</div>
+
+<div class="buttons">
+    <div class="col-md-6">
         <table class="table text-white">
             <thead>
                 <tr>
                     <th>
-                        @Html.DisplayNameFor(model => model.Users.FirstOrDefault().UserName)
-                    </th>
-                    <th>
                         @Html.DisplayNameFor(model => model.Users.FirstOrDefault().Email)
-                    </th>
-                    <th>
-                        Roles
                     </th>
                     <th>
                         Actions
@@ -32,9 +31,6 @@
                     <tr>
                         <td>
                             @Html.DisplayFor(modelItem => item.UserName)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Email)
                         </td>
                         <td>
                             @Html.ActionLink("Assigne roles", "AssigneUserRoles", new { userId=item.Id })
@@ -58,7 +54,6 @@
         </table>
     </div>
 </div>
-<a asp-action="CreateRole"><button class="search-button">Create role</button></a>
 <div class="buttons">
     <div class="col-md-4">
         <table class="table text-white">

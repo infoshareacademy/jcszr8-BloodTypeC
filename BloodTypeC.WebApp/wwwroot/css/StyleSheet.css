@@ -610,6 +610,9 @@ a:hover {
 .right-margin {
     margin-right: 15px;
 }
+.left-margin {
+    margin-left: 15px;
+}
 
 .text-yellow {
     color: rgb(253, 197, 0)
