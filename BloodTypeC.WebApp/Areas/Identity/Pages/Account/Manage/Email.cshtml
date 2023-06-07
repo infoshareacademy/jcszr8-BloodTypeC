@@ -8,7 +8,6 @@
 <div class="profile-edit">
     E-mail
 </div>
-<partial name="_StatusMessage" for="StatusMessage" />
 <div class="search-form">
     <div class="center-elements">
         <div class="col-md-6">
@@ -35,10 +34,12 @@
                     <span asp-validation-for="Input.NewEmail" class="text-danger"></span>
                 </div>
                 <button id="change-email-button" type="submit" asp-page-handler="ChangeEmail" class="search-button">Save</button>
+                <br /><partial name="_StatusMessage" for="StatusMessage" />
             </form>
         </div>
     </div>
 </div>
+
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
