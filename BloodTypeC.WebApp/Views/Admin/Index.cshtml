@@ -8,8 +8,8 @@
 </div>
 
 <div class="buttons">
-<a asp-action="CreateUser"><button class="search-button right-margin">Create user</button></a>
-<a asp-action="CreateRole"><button class="search-button left-margin">Create role</button></a>
+<a asp-action="CreateUser"><button class="search-button-margin">Create user</button></a>
+<a asp-action="CreateRole"><button class="search-button-margin">Create role</button></a>
 </div>
 
 <div class="buttons">
@@ -19,6 +19,9 @@
                 <tr>
                     <th>
                         @Html.DisplayNameFor(model => model.Users.FirstOrDefault().Email)
+                    </th>
+                    <th>
+                        Roles
                     </th>
                     <th>
                         Actions
