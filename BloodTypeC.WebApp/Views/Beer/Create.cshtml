@@ -3,7 +3,7 @@
 @model BeerViewModel
 
 @{
-    ViewData["Title"] = "Create beer";
+    ViewData["Title"] = "Create a beer";
     var nameMaxLength = Model.GetAttributeFrom<StringLengthAttribute>(nameof(Model.Name)).MaximumLength;
     var nameMinLength = Model.GetAttributeFrom<StringLengthAttribute>(nameof(Model.Name)).MinimumLength;
     var maxScore = Convert.ToDouble(Model.GetAttributeFrom<RangeAttribute>(nameof(Model.Score)).Maximum);
@@ -12,7 +12,7 @@
 }
 
 <div class="page-name">
-    Add Beer
+    Add a Beer
 </div>
 <div class="col-md-12 section-center container search-form">
     <form asp-action="Create">

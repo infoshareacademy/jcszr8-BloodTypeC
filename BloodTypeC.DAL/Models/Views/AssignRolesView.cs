@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace BloodTypeC.DAL.Models.Views
 {
-    public class AssigneRolesView
+    public class AssignRolesView
     {
         public User User { get; set; }
         public List<string> UserRoles { get; set; }
-        public IEnumerable<IdentityRole> AvalaibleRolesToAssigne { get; set; }
-        public IEnumerable<string> RolesIdToAssigne { get; set; }
+        public IEnumerable<IdentityRole> AvalaibleRolesToAssign { get; set; }
+        public IEnumerable<string> RolesIdToAssign { get; set; }
     }
 }

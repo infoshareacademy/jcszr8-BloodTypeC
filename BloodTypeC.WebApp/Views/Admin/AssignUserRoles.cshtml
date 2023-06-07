@@ -1,4 +1,4 @@
-﻿@model BloodTypeC.DAL.Models.Views.AssigneRolesView
+﻿@model BloodTypeC.DAL.Models.Views.AssignRolesView
 
 @{
     ViewData["Title"] = "AssignUserRoles";
@@ -10,17 +10,17 @@
 </div>
 <div class="row products">
     <div class="col-md-12 products">
-        <form asp-action="AssigneUserRoles">
+        <form asp-action="AssignUserRoles">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group products">
-                <label asp-for="RolesIdToAssigne" class="text-white-large right-margin">Roles to assign</label>
-                <select class="selectpicker" multiple title="Select user roles..." asp-for="RolesIdToAssigne">
-                    @foreach (var role in Model.AvalaibleRolesToAssigne)
+                <label asp-for="RolesIdToAssign" class="text-white-large right-margin">Roles to assign</label>
+                <select class="selectpicker" multiple title="Select user roles..." asp-for="RolesIdToAssign">
+                    @foreach (var role in Model.AvalaibleRolesToAssign)
                     {
                         <option value="@role.Id">@role.Name</option>
                     }
                 </select>
-                <span asp-validation-for="RolesIdToAssigne" class="text-danger"></span>
+                <span asp-validation-for="RolesIdToAssign" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="hidden" asp-for="@Model.User.Id" class="form-control" value="@Model.User.Id" />

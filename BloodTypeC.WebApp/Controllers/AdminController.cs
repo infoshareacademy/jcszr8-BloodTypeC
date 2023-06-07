@@ -168,11 +168,11 @@ namespace BloodTypeC.WebApp.Controllers
             return View(role);
         }
 
-        public async Task<IActionResult> AssigneUserRoles(string userId)
+        public async Task<IActionResult> AssignUserRoles(string userId)
         {
-            AssigneRolesView model = new AssigneRolesView();
+            AssignRolesView model = new AssignRolesView();
             model.User = await _userManager.FindByIdAsync(userId);
-            model.AvalaibleRolesToAssigne = _roleManager.Roles;
+            model.AvalaibleRolesToAssign = _roleManager.Roles;
             var userRoles = await _userManager.GetRolesAsync(model.User);
             model.UserRoles = userRoles.ToList();
             return View(model);
@@ -180,22 +180,22 @@ namespace BloodTypeC.WebApp.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> AssigneUserRoles(AssigneRolesView model)
+        public async Task<IActionResult> AssignUserRoles(AssignRolesView model)
         {
-            if (model.RolesIdToAssigne != null)
+            if (model.RolesIdToAssign != null)
             {
-                foreach (var roleId in model.RolesIdToAssigne)
+                foreach (var roleId in model.RolesIdToAssign)
                 {
                     var user = await _userManager.FindByIdAsync(model.User.Id);
-                    var roleToAssigne = await _roleManager.FindByIdAsync(roleId);
-                    if (roleToAssigne != null)
+                    var roleToAssign = await _roleManager.FindByIdAsync(roleId);
+                    if (roleToAssign != null)
                     {
-                        await _userManager.AddToRoleAsync(user, roleToAssigne.Name);
+                        await _userManager.AddToRoleAsync(user, roleToAssign.Name);
                     }
                 }
                 return RedirectToAction("Index");
             }
-            return RedirectToAction("AssigneUserRoles",new {userId=model.User.Id});
+            return RedirectToAction("AssignUserRoles",new {userId=model.User.Id});
         }
 
         //[HttpPost]
@@ -204,7 +204,7 @@ namespace BloodTypeC.WebApp.Controllers
         {
                 var user = await _userManager.FindByIdAsync(id);
                 await _userManager.RemoveFromRoleAsync(user, roleName);
-            return RedirectToAction("AssigneUserRoles", new { userId = user.Id });
+            return RedirectToAction("AssignUserRoles", new { userId = user.Id });
         }
     }
 }
