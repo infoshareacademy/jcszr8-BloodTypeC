@@ -8,12 +8,12 @@
 <div class="page-name">
     Delete role
 </div>
-<h3 class="text-white products">Are you sure you want to delete role: &nbsp <div class="text-yellow">@Html.DisplayFor(model => model.Name)</div></h3>
+<h3 class="text-white products">Are you sure you want to delete the role: &nbsp <div class="text-yellow">@Html.DisplayFor(model => model.Name)</div></h3>
 <div class="row">
     <div class="buttons">
-    <form asp-action="DeleteRole">
-        <input type="submit" value="Delete" class="delete-button-slim" />
-    </form>
+        <form asp-action="DeleteRole">
+            <input type="submit" value="Delete" class="delete-button-slim" />
+        </form>
     </div>
     <div class="buttons">
         <a asp-action="Index"><button class="search-button">Back to List</button></a>

@@ -655,3 +655,8 @@ a:hover {
     margin:auto;
     justify-content: center
 }
+
+.search-form-np {
+    background: rgb(39,41,42);
+    border-radius: 6px;
+}

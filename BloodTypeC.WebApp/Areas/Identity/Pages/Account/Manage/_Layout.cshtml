@@ -1,5 +1,5 @@
 ﻿@{
-    if (ViewData.TryGetValue("ParentLayout", out var parentLayout) && parentLayout !=  null)
+    if (ViewData.TryGetValue("ParentLayout", out var parentLayout) && parentLayout != null)
     {
         Layout = parentLayout.ToString();
     }
@@ -10,15 +10,14 @@
 }
 
 <div class="page-name">
-Manage your account
+    Manage your account
 </div>
-
 <div>
     <div class="products-nomargin">
         <div class="col-md-2">
             <partial name="_ManageNav" />
         </div>
-        <div class="col-md-8">
+        <div class="col-md-7">
             @RenderBody()
         </div>
     </div>
