@@ -15,16 +15,10 @@ namespace BloodTypeC.WebApp.Controllers
             _beerServices = beerServices;
             _mapper= mapper;
         }
-        // GET: BeerController
-        public ActionResult Index()
-        {
-            return View();
-        }
 
         // GET: BeerController/Details/5
         public async Task<ActionResult> Details(string id)
         {
-            //var isAdmin = HttpContext.User.IsInRole("Admin");
             var model = await _beerServices.GetById(id);
             var newBeerDto = _mapper.Map<BeerViewModel>(model);
             return View(newBeerDto);
@@ -52,7 +46,7 @@ namespace BloodTypeC.WebApp.Controllers
                 {
                     return View(beerFromView);
                 }
-                await _beerServices.AddFromView(beerFromView);
+                await _beerServices.AddFromView(beerFromView, User.Identity.Name);
                 return RedirectToAction("Index", "Home");
             }
             catch

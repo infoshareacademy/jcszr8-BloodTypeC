@@ -13,7 +13,6 @@ namespace BloodTypeC.Logic.Services
     {
         private readonly IRepository<Beer> _beerRepository;
         private readonly UserManager<User> _userManager;
-        private readonly IHttpContextAccessor _contextAccessor;
 
         public FavoriteBeersServices(IRepository<Beer> beerRepository, UserManager<User> userManager)
         {
@@ -31,7 +30,6 @@ namespace BloodTypeC.Logic.Services
 
         public async Task<IEnumerable<Beer>> GetAllFavs(string userName)
         {
-            //var user = await _userManager.FindByEmailAsync(userName);
             var user = await _userManager.Users.Include(x => x.FavoriteBeers).SingleOrDefaultAsync(u => u.UserName == userName);
             var favoriteBeers = user.FavoriteBeers;
             return favoriteBeers;

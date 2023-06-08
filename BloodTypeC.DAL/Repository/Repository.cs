@@ -50,5 +50,15 @@ namespace BloodTypeC.DAL.Repository
         {
             return await _entities.FirstOrDefaultAsync(x => x.Id == id);
         }
+
+        public async Task<T> GetById(string id, Expression<Func<T, object>>? include = null)
+        {
+            if (include != null)
+            {
+                return await _entities.Include(include).FirstOrDefaultAsync(x=> x.Id == id);
+            }
+
+            return await _entities.FirstOrDefaultAsync(x => x.Id == id);
+        }
     }
 }

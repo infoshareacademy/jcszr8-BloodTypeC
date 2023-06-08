@@ -26,6 +26,7 @@ namespace BloodTypeC.WebApp.Models
         [DisplayName("Flavors")]
         public string? FlavorString { get; set; }
         public ICollection<User>? FavoriteUsers { get; set; }
+        public User? AddedByUser { get; set; }
     }
 }
 
