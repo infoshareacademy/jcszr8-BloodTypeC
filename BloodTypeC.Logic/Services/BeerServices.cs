@@ -1,10 +1,13 @@
 ﻿using AutoMapper;
 using BloodTypeC.DAL.Models;
+using BloodTypeC.DAL.Models.Enums;
 using BloodTypeC.DAL.Repository;
 using BloodTypeC.Logic.Services.IServices;
 using BloodTypeC.WebApp.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using static BloodTypeC.DAL.Models.Enums.Enums;
 
 namespace BloodTypeC.Logic.Services
 {
@@ -12,18 +15,15 @@ namespace BloodTypeC.Logic.Services
     {
         private readonly IRepository<Beer> _repository;
         private readonly IMapper _mapper;
-        private readonly UserManager<User> _userManager;
 
-        public BeerServices(IRepository<Beer> repository, IMapper mapper, UserManager<User> userManager)
+        public BeerServices(IRepository<Beer> repository, IMapper mapper)
         {
             _repository = repository;
             _mapper = mapper;
-            _userManager = userManager;
         }
-        public async Task AddFromView(BeerViewModel beerFromView, string userName)
+        public async Task AddFromView(BeerViewModel beerFromView, User user)
         {
             var beerToAdd = _mapper.Map<Beer>(beerFromView);
-            var user = await _userManager.Users.FirstOrDefaultAsync(x => x.UserName == userName);
             beerToAdd.AddedByUser = user;
             await _repository.Insert(beerToAdd);
         }

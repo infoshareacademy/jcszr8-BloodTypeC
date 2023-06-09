@@ -12,7 +12,7 @@ namespace BloodTypeC.WebApp
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
                         
@@ -31,7 +31,7 @@ namespace BloodTypeC.WebApp
             builder.Services.AddScoped<UserManager<User>>();
             
             var app = builder.Build();
-            CreateDbIfNotExists(app);
+            await CreateDbIfNotExists(app);
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
             {
@@ -66,7 +66,7 @@ namespace BloodTypeC.WebApp
             app.MapRazorPages();
             app.Run();   
         }
-        private async static Task CreateDbIfNotExists(IHost host)
+        private static async Task CreateDbIfNotExists(IHost host)
         {
             using var scope = host.Services.CreateScope();
             var services = scope.ServiceProvider;

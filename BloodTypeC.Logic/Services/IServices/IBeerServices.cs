@@ -8,7 +8,7 @@ namespace BloodTypeC.Logic.Services.IServices
         Task<IEnumerable<Beer>> GetAll();
         Task<Beer> GetById(string id);
         Task Delete(string id);
-        Task AddFromView(BeerViewModel beerFromView, string userName);
+        Task AddFromView(BeerViewModel beerFromView, User user);
         Task EditFromView(BeerViewModel beerFromView);
 
     }

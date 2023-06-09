@@ -18,8 +18,8 @@ namespace BloodTypeC.WebApp.Controllers
             _favoriteBeersServices = favoriteBeersServices;
             _mapper = mapper;
         }
-        [HttpGet]
 
+        [HttpGet]
         public async Task<IActionResult> Favorites()
         {
             var userName = User.Identity.Name;
