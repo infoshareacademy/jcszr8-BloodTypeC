@@ -1,0 +1,312 @@
+[2023-06-07 16:17:20.023 +02:00  INF]  User profile is available. Using 'C:\Users\Saddam Szajbert I\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+[2023-06-07 16:17:23.262 +02:00  INF]  Now listening on: https://localhost:7100
+[2023-06-07 16:17:23.263 +02:00  INF]  Now listening on: http://localhost:5109
+[2023-06-07 16:17:23.280 +02:00  INF]  Application started. Press Ctrl+C to shut down.
+[2023-06-07 16:17:23.282 +02:00  INF]  Hosting environment: Development
+[2023-06-07 16:17:23.282 +02:00  INF]  Content root path: D:\Repozytoria\jcszr8-BloodTypeC\BloodTypeC.WebApp\
+[2023-06-07 16:17:26.849 +02:00  INF]  Request starting HTTP/2 GET https://localhost:7100/ - -
+[2023-06-07 16:17:27.422 +02:00  INF]  Executed DbCommand (301ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+[2023-06-07 16:17:27.742 +02:00  INF]  Executed DbCommand (147ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+
+IF EXISTS
+    (SELECT *
+     FROM [sys].[objects] o
+     WHERE [o].[type] = 'U'
+     AND [o].[is_ms_shipped] = 0
+     AND NOT EXISTS (SELECT *
+         FROM [sys].[extended_properties] AS [ep]
+         WHERE [ep].[major_id] = [o].[object_id]
+             AND [ep].[minor_id] = 0
+             AND [ep].[class] = 1
+             AND [ep].[name] = N'microsoft_database_tools_support'
+    )
+)
+SELECT 1 ELSE SELECT 0
+[2023-06-07 16:17:28.006 +02:00  INF]  Executed DbCommand (7ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [AllBeers] AS [a]) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+[2023-06-07 16:17:28.446 +02:00  INF]  Executed DbCommand (65ms) [Parameters=[@__p_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__p_0
+[2023-06-07 16:17:28.692 +02:00  INF]  Executed DbCommand (2ms) [Parameters=[@__user_Id_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[Id], [a].[ClaimType], [a].[ClaimValue], [a].[UserId]
+FROM [AspNetUserClaims] AS [a]
+WHERE [a].[UserId] = @__user_Id_0
+[2023-06-07 16:17:28.733 +02:00  INF]  Executed DbCommand (3ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a0].[Name]
+FROM [AspNetUserRoles] AS [a]
+INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+WHERE [a].[UserId] = @__userId_0
+[2023-06-07 16:17:28.746 +02:00  INF]  Executed DbCommand (2ms) [Parameters=[@__normalizedName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[ConcurrencyStamp], [a].[Name], [a].[NormalizedName]
+FROM [AspNetRoles] AS [a]
+WHERE [a].[NormalizedName] = @__normalizedName_0
+[2023-06-07 16:17:28.763 +02:00  INF]  Executed DbCommand (1ms) [Parameters=[@__role_Id_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[ClaimType], [a].[ClaimValue]
+FROM [AspNetRoleClaims] AS [a]
+WHERE [a].[RoleId] = @__role_Id_0
+[2023-06-07 16:17:28.776 +02:00  INF]  Executing endpoint 'BloodTypeC.WebApp.Controllers.HomeController.AgeCheck (BloodTypeC.WebApp)'
+[2023-06-07 16:17:28.790 +02:00  INF]  Route matched with {action = "AgeCheck", controller = "Home", page = "", area = ""}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult AgeCheck() on controller BloodTypeC.WebApp.Controllers.HomeController (BloodTypeC.WebApp).
+[2023-06-07 16:17:28.911 +02:00  INF]  Executing ViewResult, running view AgeCheck.
+[2023-06-07 16:17:29.116 +02:00  INF]  Executed ViewResult - view AgeCheck executed in 204.7793ms.
+[2023-06-07 16:17:29.123 +02:00  INF]  Executed action BloodTypeC.WebApp.Controllers.HomeController.AgeCheck (BloodTypeC.WebApp) in 331.5661ms
+[2023-06-07 16:17:29.124 +02:00  INF]  Executed endpoint 'BloodTypeC.WebApp.Controllers.HomeController.AgeCheck (BloodTypeC.WebApp)'
+[2023-06-07 16:17:29.159 +02:00  WRN]  Unable to configure browser refresh script injection on the response. Consider manually adding '<script src="/_framework/aspnetcore-browser-refresh.js"></script>' to the body of the page.
+[2023-06-07 16:17:29.174 +02:00  INF]  Request finished HTTP/2 GET https://localhost:7100/ - - - 200 - text/html;+charset=utf-8 2364.7802ms
+[2023-06-07 16:17:30.039 +02:00  INF]  Request starting HTTP/2 GET https://localhost:7100/css/StyleSheet.css - -
+[2023-06-07 16:17:30.066 +02:00  INF]  Sending file. Request path: '/css/StyleSheet.css'. Physical path: 'D:\Repozytoria\jcszr8-BloodTypeC\BloodTypeC.WebApp\wwwroot\css\StyleSheet.css'
+[2023-06-07 16:17:30.066 +02:00  INF]  Request finished HTTP/2 GET https://localhost:7100/css/StyleSheet.css - - - 200 14157 text/css 27.1240ms
+[2023-06-07 16:17:57.688 +02:00  INF]  Request starting HTTP/2 GET https://localhost:7100/Home/Index - -
+[2023-06-07 16:17:57.700 +02:00  INF]  Executing endpoint 'BloodTypeC.WebApp.Controllers.HomeController.Index (BloodTypeC.WebApp)'
+[2023-06-07 16:17:57.704 +02:00  INF]  Route matched with {action = "Index", controller = "Home", page = "", area = ""}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Index() on controller BloodTypeC.WebApp.Controllers.HomeController (BloodTypeC.WebApp).
+[2023-06-07 16:17:57.846 +02:00  INF]  Executed DbCommand (6ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[Id], [a].[Added], [a].[AlcoholByVolume], [a].[Brewery], [a].[Flavors], [a].[Image], [a].[LastModified], [a].[Name], [a].[Score], [a].[Style], [t].[FavoriteBeersId], [t].[FavoriteUsersId], [t].[Id], [t].[AccessFailedCount], [t].[ConcurrencyStamp], [t].[Email], [t].[EmailConfirmed], [t].[LockoutEnabled], [t].[LockoutEnd], [t].[NormalizedEmail], [t].[NormalizedUserName], [t].[PasswordHash], [t].[PhoneNumber], [t].[PhoneNumberConfirmed], [t].[SecurityStamp], [t].[TwoFactorEnabled], [t].[UserName]
+FROM [AllBeers] AS [a]
+LEFT JOIN (
+    SELECT [b].[FavoriteBeersId], [b].[FavoriteUsersId], [a0].[Id], [a0].[AccessFailedCount], [a0].[ConcurrencyStamp], [a0].[Email], [a0].[EmailConfirmed], [a0].[LockoutEnabled], [a0].[LockoutEnd], [a0].[NormalizedEmail], [a0].[NormalizedUserName], [a0].[PasswordHash], [a0].[PhoneNumber], [a0].[PhoneNumberConfirmed], [a0].[SecurityStamp], [a0].[TwoFactorEnabled], [a0].[UserName]
+    FROM [BeerUser] AS [b]
+    INNER JOIN [AspNetUsers] AS [a0] ON [b].[FavoriteUsersId] = [a0].[Id]
+) AS [t] ON [a].[Id] = [t].[FavoriteBeersId]
+ORDER BY [a].[Id], [t].[FavoriteBeersId], [t].[FavoriteUsersId]
+[2023-06-07 16:17:57.879 +02:00  INF]  Executing ViewResult, running view Index.
+[2023-06-07 16:17:57.949 +02:00  INF]  Executed ViewResult - view Index executed in 70.7015ms.
+[2023-06-07 16:17:57.949 +02:00  INF]  Executed action BloodTypeC.WebApp.Controllers.HomeController.Index (BloodTypeC.WebApp) in 245.1434ms
+[2023-06-07 16:17:57.949 +02:00  INF]  Executed endpoint 'BloodTypeC.WebApp.Controllers.HomeController.Index (BloodTypeC.WebApp)'
+[2023-06-07 16:17:57.959 +02:00  INF]  Request finished HTTP/2 GET https://localhost:7100/Home/Index - - - 200 - text/html;+charset=utf-8 268.6577ms
+[2023-06-07 16:17:58.110 +02:00  INF]  Request starting HTTP/2 GET https://localhost:7100/_framework/aspnetcore-browser-refresh.js - -
+[2023-06-07 16:17:58.113 +02:00  INF]  Request finished HTTP/2 GET https://localhost:7100/_framework/aspnetcore-browser-refresh.js - - - 200 12004 application/javascript;+charset=utf-8 3.5994ms
+[2023-06-07 16:17:58.125 +02:00  INF]  Request starting HTTP/2 GET https://localhost:7100/_vs/browserLink - -
+[2023-06-07 16:17:58.433 +02:00  INF]  Request finished HTTP/2 GET https://localhost:7100/_vs/browserLink - - - 200 - text/javascript;+charset=UTF-8 307.5206ms
+[2023-06-07 16:17:58.510 +02:00  INF]  Request starting HTTP/2 GET https://localhost:7100/Home/assets/favicon.ico - -
+[2023-06-07 16:17:58.524 +02:00  INF]  Request finished HTTP/2 GET https://localhost:7100/Home/assets/favicon.ico - - - 404 0 - 14.0760ms
+[2023-06-07 16:18:00.107 +02:00  INF]  Request starting HTTP/2 GET https://localhost:7100/Identity/Account/Manage - -
+[2023-06-07 16:18:00.114 +02:00  INF]  Executing endpoint '/Account/Manage/Index'
+[2023-06-07 16:18:00.235 +02:00  INF]  Route matched with {page = "/Account/Manage/Index", area = "Identity", action = "", controller = ""}. Executing page /Account/Manage/Index
+[2023-06-07 16:18:00.512 +02:00  INF]  Executing handler method BloodTypeC.WebApp.Areas.Identity.Pages.Account.Manage.IndexModel.OnGetAsync - ModelState is "Valid"
+[2023-06-07 16:18:00.521 +02:00  INF]  Executed DbCommand (1ms) [Parameters=[@__p_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__p_0
+[2023-06-07 16:18:00.528 +02:00  INF]  Executed handler method OnGetAsync, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+[2023-06-07 16:18:00.599 +02:00  INF]  Executed page /Account/Manage/Index in 364.1297ms
+[2023-06-07 16:18:00.599 +02:00  INF]  Executed endpoint '/Account/Manage/Index'
+[2023-06-07 16:18:00.602 +02:00  INF]  Request finished HTTP/2 GET https://localhost:7100/Identity/Account/Manage - - - 200 - text/html;+charset=utf-8 495.6354ms
+[2023-06-07 16:18:00.736 +02:00  INF]  Request starting HTTP/2 GET https://localhost:7100/_framework/aspnetcore-browser-refresh.js - -
+[2023-06-07 16:18:00.737 +02:00  INF]  Request finished HTTP/2 GET https://localhost:7100/_framework/aspnetcore-browser-refresh.js - - - 200 12004 application/javascript;+charset=utf-8 0.3486ms
+[2023-06-07 16:18:00.746 +02:00  INF]  Request starting HTTP/2 GET https://localhost:7100/_vs/browserLink - -
+[2023-06-07 16:18:00.752 +02:00  INF]  Request finished HTTP/2 GET https://localhost:7100/_vs/browserLink - - - 200 - text/javascript;+charset=UTF-8 6.3680ms
+[2023-06-07 16:18:00.808 +02:00  INF]  Request starting HTTP/2 GET https://localhost:7100/Identity/Account/assets/favicon.ico - -
+[2023-06-07 16:18:00.813 +02:00  INF]  Request finished HTTP/2 GET https://localhost:7100/Identity/Account/assets/favicon.ico - - - 404 0 - 6.0233ms
+[2023-06-07 16:19:41.003 +02:00  INF]  Request starting HTTP/2 GET https://localhost:7100/Identity/Account/Manage/ChangePassword - -
+[2023-06-07 16:19:41.007 +02:00  INF]  Executing endpoint '/Account/Manage/ChangePassword'
+[2023-06-07 16:19:41.011 +02:00  INF]  Route matched with {page = "/Account/Manage/ChangePassword", area = "Identity", action = "", controller = ""}. Executing page /Account/Manage/ChangePassword
+[2023-06-07 16:19:41.012 +02:00  INF]  Executing handler method BloodTypeC.WebApp.Areas.Identity.Pages.Account.Manage.ChangePasswordModel.OnGetAsync - ModelState is "Valid"
+[2023-06-07 16:19:41.015 +02:00  INF]  Executed DbCommand (1ms) [Parameters=[@__p_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__p_0
+[2023-06-07 16:19:41.018 +02:00  INF]  Executed handler method OnGetAsync, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+[2023-06-07 16:19:41.043 +02:00  INF]  Executed page /Account/Manage/ChangePassword in 31.6973ms
+[2023-06-07 16:19:41.043 +02:00  INF]  Executed endpoint '/Account/Manage/ChangePassword'
+[2023-06-07 16:19:41.051 +02:00  INF]  Request finished HTTP/2 GET https://localhost:7100/Identity/Account/Manage/ChangePassword - - - 200 - text/html;+charset=utf-8 47.2375ms
+[2023-06-07 16:19:41.059 +02:00  INF]  Request starting HTTP/2 GET https://localhost:7100/css/StyleSheet.css - -
+[2023-06-07 16:19:41.059 +02:00  INF]  The file /css/StyleSheet.css was not modified
+[2023-06-07 16:19:41.060 +02:00  INF]  Request finished HTTP/2 GET https://localhost:7100/css/StyleSheet.css - - - 304 - text/css 1.1572ms
+[2023-06-07 16:19:41.206 +02:00  INF]  Request starting HTTP/2 GET https://localhost:7100/_vs/browserLink - -
+[2023-06-07 16:19:41.212 +02:00  INF]  Request starting HTTP/2 GET https://localhost:7100/_framework/aspnetcore-browser-refresh.js - -
+[2023-06-07 16:19:41.213 +02:00  INF]  Request finished HTTP/2 GET https://localhost:7100/_framework/aspnetcore-browser-refresh.js - - - 200 12004 application/javascript;+charset=utf-8 0.5051ms
+[2023-06-07 16:19:41.214 +02:00  INF]  Request finished HTTP/2 GET https://localhost:7100/_vs/browserLink - - - 200 - text/javascript;+charset=UTF-8 8.0141ms
+[2023-06-07 16:19:41.255 +02:00  INF]  Request starting HTTP/2 GET https://localhost:7100/Identity/Account/Manage/assets/favicon.ico - -
+[2023-06-07 16:19:41.259 +02:00  INF]  Request finished HTTP/2 GET https://localhost:7100/Identity/Account/Manage/assets/favicon.ico - - - 404 0 - 4.4775ms
+[2023-06-07 16:19:42.153 +02:00  INF]  Request starting HTTP/2 GET https://localhost:7100/Identity/Account/Manage/PersonalData - -
+[2023-06-07 16:19:42.154 +02:00  INF]  Executing endpoint '/Account/Manage/PersonalData'
+[2023-06-07 16:19:42.156 +02:00  INF]  Route matched with {page = "/Account/Manage/PersonalData", area = "Identity", action = "", controller = ""}. Executing page /Account/Manage/PersonalData
+[2023-06-07 16:19:42.156 +02:00  INF]  Executing handler method BloodTypeC.WebApp.Areas.Identity.Pages.Account.Manage.PersonalDataModel.OnGet - ModelState is "Valid"
+[2023-06-07 16:19:42.159 +02:00  INF]  Executed DbCommand (1ms) [Parameters=[@__p_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__p_0
+[2023-06-07 16:19:42.161 +02:00  INF]  Executed handler method OnGet, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+[2023-06-07 16:19:42.169 +02:00  INF]  Executed page /Account/Manage/PersonalData in 13.5363ms
+[2023-06-07 16:19:42.170 +02:00  INF]  Executed endpoint '/Account/Manage/PersonalData'
+[2023-06-07 16:19:42.171 +02:00  INF]  Request finished HTTP/2 GET https://localhost:7100/Identity/Account/Manage/PersonalData - - - 200 - text/html;+charset=utf-8 18.8603ms
+[2023-06-07 16:19:42.311 +02:00  INF]  Request starting HTTP/2 GET https://localhost:7100/_framework/aspnetcore-browser-refresh.js - -
+[2023-06-07 16:19:42.311 +02:00  INF]  Request finished HTTP/2 GET https://localhost:7100/_framework/aspnetcore-browser-refresh.js - - - 200 12004 application/javascript;+charset=utf-8 0.4559ms
+[2023-06-07 16:19:42.318 +02:00  INF]  Request starting HTTP/2 GET https://localhost:7100/_vs/browserLink - -
+[2023-06-07 16:19:42.323 +02:00  INF]  Request finished HTTP/2 GET https://localhost:7100/_vs/browserLink - - - 200 - text/javascript;+charset=UTF-8 5.3973ms
+[2023-06-07 16:19:43.575 +02:00  INF]  Request starting HTTP/2 GET https://localhost:7100/Identity/Account/Manage/ChangePassword - -
+[2023-06-07 16:19:43.576 +02:00  INF]  Executing endpoint '/Account/Manage/ChangePassword'
+[2023-06-07 16:19:43.577 +02:00  INF]  Route matched with {page = "/Account/Manage/ChangePassword", area = "Identity", action = "", controller = ""}. Executing page /Account/Manage/ChangePassword
+[2023-06-07 16:19:43.577 +02:00  INF]  Executing handler method BloodTypeC.WebApp.Areas.Identity.Pages.Account.Manage.ChangePasswordModel.OnGetAsync - ModelState is "Valid"
+[2023-06-07 16:19:43.581 +02:00  INF]  Executed DbCommand (2ms) [Parameters=[@__p_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__p_0
+[2023-06-07 16:19:43.583 +02:00  INF]  Executed handler method OnGetAsync, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+[2023-06-07 16:19:43.589 +02:00  INF]  Executed page /Account/Manage/ChangePassword in 11.5238ms
+[2023-06-07 16:19:43.589 +02:00  INF]  Executed endpoint '/Account/Manage/ChangePassword'
+[2023-06-07 16:19:43.592 +02:00  INF]  Request finished HTTP/2 GET https://localhost:7100/Identity/Account/Manage/ChangePassword - - - 200 - text/html;+charset=utf-8 16.5677ms
+[2023-06-07 16:19:43.727 +02:00  INF]  Request starting HTTP/2 GET https://localhost:7100/_framework/aspnetcore-browser-refresh.js - -
+[2023-06-07 16:19:43.728 +02:00  INF]  Request finished HTTP/2 GET https://localhost:7100/_framework/aspnetcore-browser-refresh.js - - - 200 12004 application/javascript;+charset=utf-8 0.3896ms
+[2023-06-07 16:19:43.734 +02:00  INF]  Request starting HTTP/2 GET https://localhost:7100/_vs/browserLink - -
+[2023-06-07 16:19:43.744 +02:00  INF]  Request finished HTTP/2 GET https://localhost:7100/_vs/browserLink - - - 200 - text/javascript;+charset=UTF-8 9.8808ms
+[2023-06-07 16:19:45.157 +02:00  INF]  Request starting HTTP/2 GET https://localhost:7100/Identity/Account/Manage/Email - -
+[2023-06-07 16:19:45.158 +02:00  INF]  Executing endpoint '/Account/Manage/Email'
+[2023-06-07 16:19:45.163 +02:00  INF]  Route matched with {page = "/Account/Manage/Email", area = "Identity", action = "", controller = ""}. Executing page /Account/Manage/Email
+[2023-06-07 16:19:45.163 +02:00  INF]  Executing handler method BloodTypeC.WebApp.Areas.Identity.Pages.Account.Manage.EmailModel.OnGetAsync - ModelState is "Valid"
+[2023-06-07 16:19:45.166 +02:00  INF]  Executed DbCommand (1ms) [Parameters=[@__p_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__p_0
+[2023-06-07 16:19:45.171 +02:00  INF]  Executed handler method OnGetAsync, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+[2023-06-07 16:19:45.189 +02:00  INF]  Executed page /Account/Manage/Email in 25.9406ms
+[2023-06-07 16:19:45.189 +02:00  INF]  Executed endpoint '/Account/Manage/Email'
+[2023-06-07 16:19:45.191 +02:00  INF]  Request finished HTTP/2 GET https://localhost:7100/Identity/Account/Manage/Email - - - 200 - text/html;+charset=utf-8 34.3224ms
+[2023-06-07 16:19:45.327 +02:00  INF]  Request starting HTTP/2 GET https://localhost:7100/_framework/aspnetcore-browser-refresh.js - -
+[2023-06-07 16:19:45.327 +02:00  INF]  Request finished HTTP/2 GET https://localhost:7100/_framework/aspnetcore-browser-refresh.js - - - 200 12004 application/javascript;+charset=utf-8 0.3641ms
+[2023-06-07 16:19:45.333 +02:00  INF]  Request starting HTTP/2 GET https://localhost:7100/_vs/browserLink - -
+[2023-06-07 16:19:45.340 +02:00  INF]  Request finished HTTP/2 GET https://localhost:7100/_vs/browserLink - - - 200 - text/javascript;+charset=UTF-8 6.3646ms
+[2023-06-07 16:19:46.544 +02:00  INF]  Request starting HTTP/2 GET https://localhost:7100/Identity/Account/Manage - -
+[2023-06-07 16:19:46.544 +02:00  INF]  Executing endpoint '/Account/Manage/Index'
+[2023-06-07 16:19:46.544 +02:00  INF]  Route matched with {page = "/Account/Manage/Index", area = "Identity", action = "", controller = ""}. Executing page /Account/Manage/Index
+[2023-06-07 16:19:46.545 +02:00  INF]  Executing handler method BloodTypeC.WebApp.Areas.Identity.Pages.Account.Manage.IndexModel.OnGetAsync - ModelState is "Valid"
+[2023-06-07 16:19:46.547 +02:00  INF]  Executed DbCommand (1ms) [Parameters=[@__p_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__p_0
+[2023-06-07 16:19:46.549 +02:00  INF]  Executed handler method OnGetAsync, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+[2023-06-07 16:19:46.554 +02:00  INF]  Executed page /Account/Manage/Index in 9.7917ms
+[2023-06-07 16:19:46.554 +02:00  INF]  Executed endpoint '/Account/Manage/Index'
+[2023-06-07 16:19:46.556 +02:00  INF]  Request finished HTTP/2 GET https://localhost:7100/Identity/Account/Manage - - - 200 - text/html;+charset=utf-8 12.6528ms
+[2023-06-07 16:19:46.691 +02:00  INF]  Request starting HTTP/2 GET https://localhost:7100/_framework/aspnetcore-browser-refresh.js - -
+[2023-06-07 16:19:46.691 +02:00  INF]  Request finished HTTP/2 GET https://localhost:7100/_framework/aspnetcore-browser-refresh.js - - - 200 12004 application/javascript;+charset=utf-8 0.5832ms
+[2023-06-07 16:19:46.700 +02:00  INF]  Request starting HTTP/2 GET https://localhost:7100/_vs/browserLink - -
+[2023-06-07 16:19:46.711 +02:00  INF]  Request finished HTTP/2 GET https://localhost:7100/_vs/browserLink - - - 200 - text/javascript;+charset=UTF-8 10.8260ms
+[2023-06-07 16:19:47.832 +02:00  INF]  Request starting HTTP/2 GET https://localhost:7100/Identity/Account/Manage/Email - -
+[2023-06-07 16:19:47.833 +02:00  INF]  Executing endpoint '/Account/Manage/Email'
+[2023-06-07 16:19:47.833 +02:00  INF]  Route matched with {page = "/Account/Manage/Email", area = "Identity", action = "", controller = ""}. Executing page /Account/Manage/Email
+[2023-06-07 16:19:47.834 +02:00  INF]  Executing handler method BloodTypeC.WebApp.Areas.Identity.Pages.Account.Manage.EmailModel.OnGetAsync - ModelState is "Valid"
+[2023-06-07 16:19:47.837 +02:00  INF]  Executed DbCommand (2ms) [Parameters=[@__p_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__p_0
+[2023-06-07 16:19:47.840 +02:00  INF]  Executed handler method OnGetAsync, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+[2023-06-07 16:19:47.846 +02:00  INF]  Executed page /Account/Manage/Email in 12.0591ms
+[2023-06-07 16:19:47.846 +02:00  INF]  Executed endpoint '/Account/Manage/Email'
+[2023-06-07 16:19:47.848 +02:00  INF]  Request finished HTTP/2 GET https://localhost:7100/Identity/Account/Manage/Email - - - 200 - text/html;+charset=utf-8 16.3740ms
+[2023-06-07 16:19:47.984 +02:00  INF]  Request starting HTTP/2 GET https://localhost:7100/_framework/aspnetcore-browser-refresh.js - -
+[2023-06-07 16:19:47.984 +02:00  INF]  Request finished HTTP/2 GET https://localhost:7100/_framework/aspnetcore-browser-refresh.js - - - 200 12004 application/javascript;+charset=utf-8 0.3261ms
+[2023-06-07 16:19:47.992 +02:00  INF]  Request starting HTTP/2 GET https://localhost:7100/_vs/browserLink - -
+[2023-06-07 16:19:47.998 +02:00  INF]  Request finished HTTP/2 GET https://localhost:7100/_vs/browserLink - - - 200 - text/javascript;+charset=UTF-8 6.0436ms
+[2023-06-07 16:19:49.249 +02:00  INF]  Request starting HTTP/2 GET https://localhost:7100/Identity/Account/Manage/ChangePassword - -
+[2023-06-07 16:19:49.250 +02:00  INF]  Executing endpoint '/Account/Manage/ChangePassword'
+[2023-06-07 16:19:49.251 +02:00  INF]  Route matched with {page = "/Account/Manage/ChangePassword", area = "Identity", action = "", controller = ""}. Executing page /Account/Manage/ChangePassword
+[2023-06-07 16:19:49.251 +02:00  INF]  Executing handler method BloodTypeC.WebApp.Areas.Identity.Pages.Account.Manage.ChangePasswordModel.OnGetAsync - ModelState is "Valid"
+[2023-06-07 16:19:49.253 +02:00  INF]  Executed DbCommand (2ms) [Parameters=[@__p_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__p_0
+[2023-06-07 16:19:49.256 +02:00  INF]  Executed handler method OnGetAsync, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+[2023-06-07 16:19:49.263 +02:00  INF]  Executed page /Account/Manage/ChangePassword in 12.3135ms
+[2023-06-07 16:19:49.263 +02:00  INF]  Executed endpoint '/Account/Manage/ChangePassword'
+[2023-06-07 16:19:49.265 +02:00  INF]  Request finished HTTP/2 GET https://localhost:7100/Identity/Account/Manage/ChangePassword - - - 200 - text/html;+charset=utf-8 15.9066ms
+[2023-06-07 16:19:49.404 +02:00  INF]  Request starting HTTP/2 GET https://localhost:7100/_framework/aspnetcore-browser-refresh.js - -
+[2023-06-07 16:19:49.404 +02:00  INF]  Request finished HTTP/2 GET https://localhost:7100/_framework/aspnetcore-browser-refresh.js - - - 200 12004 application/javascript;+charset=utf-8 0.5938ms
+[2023-06-07 16:19:49.411 +02:00  INF]  Request starting HTTP/2 GET https://localhost:7100/_vs/browserLink - -
+[2023-06-07 16:19:49.423 +02:00  INF]  Request finished HTTP/2 GET https://localhost:7100/_vs/browserLink - - - 200 - text/javascript;+charset=UTF-8 11.5160ms
+[2023-06-07 16:19:50.663 +02:00  INF]  Request starting HTTP/2 GET https://localhost:7100/Identity/Account/Manage/PersonalData - -
+[2023-06-07 16:19:50.664 +02:00  INF]  Executing endpoint '/Account/Manage/PersonalData'
+[2023-06-07 16:19:50.664 +02:00  INF]  Route matched with {page = "/Account/Manage/PersonalData", area = "Identity", action = "", controller = ""}. Executing page /Account/Manage/PersonalData
+[2023-06-07 16:19:50.664 +02:00  INF]  Executing handler method BloodTypeC.WebApp.Areas.Identity.Pages.Account.Manage.PersonalDataModel.OnGet - ModelState is "Valid"
+[2023-06-07 16:19:50.667 +02:00  INF]  Executed DbCommand (1ms) [Parameters=[@__p_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__p_0
+[2023-06-07 16:19:50.670 +02:00  INF]  Executed handler method OnGet, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+[2023-06-07 16:19:50.674 +02:00  INF]  Executed page /Account/Manage/PersonalData in 10.1768ms
+[2023-06-07 16:19:50.674 +02:00  INF]  Executed endpoint '/Account/Manage/PersonalData'
+[2023-06-07 16:19:50.676 +02:00  INF]  Request finished HTTP/2 GET https://localhost:7100/Identity/Account/Manage/PersonalData - - - 200 - text/html;+charset=utf-8 13.1546ms
+[2023-06-07 16:19:50.812 +02:00  INF]  Request starting HTTP/2 GET https://localhost:7100/_framework/aspnetcore-browser-refresh.js - -
+[2023-06-07 16:19:50.812 +02:00  INF]  Request finished HTTP/2 GET https://localhost:7100/_framework/aspnetcore-browser-refresh.js - - - 200 12004 application/javascript;+charset=utf-8 0.4421ms
+[2023-06-07 16:19:50.819 +02:00  INF]  Request starting HTTP/2 GET https://localhost:7100/_vs/browserLink - -
+[2023-06-07 16:19:50.825 +02:00  INF]  Request finished HTTP/2 GET https://localhost:7100/_vs/browserLink - - - 200 - text/javascript;+charset=UTF-8 6.3556ms
+[2023-06-07 16:19:52.874 +02:00  INF]  Request starting HTTP/2 GET https://localhost:7100/Admin/Index - -
+[2023-06-07 16:19:52.877 +02:00  INF]  Executing endpoint 'BloodTypeC.WebApp.Controllers.AdminController.Index (BloodTypeC.WebApp)'
+[2023-06-07 16:19:52.880 +02:00  INF]  Route matched with {action = "Index", controller = "Admin", page = "", area = ""}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Index() on controller BloodTypeC.WebApp.Controllers.AdminController (BloodTypeC.WebApp).
+[2023-06-07 16:19:52.883 +02:00  INF]  Executing ViewResult, running view Index.
+[2023-06-07 16:19:52.900 +02:00  INF]  Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+[2023-06-07 16:19:52.907 +02:00  INF]  Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[Id], [a].[ConcurrencyStamp], [a].[Name], [a].[NormalizedName]
+FROM [AspNetRoles] AS [a]
+[2023-06-07 16:19:52.916 +02:00  INF]  Executed ViewResult - view Index executed in 34.0309ms.
+[2023-06-07 16:19:52.916 +02:00  INF]  Executed action BloodTypeC.WebApp.Controllers.AdminController.Index (BloodTypeC.WebApp) in 36.4571ms
+[2023-06-07 16:19:52.916 +02:00  INF]  Executed endpoint 'BloodTypeC.WebApp.Controllers.AdminController.Index (BloodTypeC.WebApp)'
+[2023-06-07 16:19:52.918 +02:00  INF]  Request finished HTTP/2 GET https://localhost:7100/Admin/Index - - - 200 - text/html;+charset=utf-8 44.4917ms
+[2023-06-07 16:19:53.050 +02:00  INF]  Request starting HTTP/2 GET https://localhost:7100/_framework/aspnetcore-browser-refresh.js - -
+[2023-06-07 16:19:53.050 +02:00  INF]  Request finished HTTP/2 GET https://localhost:7100/_framework/aspnetcore-browser-refresh.js - - - 200 12004 application/javascript;+charset=utf-8 0.4630ms
+[2023-06-07 16:19:53.058 +02:00  INF]  Request starting HTTP/2 GET https://localhost:7100/_vs/browserLink - -
+[2023-06-07 16:19:53.069 +02:00  INF]  Request finished HTTP/2 GET https://localhost:7100/_vs/browserLink - - - 200 - text/javascript;+charset=UTF-8 10.5551ms
+[2023-06-07 16:19:53.124 +02:00  INF]  Request starting HTTP/2 GET https://localhost:7100/Admin/assets/favicon.ico - -
+[2023-06-07 16:19:53.126 +02:00  INF]  Request finished HTTP/2 GET https://localhost:7100/Admin/assets/favicon.ico - - - 404 0 - 2.1935ms
+[2023-06-07 16:19:54.164 +02:00  INF]  Request starting HTTP/2 GET https://localhost:7100/Beer/Create - -
+[2023-06-07 16:19:54.165 +02:00  INF]  Executing endpoint 'BloodTypeC.WebApp.Controllers.BeerController.Create (BloodTypeC.WebApp)'
+[2023-06-07 16:19:54.166 +02:00  INF]  Route matched with {action = "Create", controller = "Beer", page = "", area = ""}. Executing controller action with signature Microsoft.AspNetCore.Mvc.ActionResult Create() on controller BloodTypeC.WebApp.Controllers.BeerController (BloodTypeC.WebApp).
+[2023-06-07 16:19:54.182 +02:00  INF]  Executing ViewResult, running view Create.
+[2023-06-07 16:19:54.218 +02:00  INF]  Executed ViewResult - view Create executed in 36.5678ms.
+[2023-06-07 16:19:54.218 +02:00  INF]  Executed action BloodTypeC.WebApp.Controllers.BeerController.Create (BloodTypeC.WebApp) in 51.7998ms
+[2023-06-07 16:19:54.218 +02:00  INF]  Executed endpoint 'BloodTypeC.WebApp.Controllers.BeerController.Create (BloodTypeC.WebApp)'
+[2023-06-07 16:19:54.222 +02:00  INF]  Request finished HTTP/2 GET https://localhost:7100/Beer/Create - - - 200 - text/html;+charset=utf-8 57.3383ms
+[2023-06-07 16:19:54.353 +02:00  INF]  Request starting HTTP/2 GET https://localhost:7100/_framework/aspnetcore-browser-refresh.js - -
+[2023-06-07 16:19:54.354 +02:00  INF]  Request finished HTTP/2 GET https://localhost:7100/_framework/aspnetcore-browser-refresh.js - - - 200 12004 application/javascript;+charset=utf-8 0.4015ms
+[2023-06-07 16:19:54.361 +02:00  INF]  Request starting HTTP/2 GET https://localhost:7100/lib/jquery-validation/dist/jquery.validate.min.js - -
+[2023-06-07 16:19:54.367 +02:00  INF]  Request starting HTTP/2 GET https://localhost:7100/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js - -
+[2023-06-07 16:19:54.368 +02:00  INF]  Request starting HTTP/2 GET https://localhost:7100/_vs/browserLink - -
+[2023-06-07 16:19:54.374 +02:00  INF]  Request finished HTTP/2 GET https://localhost:7100/_vs/browserLink - - - 200 - text/javascript;+charset=UTF-8 6.4524ms
+[2023-06-07 16:19:54.476 +02:00  INF]  Sending file. Request path: '/lib/jquery-validation/dist/jquery.validate.min.js'. Physical path: 'D:\Repozytoria\jcszr8-BloodTypeC\BloodTypeC.WebApp\wwwroot\lib\jquery-validation\dist\jquery.validate.min.js'
+[2023-06-07 16:19:54.476 +02:00  INF]  Request finished HTTP/2 GET https://localhost:7100/lib/jquery-validation/dist/jquery.validate.min.js - - - 200 23264 application/javascript 115.2463ms
+[2023-06-07 16:19:54.479 +02:00  INF]  Sending file. Request path: '/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js'. Physical path: 'D:\Repozytoria\jcszr8-BloodTypeC\BloodTypeC.WebApp\wwwroot\lib\jquery-validation-unobtrusive\jquery.validate.unobtrusive.min.js'
+[2023-06-07 16:19:54.479 +02:00  INF]  Request finished HTTP/2 GET https://localhost:7100/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js - - - 200 5873 application/javascript 112.0273ms
+[2023-06-07 16:19:54.536 +02:00  INF]  Request starting HTTP/2 GET https://localhost:7100/Beer/assets/favicon.ico - -
+[2023-06-07 16:19:54.538 +02:00  INF]  Request finished HTTP/2 GET https://localhost:7100/Beer/assets/favicon.ico - - - 404 0 - 1.3893ms
+[2023-06-07 16:19:56.193 +02:00  INF]  Request starting HTTP/2 POST https://localhost:7100/Identity/Account/Logout?returnUrl=%2FHome%2FIndex application/x-www-form-urlencoded 225
+[2023-06-07 16:19:56.201 +02:00  INF]  Executing endpoint '/Account/Logout'
+[2023-06-07 16:19:56.203 +02:00  INF]  Route matched with {page = "/Account/Logout", area = "Identity", action = "", controller = ""}. Executing page /Account/Logout
+[2023-06-07 16:19:56.217 +02:00  INF]  Executing handler method BloodTypeC.WebApp.Areas.Identity.Pages.Account.LogoutModel.OnPost - ModelState is "Valid"
+[2023-06-07 16:19:56.220 +02:00  INF]  AuthenticationScheme: Identity.Application signed out.
+[2023-06-07 16:19:56.221 +02:00  INF]  AuthenticationScheme: Identity.External signed out.
+[2023-06-07 16:19:56.221 +02:00  INF]  AuthenticationScheme: Identity.TwoFactorUserId signed out.
+[2023-06-07 16:19:56.221 +02:00  INF]  User logged out.
+[2023-06-07 16:19:56.221 +02:00  INF]  Executed handler method OnPost, returned result Microsoft.AspNetCore.Mvc.LocalRedirectResult.
+[2023-06-07 16:19:56.222 +02:00  INF]  Executing LocalRedirectResult, redirecting to /Home/Index.
+[2023-06-07 16:19:56.222 +02:00  INF]  Executed page /Account/Logout in 18.7452ms
+[2023-06-07 16:19:56.222 +02:00  INF]  Executed endpoint '/Account/Logout'
+[2023-06-07 16:19:56.222 +02:00  INF]  Request finished HTTP/2 POST https://localhost:7100/Identity/Account/Logout?returnUrl=%2FHome%2FIndex application/x-www-form-urlencoded 225 - 302 0 - 29.5801ms
+[2023-06-07 16:19:56.227 +02:00  INF]  Request starting HTTP/2 GET https://localhost:7100/Home/Index - -
+[2023-06-07 16:19:56.227 +02:00  INF]  Executing endpoint 'BloodTypeC.WebApp.Controllers.HomeController.Index (BloodTypeC.WebApp)'
+[2023-06-07 16:19:56.227 +02:00  INF]  Route matched with {action = "Index", controller = "Home", page = "", area = ""}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Index() on controller BloodTypeC.WebApp.Controllers.HomeController (BloodTypeC.WebApp).
+[2023-06-07 16:19:56.230 +02:00  INF]  Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[Id], [a].[Added], [a].[AlcoholByVolume], [a].[Brewery], [a].[Flavors], [a].[Image], [a].[LastModified], [a].[Name], [a].[Score], [a].[Style], [t].[FavoriteBeersId], [t].[FavoriteUsersId], [t].[Id], [t].[AccessFailedCount], [t].[ConcurrencyStamp], [t].[Email], [t].[EmailConfirmed], [t].[LockoutEnabled], [t].[LockoutEnd], [t].[NormalizedEmail], [t].[NormalizedUserName], [t].[PasswordHash], [t].[PhoneNumber], [t].[PhoneNumberConfirmed], [t].[SecurityStamp], [t].[TwoFactorEnabled], [t].[UserName]
+FROM [AllBeers] AS [a]
+LEFT JOIN (
+    SELECT [b].[FavoriteBeersId], [b].[FavoriteUsersId], [a0].[Id], [a0].[AccessFailedCount], [a0].[ConcurrencyStamp], [a0].[Email], [a0].[EmailConfirmed], [a0].[LockoutEnabled], [a0].[LockoutEnd], [a0].[NormalizedEmail], [a0].[NormalizedUserName], [a0].[PasswordHash], [a0].[PhoneNumber], [a0].[PhoneNumberConfirmed], [a0].[SecurityStamp], [a0].[TwoFactorEnabled], [a0].[UserName]
+    FROM [BeerUser] AS [b]
+    INNER JOIN [AspNetUsers] AS [a0] ON [b].[FavoriteUsersId] = [a0].[Id]
+) AS [t] ON [a].[Id] = [t].[FavoriteBeersId]
+ORDER BY [a].[Id], [t].[FavoriteBeersId], [t].[FavoriteUsersId]
+[2023-06-07 16:19:56.231 +02:00  INF]  Executing ViewResult, running view Index.
+[2023-06-07 16:19:56.244 +02:00  INF]  Executed ViewResult - view Index executed in 13.1492ms.
+[2023-06-07 16:19:56.244 +02:00  INF]  Executed action BloodTypeC.WebApp.Controllers.HomeController.Index (BloodTypeC.WebApp) in 16.5709ms
+[2023-06-07 16:19:56.244 +02:00  INF]  Executed endpoint 'BloodTypeC.WebApp.Controllers.HomeController.Index (BloodTypeC.WebApp)'
+[2023-06-07 16:19:56.248 +02:00  INF]  Request finished HTTP/2 GET https://localhost:7100/Home/Index - - - 200 - text/html;+charset=utf-8 21.4780ms
+[2023-06-07 16:19:56.381 +02:00  INF]  Request starting HTTP/2 GET https://localhost:7100/_framework/aspnetcore-browser-refresh.js - -
+[2023-06-07 16:19:56.381 +02:00  INF]  Request finished HTTP/2 GET https://localhost:7100/_framework/aspnetcore-browser-refresh.js - - - 200 12004 application/javascript;+charset=utf-8 0.3094ms
+[2023-06-07 16:19:56.403 +02:00  INF]  Request starting HTTP/2 GET https://localhost:7100/_vs/browserLink - -
+[2023-06-07 16:19:56.409 +02:00  INF]  Request finished HTTP/2 GET https://localhost:7100/_vs/browserLink - - - 200 - text/javascript;+charset=UTF-8 6.1431ms
