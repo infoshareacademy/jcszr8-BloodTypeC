@@ -57,10 +57,9 @@ namespace BloodTypeC.WebApp.Controllers
                 var user = await _userManager.FindByNameAsync(User.Identity.Name);
                 await _beerServices.AddFromView(beerFromView, user);
 
-                var userActivity = GetUserInfoForActivityTemplate();
+                var userActivity = GetUserActivityTemplate();
                 userActivity.User = user;
                 userActivity.ObjectName = beerFromView.Name;
-                var asd = Request.Headers.Referer.ToString();
                 userActivity.UserAction = UserActions.AddBeer;
                 
                 await _userActivityServices.AddUserActivityAsync(userActivity);
@@ -130,7 +129,7 @@ namespace BloodTypeC.WebApp.Controllers
                 return View();
             }
         }
-        private UserActivity GetUserInfoForActivityTemplate()
+        private UserActivity GetUserActivityTemplate()
         {
             var userActivity = new UserActivity()
             {
