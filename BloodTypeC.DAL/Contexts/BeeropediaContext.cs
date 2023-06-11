@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
+using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace BloodTypeC.DAL.Contexts
 {
@@ -41,6 +42,10 @@ namespace BloodTypeC.DAL.Contexts
                 .Property(f => f.Flavors)
                 .Metadata
                 .SetValueComparer(valueComparer);
+
+            modelBuilder.Entity<Beer>()
+                .Property(a => a.Added)
+                .Metadata.SetAfterSaveBehavior(PropertySaveBehavior.Ignore);
 
             modelBuilder.Entity<User>()
                 .HasMany(user=>user.AddedBeers)

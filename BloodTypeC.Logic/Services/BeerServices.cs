@@ -36,6 +36,7 @@ namespace BloodTypeC.Logic.Services
         public async Task EditFromView(BeerViewModel beerFromView)
         {
             var beerToEdit = _mapper.Map(beerFromView, await _repository.GetById(beerFromView.Id));
+            beerToEdit.LastModified = DateTime.Now;
             await _repository.Update(beerToEdit);
         }
 
