@@ -1,5 +1,4 @@
 ﻿using BloodTypeC.DAL.Contexts;
-using BloodTypeC.DAL.Models;
 using BloodTypeC.DAL.Models.BaseEntity;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
@@ -29,8 +28,8 @@ namespace BloodTypeC.DAL.Repository
         {
             if (entity != null)
             {
-            _entities.Add(entity);
-            await _context.SaveChangesAsync();
+                _entities.Add(entity);
+                await _context.SaveChangesAsync();
             }
         }
 
@@ -51,14 +50,15 @@ namespace BloodTypeC.DAL.Repository
             return await _entities.FirstOrDefaultAsync(x => x.Id == id);
         }
 
-        public async Task<T> GetById(string id, Expression<Func<T, object>>? include = null)
+        public async Task<T> GetById(string id, params Expression<Func<T, object>>[] includes)
         {
-            if (include != null)
+            IQueryable<T> query = _entities;
+            List<T> result = new();
+            foreach (Expression<Func<T, object>> include in includes)
             {
-                return await _entities.Include(include).FirstOrDefaultAsync(x=> x.Id == id);
+                result.AddRange(await query.Include(include).Distinct().ToListAsync());
             }
-
-            return await _entities.FirstOrDefaultAsync(x => x.Id == id);
+            return result.FirstOrDefault(x => x.Id == id);
         }
     }
 }

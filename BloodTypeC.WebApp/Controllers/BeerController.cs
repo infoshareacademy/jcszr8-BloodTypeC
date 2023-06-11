@@ -5,7 +5,6 @@ using BloodTypeC.Logic.Services.IServices;
 using BloodTypeC.WebApp.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using NuGet.Protocol.Core.Types;
 using static BloodTypeC.DAL.Models.Enums.Enums;
 
 namespace BloodTypeC.WebApp.Controllers

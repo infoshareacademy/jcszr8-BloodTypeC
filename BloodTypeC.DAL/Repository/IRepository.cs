@@ -10,6 +10,6 @@ namespace BloodTypeC.DAL.Repository
         public Task Delete(T entity);
         public Task Update(T entity);
         public Task<T> GetById(string id);
-        public Task<T> GetById(string id, Expression<Func<T, object>>? include = null);
+        public Task<T> GetById(string id, params Expression<Func<T, object>>[] includes);
     }
 }

@@ -1,13 +1,8 @@
 ﻿using AutoMapper;
 using BloodTypeC.DAL.Models;
-using BloodTypeC.DAL.Models.Enums;
 using BloodTypeC.DAL.Repository;
 using BloodTypeC.Logic.Services.IServices;
 using BloodTypeC.WebApp.Models;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
-using static BloodTypeC.DAL.Models.Enums.Enums;
 
 namespace BloodTypeC.Logic.Services
 {
@@ -35,7 +30,7 @@ namespace BloodTypeC.Logic.Services
 
         public async Task<Beer> GetById(string id)
         {
-            return await _repository.GetById(id, x=> x.AddedByUser);
+            return await _repository.GetById(id, x=> x.AddedByUser, x=> x.FavoriteUsers);
         }
 
         public async Task EditFromView(BeerViewModel beerFromView)
