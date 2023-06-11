@@ -1,9 +1,7 @@
 ﻿using AutoMapper;
 using BloodTypeC.DAL.Models;
-using BloodTypeC.DAL.Repository;
 using BloodTypeC.Logic.Services.IServices;
 using BloodTypeC.WebApp.Models;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using static BloodTypeC.DAL.Models.Enums.Enums;

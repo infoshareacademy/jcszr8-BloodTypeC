@@ -1,9 +1,6 @@
 ﻿using BloodTypeC.DAL.Models;
-using BloodTypeC.DAL.Models.Views;
 using BloodTypeC.DAL.Repository;
 using BloodTypeC.Logic.Services.IServices;
-using BloodTypeC.WebApp.Models;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 

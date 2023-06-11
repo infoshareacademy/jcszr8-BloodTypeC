@@ -1,5 +1,4 @@
 ﻿using BloodTypeC.DAL.Models;
-using BloodTypeC.Logic.Services;
 using BloodTypeC.Logic.Services.IServices;
 using BloodTypeC.WebApp.Models;
 using Microsoft.AspNetCore.Mvc;
