@@ -10,5 +10,6 @@ namespace BloodTypeC.DAL.Models
         public DateTime Time { get; set; } = DateTime.Now;
         public string IPAddress { get; set; }
         public string UserAgent { get; set; }
+        public string ObjectName { get; set; }
     }
 }

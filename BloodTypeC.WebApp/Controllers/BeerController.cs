@@ -3,6 +3,7 @@ using BloodTypeC.DAL.Models;
 using BloodTypeC.DAL.Repository;
 using BloodTypeC.Logic.Services.IServices;
 using BloodTypeC.WebApp.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using static BloodTypeC.DAL.Models.Enums.Enums;
@@ -13,15 +14,16 @@ namespace BloodTypeC.WebApp.Controllers
     {
         private readonly IBeerServices _beerServices;
         private readonly IMapper _mapper;
-        private readonly IRepository<UserActivity> _userActivityRepository;
         private readonly UserManager<User> _userManager;
-        public BeerController(IBeerServices beerServices, IMapper mapper, IRepository<UserActivity> userActivityRepository, UserManager<User> userManager)
+        private readonly IUserActivityServices _userActivityServices;
+        public BeerController(IBeerServices beerServices, IMapper mapper, UserManager<User> userManager, IUserActivityServices userActivityServices)
         {
             _beerServices = beerServices;
-            _mapper= mapper;
-            _userActivityRepository = userActivityRepository;
-            _userManager= userManager;
+            _mapper = mapper;
+            _userManager = userManager;
+            _userActivityServices = userActivityServices;
         }
+
 
         // GET: BeerController/Details/5
         public async Task<ActionResult> Details(string id)
@@ -37,7 +39,7 @@ namespace BloodTypeC.WebApp.Controllers
             var newBeer = new Beer();
             newBeer.Flavors = new List<string>() { "" };
             var newBeerDto = _mapper.Map<BeerViewModel>(newBeer);
-            
+
             return View(newBeerDto);
         }
 
@@ -46,24 +48,22 @@ namespace BloodTypeC.WebApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(BeerViewModel beerFromView)
         {
-            var user = await _userManager.FindByNameAsync(User.Identity.Name);
-            var userAgent = Request.Headers.UserAgent.ToString();
-            var userIP = HttpContext.Connection.RemoteIpAddress?.ToString();
             try
             {
                 if (!ModelState.IsValid)
                 {
                     return View(beerFromView);
                 }
-
+                var user = await _userManager.FindByNameAsync(User.Identity.Name);
                 await _beerServices.AddFromView(beerFromView, user);
-                await AddUserActivity(new UserActivity()
-                                        {
-                                            IPAddress = userIP,
-                                            User = user,
-                                            UserAction = UserActions.AddBeer,
-                                            UserAgent = userAgent,
-                                        });
+
+                var userActivity = GetUserInfoForActivityTemplate();
+                userActivity.User = user;
+                userActivity.ObjectName = beerFromView.Name;
+                var asd = Request.Headers.Referer.ToString();
+                userActivity.UserAction = UserActions.AddBeer;
+                
+                await _userActivityServices.AddUserActivityAsync(userActivity);
 
                 return RedirectToAction("Index", "Home");
             }
@@ -130,9 +130,14 @@ namespace BloodTypeC.WebApp.Controllers
                 return View();
             }
         }
-        private async Task AddUserActivity(UserActivity userActivity)
+        private UserActivity GetUserInfoForActivityTemplate()
         {
-            await _userActivityRepository.Insert(userActivity);
+            var userActivity = new UserActivity()
+            {
+                IPAddress = HttpContext.Connection.RemoteIpAddress?.ToString(),
+                UserAgent = Request.Headers.UserAgent.ToString(),
+            };
+            return userActivity;
         }
     }
 }
