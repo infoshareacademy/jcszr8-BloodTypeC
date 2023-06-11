@@ -1,9 +1,7 @@
 ﻿using AutoMapper;
 using BloodTypeC.DAL.Models;
 using BloodTypeC.Logic;
-using BloodTypeC.Logic.Extensions;
 using BloodTypeC.WebApp.Models;
-using System.ComponentModel.DataAnnotations;
 
 namespace BloodTypeC.WebApp.Profiles
 {
@@ -11,9 +9,8 @@ namespace BloodTypeC.WebApp.Profiles
     {
         public AddBeerProfile()
         {
-            var beer = new BeerViewModel();
-            var maxScore = Convert.ToDouble(beer.GetAttributeFrom<RangeAttribute>(nameof(beer.Score)).Maximum);
-            var maxAbv = Convert.ToDouble(beer.GetAttributeFrom<RangeAttribute>(nameof(beer.AlcoholByVolume)).Maximum);
+            var maxScore = Consts.maxScore;
+            var maxAbv = Consts.maxAbv;
 
             CreateMap<Beer, BeerViewModel>()
                 .ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null));
