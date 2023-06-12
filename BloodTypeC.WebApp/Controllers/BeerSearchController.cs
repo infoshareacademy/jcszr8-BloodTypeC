@@ -1,7 +1,9 @@
 ﻿using BloodTypeC.DAL.Models;
 using BloodTypeC.Logic.Services.IServices;
 using BloodTypeC.WebApp.Models;
+using BloodTypeC.WebApp.WebExtensions;
 using Microsoft.AspNetCore.Mvc;
+using static BloodTypeC.DAL.Models.Enums.Enums;
 
 namespace BloodTypeC.WebApp.Controllers
 {
@@ -11,12 +13,14 @@ namespace BloodTypeC.WebApp.Controllers
         private static List<string> _allFlavors;
         private readonly IBeerServices _beerServices;
         private readonly IBeerSearchServices _beerSearchServices;
-        public BeerSearchController(IBeerServices beerServices, IBeerSearchServices beerSearchServices) 
+        private readonly IUserActivityServices _userActivityServices;
+        public BeerSearchController(IBeerServices beerServices, IBeerSearchServices beerSearchServices, IUserActivityServices userActivityServices) 
         {
             _beerServices = beerServices;
             _beerSearchServices = beerSearchServices;
             _flavorsToSearch = new List<FlavorToSearch>();
             _allFlavors = beerSearchServices.GetAllFlavors(_beerServices.GetAll().Result.ToList());
+            _userActivityServices = userActivityServices;
         }
         // GET: SearchController
         public IActionResult Index()
@@ -36,7 +40,7 @@ namespace BloodTypeC.WebApp.Controllers
             return View(model);
         }
         [HttpPost]
-        public IActionResult Index(IndexViewModel model)
+        public async Task<IActionResult> Index(IndexViewModel model)
         {
             var minimumAlcohol = 0.0;
             var maximumAlcohol = double.MaxValue;
@@ -94,6 +98,13 @@ namespace BloodTypeC.WebApp.Controllers
 
             resultList = _beerSearchServices.SearchByAlcVol(resultList, minimumAlcohol, maximumAlcohol);
             model.Beers = resultList;
+            
+            var userActivityTemplate = this.CreateUserActivityWithUserConnectionInfo();
+            var filteredBeers = model.Beers.Select(x => x.Name).Aggregate((concat, str) => $"{concat} {str} ");
+            var userActivity = await _userActivityServices.CreateUserActivity(userActivityTemplate, User.Identity.Name,
+                UserActions.SearchForBeer, filteredBeers);
+            await _userActivityServices.AddUserActivityAsync(userActivity);
+
             return View(model);
         }    
     }

@@ -8,6 +8,10 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.ComponentModel.DataAnnotations;
+using System.Security.Claims;
+using BloodTypeC.DAL.Models.Enums;
+using BloodTypeC.Logic.Services.IServices;
+using BloodTypeC.WebApp.WebExtensions;
 
 namespace BloodTypeC.WebApp.Areas.Identity.Pages.Account
 {
@@ -15,13 +19,18 @@ namespace BloodTypeC.WebApp.Areas.Identity.Pages.Account
     {
         private readonly SignInManager<User> _signInManager;
         private readonly ILogger<LoginModel> _logger;
+        private readonly IHttpContextAccessor _contextAccessor;
+        private readonly IUserActivityServices _userActivityServices;
 
-        public LoginModel(SignInManager<User> signInManager, ILogger<LoginModel> logger)
+        public LoginModel(SignInManager<User> signInManager, ILogger<LoginModel> logger,
+            IHttpContextAccessor contextAccessor, IUserActivityServices userActivityServices)
         {
             _signInManager = signInManager;
             _logger = logger;
+            _contextAccessor = contextAccessor;
+            _userActivityServices = userActivityServices;
         }
-        
+
         /// <summary>
         ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
         ///     directly from your code. This API may change or be removed in future releases.
@@ -84,7 +93,7 @@ namespace BloodTypeC.WebApp.Areas.Identity.Pages.Account
             {
                 ModelState.AddModelError(string.Empty, ErrorMessage);
             }
-            
+
             returnUrl ??= Url.Content("~/");
 
             // Clear the existing external cookie to ensure a clean login process
@@ -101,6 +110,9 @@ namespace BloodTypeC.WebApp.Areas.Identity.Pages.Account
 
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
 
+            var ip = _contextAccessor?.HttpContext?.Connection?.RemoteIpAddress?.ToString();
+            var userActivityTemplate = new UserActivity() { IPAddress = ip, UserAgent = _contextAccessor?.HttpContext?.Request?.Headers?.UserAgent.ToString() };
+
             if (ModelState.IsValid)
             {
                 // This doesn't count login failures towards account lockout
@@ -109,6 +121,10 @@ namespace BloodTypeC.WebApp.Areas.Identity.Pages.Account
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");
+                    var userActivity = await _userActivityServices.CreateUserActivity(userActivityTemplate,
+                        Input.Email, Enums.UserActions.LogIn, "Login");
+                    await _userActivityServices.AddUserActivityAsync(userActivity);
+
                     return LocalRedirect(returnUrl);
                 }
                 if (result.RequiresTwoFactor)
@@ -122,6 +138,10 @@ namespace BloodTypeC.WebApp.Areas.Identity.Pages.Account
                 }
                 else
                 {
+                    var userActivity = await _userActivityServices.CreateUserActivity(userActivityTemplate,
+                        string.Empty, Enums.UserActions.FailedLogin, Input.Email);
+                    await _userActivityServices.AddUserActivityAsync(userActivity);
+
                     ModelState.AddModelError(string.Empty, "Invalid login attempt.");
                     return Page();
                 }
