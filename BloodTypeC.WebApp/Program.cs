@@ -6,7 +6,6 @@ using BloodTypeC.Logic.Services.IServices;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
 using System.Globalization;
-using Microsoft.EntityFrameworkCore;
 
 namespace BloodTypeC.WebApp
 {

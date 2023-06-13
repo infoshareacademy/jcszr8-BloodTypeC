@@ -1,5 +1,4 @@
-﻿using Azure.Core;
-using BloodTypeC.DAL.Models;
+﻿using BloodTypeC.DAL.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BloodTypeC.WebApp.WebExtensions
