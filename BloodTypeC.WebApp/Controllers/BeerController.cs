@@ -33,7 +33,7 @@ namespace BloodTypeC.WebApp.Controllers
             var userActivityTemplate = this.CreateUserActivityWithUserConnectionInfo();
             var userActivity = await _userActivityServices.CreateUserActivity(userActivityTemplate, User.Identity.Name,
                 UserActions.ViewBeer, newBeerDto.Name);
-            await _userActivityServices.AddUserActivityAsync(userActivity);
+            await _userActivityServices.LogUserActivityAsync(userActivity);
 
             return View(newBeerDto);
         }
@@ -65,7 +65,7 @@ namespace BloodTypeC.WebApp.Controllers
                 var userActivityTemplate = this.CreateUserActivityWithUserConnectionInfo();
                 var userActivity = await _userActivityServices.CreateUserActivity(userActivityTemplate, user.UserName,
                     UserActions.AddBeer, beerFromView.Name);
-                await _userActivityServices.AddUserActivityAsync(userActivity);
+                await _userActivityServices.LogUserActivityAsync(userActivity);
 
                 return RedirectToAction("Index", "Home");
             }
@@ -101,7 +101,7 @@ namespace BloodTypeC.WebApp.Controllers
                 var userActivityTemplate = this.CreateUserActivityWithUserConnectionInfo();
                 var userActivity = await _userActivityServices.CreateUserActivity(userActivityTemplate, User.Identity.Name,
                     UserActions.EditBeer, beerDto.Name);
-                await _userActivityServices.AddUserActivityAsync(userActivity);
+                await _userActivityServices.LogUserActivityAsync(userActivity);
 
 
                 return RedirectToAction("Index", "Home");
@@ -135,7 +135,7 @@ namespace BloodTypeC.WebApp.Controllers
                 var userActivityTemplate = this.CreateUserActivityWithUserConnectionInfo();
                 var userActivity = await _userActivityServices.CreateUserActivity(userActivityTemplate, User.Identity.Name,
                     UserActions.RemoveBeer, _beerServices.GetById(id).Result.Name);
-                await _userActivityServices.AddUserActivityAsync(userActivity);
+                await _userActivityServices.LogUserActivityAsync(userActivity);
 
                 await _beerServices.Delete(id);
                 return RedirectToAction("Index", "Home");

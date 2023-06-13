@@ -16,7 +16,7 @@ namespace BloodTypeC.Logic.Services
             _userActivityRepository = userActivityRepository;
             _userManager = userManager;
         }
-        public async Task AddUserActivityAsync(UserActivity userActivity)
+        public async Task LogUserActivityAsync(UserActivity userActivity)
         {
             await _userActivityRepository.Insert(userActivity);
         }

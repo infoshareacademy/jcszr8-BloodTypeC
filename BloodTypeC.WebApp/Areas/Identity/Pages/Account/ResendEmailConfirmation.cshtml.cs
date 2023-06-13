@@ -92,7 +92,7 @@ namespace BloodTypeC.WebApp.Areas.Identity.Pages.Account
             var userActivityTemplate = new UserActivity() { IPAddress = ip, UserAgent = _contextAccessor.HttpContext.Request.Headers.UserAgent.ToString() };
             var userActivity = await _userActivityServices.CreateUserActivity(userActivityTemplate,
                 Input.Email, Enums.UserActions.ResendConfirmationEmail, string.Empty);
-            await _userActivityServices.AddUserActivityAsync(userActivity);
+            await _userActivityServices.LogUserActivityAsync(userActivity);
 
 
             ModelState.AddModelError(string.Empty, "Verification email sent. Please check your email.");

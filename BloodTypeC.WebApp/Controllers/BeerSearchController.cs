@@ -103,7 +103,7 @@ namespace BloodTypeC.WebApp.Controllers
             var filteredBeers = model.Beers.Select(x => x.Name).Aggregate((concat, str) => $"{concat} {str} ");
             var userActivity = await _userActivityServices.CreateUserActivity(userActivityTemplate, User.Identity.Name,
                 UserActions.SearchForBeer, filteredBeers);
-            await _userActivityServices.AddUserActivityAsync(userActivity);
+            await _userActivityServices.LogUserActivityAsync(userActivity);
 
             return View(model);
         }    

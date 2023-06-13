@@ -115,7 +115,7 @@ namespace BloodTypeC.WebApp.Areas.Identity.Pages.Account
                 var userActivityTemplate = new UserActivity() { IPAddress = ip, UserAgent = _contextAccessor.HttpContext.Request.Headers.UserAgent.ToString() };
                 var userActivity = await _userActivityServices.CreateUserActivity(userActivityTemplate,
                     Input.Email, Enums.UserActions.ResetPassword, string.Empty);
-                await _userActivityServices.AddUserActivityAsync(userActivity);
+                await _userActivityServices.LogUserActivityAsync(userActivity);
 
                 return RedirectToPage("./ResetPasswordConfirmation");
             }

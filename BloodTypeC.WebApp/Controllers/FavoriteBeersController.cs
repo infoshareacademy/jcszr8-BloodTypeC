@@ -36,7 +36,7 @@ namespace BloodTypeC.WebApp.Controllers
             var favoriteBeers = model.FavoriteBeers.Select(x => x.Name).Aggregate((concat, str) => $"{concat} {str} ");
             var userActivity = await _userActivityServices.CreateUserActivity(userActivityTemplate, User.Identity.Name,
                 UserActions.ViewFavorites, favoriteBeers);
-            await _userActivityServices.AddUserActivityAsync(userActivity);
+            await _userActivityServices.LogUserActivityAsync(userActivity);
 
             return View(model);
         }
@@ -50,7 +50,7 @@ namespace BloodTypeC.WebApp.Controllers
             var beer = await _beerServices.GetById(id);
             var userActivity = await _userActivityServices.CreateUserActivity(userActivityTemplate, User.Identity.Name,
                 UserActions.AddBeerToFavorites, beer.Name);
-            await _userActivityServices.AddUserActivityAsync(userActivity);
+            await _userActivityServices.LogUserActivityAsync(userActivity);
 
             return RedirectToAction(HttpContext.GetController(), HttpContext.GetAction(), new { id });
         }
@@ -64,7 +64,7 @@ namespace BloodTypeC.WebApp.Controllers
             var beer = await _beerServices.GetById(id);
             var userActivity = await _userActivityServices.CreateUserActivity(userActivityTemplate, User.Identity.Name,
                 UserActions.RemoveBeerFromFavorites, beer.Name);
-            await _userActivityServices.AddUserActivityAsync(userActivity);
+            await _userActivityServices.LogUserActivityAsync(userActivity);
 
             return RedirectToAction(HttpContext.GetController(), HttpContext.GetAction(), new { id });
         }

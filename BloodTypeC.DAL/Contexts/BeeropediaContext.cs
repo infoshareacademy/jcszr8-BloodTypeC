@@ -1,9 +1,11 @@
 ﻿using BloodTypeC.DAL.Models;
+using BloodTypeC.DAL.Models.Enums;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace BloodTypeC.DAL.Contexts
 {
@@ -58,6 +60,10 @@ namespace BloodTypeC.DAL.Contexts
             modelBuilder.Entity<UserActivity>()
                 .Property(prop => prop.Id)
                 .ValueGeneratedOnAdd();
+
+            modelBuilder.Entity<UserActivity>()
+                .Property(e => e.UserAction)
+                .HasConversion(new EnumToStringConverter<Enums.UserActions>());
         }
     }
 }

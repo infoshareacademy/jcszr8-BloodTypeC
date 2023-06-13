@@ -123,7 +123,7 @@ namespace BloodTypeC.WebApp.Areas.Identity.Pages.Account
                     _logger.LogInformation("User logged in.");
                     var userActivity = await _userActivityServices.CreateUserActivity(userActivityTemplate,
                         Input.Email, Enums.UserActions.LogIn, "Login");
-                    await _userActivityServices.AddUserActivityAsync(userActivity);
+                    await _userActivityServices.LogUserActivityAsync(userActivity);
 
                     return LocalRedirect(returnUrl);
                 }
@@ -140,7 +140,7 @@ namespace BloodTypeC.WebApp.Areas.Identity.Pages.Account
                 {
                     var userActivity = await _userActivityServices.CreateUserActivity(userActivityTemplate,
                         string.Empty, Enums.UserActions.FailedLogin, Input.Email);
-                    await _userActivityServices.AddUserActivityAsync(userActivity);
+                    await _userActivityServices.LogUserActivityAsync(userActivity);
 
                     ModelState.AddModelError(string.Empty, "Invalid login attempt.");
                     return Page();

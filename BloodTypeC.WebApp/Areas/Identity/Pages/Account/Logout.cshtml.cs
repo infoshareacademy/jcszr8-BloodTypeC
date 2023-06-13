@@ -33,7 +33,7 @@ namespace BloodTypeC.WebApp.Areas.Identity.Pages.Account
             var userActivityTemplate = new UserActivity() { IPAddress = ip, UserAgent = _contextAccessor?.HttpContext?.Request?.Headers?.UserAgent.ToString() };
             var userActivity = await _userActivityServices.CreateUserActivity(userActivityTemplate,
                 _contextAccessor.HttpContext.User.Identity.Name, Enums.UserActions.LogOut, "Logout");
-            await _userActivityServices.AddUserActivityAsync(userActivity);
+            await _userActivityServices.LogUserActivityAsync(userActivity);
 
             await _signInManager.SignOutAsync();
             _logger.LogInformation("User logged out.");
