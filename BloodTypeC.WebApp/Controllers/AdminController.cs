@@ -1,5 +1,6 @@
 ﻿using BloodTypeC.DAL.Models;
 using BloodTypeC.DAL.Models.Views;
+using BloodTypeC.Logic.Services.IServices;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -11,11 +12,13 @@ namespace BloodTypeC.WebApp.Controllers
     {
         private readonly UserManager<User> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly IMailService _mailService;
 
-        public AdminController(UserManager<User> userManager, RoleManager<IdentityRole> roleManager)
+        public AdminController(UserManager<User> userManager, RoleManager<IdentityRole> roleManager, IMailService mailService)
         {
             _userManager = userManager;
             _roleManager = roleManager;
+            _mailService = mailService;
         }
 
         public IActionResult Index()
@@ -205,6 +208,15 @@ namespace BloodTypeC.WebApp.Controllers
                 var user = await _userManager.FindByIdAsync(id);
                 await _userManager.RemoveFromRoleAsync(user, roleName);
             return RedirectToAction("AssignUserRoles", new { userId = user.Id });
+        }
+        
+        public async Task<IActionResult> SendMailAsync()
+        {
+            var mailData = new MailData(new List<string>() { "marekzegarekspam@gmail.com" }, "test", "treść wiadomości",
+                null, "display bloodtypec", "bloodtypec@wp.pl");
+            await _mailService.SendAsync(mailData, new CancellationToken());
+
+            return RedirectToAction("Index");
         }
     }
 }

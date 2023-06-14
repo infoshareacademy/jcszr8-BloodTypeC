@@ -16,7 +16,6 @@ namespace BloodTypeC.WebApp
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
-
             var logger = new LoggerConfiguration()
                 .ReadFrom.Configuration(builder.Configuration)
                 .Enrich.FromLogContext()
@@ -26,6 +25,8 @@ namespace BloodTypeC.WebApp
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+            builder.Services.Configure<MailSettings>(builder.Configuration.GetSection(nameof(MailSettings)));
+            builder.Services.AddTransient<IMailService, MailService>();
             builder.Services.AddScoped<IBeerServices, BeerServices>();
             builder.Services.AddScoped<IBeerSearchServices, BeerSearchServices>();
             builder.Services.AddTransient<IFavoriteBeersServices, FavoriteBeersServices>();
