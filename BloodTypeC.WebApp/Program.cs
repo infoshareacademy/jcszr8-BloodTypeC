@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Localization;
 using System.Globalization;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
+using Serilog.Events;
 
 namespace BloodTypeC.WebApp
 {
@@ -18,9 +19,12 @@ namespace BloodTypeC.WebApp
             var builder = WebApplication.CreateBuilder(args);
 
             var logger = new LoggerConfiguration()
-                .ReadFrom.Configuration(builder.Configuration)
-                .Enrich.FromLogContext()
-                .CreateLogger();
+               .MinimumLevel.Debug()
+    .WriteTo.File(path: "Logs/debug.txt", rollingInterval: RollingInterval.Day)
+    .WriteTo.File(path: "Logs/info.txt", restrictedToMinimumLevel: LogEventLevel.Information, rollingInterval: RollingInterval.Day)
+    .WriteTo.File(path: "Logs/error.txt", restrictedToMinimumLevel: LogEventLevel.Error, rollingInterval: RollingInterval.Day)
+    
+    .CreateLogger();
             builder.Logging.ClearProviders();
             builder.Logging.AddSerilog(logger);
 
