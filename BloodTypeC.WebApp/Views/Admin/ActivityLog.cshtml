@@ -1,0 +1,47 @@
+﻿@using Microsoft.AspNetCore.Mvc.TagHelpers
+@model BloodTypeC.DAL.Models.Views.ActivityLogViewModel
+
+@{
+    ViewData["Title"] = "Activity Log";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="page-name">User activity</div>
+
+<div class="search-form">
+    <div class="center-elements">
+        <div class="col-md-6">
+            <form asp-action="ActivityLog" class="text-white">
+                <div>
+                    <input type="email" asp-for="TargetUser" class="form-control" placeholder="E-mail address of the user you want to check activity of" style="text-align: center" />
+                </div>
+                <span asp-validation-for="TargetUser" class="text-danger"></span>
+                <div class="form-btn">
+                    <button type="submit" class="search-button">Search</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+@if (!string.IsNullOrEmpty(Model.TargetUser))
+{
+    <div class="center-elements">
+        <div class="table-responsive col-md-6">
+            <table class="table table-bordered text-white" style="text-align: center">
+                <thead>
+                    <tr>
+                        <th class="col-md-2" scope="col">Times logged in</th>
+                        <th class="col-md-2" scope="col">Times logged out</th>
+                        <th class="col-md-4" scope="col">Last logged activity</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td data-label="logins">@Model.UserLogIns</td>
+                        <td data-label="logouts">@Model.UserLogOuts</td>
+                        <td data-label="last-activity"> @Model.LastUserActivityTime - @Model.LastUserActivity, @Model.LastUserActivityObject</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+}

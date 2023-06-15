@@ -25,10 +25,10 @@ namespace BloodTypeC.WebApp.Controllers
         {
             var model = new AdminPanelViewModel();
             model.Users = _userManager.Users;
-            model.Roles= _roleManager.Roles;
+            model.Roles = _roleManager.Roles;
             return View(model);
         }
-        public IActionResult CreateUser() 
+        public IActionResult CreateUser()
         {
             return View();
         }
@@ -37,14 +37,14 @@ namespace BloodTypeC.WebApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> CreateUser(User user)
         {
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 User appUser = new User();
 
                 appUser.UserName = user.Email;
                 appUser.Email = user.Email;
                 IdentityResult result = await _userManager.CreateAsync(appUser, user.PasswordHash);
-                if (result.Succeeded) 
+                if (result.Succeeded)
                 {
                     return RedirectToAction("Index");
                 }
@@ -60,7 +60,7 @@ namespace BloodTypeC.WebApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> EditUser(string id, User user)
         {
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 var userToEdit = await _userManager.FindByIdAsync(id);
                 userToEdit.UserName = user.UserName;
@@ -166,7 +166,7 @@ namespace BloodTypeC.WebApp.Controllers
             var result = await _roleManager.DeleteAsync(roleToDelete);
             if (result.Succeeded)
             {
-               return RedirectToAction("Index");
+                return RedirectToAction("Index");
             }
             return View(role);
         }
@@ -198,25 +198,41 @@ namespace BloodTypeC.WebApp.Controllers
                 }
                 return RedirectToAction("Index");
             }
-            return RedirectToAction("AssignUserRoles",new {userId=model.User.Id});
+            return RedirectToAction("AssignUserRoles", new { userId = model.User.Id });
         }
 
         //[HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> RemoveUserRole(string id,string roleName)
+        public async Task<IActionResult> RemoveUserRole(string id, string roleName)
         {
-                var user = await _userManager.FindByIdAsync(id);
-                await _userManager.RemoveFromRoleAsync(user, roleName);
+            var user = await _userManager.FindByIdAsync(id);
+            await _userManager.RemoveFromRoleAsync(user, roleName);
             return RedirectToAction("AssignUserRoles", new { userId = user.Id });
         }
-        
+
         public async Task<IActionResult> SendMailAsync()
         {
-            var mailData = new MailData(new List<string>() { "marekzegarekspam@gmail.com" }, "test", "treść wiadomości",
+            var mailData = new MailData(new List<string>() { "gdntnaktfskpallkam@bbitj.com" }, "test", "treść wiadomości",
                 null, "display bloodtypec", "bloodtypec@wp.pl");
             await _mailService.SendAsync(mailData, new CancellationToken());
 
             return RedirectToAction("Index");
+        }
+
+        public async Task<IActionResult> ActivityLog()
+        {
+            var model = new ActivityLogViewModel();
+            return View(model);
+        }
+        [HttpPost]
+        public async Task<IActionResult> ActivityLog(ActivityLogViewModel model)
+        {
+            model.LastUserActivity = "dupa";
+            model.LastUserActivityObject = "maryny";
+            model.LastUserActivityTime = DateTime.Today;
+            model.UserLogIns = 1;
+            model.UserLogOuts = 14;
+            return View(model);
         }
     }
 }

@@ -15,11 +15,6 @@ namespace BloodTypeC.WebApp.Controllers
             _beerServices = beerServices;
             _mapper= mapper;
         }
-        // GET: BeerController
-        public ActionResult Index()
-        {
-            return View();
-        }
 
         // GET: BeerController/Details/5
         public async Task<ActionResult> Details(string id)
