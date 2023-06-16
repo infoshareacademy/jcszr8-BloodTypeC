@@ -33,7 +33,7 @@
             Flavors: @Model.FlavorString<br>
             Alcohol by volume: @Model.AlcoholByVolume<br>
             Score: @Model.Score/@maxScore<br>
-            Added by: @Model.AddedByUser?.UserName<br/>
+            Added by: @Model.AddedByUserString<br/>
             </div>
             <div class="buttons">
                 <a asp-action="Edit" asp-route-id="@Model.Id" asp-controller="Beer">

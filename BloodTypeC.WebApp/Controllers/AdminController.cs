@@ -210,15 +210,6 @@ namespace BloodTypeC.WebApp.Controllers
             return RedirectToAction("AssignUserRoles", new { userId = user.Id });
         }
 
-        public async Task<IActionResult> SendMailAsync()
-        {
-            var mailData = new MailData(new List<string>() { "gdntnaktfskpallkam@bbitj.com" }, "test", "treść wiadomości",
-                null, "display bloodtypec", "bloodtypec@wp.pl");
-            await _mailService.SendAsync(mailData, new CancellationToken());
-
-            return RedirectToAction("Index");
-        }
-
         public async Task<IActionResult> ActivityLog()
         {
             var model = new ActivityLogViewModel();

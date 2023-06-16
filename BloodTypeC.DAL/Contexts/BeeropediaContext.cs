@@ -64,6 +64,10 @@ namespace BloodTypeC.DAL.Contexts
             modelBuilder.Entity<UserActivity>()
                 .Property(e => e.UserAction)
                 .HasConversion(new EnumToStringConverter<Enums.UserActions>());
+
+            modelBuilder.Entity<User>()
+                .HasMany(prop => prop.UserActivities)
+                .WithOne(prop => prop.User);
         }
     }
 }

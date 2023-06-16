@@ -2,29 +2,27 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 #nullable disable
 
-using System;
-using System.ComponentModel.DataAnnotations;
-using System.Text;
-using System.Text.Encodings.Web;
-using System.Threading.Tasks;
+using BloodTypeC.DAL.Models;
+using BloodTypeC.Logic.Services.IServices;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
-using BloodTypeC.DAL.Models;
+using System.ComponentModel.DataAnnotations;
+using System.Text;
+using System.Text.Encodings.Web;
 
 namespace BloodTypeC.WebApp.Areas.Identity.Pages.Account
 {
     public class ForgotPasswordModel : PageModel
     {
         private readonly UserManager<User> _userManager;
-        private readonly IEmailSender _emailSender;
+        private readonly IMailService _mailService;
 
-        public ForgotPasswordModel(UserManager<User> userManager, IEmailSender emailSender)
+        public ForgotPasswordModel(UserManager<User> userManager, IMailService mailService)
         {
             _userManager = userManager;
-            _emailSender = emailSender;
+            _mailService = mailService;
         }
 
         /// <summary>
@@ -70,10 +68,12 @@ namespace BloodTypeC.WebApp.Areas.Identity.Pages.Account
                     values: new { area = "Identity", code },
                     protocol: Request.Scheme);
 
-                await _emailSender.SendEmailAsync(
-                    Input.Email,
-                    "Reset Password",
-                    $"Please reset your password by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+                await _mailService.SendAsync(new MailData(
+                    to: new List<string>() { Input.Email },
+                    subject: "Reset Password",
+                    body: $"Please reset your password by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.",
+                    from: Consts.mailSenderFrom,
+                    displayName: "Beeropedia"), new CancellationToken());
 
                 return RedirectToPage("./ForgotPasswordConfirmation");
             }

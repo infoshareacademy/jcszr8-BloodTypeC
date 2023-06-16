@@ -2,20 +2,17 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 #nullable disable
 
-using System;
-using System.ComponentModel.DataAnnotations;
-using System.Text;
-using System.Text.Encodings.Web;
-using System.Threading.Tasks;
 using BloodTypeC.DAL.Models;
 using BloodTypeC.DAL.Models.Enums;
 using BloodTypeC.Logic.Services.IServices;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
+using System.ComponentModel.DataAnnotations;
+using System.Text;
+using System.Text.Encodings.Web;
 
 namespace BloodTypeC.WebApp.Areas.Identity.Pages.Account
 {
@@ -23,14 +20,14 @@ namespace BloodTypeC.WebApp.Areas.Identity.Pages.Account
     public class ResendEmailConfirmationModel : PageModel
     {
         private readonly UserManager<User> _userManager;
-        private readonly IEmailSender _emailSender;
+        private readonly IMailService _mailService;
         private readonly IHttpContextAccessor _contextAccessor;
         private readonly IUserActivityServices _userActivityServices;
 
-        public ResendEmailConfirmationModel(UserManager<User> userManager, IEmailSender emailSender, IHttpContextAccessor contextAccessor, IUserActivityServices userActivityServices)
+        public ResendEmailConfirmationModel(UserManager<User> userManager, IMailService mailService, IHttpContextAccessor contextAccessor, IUserActivityServices userActivityServices)
         {
             _userManager = userManager;
-            _emailSender = emailSender;
+            _mailService = mailService;
             _contextAccessor = contextAccessor;
             _userActivityServices = userActivityServices;
         }
@@ -83,11 +80,13 @@ namespace BloodTypeC.WebApp.Areas.Identity.Pages.Account
                 pageHandler: null,
                 values: new { userId = userId, code = code },
                 protocol: Request.Scheme);
-            await _emailSender.SendEmailAsync(
-                Input.Email,
-                "Confirm your email",
-                $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
-            
+            await _mailService.SendAsync(new MailData(
+                to: new List<string>() { Input.Email },
+                subject: "Confirm your e-mail",
+                body: $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.",
+                from: Consts.mailSenderFrom,
+                displayName: "Beeropedia"), new CancellationToken());
+
             var ip = _contextAccessor.HttpContext.Connection.RemoteIpAddress.ToString();
             var userActivityTemplate = new UserActivity() { IPAddress = ip, UserAgent = _contextAccessor.HttpContext.Request.Headers.UserAgent.ToString() };
             var userActivity = await _userActivityServices.CreateUserActivity(userActivityTemplate,
