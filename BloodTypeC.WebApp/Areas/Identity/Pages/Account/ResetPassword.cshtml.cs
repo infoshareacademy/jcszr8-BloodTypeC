@@ -7,6 +7,8 @@ using System.ComponentModel.DataAnnotations;
 using System.Text;
 using System.Threading.Tasks;
 using BloodTypeC.DAL.Models;
+using BloodTypeC.DAL.Models.Enums;
+using BloodTypeC.Logic.Services.IServices;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -18,10 +20,14 @@ namespace BloodTypeC.WebApp.Areas.Identity.Pages.Account
     public class ResetPasswordModel : PageModel
     {
         private readonly UserManager<User> _userManager;
+        private readonly IHttpContextAccessor _contextAccessor;
+        private readonly IUserActivityServices _userActivityServices;
 
-        public ResetPasswordModel(UserManager<User> userManager)
+        public ResetPasswordModel(UserManager<User> userManager, IHttpContextAccessor contextAccessor, IUserActivityServices userActivityServices)
         {
             _userManager = userManager;
+            _contextAccessor = contextAccessor;
+            _userActivityServices = userActivityServices;
         }
 
         /// <summary>
@@ -105,6 +111,12 @@ namespace BloodTypeC.WebApp.Areas.Identity.Pages.Account
             var result = await _userManager.ResetPasswordAsync(user, Input.Code, Input.Password);
             if (result.Succeeded)
             {
+                var ip = _contextAccessor.HttpContext.Connection.RemoteIpAddress.ToString();
+                var userActivityTemplate = new UserActivity() { IPAddress = ip, UserAgent = _contextAccessor.HttpContext.Request.Headers.UserAgent.ToString() };
+                var userActivity = await _userActivityServices.CreateUserActivity(userActivityTemplate,
+                    Input.Email, Enums.UserActions.ResetPassword);
+                await _userActivityServices.LogUserActivityAsync(userActivity);
+
                 return RedirectToPage("./ResetPasswordConfirmation");
             }
 

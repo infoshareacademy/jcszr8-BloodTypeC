@@ -2,23 +2,18 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 #nullable disable
 
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Text.Encodings.Web;
-using System.Threading;
-using System.Threading.Tasks;
 using BloodTypeC.DAL.Models;
+using BloodTypeC.DAL.Models.Enums;
+using BloodTypeC.Logic.Services.IServices;
 using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
-using Microsoft.Extensions.Logging;
+using System.ComponentModel.DataAnnotations;
+using System.Text;
+using System.Text.Encodings.Web;
 
 namespace BloodTypeC.WebApp.Areas.Identity.Pages.Account
 {
@@ -30,13 +25,17 @@ namespace BloodTypeC.WebApp.Areas.Identity.Pages.Account
         private readonly IUserEmailStore<User> _emailStore;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
+        private readonly IHttpContextAccessor _contextAccessor;
+        private readonly IUserActivityServices _userActivityServices;
 
         public RegisterModel(
             UserManager<User> userManager,
             IUserStore<User> userStore,
             SignInManager<User> signInManager,
             ILogger<RegisterModel> logger,
-            IEmailSender emailSender)
+            IEmailSender emailSender,
+            IHttpContextAccessor contextAccessor,
+            IUserActivityServices userActivityServices)
         {
             _userManager = userManager;
             _userStore = userStore;
@@ -44,6 +43,8 @@ namespace BloodTypeC.WebApp.Areas.Identity.Pages.Account
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
+            _contextAccessor = contextAccessor;
+            _userActivityServices = userActivityServices;
         }
 
         /// <summary>
@@ -121,6 +122,12 @@ namespace BloodTypeC.WebApp.Areas.Identity.Pages.Account
 
                 if (result.Succeeded)
                 {
+                    var ip = _contextAccessor?.HttpContext?.Connection?.RemoteIpAddress?.ToString();
+                    var userActivityTemplate = new UserActivity() { IPAddress = ip, UserAgent = _contextAccessor?.HttpContext?.Request?.Headers?.UserAgent.ToString() };
+                    var userActivity = await _userActivityServices.CreateUserActivity(userActivityTemplate,
+                        Input.Email, Enums.UserActions.RegisterAccount);
+                    await _userActivityServices.LogUserActivityAsync(userActivity);
+
                     _logger.LogInformation("User created a new account with password.");
 
                     var userId = await _userManager.GetUserIdAsync(user);

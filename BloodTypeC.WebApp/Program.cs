@@ -8,28 +8,34 @@ using Microsoft.AspNetCore.Localization;
 using System.Globalization;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
+using Serilog.Events;
 
 namespace BloodTypeC.WebApp
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
             var logger = new LoggerConfiguration()
-                .ReadFrom.Configuration(builder.Configuration)
-                .Enrich.FromLogContext()
-                .CreateLogger();
+               .MinimumLevel.Debug()
+    .WriteTo.File(path: "Logs/debug.txt", rollingInterval: RollingInterval.Day)
+    .WriteTo.File(path: "Logs/info.txt", restrictedToMinimumLevel: LogEventLevel.Information, rollingInterval: RollingInterval.Day)
+    .WriteTo.File(path: "Logs/error.txt", restrictedToMinimumLevel: LogEventLevel.Error, rollingInterval: RollingInterval.Day)
+    
+    .CreateLogger();
             builder.Logging.ClearProviders();
             builder.Logging.AddSerilog(logger);
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+            builder.Services.AddHttpContextAccessor();
             builder.Services.Configure<MailSettings>(builder.Configuration.GetSection(nameof(MailSettings)));
             builder.Services.AddTransient<IMailService, MailService>();
             builder.Services.AddScoped<IBeerServices, BeerServices>();
             builder.Services.AddScoped<IBeerSearchServices, BeerSearchServices>();
             builder.Services.AddTransient<IFavoriteBeersServices, FavoriteBeersServices>();
+            builder.Services.AddScoped<IUserActivityServices, UserActivityServices>();
             builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             builder.Services.AddAutoMapper(typeof(Program));
             builder.Services.AddDbContext<BeeropediaContext>();
@@ -39,7 +45,7 @@ namespace BloodTypeC.WebApp
             builder.Services.AddScoped<UserManager<User>>();
             
             var app = builder.Build();
-            CreateDbIfNotExists(app);
+            await CreateDbIfNotExists(app);
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
             {
@@ -74,7 +80,7 @@ namespace BloodTypeC.WebApp
             app.MapRazorPages();
             app.Run();   
         }
-        private async static Task CreateDbIfNotExists(IHost host)
+        private static async Task CreateDbIfNotExists(IHost host)
         {
             using var scope = host.Services.CreateScope();
             var services = scope.ServiceProvider;
