@@ -1,4 +1,5 @@
-﻿using BloodTypeC.DAL.Models;
+﻿using AutoMapper;
+using BloodTypeC.DAL.Models;
 using BloodTypeC.DAL.Models.Views;
 using BloodTypeC.Logic.Services.IServices;
 using Microsoft.AspNetCore.Authorization;
@@ -13,12 +14,16 @@ namespace BloodTypeC.WebApp.Controllers
         private readonly UserManager<User> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly IMailService _mailService;
+        private readonly IUserActivityServices _userActivityServices;
+        private readonly IMapper _mapper;
 
-        public AdminController(UserManager<User> userManager, RoleManager<IdentityRole> roleManager, IMailService mailService)
+        public AdminController(UserManager<User> userManager, RoleManager<IdentityRole> roleManager, IMailService mailService, IUserActivityServices userActivityServices, IMapper mapper)
         {
             _userManager = userManager;
             _roleManager = roleManager;
             _mailService = mailService;
+            _userActivityServices = userActivityServices;
+            _mapper = mapper;
         }
 
         public IActionResult Index()
@@ -218,11 +223,12 @@ namespace BloodTypeC.WebApp.Controllers
         [HttpPost]
         public async Task<IActionResult> ActivityLog(ActivityLogViewModel model)
         {
-            model.LastUserActivity = "dupa";
-            model.LastUserActivityObject = "maryny";
-            model.LastUserActivityTime = DateTime.Today;
-            model.UserLogIns = 1;
-            model.UserLogOuts = 14;
+            var userActivityLog = await _userActivityServices.GetLastUserActivityAsync(model.TargetUser);
+            model.LastUserActivity = userActivityLog.UserAction.ToString();
+            model.LastUserActivityTime = userActivityLog.Time;
+            model.LastUserActivityObject = userActivityLog.ObjectName;
+            model.UserLogIns = await _userActivityServices.CountUserLogInsAsync(model.TargetUser);
+            model.UserLogOuts = await _userActivityServices.CountUserLogOutsAsync(model.TargetUser);
             return View(model);
         }
     }

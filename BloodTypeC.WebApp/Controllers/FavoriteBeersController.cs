@@ -1,6 +1,4 @@
-﻿using AutoMapper;
-using BloodTypeC.DAL.Models.Views;
-using BloodTypeC.Logic.Services;
+﻿using BloodTypeC.DAL.Models.Views;
 using BloodTypeC.Logic.Services.IServices;
 using BloodTypeC.WebApp.WebExtensions;
 using Microsoft.AspNetCore.Authorization;
@@ -34,7 +32,7 @@ namespace BloodTypeC.WebApp.Controllers
 
             var userActivityTemplate = this.CreateUserActivityWithUserConnectionInfo();
             var favoriteBeers = model.FavoriteBeers.Any()
-                ? model.FavoriteBeers.Select(x => x.Name).Aggregate((concat, str) => $"{concat} {str} ")
+                ? string.Join(", ", model.FavoriteBeers.Select(x => x.Name))
                 : string.Empty;
             var userActivity = await _userActivityServices.CreateUserActivity(userActivityTemplate, User.Identity.Name,
                 UserActions.ViewFavorites, favoriteBeers);

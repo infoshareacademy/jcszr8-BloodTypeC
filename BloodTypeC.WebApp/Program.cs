@@ -31,10 +31,10 @@ namespace BloodTypeC.WebApp
             builder.Services.AddControllersWithViews();
             builder.Services.AddHttpContextAccessor();
             builder.Services.Configure<MailSettings>(builder.Configuration.GetSection(nameof(MailSettings)));
-            builder.Services.AddTransient<IMailService, MailService>();
+            builder.Services.AddScoped<IMailService, MailService>();
             builder.Services.AddScoped<IBeerServices, BeerServices>();
             builder.Services.AddScoped<IBeerSearchServices, BeerSearchServices>();
-            builder.Services.AddTransient<IFavoriteBeersServices, FavoriteBeersServices>();
+            builder.Services.AddScoped<IFavoriteBeersServices, FavoriteBeersServices>();
             builder.Services.AddScoped<IUserActivityServices, UserActivityServices>();
             builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             builder.Services.AddAutoMapper(typeof(Program));

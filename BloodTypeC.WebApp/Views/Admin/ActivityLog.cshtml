@@ -38,7 +38,17 @@
                     <tr>
                         <td data-label="logins">@Model.UserLogIns</td>
                         <td data-label="logouts">@Model.UserLogOuts</td>
-                        <td data-label="last-activity"> @Model.LastUserActivityTime - @Model.LastUserActivity @Model.LastUserActivityObject</td>
+                        <td data-label="last-activity">
+                            @if (Model.LastUserActivityTime != DateTime.MinValue)
+                            {
+                                var separator = Model.LastUserActivityObject == string.Empty ? string.Empty : ": ";
+                                @($"{Model.LastUserActivityTime} - {Model.LastUserActivity}{separator}{Model.LastUserActivityObject}");
+                            }
+                            else
+                            {
+                                @("No data");
+                            }
+                        </td>
                     </tr>
                 </tbody>
             </table>
