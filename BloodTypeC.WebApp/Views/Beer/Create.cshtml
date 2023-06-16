@@ -1,14 +1,15 @@
 ﻿@using BloodTypeC.Logic.Extensions;
 @using System.ComponentModel.DataAnnotations;
+@using BloodTypeC.DAL.Models
 @model BeerViewModel
 
 @{
     ViewData["Title"] = "Create a beer";
-    var nameMaxLength = Model.GetAttributeFrom<StringLengthAttribute>(nameof(Model.Name)).MaximumLength;
-    var nameMinLength = Model.GetAttributeFrom<StringLengthAttribute>(nameof(Model.Name)).MinimumLength;
-    var maxScore = Convert.ToDouble(Model.GetAttributeFrom<RangeAttribute>(nameof(Model.Score)).Maximum);
-    var maxAbv = Convert.ToDouble(Model.GetAttributeFrom<RangeAttribute>(nameof(Model.AlcoholByVolume)).Maximum);
-    var breweryMaxLength = Model.GetAttributeFrom<StringLengthAttribute>(nameof(Model.Brewery)).MaximumLength;
+    var nameMinLength = Consts.nameMinLength;
+    var nameMaxLength = Consts.nameMaxLength;
+    var breweryMaxLength = Consts.breweryMaxLength;
+    var maxAbv = Consts.maxAbv;
+    var maxScore = Consts.maxScore;
 }
 
 <div class="page-name">

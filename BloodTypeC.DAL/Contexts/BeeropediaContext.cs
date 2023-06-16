@@ -1,14 +1,18 @@
 ﻿using BloodTypeC.DAL.Models;
+using BloodTypeC.DAL.Models.Enums;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
+using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace BloodTypeC.DAL.Contexts
 {
     public class BeeropediaContext : IdentityDbContext<User, IdentityRole, string>
     {
         public DbSet<Beer> AllBeers { get; set;}
+        public DbSet<UserActivity> UserActivities { get; set;}
         public BeeropediaContext(DbContextOptions<BeeropediaContext> options) : base(options)
         {
 
@@ -24,8 +28,10 @@ namespace BloodTypeC.DAL.Contexts
 
             modelBuilder.Entity<Beer>()
                 .HasMany(b => b.FavoriteUsers)
-                .WithMany(u => u.FavoriteBeers)
-                .UsingEntity(e => e.ToTable("BeerUser"));
+                    .WithMany(u => u.FavoriteBeers)
+                    .UsingEntity(e => e.ToTable("BeerUser"))
+                .HasOne(beer => beer.AddedByUser)
+                    .WithMany(user => user.AddedBeers);
             
             modelBuilder.Entity<Beer>()
                 .Property(f=>f.Flavors)
@@ -40,11 +46,24 @@ namespace BloodTypeC.DAL.Contexts
                 .SetValueComparer(valueComparer);
 
             modelBuilder.Entity<Beer>()
-                .HasMany(beer => beer.FavoriteUsers).WithMany(user => user.FavoriteBeers);
+                .Property(a => a.Added)
+                .Metadata.SetAfterSaveBehavior(PropertySaveBehavior.Ignore);
 
+            modelBuilder.Entity<User>()
+                .HasMany(user=>user.AddedBeers)
+                .WithOne(beer=>beer.AddedByUser);
+            
             modelBuilder.Entity<User>()
                 .Property(prop => prop.Id)
                 .ValueGeneratedOnAdd();
+
+            modelBuilder.Entity<UserActivity>()
+                .Property(prop => prop.Id)
+                .ValueGeneratedOnAdd();
+
+            modelBuilder.Entity<UserActivity>()
+                .Property(e => e.UserAction)
+                .HasConversion(new EnumToStringConverter<Enums.UserActions>());
         }
     }
 }

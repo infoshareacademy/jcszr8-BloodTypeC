@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using BloodTypeC.DAL.Models;
 using BloodTypeC.DAL.Repository;
-using BloodTypeC.Logic;
 using BloodTypeC.Logic.Services.IServices;
 using BloodTypeC.WebApp.Models;
 
@@ -17,9 +16,10 @@ namespace BloodTypeC.Logic.Services
             _repository = repository;
             _mapper = mapper;
         }
-        public async Task AddFromView(BeerViewModel beerFromView)
+        public async Task AddFromView(BeerViewModel beerFromView, User user)
         {
             var beerToAdd = _mapper.Map<Beer>(beerFromView);
+            beerToAdd.AddedByUser = user;
             await _repository.Insert(beerToAdd);
         }
 
@@ -30,12 +30,13 @@ namespace BloodTypeC.Logic.Services
 
         public async Task<Beer> GetById(string id)
         {
-            return await _repository.GetById(id);
+            return await _repository.GetById(id, x=> x.AddedByUser, x=> x.FavoriteUsers);
         }
 
         public async Task EditFromView(BeerViewModel beerFromView)
         {
-            var beerToEdit = _mapper.Map<BeerViewModel, Beer>(beerFromView, await _repository.GetById(beerFromView.Id));
+            var beerToEdit = _mapper.Map(beerFromView, await _repository.GetById(beerFromView.Id));
+            beerToEdit.LastModified = DateTime.Now;
             await _repository.Update(beerToEdit);
         }
 

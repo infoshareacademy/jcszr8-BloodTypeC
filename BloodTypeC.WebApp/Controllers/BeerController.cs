@@ -2,7 +2,10 @@
 using BloodTypeC.DAL.Models;
 using BloodTypeC.Logic.Services.IServices;
 using BloodTypeC.WebApp.Models;
+using BloodTypeC.WebApp.WebExtensions;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using static BloodTypeC.DAL.Models.Enums.Enums;
 
 namespace BloodTypeC.WebApp.Controllers
 {
@@ -10,23 +13,28 @@ namespace BloodTypeC.WebApp.Controllers
     {
         private readonly IBeerServices _beerServices;
         private readonly IMapper _mapper;
-        public BeerController(IBeerServices beerServices, IMapper mapper)
+        private readonly UserManager<User> _userManager;
+        private readonly IUserActivityServices _userActivityServices;
+        public BeerController(IBeerServices beerServices, IMapper mapper, UserManager<User> userManager, IUserActivityServices userActivityServices)
         {
             _beerServices = beerServices;
-            _mapper= mapper;
+            _mapper = mapper;
+            _userManager = userManager;
+            _userActivityServices = userActivityServices;
         }
-        // GET: BeerController
-        public ActionResult Index()
-        {
-            return View();
-        }
+
 
         // GET: BeerController/Details/5
         public async Task<ActionResult> Details(string id)
         {
-            //var isAdmin = HttpContext.User.IsInRole("Admin");
             var model = await _beerServices.GetById(id);
             var newBeerDto = _mapper.Map<BeerViewModel>(model);
+
+            var userActivityTemplate = this.CreateUserActivityWithUserConnectionInfo();
+            var userActivity = await _userActivityServices.CreateUserActivity(userActivityTemplate, User.Identity.Name,
+                UserActions.ViewBeer, newBeerDto.Name);
+            await _userActivityServices.LogUserActivityAsync(userActivity);
+
             return View(newBeerDto);
         }
 
@@ -36,7 +44,7 @@ namespace BloodTypeC.WebApp.Controllers
             var newBeer = new Beer();
             newBeer.Flavors = new List<string>() { "" };
             var newBeerDto = _mapper.Map<BeerViewModel>(newBeer);
-            
+
             return View(newBeerDto);
         }
 
@@ -45,14 +53,20 @@ namespace BloodTypeC.WebApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(BeerViewModel beerFromView)
         {
-            
             try
             {
                 if (!ModelState.IsValid)
                 {
                     return View(beerFromView);
                 }
-                await _beerServices.AddFromView(beerFromView);
+                var user = await _userManager.FindByNameAsync(User.Identity.Name);
+                await _beerServices.AddFromView(beerFromView, user);
+
+                var userActivityTemplate = this.CreateUserActivityWithUserConnectionInfo();
+                var userActivity = await _userActivityServices.CreateUserActivity(userActivityTemplate, user.UserName,
+                    UserActions.AddBeer, beerFromView.Name);
+                await _userActivityServices.LogUserActivityAsync(userActivity);
+
                 return RedirectToAction("Index", "Home");
             }
             catch
@@ -60,6 +74,7 @@ namespace BloodTypeC.WebApp.Controllers
                 return View();
             }
         }
+
 
         // GET: BeerController/Edit/5
         public async Task<ActionResult> Edit(string id)
@@ -82,6 +97,13 @@ namespace BloodTypeC.WebApp.Controllers
                 }
                 var beerDto = _mapper.Map<BeerViewModel>(model);
                 await _beerServices.EditFromView(beerDto);
+
+                var userActivityTemplate = this.CreateUserActivityWithUserConnectionInfo();
+                var userActivity = await _userActivityServices.CreateUserActivity(userActivityTemplate, User.Identity.Name,
+                    UserActions.EditBeer, beerDto.Name);
+                await _userActivityServices.LogUserActivityAsync(userActivity);
+
+
                 return RedirectToAction("Index", "Home");
             }
             catch
@@ -109,6 +131,12 @@ namespace BloodTypeC.WebApp.Controllers
                 {
                     return View();
                 }
+
+                var userActivityTemplate = this.CreateUserActivityWithUserConnectionInfo();
+                var userActivity = await _userActivityServices.CreateUserActivity(userActivityTemplate, User.Identity.Name,
+                    UserActions.RemoveBeer, _beerServices.GetById(id).Result.Name);
+                await _userActivityServices.LogUserActivityAsync(userActivity);
+
                 await _beerServices.Delete(id);
                 return RedirectToAction("Index", "Home");
             }
