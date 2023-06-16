@@ -16,12 +16,19 @@ namespace BloodTypeC.DAL.Repository
             _entities = context.Set<T>();
         }
 
-        public async Task<List<T>> GetAll(Expression<Func<T, object>>? include = null)
+        public async Task<List<T>> GetAll(params Expression<Func<T, object>>[] includes)
         {
-            if (include != null)
+            IQueryable<T> query = _entities;
+            List<T> result = new();
+            if (includes.Any())
             {
-                return await _entities.Include(include).ToListAsync();
+                foreach (var include in includes)
+                {
+                    result.AddRange(await query.Include(include).Distinct().ToListAsync());
+                    return result;
+                }
             }
+
             return await _entities.ToListAsync();
         }
         public async Task Insert(T entity)
@@ -54,7 +61,7 @@ namespace BloodTypeC.DAL.Repository
         {
             IQueryable<T> query = _entities;
             List<T> result = new();
-            foreach (Expression<Func<T, object>> include in includes)
+            foreach (var include in includes)
             {
                 result.AddRange(await query.Include(include).Distinct().ToListAsync());
             }

@@ -5,7 +5,7 @@ namespace BloodTypeC.DAL.Repository
 {
     public interface IRepository<T> where T : Entity
     {
-        public Task<List<T>> GetAll(Expression<Func<T, object>>? include = null);
+        public Task<List<T>> GetAll(params Expression<Func<T, object>>[]? includes);
         public Task Insert(T entity);
         public Task Delete(T entity);
         public Task Update(T entity);

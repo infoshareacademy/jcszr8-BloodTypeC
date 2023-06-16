@@ -34,7 +34,7 @@ namespace BloodTypeC.WebApp.Controllers
             var favoriteBeers = model.FavoriteBeers.Any()
                 ? string.Join(", ", model.FavoriteBeers.Select(x => x.Name))
                 : string.Empty;
-            var userActivity = await _userActivityServices.CreateUserActivity(userActivityTemplate, User.Identity.Name,
+            var userActivity = await _userActivityServices.CreateUserActivity(userActivityTemplate, userName,
                 UserActions.ViewFavorites, favoriteBeers);
             await _userActivityServices.LogUserActivityAsync(userActivity);
 
@@ -48,7 +48,7 @@ namespace BloodTypeC.WebApp.Controllers
 
             var userActivityTemplate = this.CreateUserActivityWithUserConnectionInfo();
             var beer = await _beerServices.GetById(id);
-            var userActivity = await _userActivityServices.CreateUserActivity(userActivityTemplate, User.Identity.Name,
+            var userActivity = await _userActivityServices.CreateUserActivity(userActivityTemplate, userName,
                 UserActions.AddBeerToFavorites, beer.Name);
             await _userActivityServices.LogUserActivityAsync(userActivity);
 
@@ -62,7 +62,7 @@ namespace BloodTypeC.WebApp.Controllers
 
             var userActivityTemplate = this.CreateUserActivityWithUserConnectionInfo();
             var beer = await _beerServices.GetById(id);
-            var userActivity = await _userActivityServices.CreateUserActivity(userActivityTemplate, User.Identity.Name,
+            var userActivity = await _userActivityServices.CreateUserActivity(userActivityTemplate, userName,
                 UserActions.RemoveBeerFromFavorites, beer.Name);
             await _userActivityServices.LogUserActivityAsync(userActivity);
 

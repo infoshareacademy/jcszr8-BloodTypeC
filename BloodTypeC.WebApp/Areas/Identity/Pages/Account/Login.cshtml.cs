@@ -137,7 +137,7 @@ namespace BloodTypeC.WebApp.Areas.Identity.Pages.Account
                 else
                 {
                     var userActivity = await _userActivityServices.CreateUserActivity(userActivityTemplate,
-                        string.Empty, Enums.UserActions.FailedLogin, Input.Email);
+                        Input.Email, Enums.UserActions.FailedLogin, string.Empty);
                     await _userActivityServices.LogUserActivityAsync(userActivity);
 
                     ModelState.AddModelError(string.Empty, "Invalid login attempt.");
