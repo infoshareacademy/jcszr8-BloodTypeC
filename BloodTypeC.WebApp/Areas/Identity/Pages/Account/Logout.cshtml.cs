@@ -32,7 +32,7 @@ namespace BloodTypeC.WebApp.Areas.Identity.Pages.Account
             var ip = _contextAccessor?.HttpContext?.Connection?.RemoteIpAddress?.ToString();
             var userActivityTemplate = new UserActivity() { IPAddress = ip, UserAgent = _contextAccessor?.HttpContext?.Request?.Headers?.UserAgent.ToString() };
             var userActivity = await _userActivityServices.CreateUserActivity(userActivityTemplate,
-                _contextAccessor.HttpContext.User.Identity.Name, Enums.UserActions.LogOut, "Logout");
+                _contextAccessor.HttpContext.User.Identity.Name, Enums.UserActions.LogOut);
             await _userActivityServices.LogUserActivityAsync(userActivity);
 
             await _signInManager.SignOutAsync();

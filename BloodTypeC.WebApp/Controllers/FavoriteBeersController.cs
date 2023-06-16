@@ -33,7 +33,9 @@ namespace BloodTypeC.WebApp.Controllers
             model.FavoriteBeers.AddRange(userFavorites);
 
             var userActivityTemplate = this.CreateUserActivityWithUserConnectionInfo();
-            var favoriteBeers = model.FavoriteBeers.Select(x => x.Name).Aggregate((concat, str) => $"{concat} {str} ");
+            var favoriteBeers = model.FavoriteBeers.Any()
+                ? model.FavoriteBeers.Select(x => x.Name).Aggregate((concat, str) => $"{concat} {str} ")
+                : string.Empty;
             var userActivity = await _userActivityServices.CreateUserActivity(userActivityTemplate, User.Identity.Name,
                 UserActions.ViewFavorites, favoriteBeers);
             await _userActivityServices.LogUserActivityAsync(userActivity);

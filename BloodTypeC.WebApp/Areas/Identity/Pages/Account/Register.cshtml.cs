@@ -125,7 +125,7 @@ namespace BloodTypeC.WebApp.Areas.Identity.Pages.Account
                     var ip = _contextAccessor?.HttpContext?.Connection?.RemoteIpAddress?.ToString();
                     var userActivityTemplate = new UserActivity() { IPAddress = ip, UserAgent = _contextAccessor?.HttpContext?.Request?.Headers?.UserAgent.ToString() };
                     var userActivity = await _userActivityServices.CreateUserActivity(userActivityTemplate,
-                        Input.Email, Enums.UserActions.RegisterAccount, "New account");
+                        Input.Email, Enums.UserActions.RegisterAccount);
                     await _userActivityServices.LogUserActivityAsync(userActivity);
 
                     _logger.LogInformation("User created a new account with password.");

@@ -20,13 +20,13 @@ namespace BloodTypeC.Logic.Services
         {
             await _userActivityRepository.Insert(userActivity);
         }
-        public async Task<UserActivity> CreateUserActivity(UserActivity userActivityTemplate, string user, Enums.UserActions activity, string objectName)
+        public async Task<UserActivity> CreateUserActivity(UserActivity userActivityTemplate, string user, Enums.UserActions activity, string? objectName = null)
         {
             var result = userActivityTemplate;
 
             result.User = await _userManager.FindByNameAsync(user);
             result.UserAction = activity;
-            result.ObjectName = objectName;
+            result.ObjectName = objectName == null ? string.Empty : objectName;
         
             return result;
         }
