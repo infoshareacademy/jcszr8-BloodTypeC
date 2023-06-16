@@ -180,7 +180,7 @@ a:hover {
 
 .fav-rem-button {
     height: 45px;
-    width: 100px;
+    width: 120px;
     border-radius: 12px;
     border: solid;
     border-color: rgb(253, 197, 0);
@@ -196,7 +196,7 @@ a:hover {
     .fav-rem-button:hover {
         background-color: rgb(128, 128, 128);
         height: 45px;
-        width: 100px;
+        width: 120px;
         border-radius: 12px;
         border: solid;
         border-color: rgb(253, 197, 0);
@@ -208,7 +208,7 @@ a:hover {
 
 .fav-button {
     height: 45px;
-    width: 100px;
+    width: 120px;
     border-radius: 12px;
     border: solid;
     border-color: rgb(253, 197, 0);
@@ -223,7 +223,7 @@ a:hover {
     .fav-button:hover {
         background-color: rgb(253, 197, 0);
         height: 45px;
-        width: 100px;
+        width: 120px;
         border-radius: 12px;
         border: solid;
         border-color: rgb(253, 197, 0);

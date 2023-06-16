@@ -1,10 +1,13 @@
-﻿<html lang="en">
+﻿@using BloodTypeC.WebApp.Language;
+@inject LanguageService language
+
+<html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>@ViewData["Title"] - BloodTypeC.WebApp</title>
+    <title>@ViewData["Title"] - @language.Getkey("Beero")</title>
     <!-- Favicon-->
     <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
     <!-- Bootstrap icons-->
@@ -32,15 +35,30 @@
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                    <li class="nav-item"><a class="nav-link" asp-controller="FavoriteBeers" asp-action="Favorites">❤Favorites</a></li>
-                    <li class="nav-item"><a class="nav-link" asp-controller="BeerSearch" asp-action="Index">Search</a></li>
+                    <li class="nav-item"><a class="nav-link" asp-controller="FavoriteBeers" asp-action="Favorites">@language.Getkey("Favorites")</a></li>
+                    <li class="nav-item"><a class="nav-link" asp-controller="BeerSearch" asp-action="Index">@language.Getkey("Search")</a></li>
                     @if (User.IsInRole("Admin"))
                     {
-                            <li class="nav-item"><a class="nav-link" asp-controller="Admin" asp-action="Index">Admin panel</a></li>
+                        <li class="nav-item"><a class="nav-link" asp-controller="Admin" asp-action="Index">@language.Getkey("Admin panel")</a></li>
                     }
-                    <li class="nav-item"><a class="nav-link" aria-current="page" asp-controller="Beer" asp-action="Create">Add a beer</a></li>
+                    <li class="nav-item"><a class="nav-link" aria-current="page" asp-controller="Beer" asp-action="Create">@language.Getkey("Add a beer")</a></li>
                     <partial name="_LoginPartial" />
                 </ul>
+            </div>
+            <div class="nav-wrapper">
+                <div class="s1-nav">
+                    Language:
+                    <ul>
+                        <li>
+                            <b>English</b> <i class="fa fa-angle-down" aria-hidden="true"></i>
+                            <div class="triangle"></div>
+                            <ul class="language">
+                                <li><a asp-controller="Home" asp-action="ChangeLanguage" asp-route-culture="en-US" class="nav-link>"><i class="flag-icon flag-icon-gb"></i>English</a></li>
+                                <li><a asp-controller="Home" asp-action="ChangeLanguage" asp-route-culture="pl-PL" class="nav-link>"><i class="flag-icon flag-icon-pl"></i>Polski</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
     </nav>

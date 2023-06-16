@@ -1,10 +1,12 @@
 ﻿@model IndexViewModel
+@using BloodTypeC.WebApp.Language;
+@inject LanguageService language
 
 @{
-    ViewData["Title"] = "All beers";
+    ViewData["Title"] = @language.Getkey("All beers");
 }
 <div class="page-name">
-    All Beers
+    @language.Getkey("All beers")
 </div>
 <div>
         @{await Html.RenderPartialAsync("_BeerPartialView", Model.Beers);}
