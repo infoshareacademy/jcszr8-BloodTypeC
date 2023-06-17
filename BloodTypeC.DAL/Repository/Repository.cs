@@ -19,17 +19,17 @@ namespace BloodTypeC.DAL.Repository
         public async Task<List<T>> GetAll(params Expression<Func<T, object>>[] includes)
         {
             IQueryable<T> query = _entities;
-            List<T> result = new();
-            if (includes.Any())
+            var result = new List<T>();
+            if (!includes.Any())
             {
-                foreach (var include in includes)
-                {
-                    result.AddRange(await query.Include(include).Distinct().ToListAsync());
-                    return result;
-                }
+                return await query.ToListAsync();
             }
-
-            return await _entities.ToListAsync();
+            foreach (var include in includes)
+            {
+                result.AddRange(await query.Include(include).ToListAsync());
+            }
+            result = result.DistinctBy(x => x.Id).ToList();
+            return result.ToList();
         }
         public async Task Insert(T entity)
         {
@@ -63,8 +63,9 @@ namespace BloodTypeC.DAL.Repository
             List<T> result = new();
             foreach (var include in includes)
             {
-                result.AddRange(await query.Include(include).Distinct().ToListAsync());
+                result.AddRange(await query.Include(include).ToListAsync());
             }
+            result = result.DistinctBy(x => x.Id).ToList();
             return result.FirstOrDefault(x => x.Id == id);
         }
     }
