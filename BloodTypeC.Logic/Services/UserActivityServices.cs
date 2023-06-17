@@ -20,7 +20,13 @@ namespace BloodTypeC.Logic.Services
         {
             await _userActivityRepository.Insert(userActivity);
         }
-        public async Task<UserActivity> CreateUserActivity(UserActivity userActivityTemplate, string user, Enums.UserActions activity, string? objectName = null)
+
+        public async Task<List<UserActivity>> GetAllUserActivitiesAsync()
+        {
+            return await _userActivityRepository.GetAll(x=>x.User);
+        }
+
+        public async Task<UserActivity> CreateUserActivityAsync(UserActivity userActivityTemplate, string user, Enums.UserActions activity, string? objectName = null)
         {
             var result = userActivityTemplate;
 
@@ -30,6 +36,7 @@ namespace BloodTypeC.Logic.Services
 
             return result;
         }
+
         public async Task<UserActivity> GetLastUserActivityAsync(string userName)
         {
             var user = await _userManager.FindByNameAsync(userName);

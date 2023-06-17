@@ -36,7 +36,7 @@ namespace BloodTypeC.WebApp.Controllers
             if (User.Identity.IsAuthenticated)
             {
                 var userActivityTemplate = this.CreateUserActivityWithUserConnectionInfo();
-                var userActivity = await _userActivityServices.CreateUserActivity(userActivityTemplate,
+                var userActivity = await _userActivityServices.CreateUserActivityAsync(userActivityTemplate,
                     User.Identity.Name,
                     UserActions.ViewBeer, newBeerDto.Name);
                 await _userActivityServices.LogUserActivityAsync(userActivity);
@@ -70,7 +70,7 @@ namespace BloodTypeC.WebApp.Controllers
                 await _beerServices.AddFromView(beerFromView, user);
 
                 var userActivityTemplate = this.CreateUserActivityWithUserConnectionInfo();
-                var userActivity = await _userActivityServices.CreateUserActivity(userActivityTemplate, user.UserName,
+                var userActivity = await _userActivityServices.CreateUserActivityAsync(userActivityTemplate, user.UserName,
                     UserActions.AddBeer, beerFromView.Name);
                 await _userActivityServices.LogUserActivityAsync(userActivity);
 
@@ -106,7 +106,7 @@ namespace BloodTypeC.WebApp.Controllers
                 await _beerServices.EditFromView(beerDto);
 
                 var userActivityTemplate = this.CreateUserActivityWithUserConnectionInfo();
-                var userActivity = await _userActivityServices.CreateUserActivity(userActivityTemplate, User.Identity.Name,
+                var userActivity = await _userActivityServices.CreateUserActivityAsync(userActivityTemplate, User.Identity.Name,
                     UserActions.EditBeer, beerDto.Name);
                 await _userActivityServices.LogUserActivityAsync(userActivity);
 
@@ -140,7 +140,7 @@ namespace BloodTypeC.WebApp.Controllers
                 }
 
                 var userActivityTemplate = this.CreateUserActivityWithUserConnectionInfo();
-                var userActivity = await _userActivityServices.CreateUserActivity(userActivityTemplate, User.Identity.Name,
+                var userActivity = await _userActivityServices.CreateUserActivityAsync(userActivityTemplate, User.Identity.Name,
                     UserActions.RemoveBeer, _beerServices.GetById(id).Result.Name);
                 await _userActivityServices.LogUserActivityAsync(userActivity);
 

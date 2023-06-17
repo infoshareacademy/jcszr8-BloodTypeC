@@ -89,7 +89,7 @@ namespace BloodTypeC.WebApp.Areas.Identity.Pages.Account
 
             var ip = _contextAccessor.HttpContext.Connection.RemoteIpAddress.ToString();
             var userActivityTemplate = new UserActivity() { IPAddress = ip, UserAgent = _contextAccessor.HttpContext.Request.Headers.UserAgent.ToString() };
-            var userActivity = await _userActivityServices.CreateUserActivity(userActivityTemplate,
+            var userActivity = await _userActivityServices.CreateUserActivityAsync(userActivityTemplate,
                 Input.Email, Enums.UserActions.ResendConfirmationEmail);
             await _userActivityServices.LogUserActivityAsync(userActivity);
 

@@ -215,7 +215,7 @@ namespace BloodTypeC.WebApp.Controllers
             return RedirectToAction("AssignUserRoles", new { userId = user.Id });
         }
 
-        public async Task<IActionResult> ActivityLog()
+        public IActionResult ActivityLog()
         {
             var model = new ActivityLogViewModel();
             return View(model);
@@ -229,6 +229,39 @@ namespace BloodTypeC.WebApp.Controllers
             model.LastUserActivityObject = userActivityLog.ObjectName;
             model.UserLogIns = await _userActivityServices.CountUserLogInsAsync(model.TargetUser);
             model.UserLogOuts = await _userActivityServices.CountUserLogOutsAsync(model.TargetUser);
+            return View(model);
+        }
+
+        public async Task<IActionResult> ActivityReport()
+        {
+            var model = new ActivityReportViewModel();
+            model.TargetDate = DateTime.Today;
+            model.UserActivities = await _userActivityServices.GetAllUserActivitiesAsync();
+            model.CustomDate = false;
+            return View(model);
+        }
+        [HttpPost]
+        public async Task<IActionResult> ActivityReport(ActivityReportViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                model = new ActivityReportViewModel();
+                model.TargetDate = DateTime.Today;
+                model.CustomDate = false;
+            }
+            else
+            {
+                var filteredList = await _userActivityServices.GetAllUserActivitiesAsync();
+                    model.UserActivities = filteredList
+                        .Where(x => x.User.UserName == model.TargetUserName)
+                        .ToList();
+                    if (!model.CustomDate)
+                    {
+                        var dateFilteredList = model.UserActivities
+                            .Where(x => x.Time.Date == model.TargetDate.Date).ToList();
+                        model.UserActivities = dateFilteredList;
+                    }
+            }
             return View(model);
         }
     }

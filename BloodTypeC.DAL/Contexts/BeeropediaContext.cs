@@ -68,6 +68,8 @@ namespace BloodTypeC.DAL.Contexts
             modelBuilder.Entity<User>()
                 .HasMany(prop => prop.UserActivities)
                 .WithOne(prop => prop.User);
+
+            modelBuilder.Entity<ReportsOptions>();
         }
     }
 }

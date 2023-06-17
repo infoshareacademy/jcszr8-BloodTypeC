@@ -119,7 +119,7 @@ namespace BloodTypeC.WebApp.Areas.Identity.Pages.Account
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");
-                    var userActivity = await _userActivityServices.CreateUserActivity(userActivityTemplate,
+                    var userActivity = await _userActivityServices.CreateUserActivityAsync(userActivityTemplate,
                         Input.Email, Enums.UserActions.LogIn);
                     await _userActivityServices.LogUserActivityAsync(userActivity);
 
@@ -136,7 +136,7 @@ namespace BloodTypeC.WebApp.Areas.Identity.Pages.Account
                 }
                 else
                 {
-                    var userActivity = await _userActivityServices.CreateUserActivity(userActivityTemplate,
+                    var userActivity = await _userActivityServices.CreateUserActivityAsync(userActivityTemplate,
                         Input.Email, Enums.UserActions.FailedLogin, string.Empty);
                     if (userActivity.User != null)
                     {

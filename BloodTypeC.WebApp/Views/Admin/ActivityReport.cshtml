@@ -1,0 +1,73 @@
+﻿@model BloodTypeC.DAL.Models.Views.ActivityReportViewModel
+
+@{
+    ViewData["Title"] = "ActivityReport";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="page-name">Activity Report</div>
+
+<div class="col-md-12 search-form container">
+    <form asp-action="ActivityReport">
+        <div class="center-elements text-white">
+            <div class="col-md-6">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div><span class="control-label">User</span></div>
+                <div class="form-group">
+                    <input type="text" asp-for="TargetUserName" class="form-control" placeholder="Enter desired username" />
+                    <span asp-validation-for="TargetUserName" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+        @if (!Model.CustomDate)
+        {
+            <div class="center-elements text-white">
+                <div class="col-md-6">
+                    <div><span class="control-label">Date</span></div>
+                    <div class="form-group">
+                        <input asp-for="TargetDate" class="form-control" />
+                        <span asp-validation-for="TargetDate" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+        }
+        <div class="center-elements text-white" style="margin-bottom: 1rem">
+            <input type="checkbox" asp-for="CustomDate" /> Exclude date filter
+        </div>
+        <input type="submit" value="Apply" class="search-button" />
+    </form>
+
+</div>
+@if (Model.UserActivities.Any())
+{
+    <div class="col-md-10 search-form container" style="padding-top:0px">
+    <div class="table-responsive">
+        <table class="table table-bordered text-white" style="text-align: center">
+            <thead>
+            <tr>
+                <th class="col-md-2" scope="col">Date</th>
+                <th class="col-md-3" scope="col">User</th>
+                <th class="col-md-3" scope="col">Action</th>
+                <th class="col-md-3" scope="col">Additional info</th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach (var item in Model.UserActivities)
+            {
+                <tr>
+                    <td>@item.Time</td>
+                    <td>@item.User.UserName</td>
+                    <td>@item.UserAction.ToString()</td>
+                    <td>@item.ObjectName</td>
+                </tr>
+            }
+            </tbody>
+            </table>
+    </div></div>
+}
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
