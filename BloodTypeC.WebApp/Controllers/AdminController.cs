@@ -215,13 +215,13 @@ namespace BloodTypeC.WebApp.Controllers
             return RedirectToAction("AssignUserRoles", new { userId = user.Id });
         }
 
-        public IActionResult ActivityLog()
+        public IActionResult SimpleReport()
         {
             var model = new ActivityLogViewModel();
             return View(model);
         }
         [HttpPost]
-        public async Task<IActionResult> ActivityLog(ActivityLogViewModel model)
+        public async Task<IActionResult> SimpleReport(ActivityLogViewModel model)
         {
             var userActivityLog = await _userActivityServices.GetLastUserActivityAsync(model.TargetUser);
             model.LastUserActivity = userActivityLog.UserAction.ToString();
