@@ -1,7 +1,10 @@
 ﻿@page
 @model EmailModel
+@using BloodTypeC.WebApp.Language;
+@inject LanguageService language
+
 @{
-    ViewData["Title"] = "Manage Email";
+    ViewData["Title"] = @language.Getkey("Manage Email");
     ViewData["ActivePage"] = ManageNavPages.Email;
 }
 
@@ -16,24 +19,24 @@
                 @if (Model.IsEmailConfirmed)
                 {
                     <div class="form-group">
-                        <label asp-for="Email" class="form-label"></label>
+                        <span class="form-label text-white">@language.Getkey("Email")</span>
                         <input asp-for="Email" class="form-control" disabled />
                     </div>
                 }
                 else
                 {
                     <div class="form-group">
-                        <label asp-for="Email" class="form-label"></label>
+                        <span class="form-label text-white">@language.Getkey("Email")</span>
                         <input asp-for="Email" class="form-control" disabled />
-                        <button id="email-verification" type="submit" asp-page-handler="SendVerificationEmail" class="btn btn-link">Send verification email</button>
+                        <button id="email-verification" type="submit" asp-page-handler="SendVerificationEmail" class="btn btn-link">@language.Getkey("Send verification email")</button>
                     </div>
                 }
                 <div class="form-group">
-                    <label asp-for="Input.NewEmail" class="form-label"></label>
-                    <input asp-for="Input.NewEmail" class="form-control" placeholder="new email" />
+                    <span class="form-label text-white">@language.Getkey("new email")</span>
+                    <input asp-for="Input.NewEmail" class="form-control" placeholder=@language.Getkey("new email") />
                     <span asp-validation-for="Input.NewEmail" class="text-danger"></span>
                 </div>
-                <button id="change-email-button" type="submit" asp-page-handler="ChangeEmail" class="search-button">Save</button>
+                <button id="change-email-button" type="submit" asp-page-handler="ChangeEmail" class="search-button">@language.Getkey("Save")</button>
                 <br /><partial name="_StatusMessage" for="StatusMessage" />
             </form>
         </div>

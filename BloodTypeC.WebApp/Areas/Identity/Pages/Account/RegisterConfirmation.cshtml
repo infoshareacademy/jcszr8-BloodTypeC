@@ -1,23 +1,26 @@
 ﻿@page
 @model RegisterConfirmationModel
+@using BloodTypeC.WebApp.Language;
+@inject LanguageService language
+
 @{
-    ViewData["Title"] = "Register confirmation";
+    ViewData["Title"] = @language.Getkey("Register confirmation");
 }
 
 <div class="page-name">
-    Register confirmation
+    @language.Getkey("Register confirmation")
 </div>
 @{
     if (@Model.DisplayConfirmAccountLink)
     {
 <p class="center-elements text-white">
-    This app does not currently have a real email sender registered. Normally this would be emailed!
+            @language.Getkey("This app does not currently have a real email sender registered. Normally this would be emailed!")
     </p>
     <div class="buttons">
         
                 <a id="confirm-link" href="@Model.EmailConfirmationUrl">
                 <button class="confirm-button">
-                Confirm your account
+                @language.Getkey("Confirm your account")
                 </button>
                 </a>
         
@@ -26,7 +29,7 @@
     else
     {
 <p>
-        Please check your email to confirm your account.
+            @language.Getkey("Please check your email to confirm your account.")
 </p>
     }
 }

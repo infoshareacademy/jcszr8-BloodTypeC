@@ -1,21 +1,24 @@
 ﻿@page
 @model ConfirmEmailModel
+@using BloodTypeC.WebApp.Language;
+@inject LanguageService language
+
 @{
-    ViewData["Title"] = "Confirm email";
+    ViewData["Title"] = @language.Getkey("Confirm email");
 }
 
 <div class="page-name">
-    E-mail confirmed
+    @language.Getkey("E-mail confirmed")
 </div>
 <div>
     <p class="center-elements text-white">
-    Your e-mail has been confirmed. Your account is active.
+        @language.Getkey("Your e-mail has been confirmed. Your account is active.")
     </p>
     <div class="buttons">
         
                 <a id="login" href="/Identity/Account/Login">
                 <button class="search-button">
-                Login
+                @language.Getkey("Login")
                 </button>
                 </a>
         

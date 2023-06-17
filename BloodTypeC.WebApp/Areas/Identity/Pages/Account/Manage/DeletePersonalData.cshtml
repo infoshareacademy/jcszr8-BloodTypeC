@@ -1,16 +1,19 @@
 ﻿@page
 @model DeletePersonalDataModel
+@using BloodTypeC.WebApp.Language;
+@inject LanguageService language
+
 @{
-    ViewData["Title"] = "Delete Personal Data";
+    ViewData["Title"] = @language.Getkey("Delete your account");
     ViewData["ActivePage"] = ManageNavPages.PersonalData;
 }
 
 <div class="profile-edit">
-    Delete confirmation
+    @language.Getkey("Delete confirmation")
 </div>
 <div class="text-white center-elements">
     <p>
-        Deleting this data will permanently remove your account, and this cannot be recovered.
+        @language.Getkey("Deleting this data will permanently remove your account, and this cannot be recovered.")
     </p>
 </div>
 <div class="search-form">
@@ -20,14 +23,14 @@
             <div class="center-elements">
                 <div class="form-group col-md-6">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                    <label asp-for="Input.Password" class="form-label"></label>
-                    <input asp-for="Input.Password" class="form-control" autocomplete="current-password" aria-required="true" placeholder="Current password" />
+                    <span class="form-label text-white">@language.Getkey("Password")</span>
+                    <input asp-for="Input.Password" class="form-control" autocomplete="current-password" aria-required="true" placeholder=@language.Getkey("Current password")/>
                     <span asp-validation-for="Input.Password" class="text-danger"></span>
                 </div>
             </div>
         }
         <div class="center-elements">
-            <button class="delete-button" type="submit">Delete account</button>
+            <button class="delete-button" type="submit">@language.Getkey("Delete account")</button>
         </div>
     </form>
 </div>

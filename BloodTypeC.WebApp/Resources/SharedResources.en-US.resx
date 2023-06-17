@@ -165,23 +165,62 @@
   <data name="Brewery:" xml:space="preserve">
     <value>Brewery: </value>
   </data>
+  <data name="Change password" xml:space="preserve">
+    <value>Change password</value>
+  </data>
+  <data name="Click here to Logout" xml:space="preserve">
+    <value>Click here to Logout</value>
+  </data>
+  <data name="Confirm email" xml:space="preserve">
+    <value>Confirm email</value>
+  </data>
+  <data name="Confirm new password" xml:space="preserve">
+    <value>Confirm new password</value>
+  </data>
+  <data name="Confirm Password" xml:space="preserve">
+    <value>Confirm Password</value>
+  </data>
+  <data name="Confirm your account" xml:space="preserve">
+    <value>Confirm your account</value>
+  </data>
   <data name="Create" xml:space="preserve">
     <value>Create</value>
+  </data>
+  <data name="Current password" xml:space="preserve">
+    <value>Current password</value>
   </data>
   <data name="Delete" xml:space="preserve">
     <value>Delete</value>
   </data>
+  <data name="Delete account" xml:space="preserve">
+    <value>Delete account</value>
+  </data>
   <data name="Delete Beer" xml:space="preserve">
     <value>Delete Beer</value>
   </data>
+  <data name="Delete confirmation" xml:space="preserve">
+    <value>Delete confirmation</value>
+  </data>
+  <data name="Delete your account" xml:space="preserve">
+    <value>Delete your account</value>
+  </data>
+  <data name="Deleting this data will permanently remove your account, and this cannot be recovered." xml:space="preserve">
+    <value>Deleting this data will permanently remove your account, and this cannot be recovered.</value>
+  </data>
   <data name="Details" xml:space="preserve">
     <value>Details</value>
+  </data>
+  <data name="E-mail confirmed" xml:space="preserve">
+    <value>E-mail confirmed</value>
   </data>
   <data name="Edit" xml:space="preserve">
     <value>Edit</value>
   </data>
   <data name="Edit Beer" xml:space="preserve">
     <value>Edit Beer</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>Email</value>
   </data>
   <data name="Fav" xml:space="preserve">
     <value>❤ Fav it!</value>
@@ -195,6 +234,12 @@
   <data name="Flavors:" xml:space="preserve">
     <value>Flavors:</value>
   </data>
+  <data name="Forgot password confirmation" xml:space="preserve">
+    <value>Forgot password confirmation</value>
+  </data>
+  <data name="Forgot your password?" xml:space="preserve">
+    <value>Forgot your password?</value>
+  </data>
   <data name="Image" xml:space="preserve">
     <value>Image</value>
   </data>
@@ -204,11 +249,20 @@
   <data name="Languages" xml:space="preserve">
     <value>Languages</value>
   </data>
+  <data name="Log in" xml:space="preserve">
+    <value>Log in</value>
+  </data>
   <data name="Login" xml:space="preserve">
     <value>Login</value>
   </data>
   <data name="Logout" xml:space="preserve">
     <value>Logout</value>
+  </data>
+  <data name="Manage Email" xml:space="preserve">
+    <value>Manage Email</value>
+  </data>
+  <data name="Manage your account" xml:space="preserve">
+    <value>Manage your account</value>
   </data>
   <data name="Maximum alcohol %" xml:space="preserve">
     <value>Maximum alcohol %</value>
@@ -222,17 +276,53 @@
   <data name="Minimum alcohol volume" xml:space="preserve">
     <value>Minimum alcohol volume</value>
   </data>
+  <data name="New email" xml:space="preserve">
+    <value>New email</value>
+  </data>
+  <data name="New password" xml:space="preserve">
+    <value>New password</value>
+  </data>
   <data name="NO" xml:space="preserve">
     <value>NO</value>
   </data>
   <data name="No beers in database." xml:space="preserve">
     <value>No beers in database.</value>
   </data>
+  <data name="Password" xml:space="preserve">
+    <value>Password</value>
+  </data>
+  <data name="Phone number" xml:space="preserve">
+    <value>Phone number</value>
+  </data>
+  <data name="Please check your email to confirm your account." xml:space="preserve">
+    <value>Please check your email to confirm your account.</value>
+  </data>
+  <data name="Please check your email to reset your password." xml:space="preserve">
+    <value>Please check your email to reset your password.</value>
+  </data>
   <data name="Profile" xml:space="preserve">
     <value>Profile</value>
   </data>
   <data name="Register" xml:space="preserve">
     <value>Register</value>
+  </data>
+  <data name="Register confirmation" xml:space="preserve">
+    <value>Register confirmation</value>
+  </data>
+  <data name="Resend" xml:space="preserve">
+    <value>Resend</value>
+  </data>
+  <data name="Resend email confirmation" xml:space="preserve">
+    <value>Resend email confirmation</value>
+  </data>
+  <data name="Reset" xml:space="preserve">
+    <value>Reset</value>
+  </data>
+  <data name="Reset Password" xml:space="preserve">
+    <value>Reset Password</value>
+  </data>
+  <data name="Reset password confirmation" xml:space="preserve">
+    <value>Reset password confirmation</value>
   </data>
   <data name="Save" xml:space="preserve">
     <value>Save</value>
@@ -258,10 +348,28 @@
   <data name="Style:" xml:space="preserve">
     <value>Style:</value>
   </data>
+  <data name="This app does not currently have a real email sender registered. Normally this would be emailed!" xml:space="preserve">
+    <value>This app does not currently have a real email sender registered. Normally this would be emailed!</value>
+  </data>
   <data name="Unfav" xml:space="preserve">
     <value>💔 Unfav</value>
   </data>
+  <data name="Username" xml:space="preserve">
+    <value>Username</value>
+  </data>
+  <data name="Would you like to delete your account?" xml:space="preserve">
+    <value>Would you like to delete your account?</value>
+  </data>
   <data name="YES" xml:space="preserve">
     <value>YES</value>
+  </data>
+  <data name="You have successfully logged out of the application." xml:space="preserve">
+    <value>You have successfully logged out of the application.</value>
+  </data>
+  <data name="Your e-mail has been confirmed. Your account is active." xml:space="preserve">
+    <value>Your e-mail has been confirmed. Your account is active.</value>
+  </data>
+  <data name="Your password has been reset. You can login right now." xml:space="preserve">
+    <value>Your password has been reset. You can login right now.</value>
   </data>
 </root>
