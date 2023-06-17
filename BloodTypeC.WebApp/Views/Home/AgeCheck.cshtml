@@ -1,9 +1,12 @@
-﻿@{
+﻿@using BloodTypeC.WebApp.Language;
+@inject LanguageService language
+
+@{
     Layout = "";
 }
 
 @{
-    ViewData["Title"] = "Age check!";
+    ViewData["Title"] = @language.Getkey("Age check!");
 }
 
 <head>
@@ -16,17 +19,17 @@
         <img src="~/Images/logo-smallmargin.png" class="logo-responsive">
     </div>
     <div class="age-question">
-        Are you over 18?
+        @language.Getkey("Are you over 18?")
     </div>
     <div class="buttons">
         <div class="age-validation-button">
             <button onclick="@("window.location.href='" + Url.Action("Index", "Home") + "'")" class="age-validation-button-style">
-                YES
+                @language.Getkey("YES")
             </button>
         </div>
         <div onclick="@("window.location.href='" + Url.Action("GP", "Home") + "'")" class="age-validation-button">
             <button class="age-validation-button-style">
-                NO
+                @language.Getkey("NO")
             </button>
         </div>
     </div>

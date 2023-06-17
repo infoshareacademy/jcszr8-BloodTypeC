@@ -1,22 +1,25 @@
 ﻿@page
 @model PersonalDataModel
+@using BloodTypeC.WebApp.Language;
+@inject LanguageService language
+
 @{
-    ViewData["Title"] = "Personal Data";
+    ViewData["Title"] = @language.Getkey("Delete your account");
     ViewData["ActivePage"] = ManageNavPages.PersonalData;
 }
 
 <div class="profile-edit">
-    Delete your account
+    @language.Getkey("Delete your account")
 </div>
 <div class="search-form">
     <div class="center-elements">
         <div class="text-white profile-space">
-            Would you like to delete your account?
+            @language.Getkey("Would you like to delete your account?")
         </div>
     </div>
     <div class="button-margin center-elements">
         <a id="delete" asp-page="DeletePersonalData">
-            <button class="delete-button">Delete account</button>
+            <button class="delete-button">@language.Getkey("Delete account")</button>
         </a>
     </div>
 </div>

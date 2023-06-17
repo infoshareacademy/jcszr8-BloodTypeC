@@ -1,14 +1,16 @@
 ﻿@model BloodTypeC.WebApp.Models.BeerViewModel
+@using BloodTypeC.WebApp.Language;
+@inject LanguageService language
 
 @{
-    ViewData["Title"] = "Delete";
+    ViewData["Title"] = @language.Getkey("Delete");
 }
 
 <div class="page-name">
-    Delete Beer
+    @language.Getkey("Delete Beer")
 </div>
 <div class="delete">
-    Are you sure you want to delete this beer?
+    @language.Getkey("Are you sure you want to delete this beer?")
 </div>
 <form asp-action="Delete">
     <div class="products">
@@ -32,22 +34,22 @@
             </div>
             <h1 class="details">@Model.Name</h1>
             <div class="details-product">
-                Brewery: @Model.Brewery<br>
-                Style: @Model.Style<br>
-                Flavors: @Model.FlavorString<br>
-                Alcohol volume: @Model.AlcoholByVolume<br>
-                Score: @Model.Score<br>
+                @language.Getkey("Brewery:") @Model.Brewery<br>
+                @language.Getkey("Style:") @Model.Style<br>
+                @language.Getkey("Flavors:") @Model.FlavorString<br>
+                @language.Getkey("Alcohol volume:") @Model.AlcoholByVolume<br>
+                @language.Getkey("Score:") @Model.Score<br>
             </div>
         </div>
     </div>
     <div class="buttons">
         <div class="button-margin">
             <div class="form-group">
-                <input type="submit" value="Delete" class="search-button" />
+                <input type="submit" value=@language.Getkey("Delete") class="search-button" />
             </div>
         </div>
     </div>
     <div class="buttons">
-        <button class="search-button" asp-controller="Home" asp-action="Index">Back to list</button>
+        <button class="search-button" asp-controller="Home" asp-action="Index">@language.Getkey("Back to list")</button>
     </div>
 </form>

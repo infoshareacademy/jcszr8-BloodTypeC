@@ -1,7 +1,9 @@
 ﻿using BloodTypeC.Logic.Services.IServices;
 using BloodTypeC.WebApp.Models;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using System.Globalization;
 
 namespace BloodTypeC.WebApp.Controllers
 {
@@ -25,6 +27,15 @@ namespace BloodTypeC.WebApp.Controllers
             model.CheckedListOfFlavors = _flavorsToSearch;
             model.Beers = _beerServices.GetAll().Result.ToList();
             return View(model);        
+        }
+        
+        public IActionResult ChangeLanguage(string culture)
+        {
+               Response.Cookies.Append(CookieRequestCultureProvider.DefaultCookieName,
+                   CookieRequestCultureProvider.MakeCookieValue(new RequestCulture(culture)),
+                   new CookieOptions() { Expires = DateTimeOffset.UtcNow.AddYears(1)});
+
+            return Redirect(Request.Headers["Referer"].ToString());
         }
 
         public IActionResult AgeCheck()

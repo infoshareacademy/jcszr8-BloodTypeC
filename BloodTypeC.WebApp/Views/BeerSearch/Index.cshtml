@@ -1,11 +1,13 @@
 ﻿@model IndexViewModel
+@using BloodTypeC.WebApp.Language;
+@inject LanguageService language
 
 @{
-    ViewData["Title"] = "Beer Search";
+    ViewData["Title"] = @language.Getkey("Beer Search");
 }
 
 <div class="page-name">
-    Beer search
+    @language.Getkey("Beer search")
 </div>
 <div class="col-md-12">
     <div class="section-center">
@@ -16,29 +18,29 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <span class="form-label text-white">Beer name</span>
-                                    <input class="form-control" type="text" placeholder="Beer name" asp-for="@Model.SearchBeerName">
+                                    <span class="form-label text-white">@language.Getkey("Beer name")</span>
+                                    <input class="form-control" type="text" placeholder=@language.Getkey("Beer name") asp-for="@Model.SearchBeerName">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <span class="form-label text-white">Brewery</span>
-                                    <input class="form-control" type="text" placeholder="Brewery name" asp-for="@Model.SearchBrewery">
+                                    <span class="form-label text-white">@language.Getkey("Brewery")</span>
+                                        <input class="form-control" type="text" placeholder=@language.Getkey("Brewery name") asp-for="@Model.SearchBrewery">
                                 </div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <span class="form-label text-white">Minimum alcohol volume</span>
+                                    <span class="form-label text-white">@language.Getkey("Minimum alcohol volume")</span>
                                     <span asp-validation-for="MinAbv" class="text-danger"></span>
-                                    <input class="form-control" type="number" step="0.01" min="0" placeholder="Minimum alcohol %" asp-for="@Model.MinAbv">
+                                    <input class="form-control" type="number" step="0.01" min="0" placeholder=@language.Getkey("Minimum alcohol %") asp-for="@Model.MinAbv">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <span class="form-label text-white">Maximum alcohol by volume</span>
-                                    <input class="form-control" type="number" step="0.01" min="0" placeholder="Maximum alcohol %" asp-for="@Model.MaxAbv">
+                                    <span class="form-label text-white">@language.Getkey("Maximum alcohol by volume")</span>
+                                        <input class="form-control" type="number" step="0.01" min="0" placeholder=@language.Getkey("Maximum alcohol %") asp-for="@Model.MaxAbv">
                                 </div>
                             </div>
                         </div>
@@ -47,7 +49,7 @@
                                 <div class="form-group">
                                     @if (Model.CheckedListOfFlavors.Any())
                                     {
-                                        <span class="form-label">Select your favorite flavors</span>
+                                        <span class="form-label">@language.Getkey("Select your favorite flavors")</span>
                                     }
                                     @for (int i = 0; i < Model.CheckedListOfFlavors.Count; i++)
                                     {
@@ -65,12 +67,12 @@
                         <div class="buttons">
                             <div class="button-margin">
                                 <div class="form-btn">
-                                    <button class="search-button">Show beers</button>
+                                    <button class="search-button">@language.Getkey("Show beers")</button>
                                 </div>
                             </div>
                         </div>
                         <div class="buttons">
-                            <button class="search-button" asp-controller="Home" asp-action="Index">Back to list</button>
+                            <button class="search-button" asp-controller="Home" asp-action="Index">@language.Getkey("Back to list")</button>
                         </div>
                     </form>
                 </div>

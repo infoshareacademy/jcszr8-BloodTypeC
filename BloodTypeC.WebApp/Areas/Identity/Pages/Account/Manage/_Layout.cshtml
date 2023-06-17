@@ -1,4 +1,7 @@
-﻿@{
+﻿@using BloodTypeC.WebApp.Language;
+@inject LanguageService language
+
+@{
     if (ViewData.TryGetValue("ParentLayout", out var parentLayout) && parentLayout != null)
     {
         Layout = parentLayout.ToString();
@@ -10,7 +13,7 @@
 }
 
 <div class="page-name">
-    Manage your account
+    @language.Getkey("Manage your account")
 </div>
 <div>
     <div class="products-nomargin">

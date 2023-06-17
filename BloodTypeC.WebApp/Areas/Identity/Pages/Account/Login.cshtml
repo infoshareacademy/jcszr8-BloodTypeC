@@ -1,12 +1,14 @@
 ﻿@page
 @model LoginModel
+@using BloodTypeC.WebApp.Language;
+@inject LanguageService language
 
 @{
-    ViewData["Title"] = "Log in";
+    ViewData["Title"] = @language.Getkey("Log in");
 }
 
 <div class="page-name">
-    Log in
+    @language.Getkey("Log in")
 </div>
 <div class="col-md-12">
     <div class="section-center">
@@ -17,8 +19,8 @@
                         <div class="col-md-6">
                             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                             <div class="form-group">
-                                <label asp-for="Input.Email" class="form-label"></label>
-                                <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" placeholder="email" />
+                                <span class="form-label text-white">@language.Getkey("Password")</span>
+                                <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" placeholder=@language.Getkey("Email")/>
                                 <span asp-validation-for="Input.Email" class="text-danger"></span>
                             </div>
                         </div>
@@ -26,8 +28,8 @@
                     <div class="center-elements">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label asp-for="Input.Password" class="form-label"></label>
-                                <input asp-for="Input.Password" class="form-control" autocomplete="current-password" aria-required="true" placeholder="Password" />
+                                <span class="form-label text-white">@language.Getkey("Password")</span>
+                                <input asp-for="Input.Password" class="form-control" autocomplete="current-password" aria-required="true" placeholder=@language.Getkey("Password")/>
                                 <span asp-validation-for="Input.Password" class="text-danger"></span>
                             </div>
                         </div>
@@ -42,15 +44,15 @@
                     </div>
                     <div class="button-margin">
                         <div class="center-elements">
-                            <button id="login-submit" type="submit" class="search-button">Log in</button>
+                            <button id="login-submit" type="submit" class="search-button">@language.Getkey("Log in")</button>
                         </div>
                     </div>
                     <div>
                         <p class="center-elements">
-                            <a id="forgot-password" asp-page="./ForgotPassword">Forgot your password?</a>
+                            <a id="forgot-password" asp-page="./ForgotPassword">@language.Getkey("Forgot your password?")</a>
                         </p>
                         <p class="center-elements">
-                            <a id="resend-confirmation" asp-page="./ResendEmailConfirmation">Resend email confirmation</a>
+                            <a id="resend-confirmation" asp-page="./ResendEmailConfirmation">@language.Getkey("Resend email confirmation")</a>
                         </p>
                     </div>
                 </form>

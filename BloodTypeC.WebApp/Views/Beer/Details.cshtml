@@ -1,4 +1,9 @@
 ﻿@model BloodTypeC.WebApp.Models.BeerViewModel
+@using BloodTypeC.DAL.Models;
+@using BloodTypeC.Logic.Extensions;
+@using System.ComponentModel.DataAnnotations;
+@using BloodTypeC.WebApp.Language;
+@inject LanguageService language
 @using BloodTypeC.DAL.Models
 @using Microsoft.AspNetCore.Mvc.TagHelpers
 
@@ -28,19 +33,19 @@
         </div>
         <h1 class="details">@Model.Name</h1>
         <div class="details-product">
-            Brewery: @Model.Brewery<br>
-            Style: @Model.Style<br>
-            Flavors: @Model.FlavorString<br>
-            Alcohol by volume: @Model.AlcoholByVolume<br>
-            Score: @Model.Score/@maxScore<br>
+            @language.Getkey("Brewery:") @Model.Brewery<br>
+            @language.Getkey("Style:") @Model.Style<br>
+            @language.Getkey("Flavors:") @Model.FlavorString<br>
+            @language.Getkey("Alcohol by volume:") @Model.AlcoholByVolume<br>
+            @language.Getkey("Score:") @Model.Score/@maxScore<br>
             Added by: @Model.AddedByUser?.UserName<br/>
             </div>
             <div class="buttons">
                 <a asp-action="Edit" asp-route-id="@Model.Id" asp-controller="Beer">
-                    <button class="product-button">Edit</button>
+                <button class="product-button">@language.Getkey("Edit")</button>
                 </a>
                 <a asp-action="Delete" asp-route-id="@Model.Id" asp-controller="Beer">
-                    <button class="product-button">Delete</button>
+                <button class="product-button">@language.Getkey("Delete")</button>
                 </a>
             </div>        
         <div class="buttons">
@@ -50,7 +55,7 @@
                 {
                     <a asp-controller="FavoriteBeers" asp-action="AddToFavorites" asp-route-id="@Model.Id">
                         <button class="fav-button">
-                            ❤ Fav it!
+                            @language.Getkey("Fav")
                         </button>
                     </a>
                 }
@@ -58,7 +63,7 @@
                 {
                     <a asp-controller="FavoriteBeers" asp-action="RemoveFromFavorites" asp-route-id="@Model.Id">
                         <button class="fav-rem-button">
-                            💔 Unfav
+                            @language.Getkey("Unfav")
                         </button>
                     </a>
                 }
@@ -69,7 +74,7 @@
 <div class="button-margin">
     <div class="buttons">
         <button onclick="@("window.location.href='" + Url.Action("Index", "Home") + "'")" class="search-button">
-            Back to list
+            @language.Getkey("Back to list")
         </button>
     </div>
 </div>
