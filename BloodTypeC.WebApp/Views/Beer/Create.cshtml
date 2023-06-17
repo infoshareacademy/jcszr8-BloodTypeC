@@ -15,7 +15,7 @@
 }
 
 <div class="page-name">
-    @language.Getkey("Add a Beer")
+    @language.Getkey("Add a beer")
 </div>
 <div class="col-md-12 section-center container search-form">
     <form asp-action="Create">
@@ -23,7 +23,7 @@
             <div class="col-md-6">
                 <div> <span class="form-label text-white">@language.Getkey("Beer Name")<font color="red">*</font></span></div>
                 <div class="input-group col-md-6 tooltip-container">
-                    <input type="text" asp-for="Name" class="form-control" placeholder=@language.Getkey("Beer name") />
+                    <input type="text" asp-for="Name" class="form-control" placeholder=@language.Getkey("Beer Name") />
                     <button class="btn btn-outline-secondary tooltip-button" type="button">
                         <p class="tooltip-text">The name needs to be @nameMinLength - @nameMaxLength characters long.</p>
                         <i class="bi bi-info-circle" id="info-icon"></i>
