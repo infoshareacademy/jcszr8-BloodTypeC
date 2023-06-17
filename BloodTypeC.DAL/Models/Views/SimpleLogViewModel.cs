@@ -2,7 +2,7 @@
 
 namespace BloodTypeC.DAL.Models.Views
 {
-    public class ActivityLogViewModel
+    public class SimpleLogViewModel
     {
         [DisplayName("User E-mail")]
         public string TargetUser { get; set; }

@@ -1,6 +1,6 @@
-﻿using AutoMapper;
-using BloodTypeC.DAL.Models;
+﻿using BloodTypeC.DAL.Models;
 using BloodTypeC.DAL.Models.Views;
+using BloodTypeC.DAL.Repository;
 using BloodTypeC.Logic.Services.IServices;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -8,22 +8,24 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BloodTypeC.WebApp.Controllers
 {
-    [Authorize]
+    [Authorize(Roles="Admin")]
     public class AdminController : Controller
     {
         private readonly UserManager<User> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly IMailService _mailService;
         private readonly IUserActivityServices _userActivityServices;
-        private readonly IMapper _mapper;
+        private readonly IRepository<AdminReportsOptions> _adminReportsOptionsRepository;
 
-        public AdminController(UserManager<User> userManager, RoleManager<IdentityRole> roleManager, IMailService mailService, IUserActivityServices userActivityServices, IMapper mapper)
+        public AdminController(UserManager<User> userManager, RoleManager<IdentityRole> roleManager,
+            IMailService mailService, IUserActivityServices userActivityServices,
+            IRepository<AdminReportsOptions> adminReportsRepository)
         {
             _userManager = userManager;
             _roleManager = roleManager;
             _mailService = mailService;
             _userActivityServices = userActivityServices;
-            _mapper = mapper;
+            _adminReportsOptionsRepository = adminReportsRepository;
         }
 
         public IActionResult Index()
@@ -217,11 +219,11 @@ namespace BloodTypeC.WebApp.Controllers
 
         public IActionResult SimpleReport()
         {
-            var model = new ActivityLogViewModel();
+            var model = new SimpleLogViewModel();
             return View(model);
         }
         [HttpPost]
-        public async Task<IActionResult> SimpleReport(ActivityLogViewModel model)
+        public async Task<IActionResult> SimpleReport(SimpleLogViewModel model)
         {
             var userActivityLog = await _userActivityServices.GetLastUserActivityAsync(model.TargetUser);
             model.LastUserActivity = userActivityLog.UserAction.ToString();
@@ -238,6 +240,9 @@ namespace BloodTypeC.WebApp.Controllers
             model.TargetDate = DateTime.Today;
             model.UserActivities = await _userActivityServices.GetAllUserActivitiesAsync();
             model.CustomDate = false;
+
+            var reportOptions = await _adminReportsOptionsRepository.GetAll();
+            model.ReportsOptions = reportOptions.FirstOrDefault(x => x.UserID == User.Identity.Name);
             return View(model);
         }
         [HttpPost]
@@ -251,6 +256,9 @@ namespace BloodTypeC.WebApp.Controllers
             }
             else
             {
+                
+                await _adminReportsOptionsRepository.Update(model.ReportsOptions);
+
                 var filteredList = await _userActivityServices.GetAllUserActivitiesAsync();
                     model.UserActivities = filteredList
                         .Where(x => x.User.UserName == model.TargetUserName)

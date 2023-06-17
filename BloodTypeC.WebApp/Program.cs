@@ -17,6 +17,7 @@ namespace BloodTypeC.WebApp
         public static async Task Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+                        var connectionString = builder.Configuration.GetConnectionString("BeeropediaContextConnection") ?? throw new InvalidOperationException("Connection string 'BeeropediaContextConnection' not found.");
             var logger = new LoggerConfiguration()
                .MinimumLevel.Debug()
     .WriteTo.File(path: "Logs/debug.txt", rollingInterval: RollingInterval.Day)
