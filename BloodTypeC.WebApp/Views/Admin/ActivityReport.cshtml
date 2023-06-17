@@ -9,12 +9,16 @@
 
 <div class="col-md-12 search-form container">
     <form asp-action="ActivityReport">
+        <div class="table-responsive">
+            asdasdasd
+        </div>
+        <hr/>
         <div class="center-elements text-white">
             <div class="col-md-6">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div><span class="control-label">User</span></div>
                 <div class="form-group">
-                    <input type="text" asp-for="TargetUserName" class="form-control" placeholder="Enter desired username" />
+                    <input type="text" asp-for="TargetUserName" class="form-control" placeholder="Enter desired username"/>
                     <span asp-validation-for="TargetUserName" class="text-danger"></span>
                 </div>
             </div>
@@ -25,16 +29,16 @@
                 <div class="col-md-6">
                     <div><span class="control-label">Date</span></div>
                     <div class="form-group">
-                        <input asp-for="TargetDate" class="form-control" />
+                        <input asp-for="TargetDate" class="form-control"/>
                         <span asp-validation-for="TargetDate" class="text-danger"></span>
                     </div>
                 </div>
             </div>
         }
         <div class="center-elements text-white" style="margin-bottom: 1rem">
-            <input type="checkbox" asp-for="CustomDate" /> Exclude date filter
+            <input type="checkbox" asp-for="CustomDate"/> Exclude date filter
         </div>
-        <input type="submit" value="Apply" class="search-button" />
+        <input type="submit" value="Apply" class="search-button"/>
     </form>
 
 </div>

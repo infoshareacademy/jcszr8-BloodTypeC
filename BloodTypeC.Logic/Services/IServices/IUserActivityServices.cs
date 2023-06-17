@@ -11,5 +11,7 @@ namespace BloodTypeC.Logic.Services.IServices
         Task<UserActivity> GetLastUserActivityAsync(string userName);
         Task<int> CountUserLogInsAsync(string userName);
         Task<int> CountUserLogOutsAsync(string userName);
+        Task<AdminReportsOptions> GetAdminReportsOptionsAsync(string adminUsername);
+        Task SaveAdminReportsOptionsAsync(AdminReportsOptions options);
     }
 }

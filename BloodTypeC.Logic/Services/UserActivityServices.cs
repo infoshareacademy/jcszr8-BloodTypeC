@@ -10,11 +10,13 @@ namespace BloodTypeC.Logic.Services
     {
         private readonly IRepository<UserActivity> _userActivityRepository;
         private readonly UserManager<User> _userManager;
+        private readonly IRepository<AdminReportsOptions> _adminReportsRepository;
 
-        public UserActivityServices(IRepository<UserActivity> userActivityRepository, UserManager<User> userManager)
+        public UserActivityServices(IRepository<UserActivity> userActivityRepository, UserManager<User> userManager, IRepository<AdminReportsOptions> adminReportsRepository)
         {
             _userActivityRepository = userActivityRepository;
             _userManager = userManager;
+            _adminReportsRepository = adminReportsRepository;
         }
         public async Task LogUserActivityAsync(UserActivity userActivity)
         {
@@ -71,6 +73,17 @@ namespace BloodTypeC.Logic.Services
             var userActivity = await _userActivityRepository.GetAll(x => x.User);
             var result = userActivity.Where(x=>x.User.UserName == userName).Count(x => x.UserAction == Enums.UserActions.LogOut);
             return result;
+        }
+
+        public async Task<AdminReportsOptions> GetAdminReportsOptionsAsync(string adminUserName)
+        {
+            var options = await _adminReportsRepository.GetAll();
+            return options.FirstOrDefault(x => x.AdminUserName == adminUserName);
+        }
+
+        public async Task SaveAdminReportsOptionsAsync(AdminReportsOptions options)
+        {
+            await _adminReportsRepository.Update(options);
         }
     }
 }

@@ -8,24 +8,21 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BloodTypeC.WebApp.Controllers
 {
-    [Authorize(Roles="Admin")]
+    [Authorize(Roles = "Admin")]
     public class AdminController : Controller
     {
         private readonly UserManager<User> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly IMailService _mailService;
         private readonly IUserActivityServices _userActivityServices;
-        private readonly IRepository<AdminReportsOptions> _adminReportsOptionsRepository;
 
         public AdminController(UserManager<User> userManager, RoleManager<IdentityRole> roleManager,
-            IMailService mailService, IUserActivityServices userActivityServices,
-            IRepository<AdminReportsOptions> adminReportsRepository)
+            IMailService mailService, IUserActivityServices userActivityServices)
         {
             _userManager = userManager;
             _roleManager = roleManager;
             _mailService = mailService;
             _userActivityServices = userActivityServices;
-            _adminReportsOptionsRepository = adminReportsRepository;
         }
 
         public IActionResult Index()
@@ -236,13 +233,21 @@ namespace BloodTypeC.WebApp.Controllers
 
         public async Task<IActionResult> ActivityReport()
         {
-            var model = new ActivityReportViewModel();
-            model.TargetDate = DateTime.Today;
-            model.UserActivities = await _userActivityServices.GetAllUserActivitiesAsync();
-            model.CustomDate = false;
+            var adminUserName = User.Identity.Name;
+            var model = new ActivityReportViewModel
+            {
+                TargetDate = DateTime.Today,
+                UserActivities = await _userActivityServices.GetAllUserActivitiesAsync(),
+                CustomDate = false,
+                ReportsOptions = new AdminReportsOptions()
+            };
 
-            var reportOptions = await _adminReportsOptionsRepository.GetAll();
-            model.ReportsOptions = reportOptions.FirstOrDefault(x => x.UserID == User.Identity.Name);
+            //var options = await _userActivityServices.GetAdminReportsOptionsAsync(adminUserName);
+            //if (options != null)
+            //{
+            //    model.ReportsOptions = options;
+            //}
+
             return View(model);
         }
         [HttpPost]
@@ -256,19 +261,18 @@ namespace BloodTypeC.WebApp.Controllers
             }
             else
             {
-                
-                await _adminReportsOptionsRepository.Update(model.ReportsOptions);
+                //await _userActivityServices.SaveAdminReportsOptionsAsync(model.ReportsOptions);
 
                 var filteredList = await _userActivityServices.GetAllUserActivitiesAsync();
-                    model.UserActivities = filteredList
-                        .Where(x => x.User.UserName == model.TargetUserName)
-                        .ToList();
-                    if (!model.CustomDate)
-                    {
-                        var dateFilteredList = model.UserActivities
-                            .Where(x => x.Time.Date == model.TargetDate.Date).ToList();
-                        model.UserActivities = dateFilteredList;
-                    }
+                model.UserActivities = filteredList
+                    .Where(x => x.User.UserName == model.TargetUserName)
+                    .ToList();
+                if (!model.CustomDate)
+                {
+                    var dateFilteredList = model.UserActivities
+                        .Where(x => x.Time.Date == model.TargetDate.Date).ToList();
+                    model.UserActivities = dateFilteredList;
+                }
             }
             return View(model);
         }

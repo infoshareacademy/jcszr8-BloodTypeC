@@ -4,7 +4,7 @@ namespace BloodTypeC.DAL.Models
 {
     public class AdminReportsOptions : Entity
     {
-        public string UserID { get; set; }
+        public string AdminUserName { get; set; }
         public int SendInterval { get; set; }
         public string? SendTargetEmail { get; set; }
     }
