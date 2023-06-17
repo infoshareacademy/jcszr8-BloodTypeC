@@ -144,14 +144,8 @@
   <data name="Beer Name" xml:space="preserve">
     <value>Beer Name</value>
   </data>
-  <data name="Beer name2" xml:space="preserve">
-    <value>Beer name</value>
-  </data>
   <data name="Beer Search" xml:space="preserve">
     <value>Beer Search</value>
-  </data>
-  <data name="Beer search2" xml:space="preserve">
-    <value>Beer search</value>
   </data>
   <data name="Beero" xml:space="preserve">
     <value>Beer-o-pedia</value>

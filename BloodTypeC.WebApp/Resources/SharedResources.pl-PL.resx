@@ -144,13 +144,7 @@
   <data name="Beer Name" xml:space="preserve">
     <value>Nazwa piwa</value>
   </data>
-  <data name="Beer name2" xml:space="preserve">
-    <value>Nazwa piwa</value>
-  </data>
   <data name="Beer Search" xml:space="preserve">
-    <value>Wyszukiwanie piw</value>
-  </data>
-  <data name="Beer search2" xml:space="preserve">
     <value>Wyszukiwanie piw</value>
   </data>
   <data name="Beero" xml:space="preserve">
@@ -178,10 +172,10 @@
     <value>Potwierdź hasło</value>
   </data>
   <data name="Confirm Password" xml:space="preserve">
-    <value>Potwierdz hasło</value>
+    <value>Potwierdź hasło</value>
   </data>
   <data name="Confirm your account" xml:space="preserve">
-    <value>Potwierdz swoje konto</value>
+    <value>Potwierdź swoje konto</value>
   </data>
   <data name="Create" xml:space="preserve">
     <value>Utwórz</value>
@@ -205,7 +199,7 @@
     <value>Usuń swoje konto</value>
   </data>
   <data name="Deleting this data will permanently remove your account, and this cannot be recovered." xml:space="preserve">
-    <value>Usunięcie konta spowoduje nieodwracalne zmiany.</value>
+    <value>Ta operacja spowoduje całkowite i nieodwracalne usunięcie konta.</value>
   </data>
   <data name="Details" xml:space="preserve">
     <value>Info</value>
@@ -235,7 +229,7 @@
     <value>Smaki:</value>
   </data>
   <data name="Forgot password confirmation" xml:space="preserve">
-    <value>Potwierdzenie hasła</value>
+    <value>Przypomnienie hasła</value>
   </data>
   <data name="Forgot your password?" xml:space="preserve">
     <value>Zapomniałeś hasła?</value>
@@ -244,7 +238,7 @@
     <value>Obraz</value>
   </data>
   <data name="Image URL" xml:space="preserve">
-    <value>URL obrazu</value>
+    <value>URL obrazka</value>
   </data>
   <data name="Languages" xml:space="preserve">
     <value>Język</value>
@@ -259,7 +253,7 @@
     <value>Wyloguj</value>
   </data>
   <data name="Manage Email" xml:space="preserve">
-    <value>Zarządzanie kontem email</value>
+    <value>Zmiana adresu email</value>
   </data>
   <data name="Manage your account" xml:space="preserve">
     <value>Zarządzanie kontem</value>
@@ -295,10 +289,10 @@
     <value>Numer telefonu</value>
   </data>
   <data name="Please check your email to confirm your account." xml:space="preserve">
-    <value>Sprawdz email aby potwierdzić rejestracje.</value>
+    <value>Sprawdź email aby potwierdzić rejestrację.</value>
   </data>
   <data name="Please check your email to reset your password." xml:space="preserve">
-    <value>Sprawdź swój email aby zrestartować hasło.</value>
+    <value>Sprawdź swój email aby zresetować hasło.</value>
   </data>
   <data name="Profile" xml:space="preserve">
     <value>Profil</value>
@@ -310,7 +304,7 @@
     <value>Potwierdzenie rejestracji</value>
   </data>
   <data name="Resend" xml:space="preserve">
-    <value>Wyslij</value>
+    <value>Wyślij</value>
   </data>
   <data name="Resend email confirmation" xml:space="preserve">
     <value>Wyślij ponownie potwierdzenie email</value>
@@ -358,7 +352,7 @@
     <value>Nazwa użytkownika</value>
   </data>
   <data name="Would you like to delete your account?" xml:space="preserve">
-    <value>Czy chcesz usunąc swoje konto?</value>
+    <value>Czy chcesz usunąć swoje konto?</value>
   </data>
   <data name="YES" xml:space="preserve">
     <value>TAK</value>
