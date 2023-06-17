@@ -303,6 +303,9 @@
   <data name="Register confirmation" xml:space="preserve">
     <value>Potwierdzenie rejestracji</value>
   </data>
+  <data name="Remember me" xml:space="preserve">
+    <value>Zapamiętaj</value>
+  </data>
   <data name="Resend" xml:space="preserve">
     <value>Wyślij</value>
   </data>
@@ -342,6 +345,9 @@
   <data name="Style:" xml:space="preserve">
     <value>Gatunek:</value>
   </data>
+  <data name="The list is currently empty." xml:space="preserve">
+    <value>Lista jest pusta.</value>
+  </data>
   <data name="This app does not currently have a real email sender registered. Normally this would be emailed!" xml:space="preserve">
     <value>Aplikacja nie posiada w tej chwili możliwości potwierdzenia adresu email. </value>
   </data>
@@ -363,7 +369,13 @@
   <data name="Your e-mail has been confirmed. Your account is active." xml:space="preserve">
     <value>Adres email został potwierdzony. Twoje konto jest aktywne.</value>
   </data>
+  <data name="Your favorite beers" xml:space="preserve">
+    <value>Twoje ulubione piwa</value>
+  </data>
   <data name="Your password has been reset. You can login right now." xml:space="preserve">
     <value>Twoje hasło zostało zresetowane. Możesz się zalogować.</value>
+  </data>
+  <data name="★ Favorites" xml:space="preserve">
+    <value>★ Ulubione</value>
   </data>
 </root>

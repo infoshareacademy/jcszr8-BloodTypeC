@@ -46,14 +46,14 @@
                         <li class="nav-item"><a class="nav-link" aria-current="page" asp-controller="Beer" asp-action="Create">@language.Getkey("Add a beer")</a></li>
                     }
                    <partial name="_LoginPartial" />
-                </ul>
                 <div class="dropdown">
-                    <a href="#"><button class="logout padding-rem">@language.Getkey("Languages")</button></a>
+                    <a href="#"><button class="logout">@language.Getkey("Languages")</button></a>
                     <ul>
                         <li><a asp-controller="Home" asp-action="ChangeLanguage" asp-route-culture="en-US">English</a></li>
                         <li><a asp-controller="Home" asp-action="ChangeLanguage" asp-route-culture="pl-PL">Polski</a></li>
                     </ul>
                 </div>
+                </ul>
             </div>
         </div>
     </nav>

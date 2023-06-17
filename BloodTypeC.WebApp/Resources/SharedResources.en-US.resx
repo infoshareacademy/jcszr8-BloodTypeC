@@ -303,6 +303,9 @@
   <data name="Register confirmation" xml:space="preserve">
     <value>Register confirmation</value>
   </data>
+  <data name="Remember me" xml:space="preserve">
+    <value>Remember me</value>
+  </data>
   <data name="Resend" xml:space="preserve">
     <value>Resend</value>
   </data>
@@ -342,6 +345,9 @@
   <data name="Style:" xml:space="preserve">
     <value>Style:</value>
   </data>
+  <data name="The list is currently empty." xml:space="preserve">
+    <value>The list is currently empty.</value>
+  </data>
   <data name="This app does not currently have a real email sender registered. Normally this would be emailed!" xml:space="preserve">
     <value>This app does not currently have a real email sender registered. Normally this would be emailed!</value>
   </data>
@@ -363,7 +369,13 @@
   <data name="Your e-mail has been confirmed. Your account is active." xml:space="preserve">
     <value>Your e-mail has been confirmed. Your account is active.</value>
   </data>
+  <data name="Your favorite beers" xml:space="preserve">
+    <value>Your favorite beers</value>
+  </data>
   <data name="Your password has been reset. You can login right now." xml:space="preserve">
     <value>Your password has been reset. You can login right now.</value>
+  </data>
+  <data name="★ Favorites" xml:space="preserve">
+    <value>★ Favorites</value>
   </data>
 </root>

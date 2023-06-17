@@ -518,6 +518,7 @@ a:hover {
     font-size: 16px;
     cursor: pointer;
     display: inline-block;
+    margin-right:10px;
 }
 
 .text-white{
@@ -604,7 +605,7 @@ a:hover {
 }
 
 .nav-margin{
-    margin-right: 6px;
+    margin-right: 10px;
 }
 
 .right-margin {
