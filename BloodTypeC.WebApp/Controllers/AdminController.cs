@@ -222,15 +222,13 @@ namespace BloodTypeC.WebApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> SimpleReport(SimpleLogViewModel model)
         {
-            if (ModelState.IsValid)
-            {
-                var userActivityLog = await _userActivityServices.GetLastUserActivityAsync(model.TargetUser);
-                model.LastUserActivity = userActivityLog.UserAction.ToString();
-                model.LastUserActivityTime = userActivityLog.Time;
-                model.LastUserActivityObject = userActivityLog.ObjectName;
-                model.UserLogIns = await _userActivityServices.CountUserLogInsAsync(model.TargetUser);
-                model.UserLogOuts = await _userActivityServices.CountUserLogOutsAsync(model.TargetUser);
-            }
+            var userActivityLog = await _userActivityServices.GetLastUserActivityAsync(model.TargetUser);
+            model.LastUserActivity = userActivityLog.UserAction.ToString();
+            model.LastUserActivityTime = userActivityLog.Time;
+            model.LastUserActivityObject = userActivityLog.ObjectName;
+            model.UserLogIns = await _userActivityServices.CountUserLogInsAsync(model.TargetUser);
+            model.UserLogOuts = await _userActivityServices.CountUserLogOutsAsync(model.TargetUser);
+
 
             return View(model);
         }
@@ -289,6 +287,6 @@ namespace BloodTypeC.WebApp.Controllers
             return RedirectToAction(HttpContext.GetController(), HttpContext.GetAction());
         }
 
-        
+
     }
 }
