@@ -280,12 +280,15 @@ namespace BloodTypeC.WebApp.Controllers
                 mailBody += item.ToLogHtml();
             }
 
-            var mail = _mailService.CreateMailTemplate("Beeropedia user activity report", mailBody,
-                "This mail was generated automatically by a Beeropedia reporting system. Do not reply to it.");
+            if (model.UserActivities.Any())
+            {
+                var mail = _mailService.CreateMailTemplate("Beeropedia user activity report", mailBody,
+                    "This mail was generated automatically by a Beeropedia reporting system. Do not reply to it.");
 
-            await _userActivityServices.SendUserActivityToEmail(mail, model.ReportsOptions.SendTargetEmail);
+                await _userActivityServices.SendUserActivityToEmail(mail, model.ReportsOptions.SendTargetEmail);
+            }
 
-            return RedirectToAction(HttpContext.GetController(), HttpContext.GetAction());
+            return View(model);
         }
 
 
