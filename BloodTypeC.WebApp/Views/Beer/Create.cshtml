@@ -6,7 +6,7 @@
 @model BeerViewModel
 
 @{
-    ViewData["Title"] = "Create a beer";
+    ViewData["Title"] = @language.Getkey("Create a beer");
     var nameMinLength = Consts.nameMinLength;
     var nameMaxLength = Consts.nameMaxLength;
     var breweryMaxLength = Consts.breweryMaxLength;

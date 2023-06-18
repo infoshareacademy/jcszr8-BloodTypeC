@@ -180,6 +180,9 @@
   <data name="Create" xml:space="preserve">
     <value>Utwórz</value>
   </data>
+  <data name="Create a beer" xml:space="preserve">
+    <value>Dodaj piwo</value>
+  </data>
   <data name="Current password" xml:space="preserve">
     <value>Bieżące hasło</value>
   </data>
@@ -203,6 +206,9 @@
   </data>
   <data name="Details" xml:space="preserve">
     <value>Info</value>
+  </data>
+  <data name="dupa" xml:space="preserve">
+    <value>dupa</value>
   </data>
   <data name="E-mail confirmed" xml:space="preserve">
     <value>Adres email został potwierdzony</value>
