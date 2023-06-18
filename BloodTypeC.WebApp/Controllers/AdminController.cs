@@ -1,31 +1,37 @@
 ﻿using BloodTypeC.DAL.Models;
 using BloodTypeC.DAL.Models.Views;
+using BloodTypeC.DAL.Repository;
+using BloodTypeC.Logic.Extensions;
+using BloodTypeC.Logic.Services.IServices;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BloodTypeC.WebApp.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     public class AdminController : Controller
     {
         private readonly UserManager<User> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly IUserActivityServices _userActivityServices;
 
-        public AdminController(UserManager<User> userManager, RoleManager<IdentityRole> roleManager)
+        public AdminController(UserManager<User> userManager, RoleManager<IdentityRole> roleManager,
+            IUserActivityServices userActivityServices)
         {
             _userManager = userManager;
             _roleManager = roleManager;
+            _userActivityServices = userActivityServices;
         }
 
         public IActionResult Index()
         {
             var model = new AdminPanelViewModel();
             model.Users = _userManager.Users;
-            model.Roles= _roleManager.Roles;
+            model.Roles = _roleManager.Roles;
             return View(model);
         }
-        public IActionResult CreateUser() 
+        public IActionResult CreateUser()
         {
             return View();
         }
@@ -34,14 +40,14 @@ namespace BloodTypeC.WebApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> CreateUser(User user)
         {
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 User appUser = new User();
 
                 appUser.UserName = user.Email;
                 appUser.Email = user.Email;
                 IdentityResult result = await _userManager.CreateAsync(appUser, user.PasswordHash);
-                if (result.Succeeded) 
+                if (result.Succeeded)
                 {
                     return RedirectToAction("Index");
                 }
@@ -57,7 +63,7 @@ namespace BloodTypeC.WebApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> EditUser(string id, User user)
         {
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 var userToEdit = await _userManager.FindByIdAsync(id);
                 userToEdit.UserName = user.UserName;
@@ -163,7 +169,7 @@ namespace BloodTypeC.WebApp.Controllers
             var result = await _roleManager.DeleteAsync(roleToDelete);
             if (result.Succeeded)
             {
-               return RedirectToAction("Index");
+                return RedirectToAction("Index");
             }
             return View(role);
         }
@@ -195,16 +201,97 @@ namespace BloodTypeC.WebApp.Controllers
                 }
                 return RedirectToAction("Index");
             }
-            return RedirectToAction("AssignUserRoles",new {userId=model.User.Id});
+            return RedirectToAction("AssignUserRoles", new { userId = model.User.Id });
         }
 
         //[HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> RemoveUserRole(string id,string roleName)
+        public async Task<IActionResult> RemoveUserRole(string id, string roleName)
         {
-                var user = await _userManager.FindByIdAsync(id);
-                await _userManager.RemoveFromRoleAsync(user, roleName);
+            var user = await _userManager.FindByIdAsync(id);
+            await _userManager.RemoveFromRoleAsync(user, roleName);
             return RedirectToAction("AssignUserRoles", new { userId = user.Id });
+        }
+
+        public IActionResult SimpleReport()
+        {
+            var model = new SimpleLogViewModel();
+            return View(model);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> SimpleReport(SimpleLogViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var userActivityLog = await _userActivityServices.GetLastUserActivityAsync(model.TargetUser);
+                model.LastUserActivity = userActivityLog.UserAction.ToString();
+                model.LastUserActivityTime = userActivityLog.Time;
+                model.LastUserActivityObject = userActivityLog.ObjectName;
+                model.UserLogIns = await _userActivityServices.CountUserLogInsAsync(model.TargetUser);
+                model.UserLogOuts = await _userActivityServices.CountUserLogOutsAsync(model.TargetUser);
+            }
+
+            return View(model);
+        }
+
+        public async Task<IActionResult> ActivityReport()
+        {
+            var model = new ActivityReportViewModel
+            {
+                TargetDate = DateTime.Today,
+                UserActivities = await _userActivityServices.GetAllUserActivitiesAsync(),
+                CustomDate = false
+            };
+
+            return View(model);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ActivityReport(ActivityReportViewModel model)
+        {
+            var userActivities = await _userActivityServices.GetAllUserActivitiesAsync();
+            if (model.TargetUserName != null)
+            {
+                model.UserActivities = userActivities
+                    .Where(x => x.User.UserName.Contains(model.TargetUserName))
+                    .ToList();
+            }
+            else
+            {
+                model.UserActivities = userActivities;
+            }
+            if (!model.CustomDate)
+            {
+                var dateFilteredList = model.UserActivities
+                    .Where(x => x.Time.Date == model.TargetDate.Date).ToList();
+                model.UserActivities = dateFilteredList;
+            }
+            return View(model);
+        }
+
+        public async Task<IActionResult> SendToEmail()
+        {
+            var options = await _userActivityServices.GetAdminReportsOptionsAsync(User.Identity.Name);
+            var model = new ActivityReportViewModel()
+            {
+                TargetDate = DateTime.Today,
+                UserActivities = await _userActivityServices.GetAllUserActivitiesAsync(),
+                CustomDate = false,
+                ReportsOptions = options
+            };
+            return View(model);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> SendToEmail(ActivityReportViewModel model)
+        {
+            await _userActivityServices.SaveAdminReportsOptionsAsync(model.ReportsOptions);
+
+            var mailBody = model.UserActivities.ToString();
+            await _userActivityServices.SendUserActivityToEmail(mailBody, model.ReportsOptions.SendTargetEmail);
+
+            return RedirectToAction(HttpContext.GetController(), HttpContext.GetAction());
         }
     }
 }

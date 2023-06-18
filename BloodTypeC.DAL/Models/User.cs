@@ -1,9 +1,4 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BloodTypeC.DAL.Models
 {
@@ -11,5 +6,6 @@ namespace BloodTypeC.DAL.Models
     {
         public ICollection<Beer>? FavoriteBeers { get; set; } = new List<Beer>();
         public ICollection<Beer>? AddedBeers { get; set; } = new List<Beer>();
+        public ICollection<UserActivity>? UserActivities { get; set; } = new List<UserActivity>();
     }
 }

@@ -1,0 +1,88 @@
+﻿@model BloodTypeC.DAL.Models.Views.ActivityReportViewModel
+
+@{
+    ViewData["Title"] = "ActivityReport";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var user = User.Identity.Name;
+}
+
+<div class="page-name">Activity Report</div>
+
+<form asp-action="ActivityReport">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="col-md-12 search-form container">
+        @*<div style="margin-bottom: 1rem"><hr class="border border-3 opacity-25" style="width: 60%; margin: auto" /></div>*@
+        <div class="center-elements text-white">
+            <div class="col-md-6">
+                <div><span class="control-label">User</span></div>
+                <div class="form-group">
+                    <input type="text" name="TargetUserName" class="form-control" placeholder="Enter username to display logs of" />
+                    <span asp-validation-for="TargetUserName" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+        @if (!Model.CustomDate)
+        {
+            <div class="center-elements text-white">
+                <div class="col-md-6">
+                    <div><span class="control-label">Date</span></div>
+                    <div class="form-group">
+                        <input asp-for="TargetDate" class="form-control" />
+                        <span asp-validation-for="TargetDate" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+        }
+        <div class="center-elements text-white" style="margin-bottom: 1rem">
+            <input type="checkbox" asp-for="CustomDate" /> <div style="margin-left: 0.5rem">No specific date</div>
+        </div>
+        <input type="submit" value="Apply" class="search-button" />
+        <input type="hidden" asp-for="ReportsOptions.AdminUserName" value="@User.Identity.Name" />
+        <input type="hidden" asp-for="UserActivities" value="@Model.UserActivities" />
+    </div>
+</form>
+
+<div class="col-md-10 search-form container" style="padding-top:0px">
+    <div class="table-responsive">
+        <table class="table table-bordered text-white" style="text-align: center">
+            <thead>
+                <tr>
+                    <th class="col-md-2" scope="col">Date</th>
+                    <th class="col-md-3" scope="col">User</th>
+                    <th class="col-md-3" scope="col">Action</th>
+                    <th class="col-md-3" scope="col">Additional info</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.UserActivities.Any())
+                {
+                    @foreach (var item in Model.UserActivities)
+                    {
+                        <tr>
+                            <td>@item.Time</td>
+                            <td>@item.User.UserName</td>
+                            <td>@item.UserAction.ToString()</td>
+                            <td>@item.ObjectName</td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td>------</td>
+                        <td>------</td>
+                        <td>------</td>
+                        <td>------</td>
+                    </tr>
+                    
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

@@ -7,7 +7,6 @@ using BloodTypeC.DAL.Models.Enums;
 using BloodTypeC.Logic.Services.IServices;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
@@ -24,7 +23,7 @@ namespace BloodTypeC.WebApp.Areas.Identity.Pages.Account
         private readonly IUserStore<User> _userStore;
         private readonly IUserEmailStore<User> _emailStore;
         private readonly ILogger<RegisterModel> _logger;
-        private readonly IEmailSender _emailSender;
+        private readonly IMailService _mailService;
         private readonly IHttpContextAccessor _contextAccessor;
         private readonly IUserActivityServices _userActivityServices;
 
@@ -33,7 +32,7 @@ namespace BloodTypeC.WebApp.Areas.Identity.Pages.Account
             IUserStore<User> userStore,
             SignInManager<User> signInManager,
             ILogger<RegisterModel> logger,
-            IEmailSender emailSender,
+            IMailService mailService,
             IHttpContextAccessor contextAccessor,
             IUserActivityServices userActivityServices)
         {
@@ -42,7 +41,7 @@ namespace BloodTypeC.WebApp.Areas.Identity.Pages.Account
             _emailStore = GetEmailStore();
             _signInManager = signInManager;
             _logger = logger;
-            _emailSender = emailSender;
+            _mailService = mailService;
             _contextAccessor = contextAccessor;
             _userActivityServices = userActivityServices;
         }
@@ -124,7 +123,7 @@ namespace BloodTypeC.WebApp.Areas.Identity.Pages.Account
                 {
                     var ip = _contextAccessor?.HttpContext?.Connection?.RemoteIpAddress?.ToString();
                     var userActivityTemplate = new UserActivity() { IPAddress = ip, UserAgent = _contextAccessor?.HttpContext?.Request?.Headers?.UserAgent.ToString() };
-                    var userActivity = await _userActivityServices.CreateUserActivity(userActivityTemplate,
+                    var userActivity = await _userActivityServices.CreateUserActivityAsync(userActivityTemplate,
                         Input.Email, Enums.UserActions.RegisterAccount);
                     await _userActivityServices.LogUserActivityAsync(userActivity);
 
@@ -138,9 +137,12 @@ namespace BloodTypeC.WebApp.Areas.Identity.Pages.Account
                         pageHandler: null,
                         values: new { area = "Identity", userId = userId, code = code, returnUrl = returnUrl },
                         protocol: Request.Scheme);
-
-                    await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
-                        $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+                    await _mailService.SendAsync(new MailData(
+                        to: new List<string>() { Input.Email },
+                        subject: "Confirm your e-mail",
+                        body: $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.",
+                        from: Consts.mailSenderFrom,
+                        displayName: "Beeropedia"), new CancellationToken());
 
                     if (_userManager.Options.SignIn.RequireConfirmedAccount)
                     {
