@@ -269,6 +269,7 @@ namespace BloodTypeC.WebApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> SendToEmail(ActivityReportViewModel model)
         {
+            await _userActivityServices.SaveAdminReportsOptionsAsync(model.ReportsOptions);
 
             var filteredModel = await _userActivityServices.FilterActivities(model);
             model.UserActivities = filteredModel;
