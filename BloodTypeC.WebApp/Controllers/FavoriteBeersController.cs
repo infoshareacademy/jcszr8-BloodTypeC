@@ -69,6 +69,4 @@ namespace BloodTypeC.WebApp.Controllers
             return RedirectToAction(HttpContext.GetController(), HttpContext.GetAction(), new { id });
         }
     }
-
-
 }

@@ -1,7 +1,5 @@
 ﻿using Microsoft.Extensions.Localization;
-using Microsoft.Identity.Client;
 using System.Reflection;
-
 
 namespace BloodTypeC.WebApp.Language
 {
@@ -20,7 +18,5 @@ namespace BloodTypeC.WebApp.Language
         { 
             return _localizer[key];
         }
-
-
     }
 }

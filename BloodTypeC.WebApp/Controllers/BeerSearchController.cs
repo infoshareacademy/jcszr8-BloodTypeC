@@ -25,7 +25,6 @@ namespace BloodTypeC.WebApp.Controllers
         // GET: SearchController
         public IActionResult Index()
         {
-            
             foreach (var flavor in _allFlavors)
             {
                 var activeFlavor = new FlavorToSearch() { Name = flavor, IsChecked = false };

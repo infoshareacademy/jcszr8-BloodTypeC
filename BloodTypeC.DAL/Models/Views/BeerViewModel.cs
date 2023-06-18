@@ -32,4 +32,3 @@ namespace BloodTypeC.WebApp.Models
         public string? AddedByUserString { get; set; }
     }
 }
-

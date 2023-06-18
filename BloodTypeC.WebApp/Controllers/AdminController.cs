@@ -1,6 +1,5 @@
 ﻿using BloodTypeC.DAL.Models;
 using BloodTypeC.DAL.Models.Views;
-using BloodTypeC.DAL.Repository;
 using BloodTypeC.Logic.Extensions;
 using BloodTypeC.Logic.Services.IServices;
 using Microsoft.AspNetCore.Authorization;
@@ -173,7 +172,6 @@ namespace BloodTypeC.WebApp.Controllers
             }
             return View(role);
         }
-
         public async Task<IActionResult> AssignUserRoles(string userId)
         {
             AssignRolesView model = new AssignRolesView();

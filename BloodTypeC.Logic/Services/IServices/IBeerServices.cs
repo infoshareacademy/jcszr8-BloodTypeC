@@ -10,6 +10,5 @@ namespace BloodTypeC.Logic.Services.IServices
         Task Delete(string id);
         Task AddFromView(BeerViewModel beerFromView, User user);
         Task EditFromView(BeerViewModel beerFromView);
-
     }
 }

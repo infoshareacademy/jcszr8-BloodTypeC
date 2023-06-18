@@ -28,4 +28,3 @@ namespace BloodTypeC.Logic.Extensions
         }
     }
 }
-

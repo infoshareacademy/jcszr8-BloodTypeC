@@ -1,6 +1,5 @@
 ﻿namespace BloodTypeC.WebApp.Middleware
 {
-
     public class CustomExceptionHandlerMiddleware
     {
         private readonly RequestDelegate _next;

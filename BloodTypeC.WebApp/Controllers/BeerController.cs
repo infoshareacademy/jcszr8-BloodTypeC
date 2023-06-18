@@ -25,7 +25,6 @@ namespace BloodTypeC.WebApp.Controllers
             _userActivityServices = userActivityServices;
         }
 
-
         // GET: BeerController/Details/5
         [AllowAnonymous]
         public async Task<ActionResult> Details(string id)
@@ -81,7 +80,6 @@ namespace BloodTypeC.WebApp.Controllers
                 return View();
             }
         }
-
 
         // GET: BeerController/Edit/5
         public async Task<ActionResult> Edit(string id)

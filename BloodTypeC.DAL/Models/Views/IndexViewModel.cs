@@ -4,7 +4,6 @@ namespace BloodTypeC.WebApp.Models
 {
     public class IndexViewModel
     {
-        
         public List<Beer> Beers { get; set; }
         public List<FlavorToSearch> CheckedListOfFlavors { get; set; }
         public string? SearchBrewery { get; set; }

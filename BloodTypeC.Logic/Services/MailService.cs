@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BloodTypeC.DAL.Models;
+﻿using BloodTypeC.DAL.Models;
 using BloodTypeC.Logic.Services.IServices;
 using MailKit.Net.Smtp;
 using MailKit.Security;

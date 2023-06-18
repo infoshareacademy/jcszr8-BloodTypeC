@@ -34,7 +34,6 @@ namespace BloodTypeC.Logic
                     {
                         name = name.LastIndexOf("-") == name.Length - 1 ? name.Remove(name.Length - 1) : name;
                     }
-
                     name = Regex.Replace(name, @"\s+", " ");
                 }
 

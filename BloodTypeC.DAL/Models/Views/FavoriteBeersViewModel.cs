@@ -1,6 +1,4 @@
-﻿using BloodTypeC.WebApp.Models;
-
-namespace BloodTypeC.DAL.Models.Views
+﻿namespace BloodTypeC.DAL.Models.Views
 {
     public class FavoriteBeersViewModel
     {

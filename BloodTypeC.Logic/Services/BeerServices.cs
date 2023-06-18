@@ -45,5 +45,4 @@ namespace BloodTypeC.Logic.Services
             await _repository.Delete(await GetById(id));
         }
     }
-
 }

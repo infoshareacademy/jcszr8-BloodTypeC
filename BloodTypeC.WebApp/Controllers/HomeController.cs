@@ -3,8 +3,6 @@ using BloodTypeC.WebApp.Models;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
-using System.Globalization;
-using Microsoft.AspNetCore.Identity;
 
 namespace BloodTypeC.WebApp.Controllers
 {
@@ -61,6 +59,5 @@ namespace BloodTypeC.WebApp.Controllers
         {
             return View(new AllBeersViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
-
     }
 }
