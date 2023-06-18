@@ -249,6 +249,12 @@
   <data name="Languages" xml:space="preserve">
     <value>Languages</value>
   </data>
+  <data name="Leaving this empty will set the score to 0.Max value is 10." xml:space="preserve">
+    <value>Leaving this empty will set the score to 0.Max value is 10.</value>
+  </data>
+  <data name="Leaving this empty will set the value to 0. Max value is 95." xml:space="preserve">
+    <value>Leaving this empty will set the value to 0. Max value is 95.</value>
+  </data>
   <data name="Log in" xml:space="preserve">
     <value>Log in</value>
   </data>
@@ -303,6 +309,9 @@
   <data name="Profile" xml:space="preserve">
     <value>Profile</value>
   </data>
+  <data name="Provide the URL to the beer's image on the web." xml:space="preserve">
+    <value>Provide the URL to the beer's image on the web.</value>
+  </data>
   <data name="Register" xml:space="preserve">
     <value>Register</value>
   </data>
@@ -342,6 +351,9 @@
   <data name="Select your favorite flavors" xml:space="preserve">
     <value>Select your favorite flavors</value>
   </data>
+  <data name="Separate multiple flavors using any non-letter characters (#%$^!&amp;* etc). But pros simply use commas or spaces." xml:space="preserve">
+    <value>Separate multiple flavors using any non-letter characters (#%$^!&amp;* etc). But pros simply use commas or spaces.</value>
+  </data>
   <data name="Show beers" xml:space="preserve">
     <value>Show beers</value>
   </data>
@@ -354,6 +366,9 @@
   <data name="The list is currently empty." xml:space="preserve">
     <value>The list is currently empty.</value>
   </data>
+  <data name="The name needs to be 2 - 38 characters long." xml:space="preserve">
+    <value>The name needs to be 2 - 38 characters long.</value>
+  </data>
   <data name="This app does not currently have a real email sender registered. Normally this would be emailed!" xml:space="preserve">
     <value>This app does not currently have a real email sender registered. Normally this would be emailed!</value>
   </data>
@@ -362,6 +377,12 @@
   </data>
   <data name="Username" xml:space="preserve">
     <value>Username</value>
+  </data>
+  <data name="We will capitalise the first letter. Max 40 characters." xml:space="preserve">
+    <value>We will capitalise the first letter. Max 40 characters.</value>
+  </data>
+  <data name="We will capitalise the first letters and remove any non-letter characters, except dash (-)." xml:space="preserve">
+    <value>We will capitalise the first letters and remove any non-letter characters, except dash (-).</value>
   </data>
   <data name="Would you like to delete your account?" xml:space="preserve">
     <value>Would you like to delete your account?</value>

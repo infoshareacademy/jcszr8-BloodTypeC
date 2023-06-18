@@ -249,6 +249,12 @@
   <data name="Languages" xml:space="preserve">
     <value>Język</value>
   </data>
+  <data name="Leaving this empty will set the score to 0.Max value is 10." xml:space="preserve">
+    <value>Nie wpisanie wartości ustali ją na 0. Maksymalna wartość wynosi 10.</value>
+  </data>
+  <data name="Leaving this empty will set the value to 0. Max value is 95." xml:space="preserve">
+    <value>Nie wpisanie wartości ustali ją na 0. Maksymalna wartość wynosi 95.</value>
+  </data>
   <data name="Log in" xml:space="preserve">
     <value>Zaloguj</value>
   </data>
@@ -303,6 +309,9 @@
   <data name="Profile" xml:space="preserve">
     <value>Profil</value>
   </data>
+  <data name="Provide the URL to the beer's image on the web." xml:space="preserve">
+    <value>Podaj adres URL do obrazka piwa z sieći www.</value>
+  </data>
   <data name="Register" xml:space="preserve">
     <value>Rejestracja</value>
   </data>
@@ -342,6 +351,9 @@
   <data name="Select your favorite flavors" xml:space="preserve">
     <value>Wybierz swoje ulubione smaki</value>
   </data>
+  <data name="Separate multiple flavors using any non-letter characters (#%$^!&amp;* etc). But pros simply use commas or spaces." xml:space="preserve">
+    <value>Możesz rozdzielić smaki używając wszelkich znaków specjalnych (#%$^!&amp;* etc). Jednak profesjonaliści używają spacji.</value>
+  </data>
   <data name="Show beers" xml:space="preserve">
     <value>Wyszukaj</value>
   </data>
@@ -354,6 +366,9 @@
   <data name="The list is currently empty." xml:space="preserve">
     <value>Lista jest pusta.</value>
   </data>
+  <data name="The name needs to be 2 - 38 characters long." xml:space="preserve">
+    <value>Nazwa musi posiadać od 2 do 38 znaków.</value>
+  </data>
   <data name="This app does not currently have a real email sender registered. Normally this would be emailed!" xml:space="preserve">
     <value>Aplikacja nie posiada w tej chwili możliwości potwierdzenia adresu email. </value>
   </data>
@@ -362,6 +377,12 @@
   </data>
   <data name="Username" xml:space="preserve">
     <value>Nazwa użytkownika</value>
+  </data>
+  <data name="We will capitalise the first letter. Max 40 characters." xml:space="preserve">
+    <value>Zamienimy pierwszą literę na wielką. Nazwa browaru może mieć maksymalnie 40 znaków.</value>
+  </data>
+  <data name="We will capitalise the first letters and remove any non-letter characters, except dash (-)." xml:space="preserve">
+    <value>Zamienimy pierwszą literę na wielką. Usuniemy wszystkie znaki specjalne poza myślnikiem  (-).</value>
   </data>
   <data name="Would you like to delete your account?" xml:space="preserve">
     <value>Czy chcesz usunąć swoje konto?</value>
