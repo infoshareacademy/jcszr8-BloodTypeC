@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using System.Globalization;
+using Microsoft.AspNetCore.Identity;
 
 namespace BloodTypeC.WebApp.Controllers
 {
@@ -39,10 +40,17 @@ namespace BloodTypeC.WebApp.Controllers
         }
 
         public IActionResult AgeCheck()
-        {
-            return View();
+        { 
+            if (!User.Identity.IsAuthenticated)
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Index","Home");
+            }
         }
-
+                  
         public IActionResult GandalfProtocol()
         {
             return View();

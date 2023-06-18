@@ -6,13 +6,8 @@
 @model BeerViewModel
 
 @{
-    ViewData["Title"] = "Create a beer";
-    var nameMinLength = Consts.nameMinLength;
-    var nameMaxLength = Consts.nameMaxLength;
-    var breweryMaxLength = Consts.breweryMaxLength;
-    var maxAbv = Consts.maxAbv;
-    var maxScore = Consts.maxScore;
-}
+    ViewData["Title"] = @language.Getkey("Create a beer");
+ }
 
 <div class="page-name">
     @language.Getkey("Add a beer")
@@ -25,7 +20,7 @@
                 <div class="input-group col-md-6 tooltip-container">
                     <input type="text" asp-for="Name" class="form-control" placeholder=@language.Getkey("Beer Name") />
                     <button class="btn btn-outline-secondary tooltip-button" type="button">
-                        <p class="tooltip-text">The name needs to be @nameMinLength - @nameMaxLength characters long.</p>
+                        <p class="tooltip-text">@language.Getkey("The name needs to be 2 - 38 characters long.")</p>
                         <i class="bi bi-info-circle" id="info-icon"></i>
                     </button>
                 </div>
@@ -36,7 +31,7 @@
                 <div class="input-group col-md-6 tooltip-container">
                     <input type="text" asp-for="Brewery" class="form-control" placeholder=@language.Getkey("Brewery name") />
                     <button class="btn btn-outline-secondary tooltip-button" type="button">
-                        <p class="tooltip-text">We will capitalise the first letter. <br>Max @breweryMaxLength characters.</p>
+                        <p class="tooltip-text">@language.Getkey("We will capitalise the first letter. Max 40 characters.")         </p>
                         <i class="bi bi-info-circle" id="info-icon"></i>
                     </button>
                 </div>
@@ -49,7 +44,7 @@
                 <div class="input-group col-md-6 tooltip-container">
                     <input type="text" asp-for="Style" class="form-control" placeholder=@language.Getkey("Style")/>
                     <button class="btn btn-outline-secondary tooltip-button" type="button">
-                        <p class="tooltip-text">We will capitalise the first letters and remove any non-letter characters, except dash (-).</p>
+                        <p class="tooltip-text">@language.Getkey("We will capitalise the first letters and remove any non-letter characters, except dash (-).")</p>
                         <i class="bi bi-info-circle" id="info-icon"></i>
                     </button>
                 </div>
@@ -59,7 +54,7 @@
                 <div class="input-group col-md-6 tooltip-container">
                     <input type="text" asp-for="FlavorString" class="form-control" placeholder=@language.Getkey("Flavors") />
                     <button class="btn btn-outline-secondary tooltip-button" type="button">
-                        <p class="tooltip-text">Separate multiple flavors using <b>any</b> non-letter characters (#%$^!&* etc).<br>But pros simply use commas or spaces.</p>
+                        <p class="tooltip-text">@language.Getkey("Separate multiple flavors using any non-letter characters (#%$^!&* etc). But pros simply use commas or spaces.")</p>
                         <i class="bi bi-info-circle" id="info-icon"></i>
                     </button>
                 </div>
@@ -72,7 +67,7 @@
                 <div class="input-group col-md-6 tooltip-container">
                     <input type="text" asp-for="AlcoholByVolume" class="form-control" placeholder=@language.Getkey("Alcohol by volume") />
                     <button class="btn btn-outline-secondary tooltip-button" type="button">
-                        <p class="tooltip-text">Leaving this empty will set the value to 0.<br>Max value is @maxAbv.</p>
+                        <p class="tooltip-text">@language.Getkey("Leaving this empty will set the value to 0. Max value is 95.")</p>
                         <i class="bi bi-info-circle" id="info-icon"></i>
                     </button>
                 </div>
@@ -82,7 +77,7 @@
                 <div class="input-group col-md-6 tooltip-container">
                     <input type="text" asp-for="Score" class="form-control" placeholder=@language.Getkey("Score") />
                     <button class="btn btn-outline-secondary tooltip-button" type="button">
-                        <p class="tooltip-text">Leaving this empty will set the score to 0.<br>Max value is @maxScore.</p>
+                        <p class="tooltip-text">@language.Getkey("Leaving this empty will set the score to 0.Max value is 10.")</p>
                         <i class="bi bi-info-circle" id="info-icon"></i>
                     </button>
                 </div>
@@ -95,7 +90,7 @@
                 <div class="input-group col-md-6 tooltip-container">
                     <input type="text" asp-for="Image" class="form-control" placeholder=@language.Getkey("Image URL") />
                     <button class="btn btn-outline-secondary tooltip-button" type="button">
-                        <p class="tooltip-text">Provide the URL to the beer's image on the web.</p>
+                        <p class="tooltip-text">@language.Getkey("Provide the URL to the beer's image on the web.")</p>
                         <i class="bi bi-info-circle" id="info-icon"></i>
                     </button>
                 </div><div class="col-md-3"></div>

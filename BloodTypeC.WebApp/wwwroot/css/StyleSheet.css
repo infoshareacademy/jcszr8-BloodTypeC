@@ -723,3 +723,8 @@ a:hover {
 .padding-rem {
     padding: 0.5rem 1rem;
 }
+
+.checkbox-margin {
+    margin-top: 6px;
+    margin-right: 5px;
+}
