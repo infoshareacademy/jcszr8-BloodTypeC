@@ -14,13 +14,15 @@ namespace BloodTypeC.WebApp.Controllers
         private readonly UserManager<User> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly IUserActivityServices _userActivityServices;
+        private readonly IMailService _mailService;
 
         public AdminController(UserManager<User> userManager, RoleManager<IdentityRole> roleManager,
-            IUserActivityServices userActivityServices)
+            IUserActivityServices userActivityServices, IMailService mailService)
         {
             _userManager = userManager;
             _roleManager = roleManager;
             _userActivityServices = userActivityServices;
+            _mailService = mailService;
         }
 
         public IActionResult Index()
@@ -248,23 +250,8 @@ namespace BloodTypeC.WebApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> ActivityReport(ActivityReportViewModel model)
         {
-            var userActivities = await _userActivityServices.GetAllUserActivitiesAsync();
-            if (model.TargetUserName != null)
-            {
-                model.UserActivities = userActivities
-                    .Where(x => x.User.UserName.Contains(model.TargetUserName))
-                    .ToList();
-            }
-            else
-            {
-                model.UserActivities = userActivities;
-            }
-            if (!model.CustomDate)
-            {
-                var dateFilteredList = model.UserActivities
-                    .Where(x => x.Time.Date == model.TargetDate.Date).ToList();
-                model.UserActivities = dateFilteredList;
-            }
+            var filteredModel = await _userActivityServices.FilterActivities(model);
+            model.UserActivities = filteredModel;
             return View(model);
         }
 
@@ -284,12 +271,24 @@ namespace BloodTypeC.WebApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> SendToEmail(ActivityReportViewModel model)
         {
-            await _userActivityServices.SaveAdminReportsOptionsAsync(model.ReportsOptions);
 
-            var mailBody = model.UserActivities.ToString();
-            await _userActivityServices.SendUserActivityToEmail(mailBody, model.ReportsOptions.SendTargetEmail);
+            var filteredModel = await _userActivityServices.FilterActivities(model);
+            model.UserActivities = filteredModel;
+
+            var mailBody = string.Empty;
+            foreach (var item in model.UserActivities)
+            {
+                mailBody += item.ToLogHtml();
+            }
+
+            var mail = _mailService.CreateMailTemplate("Beeropedia user activity report", mailBody,
+                "This mail was generated automatically by a Beeropedia reporting system. Do not reply to it.");
+
+            await _userActivityServices.SendUserActivityToEmail(mail, model.ReportsOptions.SendTargetEmail);
 
             return RedirectToAction(HttpContext.GetController(), HttpContext.GetAction());
         }
+
+        
     }
 }

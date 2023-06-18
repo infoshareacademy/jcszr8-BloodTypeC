@@ -15,7 +15,16 @@ namespace BloodTypeC.Logic.Services
         {
             _settings = settings.Value;
         }
-        
+
+        public string CreateMailTemplate(string mailHeadline, string mailBody, string mailFooter)
+        {
+            var mail = Consts.mailTemplate
+                .Replace("{MAILHEADLINE}", mailHeadline)
+                .Replace("{MAILBODY}", mailBody)
+                .Replace("{MAILFOOTER}", mailFooter);
+            return mail;
+        }
+
         public async Task<bool> SendAsync(MailData mailData, CancellationToken ct)
         {
             try
@@ -58,7 +67,7 @@ namespace BloodTypeC.Logic.Services
                 var body = new BodyBuilder();
                 mail.Subject = mailData.Subject;
                 body.HtmlBody = mailData.Body;
-                mail.Body = body.ToMessageBody();
+                mail.Body = new TextPart(MimeKit.Text.TextFormat.Html) { Text = mailData.Body };// body.ToMessageBody();
 
                 // Send mail
                 using var smtp = new SmtpClient();

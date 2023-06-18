@@ -8,102 +8,110 @@
 
 <div class="page-name">Send report</div>
 
-@using (@Html.BeginForm())
+@using (Html.BeginForm("SendToEmail","Admin", FormMethod.Post))
 {
-    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-    <div class="col-md-12 search-form container">
-        <div class="center-elements text-white">
-            <div class="col-md-4">
-                <div><span class="control-label">Target e-mail</span></div>
-                <div class="form-group">
-                    <input type="text" asp-for="ReportsOptions.SendTargetEmail" class="form-control" placeholder="E-mail to send the report to" />
-                    <span asp-validation-for="ReportsOptions.SendTargetEmail" class="text-danger"></span>
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="col-md-12 search-form container">
+            <div class="center-elements text-white">
+                <div class="col-md-4">
+                    <div><span class="control-label">Target e-mail</span></div>
+                    <div class="form-group">
+                        <input type="text" asp-for="ReportsOptions.SendTargetEmail" class="form-control" placeholder="E-mail to send the report to" />
+                        <span asp-validation-for="ReportsOptions.SendTargetEmail" class="text-danger"></span>
+                    </div>
                 </div>
-            </div>
-            <div class="col-md-1">
-                <div><span class="control-label">Interval</span></div>
-                <div class="form-group">
-                    <input type="number" asp-for="ReportsOptions.SendInterval" class="form-control" style="width: 5rem" />
-                    <span asp-validation-for="ReportsOptions.SendInterval" class="text-danger"></span>
+                <div class="col-md-1">
+                    <div><span class="control-label">Interval</span></div>
+                    <div class="form-group">
+                        <input type="number" asp-for="ReportsOptions.SendInterval" class="form-control" style="width: 5rem" />
+                        <span asp-validation-for="ReportsOptions.SendInterval" class="text-danger"></span>
+                    </div>
                 </div>
-            </div>
-            <div class="col-md-2">
-                <div><span class="control-label">&nbsp;</span></div>
-                <div class="form-group">
+                <div class="col-md-2">
+                    <div><span class="control-label">&nbsp;</span></div>
+                    <div class="form-group">
 
-                    <input type="submit" value="Send reports" class="search-button" />
-                </div>
+                        <input type="submit" value="Send reports" class="search-button" />
+                    </div>
 
-            </div>
-        </div>
-    </div>
-    <div class="col-md-12 search-form container">
-        <div style="margin-bottom: 1rem"><hr class="border border-3 opacity-25" style="width: 60%; margin: auto" /></div>
-        <div class="center-elements text-white">
-            <div class="col-md-6">
-                <div><span class="control-label">User</span></div>
-                <div class="form-group">
-                    <input type="text" name="TargetUserName" class="form-control" placeholder="Enter username to display logs of" />
-                    <span asp-validation-for="TargetUserName" class="text-danger"></span>
                 </div>
             </div>
         </div>
-        @if (!Model.CustomDate)
-        {
+        <div class="col-md-12 search-form container">
+            <div style="margin-bottom: 1rem"><hr class="border border-3 opacity-25" style="width: 60%; margin: auto" /></div>
             <div class="center-elements text-white">
                 <div class="col-md-6">
-                    <div><span class="control-label">Date</span></div>
+                    <div><span class="control-label">User</span></div>
                     <div class="form-group">
-                        <input asp-for="TargetDate" class="form-control" />
-                        <span asp-validation-for="TargetDate" class="text-danger"></span>
+                        <input type="text" name="TargetUserName" class="form-control" placeholder="Enter username to display logs of" />
+                        <span asp-validation-for="TargetUserName" class="text-danger"></span>
                     </div>
                 </div>
             </div>
+        @if (!Model.CustomDate)
+        {
+                    <div class="center-elements text-white">
+                        <div class="col-md-6">
+                            <div><span class="control-label">Date</span></div>
+                            <div class="form-group">
+                                <input asp-for="TargetDate" class="form-control" />
+                                <span asp-validation-for="TargetDate" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
         }
-        <div class="center-elements text-white" style="margin-bottom: 1rem">
-            <input type="checkbox" asp-for="CustomDate" /> <div style="margin-left: 0.5rem">No specific date</div>
+            <div class="center-elements text-white" style="margin-bottom: 1rem">
+                <input type="checkbox" asp-for="CustomDate" /> <div style="margin-left: 0.5rem">No specific date</div>
+            </div>
+            <input type="hidden" asp-for="ReportsOptions.AdminUserName" value="@User.Identity.Name" />
+        @for (int i = 0; i < Model.UserActivities.Count; i++)
+        {
+            @Html.HiddenFor(model => model.UserActivities[i].IPAddress)
+            @Html.HiddenFor(model => model.UserActivities[i].ObjectName)
+            @Html.HiddenFor(model => model.UserActivities[i].Time)
+            @Html.HiddenFor(model => model.UserActivities[i].User.UserName)
+            @Html.HiddenFor(model => model.UserActivities[i].UserAction)
+            @Html.HiddenFor(model => model.UserActivities[i].UserAgent)
+        }
         </div>
-        <input type="hidden" asp-for="ReportsOptions.AdminUserName" value="@User.Identity.Name" />
-        <input type="hidden" asp-for="UserActivities" value="@Model.UserActivities" />
-    </div>
 
-    <div class="col-md-10 search-form container" style="padding-top:0px">
-        <div class="table-responsive">
-            <table class="table table-bordered text-white" style="text-align: center">
-                <thead>
-                    <tr>
-                        <th class="col-md-2" scope="col">Date</th>
-                        <th class="col-md-3" scope="col">User</th>
-                        <th class="col-md-3" scope="col">Action</th>
-                        <th class="col-md-3" scope="col">Additional info</th>
-                    </tr>
-                </thead>
-                <tbody>
+        <div class="col-md-10 search-form container" style="padding-top:0px">
+            <div class="table-responsive">
+                <table class="table table-bordered text-white" style="text-align: center">
+                    <thead>
+                        <tr>
+                            <th class="col-md-2" scope="col">Date</th>
+                            <th class="col-md-3" scope="col">User</th>
+                            <th class="col-md-3" scope="col">Action</th>
+                            <th class="col-md-3" scope="col">Additional info</th>
+                        </tr>
+                    </thead>
+                    <tbody>
                     @if (Model.UserActivities.Any())
                     {
                         @foreach (var item in Model.UserActivities)
                         {
-                            <tr>
-                                <td>@item.Time</td>
-                                <td>@item.User.UserName</td>
-                                <td>@item.UserAction.ToString()</td>
-                                <td>@item.ObjectName</td>
-                            </tr>
+                                        <tr>
+                                            <td>@item.Time</td>
+                                            <td>@item.User.UserName</td>
+                                            <td>@item.UserAction.ToString()</td>
+                                            <td>@item.ObjectName</td>
+                                        </tr>
                         }
                     }
                     else
                     {
-                        <tr>
-                            <td>------</td>
-                            <td>------</td>
-                            <td>------</td>
-                            <td>------</td>
-                        </tr>
+                                <tr>
+                                    <td>------</td>
+                                    <td>------</td>
+                                    <td>------</td>
+                                    <td>------</td>
+                                </tr>
                     }
-                </tbody>
-            </table>
+                    </tbody>
+                </table>
+            </div>
         </div>
-    </div>
 }
 
 @section Scripts {
