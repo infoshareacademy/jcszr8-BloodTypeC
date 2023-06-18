@@ -101,7 +101,7 @@ namespace BloodTypeC.WebApp.Controllers
             
             var userActivityTemplate = this.CreateUserActivityWithUserConnectionInfo();
             var filteredBeers = model.Beers.Select(x => x.Name).Aggregate((concat, str) => $"{concat} {str} ");
-            var userActivity = await _userActivityServices.CreateUserActivity(userActivityTemplate, User.Identity.Name,
+            var userActivity = await _userActivityServices.CreateUserActivityAsync(userActivityTemplate, User.Identity.Name,
                 UserActions.SearchForBeer, filteredBeers);
             await _userActivityServices.LogUserActivityAsync(userActivity);
 

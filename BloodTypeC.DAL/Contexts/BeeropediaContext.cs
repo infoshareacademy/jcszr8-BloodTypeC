@@ -13,6 +13,7 @@ namespace BloodTypeC.DAL.Contexts
     {
         public DbSet<Beer> AllBeers { get; set;}
         public DbSet<UserActivity> UserActivities { get; set;}
+        public DbSet<AdminReportsOptions> AdminReportsOptions { get; set;}
         public BeeropediaContext(DbContextOptions<BeeropediaContext> options) : base(options)
         {
 
@@ -64,6 +65,13 @@ namespace BloodTypeC.DAL.Contexts
             modelBuilder.Entity<UserActivity>()
                 .Property(e => e.UserAction)
                 .HasConversion(new EnumToStringConverter<Enums.UserActions>());
+
+            modelBuilder.Entity<User>()
+                .HasMany(prop => prop.UserActivities)
+                .WithOne(prop => prop.User);
+
+            modelBuilder.Entity<AdminReportsOptions>()
+                .HasKey(x=>x.Id);
         }
     }
 }

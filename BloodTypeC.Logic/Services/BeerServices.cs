@@ -25,7 +25,7 @@ namespace BloodTypeC.Logic.Services
 
         public async Task<IEnumerable<Beer>> GetAll()
         {
-            return await _repository.GetAll(x=>x.FavoriteUsers);
+            return await _repository.GetAll(x=>x.AddedByUser, x=>x.FavoriteUsers);
         }
 
         public async Task<Beer> GetById(string id)

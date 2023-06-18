@@ -15,8 +15,12 @@ namespace BloodTypeC.WebApp.Profiles
             CreateMap<Beer, BeerViewModel>()
                 .ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null));
             CreateMap<Beer, BeerViewModel>()
-                .ForMember(dest => dest.FlavorString, opt => opt.MapFrom(src => src.Flavors.Any() ? 
-                src.Flavors.Aggregate((a, b) => a + " " + b) : string.Empty));
+                .ForMember(dest => dest.FlavorString,
+                    opt => opt.MapFrom(src =>
+                        src.Flavors.Any() ? src.Flavors.Aggregate((a, b) => a + " " + b) : string.Empty))
+                .ForMember(dest => dest.AddedByUserString,
+                    opt => opt.MapFrom(src =>
+                        src.AddedByUser.UserName.Any() ? src.AddedByUser.UserName.Remove(src.AddedByUser.UserName.IndexOf('@')) : string.Empty));
             CreateMap<BeerViewModel, Beer>()
                 .ForMember(dest => dest.Flavors, opt => opt.MapFrom(src => Formatters.AsTags(src.FlavorString)))
                 .ForMember(dest => dest.Style, opt => opt.MapFrom(src => Formatters.AsNameOrTitle(src.Style, Formatters.CapitalsOptions.EachWord, true)))

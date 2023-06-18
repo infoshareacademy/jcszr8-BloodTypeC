@@ -2,6 +2,8 @@
 {
     public static class Consts
     {
+        public const string mailSenderFrom = "beeropedia@int.pl";
+
         public const int nameMinLength = 2;
         public const string nameMinLengthString = "2";
 

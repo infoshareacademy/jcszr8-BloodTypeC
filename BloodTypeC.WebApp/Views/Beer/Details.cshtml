@@ -40,6 +40,8 @@
             @language.Getkey("Score:") @Model.Score/@maxScore<br>
             Added by: @Model.AddedByUser?.UserName<br/>
             </div>
+        @if (User.IsInRole("Admin") || (User.Identity.Name != null && Model.AddedByUser?.UserName == User.Identity.Name))
+        {
             <div class="buttons">
                 <a asp-action="Edit" asp-route-id="@Model.Id" asp-controller="Beer">
                 <button class="product-button">@language.Getkey("Edit")</button>
@@ -47,7 +49,8 @@
                 <a asp-action="Delete" asp-route-id="@Model.Id" asp-controller="Beer">
                 <button class="product-button">@language.Getkey("Delete")</button>
                 </a>
-            </div>        
+            </div>
+        }
         <div class="buttons">
             @if (User.Identity.Name != null)
             {

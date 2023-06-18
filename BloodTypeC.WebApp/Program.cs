@@ -19,7 +19,7 @@ namespace BloodTypeC.WebApp
         public static async Task Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
-
+                        var connectionString = builder.Configuration.GetConnectionString("BeeropediaContextConnection") ?? throw new InvalidOperationException("Connection string 'BeeropediaContextConnection' not found.");
             var logger = new LoggerConfiguration()
                .MinimumLevel.Debug()
                .WriteTo.File(path: "Logs/debug.txt", rollingInterval: RollingInterval.Day)
@@ -56,9 +56,12 @@ namespace BloodTypeC.WebApp
                 options.SupportedUICultures = supportedCultures;
                 options.RequestCultureProviders.Insert(0, new QueryStringRequestCultureProvider());
             });
+            builder.Services.AddHttpContextAccessor();
+            builder.Services.Configure<MailSettings>(builder.Configuration.GetSection(nameof(MailSettings)));
+            builder.Services.AddScoped<IMailService, MailService>();
             builder.Services.AddScoped<IBeerServices, BeerServices>();
             builder.Services.AddScoped<IBeerSearchServices, BeerSearchServices>();
-            builder.Services.AddTransient<IFavoriteBeersServices, FavoriteBeersServices>();
+            builder.Services.AddScoped<IFavoriteBeersServices, FavoriteBeersServices>();
             builder.Services.AddScoped<IUserActivityServices, UserActivityServices>();
             builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             builder.Services.AddAutoMapper(typeof(Program));
