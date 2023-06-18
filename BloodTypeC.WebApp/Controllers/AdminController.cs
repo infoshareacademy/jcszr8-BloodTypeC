@@ -1,6 +1,7 @@
 ﻿using BloodTypeC.DAL.Models;
 using BloodTypeC.DAL.Models.Views;
 using BloodTypeC.DAL.Repository;
+using BloodTypeC.Logic.Extensions;
 using BloodTypeC.Logic.Services.IServices;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -13,15 +14,13 @@ namespace BloodTypeC.WebApp.Controllers
     {
         private readonly UserManager<User> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
-        private readonly IMailService _mailService;
         private readonly IUserActivityServices _userActivityServices;
 
         public AdminController(UserManager<User> userManager, RoleManager<IdentityRole> roleManager,
-            IMailService mailService, IUserActivityServices userActivityServices)
+            IUserActivityServices userActivityServices)
         {
             _userManager = userManager;
             _roleManager = roleManager;
-            _mailService = mailService;
             _userActivityServices = userActivityServices;
         }
 
@@ -222,59 +221,74 @@ namespace BloodTypeC.WebApp.Controllers
         [HttpPost]
         public async Task<IActionResult> SimpleReport(SimpleLogViewModel model)
         {
-            var userActivityLog = await _userActivityServices.GetLastUserActivityAsync(model.TargetUser);
-            model.LastUserActivity = userActivityLog.UserAction.ToString();
-            model.LastUserActivityTime = userActivityLog.Time;
-            model.LastUserActivityObject = userActivityLog.ObjectName;
-            model.UserLogIns = await _userActivityServices.CountUserLogInsAsync(model.TargetUser);
-            model.UserLogOuts = await _userActivityServices.CountUserLogOutsAsync(model.TargetUser);
+            if (ModelState.IsValid)
+            {
+                var userActivityLog = await _userActivityServices.GetLastUserActivityAsync(model.TargetUser);
+                model.LastUserActivity = userActivityLog.UserAction.ToString();
+                model.LastUserActivityTime = userActivityLog.Time;
+                model.LastUserActivityObject = userActivityLog.ObjectName;
+                model.UserLogIns = await _userActivityServices.CountUserLogInsAsync(model.TargetUser);
+                model.UserLogOuts = await _userActivityServices.CountUserLogOutsAsync(model.TargetUser);
+            }
+
             return View(model);
         }
 
         public async Task<IActionResult> ActivityReport()
         {
-            var adminUserName = User.Identity.Name;
             var model = new ActivityReportViewModel
             {
                 TargetDate = DateTime.Today,
                 UserActivities = await _userActivityServices.GetAllUserActivitiesAsync(),
-                CustomDate = false,
-                ReportsOptions = new AdminReportsOptions()
+                CustomDate = false
             };
-
-            //var options = await _userActivityServices.GetAdminReportsOptionsAsync(adminUserName);
-            //if (options != null)
-            //{
-            //    model.ReportsOptions = options;
-            //}
 
             return View(model);
         }
         [HttpPost]
         public async Task<IActionResult> ActivityReport(ActivityReportViewModel model)
         {
-            if (!ModelState.IsValid)
+            var userActivities = await _userActivityServices.GetAllUserActivitiesAsync();
+            if (model.TargetUserName != null)
             {
-                model = new ActivityReportViewModel();
-                model.TargetDate = DateTime.Today;
-                model.CustomDate = false;
+                model.UserActivities = userActivities
+                    .Where(x => x.User.UserName.Contains(model.TargetUserName))
+                    .ToList();
             }
             else
             {
-                //await _userActivityServices.SaveAdminReportsOptionsAsync(model.ReportsOptions);
-
-                var filteredList = await _userActivityServices.GetAllUserActivitiesAsync();
-                model.UserActivities = filteredList
-                    .Where(x => x.User.UserName == model.TargetUserName)
-                    .ToList();
-                if (!model.CustomDate)
-                {
-                    var dateFilteredList = model.UserActivities
-                        .Where(x => x.Time.Date == model.TargetDate.Date).ToList();
-                    model.UserActivities = dateFilteredList;
-                }
+                model.UserActivities = userActivities;
+            }
+            if (!model.CustomDate)
+            {
+                var dateFilteredList = model.UserActivities
+                    .Where(x => x.Time.Date == model.TargetDate.Date).ToList();
+                model.UserActivities = dateFilteredList;
             }
             return View(model);
+        }
+
+        public async Task<IActionResult> SendToEmail()
+        {
+            var options = await _userActivityServices.GetAdminReportsOptionsAsync(User.Identity.Name);
+            var model = new ActivityReportViewModel()
+            {
+                TargetDate = DateTime.Today,
+                UserActivities = await _userActivityServices.GetAllUserActivitiesAsync(),
+                CustomDate = false,
+                ReportsOptions = options
+            };
+            return View(model);
+        }
+        [HttpPost]
+        public async Task<IActionResult> SendToEmail(ActivityReportViewModel model)
+        {
+            await _userActivityServices.SaveAdminReportsOptionsAsync(model.ReportsOptions);
+
+            var mailBody = model.UserActivities.ToString();
+            await _userActivityServices.SendUserActivityToEmail(mailBody, model.TargetUserName);
+
+            return RedirectToAction(HttpContext.GetController(), HttpContext.GetAction());
         }
     }
 }

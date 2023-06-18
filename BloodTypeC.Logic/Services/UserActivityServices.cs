@@ -11,12 +11,14 @@ namespace BloodTypeC.Logic.Services
         private readonly IRepository<UserActivity> _userActivityRepository;
         private readonly UserManager<User> _userManager;
         private readonly IRepository<AdminReportsOptions> _adminReportsRepository;
+        private readonly IMailService _mailService;
 
-        public UserActivityServices(IRepository<UserActivity> userActivityRepository, UserManager<User> userManager, IRepository<AdminReportsOptions> adminReportsRepository)
+        public UserActivityServices(IRepository<UserActivity> userActivityRepository, UserManager<User> userManager, IRepository<AdminReportsOptions> adminReportsRepository, IMailService mailService)
         {
             _userActivityRepository = userActivityRepository;
             _userManager = userManager;
             _adminReportsRepository = adminReportsRepository;
+            _mailService = mailService;
         }
         public async Task LogUserActivityAsync(UserActivity userActivity)
         {
@@ -25,7 +27,7 @@ namespace BloodTypeC.Logic.Services
 
         public async Task<List<UserActivity>> GetAllUserActivitiesAsync()
         {
-            return await _userActivityRepository.GetAll(x=>x.User);
+            return await _userActivityRepository.GetAll(x => x.User);
         }
 
         public async Task<UserActivity> CreateUserActivityAsync(UserActivity userActivityTemplate, string user, Enums.UserActions activity, string? objectName = null)
@@ -47,10 +49,10 @@ namespace BloodTypeC.Logic.Services
                 Time = DateTime.MinValue
             };
             var logs = await _userActivityRepository.GetAll(x => x.User);
-            if (logs.Any(x=>x.User == user))
+            if (logs.Any(x => x.User == user))
             {
                 var userLog = logs.Where(x => x.User.UserName == userName).ToList();
-                var lastActivityDate = userLog.OrderByDescending(x=>x.Time).First().Time;
+                var lastActivityDate = userLog.OrderByDescending(x => x.Time).First().Time;
                 var lastActivityAction = userLog.FirstOrDefault(x => x.Time == lastActivityDate).UserAction;
                 var lastActivityObject = userLog.FirstOrDefault(x => x.Time == lastActivityDate).ObjectName;
 
@@ -71,19 +73,37 @@ namespace BloodTypeC.Logic.Services
         public async Task<int> CountUserLogOutsAsync(string userName)
         {
             var userActivity = await _userActivityRepository.GetAll(x => x.User);
-            var result = userActivity.Where(x=>x.User.UserName == userName).Count(x => x.UserAction == Enums.UserActions.LogOut);
+            var result = userActivity.Where(x => x.User.UserName == userName).Count(x => x.UserAction == Enums.UserActions.LogOut);
             return result;
         }
 
         public async Task<AdminReportsOptions> GetAdminReportsOptionsAsync(string adminUserName)
         {
             var options = await _adminReportsRepository.GetAll();
-            return options.FirstOrDefault(x => x.AdminUserName == adminUserName);
+            var adminOptions = options.FirstOrDefault(x => x.AdminUserName == adminUserName) ??
+                               new AdminReportsOptions()
+                               {
+                                   AdminUserName = adminUserName,
+                                   SendInterval = 1,
+                                   SendTargetEmail = adminUserName
+                               };
+            return adminOptions;
         }
 
         public async Task SaveAdminReportsOptionsAsync(AdminReportsOptions options)
         {
-            await _adminReportsRepository.Update(options);
+            var adminOptions = await _adminReportsRepository.GetAll();
+            var optionsToSave = adminOptions.FirstOrDefault(x => x.AdminUserName == options.AdminUserName);
+            optionsToSave.SendInterval = options.SendInterval;
+            optionsToSave.SendTargetEmail = options.SendTargetEmail;
+            await _adminReportsRepository.Update(optionsToSave);
+        }
+
+        public async Task SendUserActivityToEmail(string mailBody, string userAddress)
+        {
+            var sender = Consts.mailSenderFrom;
+            var mail = new MailData(new List<string>() { userAddress }, "UserReport", mailBody, sender, sender, sender, sender);
+            await _mailService.SendAsync(mail, new CancellationToken());
         }
     }
 }
