@@ -1,5 +1,6 @@
 ﻿using BloodTypeC.DAL.Models;
 using BloodTypeC.DAL.Models.Enums;
+using BloodTypeC.DAL.Models.Views;
 
 namespace BloodTypeC.Logic.Services.IServices
 {
@@ -14,5 +15,6 @@ namespace BloodTypeC.Logic.Services.IServices
         Task<AdminReportsOptions> GetAdminReportsOptionsAsync(string adminUsername);
         Task SaveAdminReportsOptionsAsync(AdminReportsOptions options);
         Task SendUserActivityToEmail(string mailBody, string userAddress);
+        Task<List<UserActivity>> FilterActivities(ActivityReportViewModel model);
     }
 }

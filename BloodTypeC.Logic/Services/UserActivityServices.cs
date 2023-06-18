@@ -1,5 +1,6 @@
 ﻿using BloodTypeC.DAL.Models;
 using BloodTypeC.DAL.Models.Enums;
+using BloodTypeC.DAL.Models.Views;
 using BloodTypeC.DAL.Repository;
 using BloodTypeC.Logic.Services.IServices;
 using Microsoft.AspNetCore.Identity;
@@ -104,6 +105,28 @@ namespace BloodTypeC.Logic.Services
             var sender = Consts.mailSenderFrom;
             var mail = new MailData(new List<string>() { userAddress }, "UserReport", mailBody, sender, sender, sender, sender);
             await _mailService.SendAsync(mail, new CancellationToken());
+        }
+
+        public async Task<List<UserActivity>> FilterActivities(ActivityReportViewModel model)
+        {
+            var userActivities = await GetAllUserActivitiesAsync();
+            if (model.TargetUserName != null)
+            {
+                model.UserActivities = userActivities
+                    .Where(x => x.User.UserName.Contains(model.TargetUserName))
+                    .ToList();
+            }
+            else
+            {
+                model.UserActivities = userActivities;
+            }
+            if (!model.CustomDate)
+            {
+                var dateFilteredList = model.UserActivities
+                    .Where(x => x.Time.Date == model.TargetDate.Date).ToList();
+                model.UserActivities = dateFilteredList;
+            }
+            return model.UserActivities;
         }
     }
 }
