@@ -120,6 +120,9 @@
   <data name="Add a beer" xml:space="preserve">
     <value>Add a beer</value>
   </data>
+  <data name="Admin" xml:space="preserve">
+    <value>Admin</value>
+  </data>
   <data name="Admin panel" xml:space="preserve">
     <value>Admin panel</value>
   </data>
