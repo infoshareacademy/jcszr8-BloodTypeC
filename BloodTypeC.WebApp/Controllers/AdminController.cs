@@ -219,6 +219,7 @@ namespace BloodTypeC.WebApp.Controllers
             return View(model);
         }
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> SimpleReport(SimpleLogViewModel model)
         {
             if (ModelState.IsValid)
@@ -246,6 +247,7 @@ namespace BloodTypeC.WebApp.Controllers
             return View(model);
         }
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> ActivityReport(ActivityReportViewModel model)
         {
             var userActivities = await _userActivityServices.GetAllUserActivitiesAsync();
@@ -281,12 +283,13 @@ namespace BloodTypeC.WebApp.Controllers
             return View(model);
         }
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> SendToEmail(ActivityReportViewModel model)
         {
             await _userActivityServices.SaveAdminReportsOptionsAsync(model.ReportsOptions);
 
             var mailBody = model.UserActivities.ToString();
-            await _userActivityServices.SendUserActivityToEmail(mailBody, model.TargetUserName);
+            await _userActivityServices.SendUserActivityToEmail(mailBody, model.ReportsOptions.SendTargetEmail);
 
             return RedirectToAction(HttpContext.GetController(), HttpContext.GetAction());
         }

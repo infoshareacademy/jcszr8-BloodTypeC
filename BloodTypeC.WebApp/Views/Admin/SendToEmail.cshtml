@@ -8,7 +8,8 @@
 
 <div class="page-name">Send report</div>
 
-<form asp-action="SendToEmail">
+@using (@Html.BeginForm())
+{
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
     <div class="col-md-12 search-form container">
         <div class="center-elements text-white">
@@ -29,7 +30,7 @@
             <div class="col-md-2">
                 <div><span class="control-label">&nbsp;</span></div>
                 <div class="form-group">
-                    
+
                     <input type="submit" value="Send reports" class="search-button" />
                 </div>
 
@@ -103,8 +104,7 @@
             </table>
         </div>
     </div>
-
-</form>
+}
 
 @section Scripts {
     @{
